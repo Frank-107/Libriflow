@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <?xml version="1.0" encoding="UTF-8" ?>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -22,13 +23,16 @@
       <span class="icono">📖</span>
       <div class="nombre"><b>LIBRI</b>FLOW</div>
       <small>TU BIBLIOTECA DIGITAL</small>
+      <c:if test="${not empty mensaje}">
+        <div style="color: green;">${mensaje}</div>
+      </c:if>
     </div>
 
     <h1>Miles de libros a un solo click</h1>
 
     <div class="botones">
       <a href="login.jsp" class="btn-oscuro">Iniciar Sesión</a>
-      <a href="registro.jsp" class="btn-claro">Crear Cuenta</a>
+      <a href="crear_cuenta_usuario.jsp" class="btn-claro">Crear Cuenta</a>
     </div>
   </div>
 

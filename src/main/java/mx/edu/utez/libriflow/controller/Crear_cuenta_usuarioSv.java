@@ -13,8 +13,7 @@ import mx.edu.utez.libriflow.model.Usuario;
 import java.io.IOException;
 
 
-@WebServlet(name = "crear_cuenta_usuarioSv", value = "/crear_cuenta_usuarioSv")
-public class crear_cuenta_usuarioSv extends HttpServlet {
+public class Crear_cuenta_usuarioSv extends HttpServlet {
 UsuarioDao usuarioDao = new UsuarioDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,7 +32,7 @@ UsuarioDao usuarioDao = new UsuarioDao();
 
         if(!contrasena.equals(contrasena2)){
             req.setAttribute("error", "Las contraseñas no coinciden.");
-            req.getRequestDispatcher("crear_cuenta_usuario.jsp").forward(req, resp);
+            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
             return;
         }
 
@@ -43,7 +42,7 @@ UsuarioDao usuarioDao = new UsuarioDao();
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         } else {
             req.setAttribute("error", "Error al crear la cuenta.");
-            req.getRequestDispatcher("crear_cuenta_usuario.jsp").forward(req, resp);
+            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
         }
     }
 

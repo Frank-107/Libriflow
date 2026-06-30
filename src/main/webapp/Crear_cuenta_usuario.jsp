@@ -40,6 +40,8 @@
 
 
     <input type="submit" value="Crear cuenta">
+    <br>
+    <a href="Iniciar_sesion.jsp"> ¿Ya tienes cuenta? Iniciar sesión</a>
 </form>
 
 </body>

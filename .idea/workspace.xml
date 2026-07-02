@@ -12,8 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e473c4d8-d86d-4526-aaf2-593c680eb55a" name="Changes" comment="index creado">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/Crear_cuenta_usuarioSv.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/Crear_cuenta_usuarioSv.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Inicio.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Inicio.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +107,7 @@
     &quot;Tomcat Server.Tomcat 10.1.55.executor&quot;: &quot;Run&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging dev&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/fmfue/OneDrive/Documentos/UTEZ/Programación/Libriflow/src/main/webapp&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -134,7 +132,6 @@
         <entry key="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
           <value>
             <map>
-              <entry key="Inicio.jsp" value="STOPPED" />
               <entry key="Tomcat 10.1.55" value="STOPPED" />
             </map>
           </value>

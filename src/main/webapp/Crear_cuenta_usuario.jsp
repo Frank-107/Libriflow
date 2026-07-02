@@ -14,7 +14,7 @@
 <body>
 <a href="index.jsp">Volver</a>
 <H1>Crear cuenta</h1>
-<form method="post" action="crear_cuenta_usuarioSv">
+<form method="post" action="Crear_cuenta_usuarioSv">
     <c:if test="${not empty error}">
         <div style="color: red;">${error}</div>
     </c:if>

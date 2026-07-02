@@ -12,7 +12,7 @@ import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
 
-
+@WebServlet(name = "Crear_cuenta_usuarioSv", value = "/Crear_cuenta_usuarioSv")
 public class Crear_cuenta_usuarioSv extends HttpServlet {
 UsuarioDao usuarioDao = new UsuarioDao();
     @Override

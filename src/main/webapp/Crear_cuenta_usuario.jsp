@@ -1,48 +1,78 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
-
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Libriflow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libriflow - Crear Cuenta</title>
+
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-<a href="index.jsp">Volver</a>
-<H1>Crear cuenta</h1>
-<form method="post" action="Crear_cuenta_usuarioSv">
-    <c:if test="${not empty error}">
-        <div style="color: red;">${error}</div>
-    </c:if>
 
+<div class="pantalla-registro">
 
-        <label for="nombre">Nombre:</label><br>
-    <input type="text" id="nombre" name="nombre" value="${param.nombre}" required><br><br>
+    <div class="top-bar">
+        <a href="index.jsp" class="back-link">&#x2190;</a>
+        <h1>Crear cuenta</h1>
+    </div>
 
-    <label for="apellidoPaterno">Apellido Paterno:</label><br>
-    <input type="text" id="apellidoPaterno" name="apellidoPaterno" value="${param.apellidoPaterno}" required><br><br>
+    <div class="card-container">
 
-    <label for="apellidoMaterno">Apellido Materno:</label><br>
-    <input type="text" id="apellidoMaterno" name="apellidoMaterno" value="${param.apellidoMaterno}" required><br><br>
+        <div class="logo-area">
+            <img src="assets/img/LogoLibriflow.png" alt="Logotipo LibriFlow" class="logo-img-completo">
+        </div>
 
-    <label for="correo">Correo Electrónico:</label><br>
-    <input type="email" id="correo" name="correo" value="${param.correo}" required><br><br>
+        <h3 class="card-title">Crear cuenta</h3>
 
-    <label for="contrasena">Crea tu contraseña:</label><br>
-    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required><br><br>
+        <c:if test="${not empty error}">
+            <div class="error-msg">${error}</div>
+        </c:if>
 
-    <label for="contrasena2">Confirma tu contraseña:</label><br>
-    <input type="password" id="contrasena2" name="contrasena2" value="${param.contrasena2}" required><br><br>
+        <form method="post" action="Crear_cuenta_usuarioSv">
+            <div class="form-grid">
 
+                <div class="form-group">
+                    <label for="nombre">Nombre(s)</label>
+                    <input type="text" id="nombre" name="nombre" value="${param.nombre}" required>
+                </div>
 
-    <input type="submit" value="Crear cuenta">
-    <br>
-    <a href="Iniciar_sesion.jsp"> ¿Ya tienes cuenta? Iniciar sesión</a>
-</form>
+                <div class="form-group">
+                    <label for="apellidoPaterno">Apellido Paterno</label>
+                    <input type="text" id="apellidoPaterno" name="apellidoPaterno" value="${param.apellidoPaterno}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="apellidoMaterno">Apellido Materno</label>
+                    <input type="text" id="apellidoMaterno" name="apellidoMaterno" value="${param.apellidoMaterno}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" value="${param.correo}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contrasena2">Confirmar contraseña</label>
+                    <input type="password" id="contrasena2" name="contrasena2" value="${param.contrasena2}" required>
+                </div>
+
+            </div>
+
+            <input type="submit" class="btn-submit" value="Registrar">
+
+            <a href="Iniciar_sesion.jsp" class="login-redirect">¿Ya tienes una cuenta? Inicia sesión</a>
+        </form>
+    </div>
+
+</div>
 
 </body>
 </html>

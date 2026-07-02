@@ -131,3 +131,171 @@ body {
     color: #888;
     font-size: 0.75rem;
 }
+
+
+
+/* Pantalla crear cuenta usuario*/
+
+.pantalla-registro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #f4ede4; /* Tu fondo beige específico */
+}
+
+/* Barra Superior */
+.pantalla-registro .top-bar {
+    background-color: #5a5450;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.pantalla-registro .back-link {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    margin-right: 15px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.pantalla-registro .top-bar h1 {
+    color: white;
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Tarjeta Contenedora */
+.pantalla-registro .card-container {
+    background-color: #e3ded7;
+    border-radius: 40px;
+    padding: 40px 50px;
+    width: 100%;
+    max-width: 580px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Logotipo */
+.pantalla-registro .logo-img-completo {
+    max-width: 140px; /* Tamaño ideal y pequeño para tu logo */
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.pantalla-registro .card-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 10px 0 25px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #5a5450;
+}
+
+/* Grilla del Formulario */
+.pantalla-registro .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 25px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.pantalla-registro .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.pantalla-registro .form-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 600;
+    padding-left: 10px;
+    color: #6e6762;
+}
+
+.pantalla-registro .form-group input {
+    background-color: #fcfbfa;
+    border: 1px solid #b5afaa;
+    border-radius: 25px;
+    padding: 10px 18px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.pantalla-registro .form-group input:focus {
+    border-color: #5a5450;
+}
+
+/* Botón Registrar */
+.pantalla-registro .btn-submit {
+    background-color: #5a5450;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 13px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.pantalla-registro .btn-submit:hover {
+    background-color: #47423e;
+}
+
+/* Enlace inferior */
+.pantalla-registro .login-redirect {
+    display: block;
+    margin-top: 20px;
+    color: #5a5450;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.pantalla-registro .login-redirect:hover {
+    text-decoration: underline;
+}
+
+/* Errores */
+.pantalla-registro .error-msg {
+    color: #cc0000;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .pantalla-registro .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .pantalla-registro .card-container {
+        padding: 30px 20px;
+    }
+}

@@ -11,11 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e473c4d8-d86d-4526-aaf2-593c680eb55a" name="Changes" comment="index creado">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/assets/img/LogoLibriflow.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/Crear_cuenta_usuarioSv.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/Crear_cuenta_usuarioSv.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/filters/FiltroAutentificacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/filters/FiltroAutentificacion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/Crear_cuenta_usuario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Crear_cuenta_usuario.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/css/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,8 +40,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "irvincitoflow"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Frank-107/Libriflow.git",
+    "accountId": "a58e76ac-a5c2-440f-a86e-3fd95b3da942"
+  }
+}]]></component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -91,6 +107,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Tomcat Server.Tomcat 10.1.54.executor": "Run",
     "Tomcat Server.Tomcat 10.1.55.executor": "Run",
     "copilot.chat.legacySessionMetadata.migrated": "true",
     "git-widget-placeholder": "dev",
@@ -111,6 +128,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\fmfue\OneDrive\Documentos\UTEZ\Programación\Libriflow\src\main\webapp" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\pc\Desktop\Libriflow\src\main\webapp\assets\img" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="configurationStatuses">
@@ -118,7 +138,7 @@
         <entry key="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
           <value>
             <map>
-              <entry key="Tomcat 10.1.55" value="STOPPED" />
+              <entry key="Tomcat 10.1.54" value="STOPPED" />
             </map>
           </value>
         </entry>
@@ -126,7 +146,18 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="Tomcat 10.1.55" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.55" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Libriflow" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Libriflow" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Tomcat 10.1.54" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.54" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="Libriflow:war">
@@ -141,7 +172,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="d8d4ef10-566a-423d-be27-216f83916398" />
+        <option name="BASE_DIRECTORY_NAME" value="6b9dd7f3-3432-414c-8abf-8a8bad9884d3" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -149,7 +180,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="56693" />
+        <option name="DEBUG_PORT" value="58353" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />

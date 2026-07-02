@@ -23,7 +23,7 @@ UsuarioDao usuarioDao = new UsuarioDao();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nombre = req.getParameter("nombre");
-        String apellidoPaterno = req.getParameter("apellidoPaterno");
+        String apellidoPaterno = req.getParameter("ap   ellidoPaterno");
         String apellidoMaterno = req.getParameter("apellidoMaterno");
         String correo = req.getParameter("correo");
         String contrasena = req.getParameter("contrasena");

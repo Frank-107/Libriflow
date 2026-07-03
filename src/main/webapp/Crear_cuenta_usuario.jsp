@@ -60,6 +60,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="correo2">Confirmar correo electrónico</label>
+                    <input type="email" id="correo2" name="correo2" value="${param.correo2}" required>
+                </div>
+
+                <div class="form-group">
                     <label for="contrasena">Contraseña</label>
                     <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required>
                 </div>

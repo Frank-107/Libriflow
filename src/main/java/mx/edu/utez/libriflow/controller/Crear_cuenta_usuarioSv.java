@@ -28,6 +28,8 @@ UsuarioDao usuarioDao = new UsuarioDao();
         String correo = req.getParameter("correo");
         String contrasena = req.getParameter("contrasena");
         String contrasena2 = req.getParameter("contrasena2");
+        String telefono = req.getParameter("telefono");
+
         // validaciones:
 
         if(!contrasena.equals(contrasena2)){
@@ -36,7 +38,12 @@ UsuarioDao usuarioDao = new UsuarioDao();
             return;
         }
 
-        Usuario usuarionuevo = new Usuario(nombre, apellidoPaterno, apellidoMaterno, correo, contrasena);
+        if(telefono.length() !=10){
+            req.setAttribute("error", "Formato de telefono invalido.");
+            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+        }
+
+        Usuario usuarionuevo = new Usuario(nombre, apellidoPaterno, apellidoMaterno, correo, contrasena, telefono);
 
 
         if(usuarioDao.create(usuarionuevo)){

@@ -50,6 +50,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="telefono">Numero telefonico</label>
+                    <input type="number" id="telefono" name="telefono" value="${param.telefono}" required>
+                </div>
+
+                <div class="form-group">
                     <label for="correo">Correo electrónico</label>
                     <input type="email" id="correo" name="correo" value="${param.correo}" required>
                 </div>

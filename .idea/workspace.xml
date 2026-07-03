@@ -11,10 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e473c4d8-d86d-4526-aaf2-593c680eb55a" name="Changes" comment="index creado">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/Crear_cuenta_usuarioSv.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/controller/Crear_cuenta_usuarioSv.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/model/Dao/UsuarioDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/model/Dao/UsuarioDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/libriflow/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Crear_cuenta_usuario.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Crear_cuenta_usuario.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,8 +39,25 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "irvincitoflow"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Frank-107/Libriflow.git",
+    "accountId": "a58e76ac-a5c2-440f-a86e-3fd95b3da942"
+  }
+}]]></component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />

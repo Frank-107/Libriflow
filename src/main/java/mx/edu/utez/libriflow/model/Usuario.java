@@ -3,17 +3,27 @@ package mx.edu.utez.libriflow.model;
 public class Usuario {
     private String nombre;
     private String apellidoPaterno;
-    private String appellidoMaterno;
+    private String apellidoMaterno;
     private String correo;
     //temporalmente se va a guardar la contraseña aqui, luego se guardara en credenciales
     private String contrasena;
+    private String telefono;
 
-    public Usuario(String nombre, String apellidoPaterno, String appellidoMaterno, String correo, String contrasena) {
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasena, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.appellidoMaterno = appellidoMaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
         this.contrasena = contrasena;
+        this.telefono = telefono;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getNombre() {
@@ -31,12 +41,12 @@ public class Usuario {
         this.apellidoPaterno = apellidoPaterno;
     }
 
-    public String getAppellidoMaterno() {
-        return appellidoMaterno;
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
     }
 
-    public void setAppellidoMaterno(String appellidoMaterno) {
-        this.appellidoMaterno = appellidoMaterno;
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
     public String getCorreo() {
@@ -55,12 +65,4 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    @Override
-    public String toString() {
-        return nombre+","+
-                apellidoPaterno+","+
-                appellidoMaterno+","+
-                correo+","+
-                contrasena;
-    }
 }

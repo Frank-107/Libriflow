@@ -6,73 +6,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LibriFlow</title>
+  <title>LibriFlow - Tu Biblioteca Digital</title>
   <link rel="stylesheet" href="assets/css/bootstrap.css" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/index.css" />
 </head>
 <body>
 
 <nav class="barra-nav">
-  <a href="#">Nuestras Redes</a>
+  <div class="nav-links">
+    <a href="#" class="btn-nav">Nuestras Redes</a>
+  </div>
 </nav>
 
-<div class="pagina">
+<div class="container-pagina">
 
   <div class="hero">
-    <div class="logo">
-      <span class="icono">📖</span>
-      <div class="nombre"><b>LIBRI</b>FLOW</div>
-      <small>TU BIBLIOTECA DIGITAL</small>
-      <c:if test="${not empty mensaje}">
-        <div style="color: green;">${mensaje}</div>
-      </c:if>
+    <div class="logo-contenedor">
+      <img src="assets/img/LogoLibriflow.png" alt="LibriFlow Tu Biblioteca Digital" class="logo-img" />
     </div>
 
-    <h1>Miles de libros a un solo click</h1>
+    <c:if test="${not empty mensaje}">
+      <div class="alert-mensaje">${mensaje}</div>
+    </c:if>
 
-    <div class="botones">
-      <a href="login.jsp" class="btn-oscuro">Iniciar Sesión</a>
-      <a href="crear_cuenta_usuario.jsp" class="btn-claro">Crear Cuenta</a>
+    <h1 class="titulo-principal">Miles de libros a un solo click</h1>
+
+    <div class="botones-accion">
+      <a href="Iniciar_sesion.jsp" class="btn-oscuro">Iniciar Sesión</a>
+      <a href="Crear_cuenta_usuario.jsp" class="btn-claro">Crear Cuenta</a>
     </div>
   </div>
 
-  <div class="catalogo">
-    <div class="row g-4">
+  <div class="catalogo-libros">
+    <div class="row justify-content-center g-4">
 
-      <div class="col-3">
-        <div class="tarjeta">
-          <img src="img/conde-montecristo.jpg" alt="El Conde de Montecristo" />
-          <div class="pie">
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="tarjeta-libro">
+          <div class="img-contenedor">
+            <img src="./assets/img/El_Conde_de_Montecristo.png" alt="El Conde de Montecristo" class="portada-img" />
+          </div>
+          <div class="tarjeta-pie">
             <span class="estrellas">★★★★☆</span>
             <span class="resenas">(25 reseñas)</span>
           </div>
         </div>
       </div>
 
-      <div class="col-3">
-        <div class="tarjeta">
-          <img src="img/twilight.jpg" alt="Twilight" />
-          <div class="pie">
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="tarjeta-libro">
+          <div class="img-contenedor">
+            <img src="./assets/img/Twilight.png" alt="Twilight" class="portada-img" />
+          </div>
+          <div class="tarjeta-pie">
             <span class="estrellas">★★★☆☆</span>
             <span class="resenas">(33 reseñas)</span>
           </div>
         </div>
       </div>
 
-      <div class="col-3">
-        <div class="tarjeta">
-          <img src="img/it.jpg" alt="IT - Stephen King" />
-          <div class="pie">
-            <span class="estrellas">★★★☆☆</span>
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="tarjeta-libro">
+          <div class="img-contenedor">
+            <img src="./assets/img/It.png" alt="IT - Stephen King" class="portada-img" />
+          </div>
+          <div class="tarjeta-pie">
+            <span class="estrellas">★★★★☆</span>
             <span class="resenas">(22 reseñas)</span>
           </div>
         </div>
       </div>
 
-      <div class="col-3">
-        <div class="tarjeta">
-          <img src="img/jardin-mariposas.jpg" alt="El Jardín de las Mariposas" />
-          <div class="pie">
+      <div class="col-6 col-sm-4 col-md-3">
+        <div class="tarjeta-libro">
+          <div class="img-contenedor">
+            <img src="./assets/img/Jardin_de_las_Mariposas.png" alt="El Jardín de las Mariposas" class="portada-img" />
+          </div>
+          <div class="tarjeta-pie">
             <span class="estrellas">★★★★☆</span>
             <span class="resenas">(42 reseñas)</span>
           </div>

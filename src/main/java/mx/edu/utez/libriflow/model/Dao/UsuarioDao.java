@@ -1,18 +1,31 @@
 package mx.edu.utez.libriflow.model.Dao;
 
 import mx.edu.utez.libriflow.model.Usuario;
-import mx.edu.utez.libriflow.utils.CSV;
+import mx.edu.utez.libriflow.utils.SQLconnector;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 
 public class UsuarioDao implements Dao<Usuario, Integer> {
     @Override
     public boolean create(Usuario entidad) {
-        try {
-            String linea = entidad.toString();
-            CSV.addToCSV(linea);
-            return true;
+        String sql = "INSERT INTO Usuario(nombre, apellido_paterno, apellido_materno, correo_electronico, telefono, estado_cuenta) VALUES(?, ?, ?, ?, ?, ?)";
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, entidad.getNombre());
+            ps.setString(2, entidad.getApellidoPaterno());
+            ps.setString(3, entidad.getApellidoMaterno());
+            ps.setString(4, entidad.getCorreo());
+            ps.setString(5, entidad.getTelefono());
+            ps.setString(6, "ACTIVA"); // Estado de la cuenta por defecto
 
-        }catch (Exception e){
-            System.err.println("Error al crear el usuario: " + e.getMessage());
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }

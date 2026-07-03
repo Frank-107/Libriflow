@@ -19,7 +19,7 @@ public class UsuarioDao implements Dao<Usuario, Integer> {
             ps.setString(3, entidad.getApellidoMaterno());
             ps.setString(4, entidad.getCorreo());
             ps.setString(5, entidad.getTelefono());
-            ps.setString(6, "activo"); // Estado de la cuenta por defecto
+            ps.setString(6, "ACTIVA"); // Estado de la cuenta por defecto
 
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas > 0;

@@ -23,7 +23,7 @@ UsuarioDao usuarioDao = new UsuarioDao();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nombre = req.getParameter("nombre");
-        String apellidoPaterno = req.getParameter("ap   ellidoPaterno");
+        String apellidoPaterno = req.getParameter("apellidoPaterno");
         String apellidoMaterno = req.getParameter("apellidoMaterno");
         String correo = req.getParameter("correo");
         String contrasena = req.getParameter("contrasena");
@@ -37,6 +37,8 @@ UsuarioDao usuarioDao = new UsuarioDao();
         }
 
         Usuario usuarionuevo = new Usuario(nombre, apellidoPaterno, apellidoMaterno, correo, contrasena);
+
+
         if(usuarioDao.create(usuarionuevo)){
             req.setAttribute("mensaje","cuenta creada con exito, ahora inicia sesion");
             req.getRequestDispatcher("index.jsp").forward(req, resp);

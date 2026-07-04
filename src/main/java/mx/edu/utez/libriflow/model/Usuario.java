@@ -6,15 +6,13 @@ public class Usuario {
     private String apellidoMaterno;
     private String correo;
     //temporalmente se va a guardar la contraseña aqui, luego se guardara en credenciales
-    private String contrasena;
     private String telefono;
 
-    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasena, String telefono) {
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
-        this.contrasena = contrasena;
         this.telefono = telefono;
     }
 
@@ -57,12 +55,6 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContrasena() {
-        return contrasena;
-    }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
 
 }

@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mx.edu.utez.libriflow.model.Dao.CredencialDao;
 import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 @WebServlet(name = "Crear_cuenta_usuarioSv", value = "/Crear_cuenta_usuarioSv")
 public class Crear_cuenta_usuarioSv extends HttpServlet {
 UsuarioDao usuarioDao = new UsuarioDao();
+CredencialDao credencialDao = new CredencialDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -50,16 +52,23 @@ UsuarioDao usuarioDao = new UsuarioDao();
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
             return;
         }
-
-        Usuario usuarionuevo = new Usuario(nombre, apellidoPaterno, apellidoMaterno, correo, contrasena, telefono);
-
         if(!correo.endsWith("@utez.edu.mx")){
             req.setAttribute("error", "Solo se admiten correos institucionales(UTEZ)");
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
             return;
         }
 
-        if(usuarioDao.create(usuarionuevo)){
+        Usuario usuarionuevo = new Usuario(nombre, apellidoPaterno, apellidoMaterno, correo, telefono);
+
+        int id_usuario_nuevo = usuarioDao.create(usuarionuevo);
+        if(id_usuario_nuevo != -1){
+            try {
+                if(!credencialDao.create(contrasena, id_usuario_nuevo)) throw new IllegalArgumentException("no se guardaron las contraseñas");
+            }catch (Exception e){
+                req.setAttribute("error", e.getMessage());
+                req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+                return;
+            }
             req.setAttribute("mensaje","cuenta creada con exito, ahora inicia sesion");
             req.getRequestDispatcher("index.jsp").forward(req, resp);
         } else {

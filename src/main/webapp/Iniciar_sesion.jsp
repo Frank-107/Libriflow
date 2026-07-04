@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Libriflow</title>
 
+    <!-- Hojas de estilo con rutas dinámicas de Tomcat -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css">
 </head>
@@ -19,18 +20,22 @@
 <h2 class="login-top-bar">Inicio de sesión</h2>
 
 <form action="Iniciar_sesionSv" method="post" class="login-card">
+
+    <!-- Imagen .jpg agregada en la parte superior del contenedor -->
+    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
+
     <c:if test="${not empty error}">
         <div style="color: red;" class="login-error">${error}</div>
     </c:if>
 
     <label for="correo" class="login-label-email">Correo:</label>
     <br class="login-br">
-    <input type="email" id="correo" name="correo" value="${param.correo}" required class="login-input" placeholder="Correo electrónico">
+    <input type="email" id="correo" name="correo" value="${param.correo}" required class="login-input" placeholder="20263ds117@utez.edu.mx">
     <br class="login-br"><br class="login-br">
 
     <label for="contrasena" class="login-label-pass">Contraseña:</label>
     <br class="login-br">
-    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required class="login-input" placeholder="Contraseña">
+    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required class="login-input" placeholder="•••••••••••••••••">
     <br class="login-br"><br class="login-br">
 
     <button type="submit" class="login-btn">Iniciar sesión </button>

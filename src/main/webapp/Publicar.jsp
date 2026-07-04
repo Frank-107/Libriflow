@@ -5,101 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar Libro - LibriFlow</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <style>
-        body {
-            background-color: #F4EFEA;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .bg-lf-dark {
-            background-color: #4A4641;
-        }
-        .bg-lf-capsule {
-            background-color: #A39B93;
-            color: #2D2A26 !important;
-            border: none;
-            font-weight: 500;
-        }
-        .sidebar-active {
-            background-color: #7A746E !important;
-            color: #FFF !important;
-        }
-        .rounded-lf-header {
-            border-radius: 35px;
-        }
-        .rounded-lf-sidebar {
-            border-radius: 40px;
-            min-height: 80vh;
-        }
-        .btn-lf-pill {
-            border-radius: 20px;
-            transition: all 0.2s ease;
-        }
-        .btn-lf-pill:hover {
-            background-color: #8C847C;
-            color: #fff !important;
-        }
-
-        .form-container-lf {
-            background-color: #FFF;
-            border: 2px solid #CBC2B9;
-            border-radius: 40px;
-        }
-        .form-label-lf {
-            font-weight: 600;
-            color: #7A746E;
-            margin-left: 15px;
-            margin-bottom: 2px;
-        }
-        .form-control-lf {
-            border-radius: 25px;
-            border: 1.5px solid #A39B93;
-            background-color: #FAF6F2;
-            padding: 10px 20px;
-            font-size: 1rem;
-        }
-        .form-control-lf:focus {
-            background-color: #FFF;
-            border-color: #4A4641;
-            box-shadow: none;
-        }
-
-        .btn-action-lf {
-            background-color: #7A746E;
-            color: #FFF;
-            border-radius: 25px;
-            font-weight: 600;
-            padding: 12px 40px;
-            border: none;
-        }
-        .btn-action-lf:hover {
-            background-color: #4A4641;
-            color: #FFF;
-        }
-        .btn-preview-lf {
-            background-color: #968F87;
-            color: #FFF;
-            border-radius: 25px;
-            font-weight: 600;
-            padding: 12px 40px;
-            border: none;
-        }
-        .btn-preview-lf:hover {
-            background-color: #7A746E;
-            color: #FFF;
-        }
-
-        .error-texto-lf {
-            color: #DC3545;
-            font-size: 0.85rem;
-            font-weight: 500;
-            margin-left: 15px;
-            margin-bottom: 2px;
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
 </head>
 <body class="p-3 p-md-4">
 
@@ -157,7 +67,7 @@
                         <h4 class="fw-bold text-dark mb-1">Nueva Publicacion</h4>
                     </div>
                     <div class="text-end">
-                        <img src="img/LogoLibriflow.png" alt="LibriFlow" style="height: 35px; width: auto;">
+                        <img src="${pageContext.request.contextPath}/img/LogoLibriflow.png" alt="LibriFlow" style="height: 35px; width: auto;">
                     </div>
                 </div>
 

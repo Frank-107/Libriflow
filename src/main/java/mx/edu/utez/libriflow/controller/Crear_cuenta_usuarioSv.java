@@ -63,7 +63,7 @@ CredencialDao credencialDao = new CredencialDao();
         int id_usuario_nuevo = usuarioDao.create(usuarionuevo);
         if(id_usuario_nuevo != -1){
             try {
-                if(credencialDao.create(contrasena, id_usuario_nuevo)) throw new IllegalArgumentException("no se guardaron las contraseñas");
+                if(!credencialDao.create(contrasena, id_usuario_nuevo)) throw new IllegalArgumentException("no se guardaron las contraseñas");
             }catch (Exception e){
                 req.setAttribute("error", e.getMessage());
                 req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);

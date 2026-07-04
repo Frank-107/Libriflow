@@ -26,11 +26,18 @@ UsuarioDao usuarioDao = new UsuarioDao();
         String apellidoPaterno = req.getParameter("apellidoPaterno");
         String apellidoMaterno = req.getParameter("apellidoMaterno");
         String correo = req.getParameter("correo");
+        String correo2 = req.getParameter("correo2");
         String contrasena = req.getParameter("contrasena");
         String contrasena2 = req.getParameter("contrasena2");
         String telefono = req.getParameter("telefono");
 
         // validaciones:
+
+        if(!correo.equals(correo2)){
+            req.setAttribute("error", "Los correos no coinciden.");
+            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            return;
+        }
 
         if(!contrasena.equals(contrasena2)){
             req.setAttribute("error", "Las contraseñas no coinciden.");
@@ -41,10 +48,16 @@ UsuarioDao usuarioDao = new UsuarioDao();
         if(telefono.length() !=10){
             req.setAttribute("error", "Formato de telefono invalido.");
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            return;
         }
 
         Usuario usuarionuevo = new Usuario(nombre, apellidoPaterno, apellidoMaterno, correo, contrasena, telefono);
 
+        if(!correo.endsWith("@utez.edu.mx")){
+            req.setAttribute("error", "Solo se admiten correos institucionales(UTEZ)");
+            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            return;
+        }
 
         if(usuarioDao.create(usuarionuevo)){
             req.setAttribute("mensaje","cuenta creada con exito, ahora inicia sesion");
@@ -52,8 +65,11 @@ UsuarioDao usuarioDao = new UsuarioDao();
         } else {
             req.setAttribute("error", "Error al crear la cuenta.");
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+
+
         }
     }
+
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

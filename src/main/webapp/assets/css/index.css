@@ -1,0 +1,186 @@
+body {
+    background-color: #F0EBE6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #474541;
+    margin: 0;
+    padding: 0;
+}
+
+.container-pagina {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- Barra de Navegación Estilo Píldora Flotante --- */
+.barra-nav {
+    background-color: #474541; /* Color oscuro exacto */
+    padding: 12px 30px;
+
+    /* Esto hace que las esquinas queden completamente redondas como una píldora */
+    border-radius: 50px;
+
+    /* Margen superior para despegarla del borde de arriba, y laterales para que respire */
+    margin: 25px auto 40px auto;
+
+    /* Controlamos el ancho para que mantenga la misma proporción de la imagen */
+    max-width: 1060px;
+    width: 95%;
+
+    /* Alineación interna de los botones */
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-nav {
+    background-color: #E6DED1;
+    color: #474541;
+    text-decoration: none;
+    padding: 6px 18px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.btn-nav:hover {
+    opacity: 0.9;
+    color: #474541;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo-contenedor {
+    margin-bottom: 20px;
+}
+
+.logo-img {
+    max-width: 150px;
+    height: auto;
+}
+
+.titulo-principal {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #474541;
+    margin-bottom: 25px;
+}
+
+/* --- Botones de Sesión / Cuenta --- */
+.botones-accion {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.btn-oscuro, .btn-claro {
+    padding: 12px 35px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-block;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-oscuro {
+    background-color: #474541;
+    color: #F0EBE6;
+}
+
+.btn-claro {
+    background-color: #E6DED1;
+    color: #474541;
+}
+
+.btn-oscuro:hover {
+    background-color: #474541 !important; /* Mantiene el fondo oscuro */
+    color: #F0EBE6 !important;            /* Fuerza a que el texto sea crema */
+    transform: translateY(-2px);          /* Mantiene el efecto de alzarse */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+}
+
+.btn-claro:hover {
+    background-color: #E6DED1 !important; /* Mantiene su fondo arena */
+    color: #474541 !important;            /* Fuerza el texto gris oscuro */
+    transform: translateY(-2px);          /* Mantiene el efecto de alzarse */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+}
+
+/* Tarjeta */
+.tarjeta-libro {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    transition: transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tarjeta-libro:hover {
+    transform: translateY(-5px);
+}
+
+/* Contenedor de la imagen para que mantenga proporciones y tamaño reducido */
+.img-contenedor {
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background-color: #f7f7f7;
+    /* Controla la altura máxima para que se vea compacta */
+    height: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portada-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.tarjeta-pie {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.estrellas {
+    color: #474541; /* Estrellas oscuras como en la imagen */
+    font-size: 0.95rem;
+}
+
+.resenas {
+    color: #706e6a;
+    font-size: 0.75rem;
+}
+
+.alert-mensaje {
+    color: #474541;
+    background-color: #E6DED1;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}

@@ -20,7 +20,7 @@ public class Iniciar_sesionDao implements Dao<Object, Object> {
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 int idUsuario = rs.getInt("Id_Usuario");
-                String sql2 = "SELECT * FROM Credencial where id_usuario=(?) and contrasena=(?)";
+                String sql2 = "SELECT * FROM Credencial where id_usuario=(?) and contrasena=(STANDARD_HASH(?,'SHA256'))";
                 try (PreparedStatement ps2 = con.prepareStatement(sql2)) {
                     ps2.setInt(1, idUsuario);
                     ps2.setString(2, contrasena);

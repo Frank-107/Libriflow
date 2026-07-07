@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import mx.edu.utez.libriflow.model.Dao.CredencialDao;
+import mx.edu.utez.libriflow.model.Dao.RolDao;
 import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
 
@@ -17,6 +18,7 @@ import java.io.IOException;
 public class Crear_cuenta_usuarioSv extends HttpServlet {
 UsuarioDao usuarioDao = new UsuarioDao();
 CredencialDao credencialDao = new CredencialDao();
+RolDao rolDao = new RolDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -24,6 +26,7 @@ CredencialDao credencialDao = new CredencialDao();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         String nombre = req.getParameter("nombre");
         String apellidoPaterno = req.getParameter("apellidoPaterno");
         String apellidoMaterno = req.getParameter("apellidoMaterno");
@@ -33,49 +36,61 @@ CredencialDao credencialDao = new CredencialDao();
         String contrasena2 = req.getParameter("contrasena2");
         String telefono = req.getParameter("telefono");
 
-        // validaciones:
+        if (!correo.endsWith("@utez.edu.mx")) {
+            req.setAttribute("error", "Solo se admiten correos institucionales (UTEZ).");
+            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            return;
+        }
 
-        if(!correo.equals(correo2)){
+        if (!correo.equals(correo2)) {
             req.setAttribute("error", "Los correos no coinciden.");
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
             return;
         }
 
-        if(!contrasena.equals(contrasena2)){
+        if (!contrasena.equals(contrasena2)) {
             req.setAttribute("error", "Las contraseñas no coinciden.");
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
             return;
         }
 
-        if(telefono.length() !=10){
-            req.setAttribute("error", "Formato de telefono invalido.");
-            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
-            return;
-        }
-        if(!correo.endsWith("@utez.edu.mx")){
-            req.setAttribute("error", "Solo se admiten correos institucionales(UTEZ)");
+        if (!telefono.matches("\\d{10}")) {
+            req.setAttribute("error", "Formato de teléfono inválido.");
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
             return;
         }
 
-        Usuario usuarionuevo = new Usuario(nombre, apellidoPaterno, apellidoMaterno, correo, telefono);
+        Usuario usuarioNuevo = new Usuario(
+                nombre,
+                apellidoPaterno,
+                apellidoMaterno,
+                correo,
+                telefono
+        );
 
-        int id_usuario_nuevo = usuarioDao.create(usuarionuevo);
-        if(id_usuario_nuevo != -1){
-            try {
-                if(!credencialDao.create(contrasena, id_usuario_nuevo)) throw new IllegalArgumentException("no se guardaron las contraseñas");
-            }catch (Exception e){
-                req.setAttribute("error", e.getMessage());
-                req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
-                return;
-            }
-            req.setAttribute("mensaje","cuenta creada con exito, ahora inicia sesion");
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
-        } else {
+        int idUsuarioNuevo = usuarioDao.create(usuarioNuevo);
+
+        if (idUsuarioNuevo == -1) {
             req.setAttribute("error", "Error al crear la cuenta.");
             req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            return;
+        }
 
+        try {
+            if (!credencialDao.create(contrasena, idUsuarioNuevo)) {
+                throw new IllegalArgumentException("No se guardaron las credenciales.");
+            }
 
+            if (!rolDao.create(idUsuarioNuevo)) {
+                throw new IllegalArgumentException("No se guardaron los roles.");
+            }
+
+            req.setAttribute("mensaje", "Cuenta creada con éxito, ahora inicia sesión.");
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
+
+        } catch (Exception e) {
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
         }
     }
 

@@ -6,86 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - LibriFlow</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.css" />
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <style>
-
-        body {
-            background-color: #F4EFEA;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-
-        .bg-lf-dark {
-            background-color: #4A4641;
-        }
-        .bg-lf-capsule {
-            background-color: #A39B93;
-            color: #2D2A26 !important;
-            border: none;
-            font-weight: 500;
-        }
-        .bg-lf-card {
-            background-color: #CBC2B9;
-            border-radius: 25px !important;
-        }
-
-
-        .rounded-lf-header {
-            border-radius: 35px;
-        }
-        .rounded-lf-sidebar {
-            border-radius: 40px;
-            min-height: 80vh;
-        }
-        .btn-lf-pill {
-            border-radius: 20px;
-            transition: all 0.2s ease;
-        }
-        .btn-lf-pill:hover {
-            background-color: #8C847C;
-            color: #fff !important;
-        }
-        .search-bar-lf {
-            border-radius: 30px;
-            background-color: #FFFFFF;
-            border: none;
-            padding-left: 50px;
-            height: 55px;
-            font-size: 1.1rem;
-        }
-        .search-icon-inside {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: #7A746E;
-            z-index: 5;
-        }
-        .btn-details-lf {
-            background-color: #E6DFD7;
-            color: #4A4641;
-            border-radius: 20px;
-            font-weight: 500;
-            border: none;
-            padding: 6px 20px;
-        }
-        .btn-details-lf:hover {
-            background-color: #4A4641;
-            color: #FFF;
-        }
-        .book-img-container {
-            background-color: #F4EFEA;
-            border-radius: 20px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 180px;
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css" />
 </head>
 <body class="p-3 p-md-4">
 
@@ -94,7 +19,7 @@
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center mx-auto mx-md-0">
             <a href="Inicio.jsp" class="d-flex align-items-center text-decoration-none">
-                <img src="img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 50px; width: auto;" class="me-2">
+                <img src="${pageContext.request.contextPath}/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 50px; width: auto;" class="me-2">
                 <div class="text-start">
                     <div class="fw-bold tracking-widest fs-4 text-white">LIBRIFLOW</div>
                     <small style="font-size: 0.65rem; letter-spacing: 2px; color: #CBC2B9; display: block;">TU BIBLIOTECA DIGITAL</small>
@@ -123,9 +48,11 @@
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                 </a>
+
                 <a href="Publicar.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
                 </a>
+
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
                 </a>
@@ -145,14 +72,12 @@
             </div>
 
             <div class="row g-4">
-
                 <div class="col-12">
                     <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
                         <h4 class="fw-bold text-dark">Poner libros</h4>
                         <p class="mb-0">Aqui se pondran todos los libros.</p>
                     </div>
                 </div>
-
             </div>
         </main>
 

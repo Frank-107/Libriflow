@@ -94,7 +94,7 @@
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center mx-auto mx-md-0">
             <a href="Inicio.jsp" class="d-flex align-items-center text-decoration-none">
-                <img src="img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 50px; width: auto;" class="me-2">
+                <img src="assets/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 50px; width: auto;" class="me-2">
                 <div class="text-start">
                     <div class="fw-bold tracking-widest fs-4 text-white">LIBRIFLOW</div>
                     <small style="font-size: 0.65rem; letter-spacing: 2px; color: #CBC2B9; display: block;">TU BIBLIOTECA DIGITAL</small>

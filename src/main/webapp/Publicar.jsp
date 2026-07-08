@@ -67,7 +67,7 @@
                         <h4 class="fw-bold text-dark mb-1">Nueva Publicacion</h4>
                     </div>
                     <div class="text-end">
-                        <img src="${pageContext.request.contextPath}/img/LogoLibriflow.png" alt="LibriFlow" style="height: 35px; width: auto;">
+                        <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" style="height: 35px; width: auto;">
                     </div>
                 </div>
 

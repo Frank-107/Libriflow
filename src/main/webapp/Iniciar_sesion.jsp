@@ -30,12 +30,12 @@
 
     <label for="correo" class="login-label-email">Correo:</label>
     <br class="login-br">
-    <input type="email" id="correo" name="correo" value="${param.correo}" required class="login-input" placeholder="20263ds117@utez.edu.mx">
+    <input type="email" id="correo" name="correo" value="${param.correo}" required class="login-input login-correo" placeholder="20263ds117@utez.edu.mx">
     <br class="login-br"><br class="login-br">
 
     <label for="contrasena" class="login-label-pass">Contraseña:</label>
     <br class="login-br">
-    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required class="login-input" placeholder="•••••••••••••••••">
+    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required class="login-input login-contrasena" placeholder="•••••••••••••••••">
     <br class="login-br"><br class="login-br">
 
     <button type="submit" class="login-btn">Iniciar sesión </button>

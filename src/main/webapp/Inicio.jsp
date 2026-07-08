@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/inicio.css" />
 </head>
 <body class="p-3 p-md-4">
 

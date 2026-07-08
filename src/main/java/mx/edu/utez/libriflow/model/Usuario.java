@@ -5,8 +5,9 @@ public class Usuario {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correo;
-    //temporalmente se va a guardar la contraseña aqui, luego se guardara en credenciales
     private String telefono;
+    private int id;
+
 
     public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono) {
         this.nombre = nombre;
@@ -14,6 +15,17 @@ public class Usuario {
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
         this.telefono = telefono;
+    }
+
+    public Usuario() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTelefono() {

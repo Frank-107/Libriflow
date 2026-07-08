@@ -18,7 +18,7 @@ public class FiltroAutentificacion extends HttpFilter {
         String ruta = req.getRequestURI();
         HttpSession session = req.getSession(false);
 
-        boolean logeado = session != null && session.getAttribute("usuario")!=null;
+        boolean logeado = session != null && session.getAttribute("tipo_usuario")!=null;
 
         boolean publico =
                 ruta.endsWith("Crear_cuenta_usuario.jsp") ||

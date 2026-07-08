@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.Iniciar_sesionDao;
+import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
 @WebServlet(name = "Iniciar_sesionSv", value = "/Iniciar_sesionSv")
@@ -23,8 +24,9 @@ public class Iniciar_sesionSV extends HttpServlet {
 
             if (iniciarSesionDao.validarCredenciales(correo,contrasena)){
                 HttpSession session = req.getSession(true);
-                session.setAttribute("usuario", "usuario");
-                session.setAttribute("correo", correo);
+                Usuario usuario = iniciarSesionDao.obtenerUsuario(correo);
+                session.setAttribute("tipo_usuario", "usuario");
+                session.setAttribute("usuario",usuario);
                 System.out.println("se validaron las credenciales");
                 resp.sendRedirect("Inicio.jsp");
 

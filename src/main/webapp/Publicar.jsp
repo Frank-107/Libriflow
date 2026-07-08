@@ -25,8 +25,8 @@
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">Usuario</div>
-                <small class="text-white-50" style="font-size: 0.8rem;">usuario@gmail.com</small>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()}</div>
+                <small class="text-white-50" style="font-size: 0.8rem;">${usuario.getCorreo()}</small>
             </div>
             <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
                 <i class="bi bi-person-fill fs-4 text-dark"></i>
@@ -75,50 +75,32 @@
 
                     <div class="mb-4">
                         <label class="form-label-lf">Nombre del libro</label>
-                        <% if (request.getAttribute("errorNombre") != null) { %>
-                        <span class="error-texto-lf"><i class="bi bi-exclamation-circle-fill"></i> No es posible ese nombre</span>
-                        <% } %>
-                        <input type="text" name="nombreLibro" class="form-control form-control-lf w-100" required>
+                        <input type="text" name="titulo" class="form-control form-control-lf w-100" required>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Autor</label>
-                            <% if (request.getAttribute("errorAutor") != null) { %>
-                            <span class="error-texto-lf"><i class="bi bi-exclamation-circle-fill"></i> Autor requerido o inválido</span>
-                            <% } %>
                             <input type="text" name="autor" class="form-control form-control-lf" required>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Editorial</label>
-                            <% if (request.getAttribute("errorEditorial") != null) { %>
-                            <span class="error-texto-lf"><i class="bi bi-exclamation-circle-fill"></i> Editorial requerida</span>
-                            <% } %>
                             <input type="text" name="editorial" class="form-control form-control-lf" required>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label-lf">Sinopsis</label>
-                        <% if (request.getAttribute("errorSinopsis") != null) { %>
-                        <span class="error-texto-lf"><i class="bi bi-exclamation-circle-fill"></i> La sinopsis es muy corta o vacía</span>
-                        <% } %>
+                        <label class="form-label-lf">Sipnosis</label>
                         <textarea name="sinopsis" class="form-control form-control-lf rows-3" style="resize: none;" required></textarea>
                     </div>
 
                     <div class="row align-items-end">
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Precio MXN</label>
-                            <% if (request.getAttribute("errorPrecio") != null) { %>
-                            <span class="error-texto-lf"><i class="bi bi-exclamation-circle-fill"></i> Ingresa un precio válido</span>
-                            <% } %>
                             <input type="number" step="0.01" name="precio" class="form-control form-control-lf" placeholder="$" required>
                         </div>
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Imágenes (3 necesarias)</label>
-                            <% if (request.getAttribute("errorImagenes") != null) { %>
-                            <span class="error-texto-lf"><i class="bi bi-exclamation-circle-fill"></i> Debes subir las 3 imágenes</span>
-                            <% } %>
                             <div class="input-group">
                                 <input type="file" name="imagenes" class="form-control form-control-lf" id="inputGroupFile" multiple required>
                             </div>
@@ -131,7 +113,6 @@
                     </div>
 
                 </form>
-
             </div>
         </main>
 

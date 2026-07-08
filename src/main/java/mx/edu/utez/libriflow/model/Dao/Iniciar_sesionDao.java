@@ -1,5 +1,6 @@
 package mx.edu.utez.libriflow.model.Dao;
 
+import mx.edu.utez.libriflow.model.Usuario;
 import mx.edu.utez.libriflow.utils.SQLconnector;
 
 import java.sql.Connection;
@@ -37,7 +38,33 @@ public class Iniciar_sesionDao implements Dao<Object, Object> {
             e.printStackTrace();
     }
         return false;
+    }
 
+
+
+    public Usuario obtenerUsuario(String correo){
+        String sql = "SELECT * FROM Usuario where correo_electronico=(?)";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, correo);
+            ResultSet rs = ps.executeQuery();
+            Usuario usuario = new Usuario();
+            if(rs.next()){
+                usuario.setId(rs.getInt("Id_Usuario"));
+                usuario.setNombre(rs.getString("Nombre"));
+                usuario.setTelefono(rs.getString("Telefono"));
+                usuario.setApellidoPaterno(rs.getString("Apellido_Paterno"));
+                usuario.setApellidoMaterno(rs.getString("Apellido_Materno"));
+                usuario.setCorreo(rs.getString("Correo_Electronico"));
+            }
+            return usuario;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
     @Override
     public boolean create(Object entidad) {

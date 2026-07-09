@@ -32,7 +32,7 @@ public class SQLconnector {
 
             // Si falta alguno en el entorno, buscamos en el archivo .properties
             if (dbUser == null || dbPass == null || dbName == null) {
-                System.err.println("Advertencia: Faltan variables de entorno de la BD. Buscando en credentials.properties...");
+                System.out.println("Advertencia: Faltan variables de entorno de la BD. Buscando en credentials.properties...");
                 Properties creds = new Properties();
                 try (InputStream is = classLoader.getResourceAsStream("credentials.properties")) {
                     if (is == null) {

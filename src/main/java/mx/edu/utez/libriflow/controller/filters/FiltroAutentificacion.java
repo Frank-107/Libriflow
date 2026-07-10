@@ -27,7 +27,7 @@ public class FiltroAutentificacion extends HttpFilter {
                 ruta.endsWith("/Iniciar_sesionSv") ||
                 ruta.endsWith("/Crear_cuenta_usuarioSv")    ||
                 ruta.contains("/assets/") ||
-                        ruta.contains("/") ||
+                ruta.endsWith("/") ||
                 ruta.endsWith("Iniciar_sesion.jsp");
 
         if (publico || logeado){

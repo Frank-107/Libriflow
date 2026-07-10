@@ -1,0 +1,82 @@
+body {
+    background-color: #F4EFEA;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bg-lf-dark {
+    background-color: #4A4641;
+}
+
+.bg-lf-capsule {
+    background-color: #A39B93;
+    color: #2D2A26 !important;
+    border: none;
+    font-weight: 500;
+}
+
+.bg-lf-card {
+    background-color: #CBC2B9;
+    border-radius: 25px !important;
+}
+
+.rounded-lf-header {
+    border-radius: 35px;
+}
+
+.rounded-lf-sidebar {
+    border-radius: 40px;
+    min-height: 80vh;
+}
+
+.btn-lf-pill {
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.btn-lf-pill:hover {
+    background-color: #8C847C;
+    color: #fff !important;
+}
+
+.search-bar-lf {
+    border-radius: 30px;
+    background-color: #FFFFFF;
+    border: none;
+    padding-left: 50px;
+    height: 55px;
+    font-size: 1.1rem;
+}
+
+.search-icon-inside {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #7A746E;
+    z-index: 5;
+}
+
+.btn-details-lf {
+    background-color: #E6DFD7;
+    color: #4A4641;
+    border-radius: 20px;
+    font-weight: 500;
+    border: none;
+    padding: 6px 20px;
+}
+
+.btn-details-lf:hover {
+    background-color: #4A4641;
+    color: #FFF;
+}
+
+.book-img-container {
+    background-color: #F4EFEA;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+}

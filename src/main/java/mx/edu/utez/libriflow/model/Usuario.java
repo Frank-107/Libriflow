@@ -7,14 +7,16 @@ public class Usuario {
     private String correo;
     private String telefono;
     private int id;
+    private String contrasena;
 
 
-    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono) {
+    public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono, String contrasena) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
         this.telefono = telefono;
+        this.contrasena = contrasena;
     }
 
     public Usuario() {
@@ -67,6 +69,11 @@ public class Usuario {
         this.correo = correo;
     }
 
+    public String getContrasena() {
+        return contrasena;
+    }
 
-
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
 }

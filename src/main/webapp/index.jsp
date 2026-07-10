@@ -25,8 +25,9 @@
       <img src="assets/img/LogoLibriflow.png" alt="LibriFlow Tu Biblioteca Digital" class="logo-img" />
     </div>
 
-    <c:if test="${not empty mensaje}">
-      <div class="alert-mensaje">${mensaje}</div>
+    <c:if test="${not empty sessionScope.mensaje}">
+      <div class="alert-mensaje">${sessionScope.mensaje}</div>
+      <c:remove var="mensaje" scope="session"/>
     </c:if>
 
     <h1 class="titulo-principal">Miles de libros a un solo click</h1>

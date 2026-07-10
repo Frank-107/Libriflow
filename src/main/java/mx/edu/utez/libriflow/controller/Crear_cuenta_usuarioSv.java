@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.CredencialDao;
 import mx.edu.utez.libriflow.model.Dao.RolDao;
 import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
@@ -21,7 +22,7 @@ CredencialDao credencialDao = new CredencialDao();
 RolDao rolDao = new RolDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.sendRedirect("index.jsp");
     }
 
     @Override
@@ -84,9 +85,10 @@ RolDao rolDao = new RolDao();
             if (!rolDao.create(idUsuarioNuevo)) {
                 throw new IllegalArgumentException("No se guardaron los roles.");
             }
+            HttpSession session = req.getSession();
+            session.setAttribute("mensaje", "Cuenta creada con éxito, ahora inicia sesión.");
+            resp.sendRedirect("Crear_cuenta_usuarioSv");
 
-            req.setAttribute("mensaje", "Cuenta creada con éxito, ahora inicia sesión.");
-            req.getRequestDispatcher("index.jsp").forward(req, resp);
 
         } catch (Exception e) {
             req.setAttribute("error", e.getMessage());

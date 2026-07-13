@@ -20,7 +20,7 @@ public class Validar_Correo_CCSV extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("Validar_correo_CC.jsp");
+        req.getRequestDispatcher("Validar_correo_CC.jsp").forward(req, resp);
         }
 
     @Override
@@ -36,14 +36,15 @@ public class Validar_Correo_CCSV extends HttpServlet {
             nuevaSesion.setAttribute("mensaje",
                     "Tu sesión expiró. Por favor, vuelve a iniciar el proceso de registro.");
 
-            resp.sendRedirect("index.jsp");
+            resp.sendRedirect("indexSV");
             return;
         }
         if(!codigo.equals(session.getAttribute("codigoVerificacion"))) {
             req.setAttribute("error", "Código de verificación incorrecto.");
             req.getRequestDispatcher("Validar_correo_CC.jsp").forward(req, resp);
+            return;
         } else {
-            Usuario usuarioValidado = (Usuario) req.getSession(false).getAttribute("usuarioPendiente");
+            Usuario usuarioValidado = (Usuario) session.getAttribute("usuarioPendiente");
             // mandarlo a la base de datos
 
             try {
@@ -59,6 +60,9 @@ public class Validar_Correo_CCSV extends HttpServlet {
             if (!rolDao.create(idUsuarioNuevo)) {
                 throw new IllegalArgumentException("No se guardaron los roles.");
             }
+
+            session.removeAttribute("usuarioPendiente");
+            session.removeAttribute("codigoVerificacion");
 
             session.setAttribute("mensaje", "Cuenta creada con éxito, ahora inicia sesión.");
             resp.sendRedirect("indexSV");

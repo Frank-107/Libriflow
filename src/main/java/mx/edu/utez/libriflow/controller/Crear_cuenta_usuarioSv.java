@@ -73,7 +73,7 @@ public class Crear_cuenta_usuarioSv extends HttpServlet {
             StringBuilder sb = new StringBuilder();
 
             for (byte b : hash) {
-                sb.append(String.format("%02x", b));
+                sb.append(String.format("%02X", b));
             }
 
             contrasenaHash = sb.toString();

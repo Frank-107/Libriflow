@@ -29,6 +29,10 @@
       <div class="alert-mensaje">${sessionScope.mensaje}</div>
       <c:remove var="mensaje" scope="session"/>
     </c:if>
+    <c:if test="${not empty sessionScope.error}">
+      <div class="alert-error">${sessionScope.error}</div>
+      <c:remove var="error" scope="session"/>
+    </c:if>
 
     <h1 class="titulo-principal">Miles de libros a un solo click</h1>
 

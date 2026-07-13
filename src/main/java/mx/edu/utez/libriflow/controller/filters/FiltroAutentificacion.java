@@ -23,17 +23,22 @@ public class FiltroAutentificacion extends HttpFilter {
         boolean publico =
                 ruta.endsWith("Crear_cuenta_usuario.jsp") ||
                 ruta.endsWith("index.jsp") ||
+                ruta.endsWith("indexSV") ||
                 ruta.endsWith("/Libriflow_war/") ||
                 ruta.endsWith("/Iniciar_sesionSv") ||
                 ruta.endsWith("/Crear_cuenta_usuarioSv")    ||
                 ruta.contains("/assets/") ||
                 ruta.endsWith("/") ||
+                ruta.endsWith("/Validar_correo_CC.jsp") ||
+                ruta.endsWith("/Validar_correo_CCSV") ||
                 ruta.endsWith("Iniciar_sesion.jsp");
 
         if (publico || logeado){
         chain.doFilter(req,res);
         } else {
             res.sendRedirect(req.getContextPath() + "/Iniciar_sesion.jsp");
+            System.out.println("Direccion no perimitida: "+ ruta);
+            System.out.println("Usuario no autenticado, redirigiendo a la página de inicio de sesión.");
         }
 
 

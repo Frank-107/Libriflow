@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class CredencialDao {
     public boolean create(String contrasena, int id) {
-        String sql = "INSERT INTO Credencial(id_usuario, contrasena) VALUES(?,STANDARD_HASH(?, 'SHA256'))";
+        String sql = "INSERT INTO Credencial(id_usuario, contrasena) VALUES(?,?)";
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);

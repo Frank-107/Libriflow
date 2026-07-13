@@ -7,7 +7,7 @@ public class Usuario {
     private String correo;
     private String telefono;
     private int id;
-    private String contrasena;
+    private String contrasenaHash;
 
 
     public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono, String contrasena) {
@@ -16,7 +16,7 @@ public class Usuario {
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
         this.telefono = telefono;
-        this.contrasena = contrasena;
+        this.contrasenaHash = contrasena;
     }
 
     public Usuario() {
@@ -69,11 +69,11 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getContrasenaHash() {
+        return contrasenaHash;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setContrasenaHash(String contrasena) {
+        this.contrasenaHash = contrasena;
     }
 }

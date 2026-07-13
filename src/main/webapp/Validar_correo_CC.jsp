@@ -12,14 +12,16 @@
 
 <p>
     Hemos enviado un código de verificación al correo:
-    <strong>${correo}</strong>
+    <strong>${sessionScope.usuarioPendiente.correo}</strong>
 </p>
 
 <p>
     Ingresa el código que recibiste para activar tu cuenta.
 </p>
-
-<form action="VerificarCorreoSv" method="POST">
+<c:if test="${not empty error}">
+    <div class="error-msg">${error}</div>
+</c:if>
+<form action="Validar_correo_CCSV" method="POST">
     <input type="text" name="codigo" placeholder="Código de verificación" required>
     <br><br>
     <button type="submit">Verificar</button>

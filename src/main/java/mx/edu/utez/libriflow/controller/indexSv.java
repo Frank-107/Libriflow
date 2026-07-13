@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "indexSV", value = "/indexSV")
-public class indexSV extends HttpServlet {
+@WebServlet(name = "indexSv", value = "/index")
+public class indexSv extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("index.jsp").forward(req, resp);

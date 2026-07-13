@@ -12,15 +12,15 @@ import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
-@WebServlet(name = "Validar_Correo_CCSV", value = "/Validar_correo_CCSV")
-public class Validar_Correo_CCSV extends HttpServlet {
+@WebServlet(name = "ValidarCorreoCCSv", value = "/validar-correo-cc")
+public class ValidarCorreoCCSv extends HttpServlet {
     UsuarioDao usuarioDao = new UsuarioDao();
     CredencialDao credencialDao = new CredencialDao();
     RolDao rolDao = new RolDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("Validar_correo_CC.jsp").forward(req, resp);
+        req.getRequestDispatcher("ValidarCorreoCC.jsp").forward(req, resp);
         }
 
     @Override
@@ -36,12 +36,12 @@ public class Validar_Correo_CCSV extends HttpServlet {
             nuevaSesion.setAttribute("mensaje",
                     "Tu sesión expiró. Por favor, vuelve a iniciar el proceso de registro.");
 
-            resp.sendRedirect("indexSV");
+            resp.sendRedirect("indexSv");
             return;
         }
         if(!codigo.equals(session.getAttribute("codigoVerificacion"))) {
             req.setAttribute("error", "Código de verificación incorrecto.");
-            req.getRequestDispatcher("Validar_correo_CC.jsp").forward(req, resp);
+            req.getRequestDispatcher("ValidarCorreoCC.jsp").forward(req, resp);
             return;
         } else {
             Usuario usuarioValidado = (Usuario) session.getAttribute("usuarioPendiente");
@@ -65,12 +65,12 @@ public class Validar_Correo_CCSV extends HttpServlet {
             session.removeAttribute("codigoVerificacion");
 
             session.setAttribute("mensaje", "Cuenta creada con éxito, ahora inicia sesión.");
-            resp.sendRedirect("indexSV");
+            resp.sendRedirect("indexSv");
 
         } catch (Exception e) {
             System.err.println( e.getMessage());
             session.setAttribute("error", e.getMessage());
-            resp.sendRedirect("indexSV");
+            resp.sendRedirect("indexSv");
           return;
         }
         }

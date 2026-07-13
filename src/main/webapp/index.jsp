@@ -37,8 +37,8 @@
     <h1 class="titulo-principal">Miles de libros a un solo click</h1>
 
     <div class="botones-accion">
-      <a href="Iniciar_sesion.jsp" class="btn-oscuro">Iniciar Sesión</a>
-      <a href="Crear_cuenta_usuario.jsp" class="btn-claro">Crear Cuenta</a>
+      <a href="iniciar-sesion" class="btn-oscuro">Iniciar Sesión</a>
+      <a href="crear-cuenta-usuario" class="btn-claro">Crear Cuenta</a>
     </div>
   </div>
 

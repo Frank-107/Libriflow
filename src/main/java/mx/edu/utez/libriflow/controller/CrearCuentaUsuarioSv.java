@@ -8,9 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import mx.edu.utez.libriflow.model.Dao.CredencialDao;
-import mx.edu.utez.libriflow.model.Dao.RolDao;
-import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
 import mx.edu.utez.libriflow.utils.EmailSender;
 import java.io.IOException;
@@ -19,11 +16,12 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
 
-@WebServlet(name = "Crear_cuenta_usuarioSv", value = "/Crear_cuenta_usuarioSv")
-public class Crear_cuenta_usuarioSv extends HttpServlet {
+@WebServlet(name = "CrearCuentaUsuarioSv", value = "/crear-cuenta-usuario")
+public class CrearCuentaUsuarioSv extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
 
     }
 
@@ -41,25 +39,25 @@ public class Crear_cuenta_usuarioSv extends HttpServlet {
 
         if (!correo.endsWith("@utez.edu.mx")) {
             req.setAttribute("error", "Solo se admiten correos institucionales (UTEZ).");
-            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
             return;
         }
 
         if (!correo.equals(correo2)) {
             req.setAttribute("error", "Los correos no coinciden.");
-            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
             return;
         }
 
         if (!contrasena.equals(contrasena2)) {
             req.setAttribute("error", "Las contraseñas no coinciden.");
-            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
             return;
         }
 
         if (!telefono.matches("\\d{10}")) {
             req.setAttribute("error", "Formato de teléfono inválido.");
-            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
             return;
         }
 
@@ -79,7 +77,7 @@ public class Crear_cuenta_usuarioSv extends HttpServlet {
             contrasenaHash = sb.toString();
         }catch (Exception e) {
             req.setAttribute("error", "Error al procesar la contraseña.");
-            req.getRequestDispatcher("Crear_cuenta_usuario.jsp").forward(req, resp);
+            req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
             return;
         }
 
@@ -177,7 +175,7 @@ public class Crear_cuenta_usuarioSv extends HttpServlet {
                     "Verificación de correo electrónico - LibriFlow",
                     cuerpoCorreo
             );
-            resp.sendRedirect("Validar_correo_CCSV");
+            resp.sendRedirect("ValidarCorreoCC");
             return;
     }
 

@@ -7,10 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Iniciar_sesionDao implements Dao<Object, Object> {
+public class IniciarSesionDao implements Dao<Object, Object> {
 
     public boolean validarCredenciales(String correo, String contrasena){
         String sql = "SELECT Id_Usuario FROM Usuario where correo_electronico=(?)";

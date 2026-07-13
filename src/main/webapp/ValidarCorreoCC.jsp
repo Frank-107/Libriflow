@@ -21,7 +21,7 @@
 <c:if test="${not empty error}">
     <div class="error-msg">${error}</div>
 </c:if>
-<form action="Validar_correo_CCSV" method="POST">
+<form action="validar-correo-cc" method="POST">
     <input type="text" name="codigo" placeholder="Código de verificación" required>
     <br><br>
     <button type="submit">Verificar</button>

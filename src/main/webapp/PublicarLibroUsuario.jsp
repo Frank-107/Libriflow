@@ -44,7 +44,7 @@
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                 </a>
-                <a href="Publicar_usuario.jsp" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
+                <a href="PublicarLibroUsuario.jsp" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
                 </a>
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <form action="PublicarLibroUsuarioSv" id="formPublicar"  method="POST" enctype="multipart/form-data">
+                <form action="publicar-libro-usuario" id="formPublicar"  method="POST" enctype="multipart/form-data">
 
                     <div class="mb-4">
                         <label class="form-label-lf">Nombre del libro</label>

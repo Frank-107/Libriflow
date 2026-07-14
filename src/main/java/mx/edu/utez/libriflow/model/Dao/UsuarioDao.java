@@ -34,6 +34,27 @@ public class UsuarioDao {
             return -1;
         }
     }
+    public boolean correoExistente (String correo) {
+        String sql = "SELECT * from Usuario where correo_electronico = ?";
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     sql);) {
+            ps.setString(1, correo);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+
+
+    }
 
 
     public java.util.List<Usuario> getAll() {

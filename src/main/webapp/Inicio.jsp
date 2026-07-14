@@ -29,8 +29,8 @@
 
         <div class="d-none d-md-flex align-items-center gap-3">
             <div class="text-end">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">Usuario</div>
-                <small class="text-white-50" style="font-size: 0.8rem;">usuario@gmail.com</small>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${sessionScope.usuario.nombre}</div>
+                <small class="text-white-50" style="font-size: 0.8rem;">${sessionScope.usuario.correo}</small>
             </div>
             <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
                 <i class="bi bi-person-fill fs-4 text-dark"></i>

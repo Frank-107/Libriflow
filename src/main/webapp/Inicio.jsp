@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
 </head>
 <body class="p-3 p-md-4">
@@ -32,8 +31,24 @@
                 <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()}</div>
                 <small class="text-white-50" style="font-size: 0.8rem;">${usuario.getCorreo()}</small>
             </div>
-            <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
-                <i class="bi bi-person-fill fs-4 text-dark"></i>
+
+            <div class="dropdown">
+                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-fill fs-4 text-dark"></i>
+                </div>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
+                    <li>
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="perfil.jsp">
+                            <i class="bi bi-person me-2"></i>Ver perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2 dropdown-lf-logout" href="logout">
+                            <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </header>
@@ -48,11 +63,9 @@
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                 </a>
-
                 <a href="Publicar_usuario.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
                 </a>
-
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
                 </a>

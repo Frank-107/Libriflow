@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 import java.io.IOException;
+
 @WebFilter("/*")
 public class FiltroAutentificacion extends HttpFilter {
 
@@ -18,33 +18,43 @@ public class FiltroAutentificacion extends HttpFilter {
         String ruta = req.getRequestURI();
         HttpSession session = req.getSession(false);
 
-        boolean logeado = session != null && session.getAttribute("tipo_usuario")!=null;
+        boolean logeado = session != null && session.getAttribute("tipo_usuario") != null;
+
+        boolean rutaLogin =
+                ruta.endsWith("Iniciar_sesion.jsp") ||
+                        ruta.endsWith("/Iniciar_sesionSv") ||
+                        ruta.endsWith("Crear_cuenta_usuario.jsp") ||
+                        ruta.endsWith("/Crear_cuenta_usuarioSv") ||
+                        ruta.endsWith("/Validar_correo_CC.jsp") ||
+                        ruta.endsWith("/Validar_correo_CCSV");
 
         boolean publico =
-                ruta.endsWith("Crear_cuenta_usuario.jsp") ||
                 ruta.endsWith("index.jsp") ||
-                ruta.endsWith("indexSV") ||
-                ruta.endsWith("/Libriflow_war/") ||
-                ruta.endsWith("/Iniciar_sesionSv") ||
-                ruta.endsWith("/Crear_cuenta_usuarioSv")    ||
-                ruta.contains("/assets/") ||
-                ruta.endsWith("/") ||
-                ruta.endsWith("/Validar_correo_CC.jsp") ||
-                ruta.endsWith("/Validar_correo_CCSV") ||
-                ruta.endsWith("Iniciar_sesion.jsp");
+                        ruta.endsWith("indexSV") ||
+                        ruta.endsWith("/Libriflow_war/") ||
+                        ruta.contains("/assets/") ||
+                        ruta.endsWith("/");
 
-        if (publico || logeado){
-        chain.doFilter(req,res);
+        if (logeado) {
+
+            if (rutaLogin) {
+
+                res.sendRedirect(req.getContextPath() + "/Inicio.jsp");
+            } else {
+
+                chain.doFilter(req, res);
+            }
         } else {
-            res.sendRedirect(req.getContextPath() + "/Iniciar_sesion.jsp");
-            System.out.println("Direccion no perimitida: "+ ruta);
-            System.out.println("Usuario no autenticado, redirigiendo a la página de inicio de sesión.");
+
+            if (rutaLogin || publico) {
+
+                chain.doFilter(req, res);
+            } else {
+
+                System.out.println("Direccion no permitida: " + ruta);
+                System.out.println("Usuario no autenticado, redirigiendo a la página de inicio de sesión.");
+                res.sendRedirect(req.getContextPath() + "/Iniciar_sesion.jsp");
+            }
         }
-
-
-
-
-
-
     }
 }

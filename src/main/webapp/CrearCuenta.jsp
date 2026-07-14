@@ -31,7 +31,7 @@
             <div class="error-msg">${error}</div>
         </c:if>
 
-        <form method="post" action="Crear_cuenta_usuarioSv">
+        <form method="post" action="crear-cuenta-usuario">
             <div class="form-grid">
 
                 <div class="form-group">
@@ -78,7 +78,7 @@
 
             <input type="submit" class="btn-submit" value="Registrar">
 
-            <a href="Iniciar_sesion.jsp" class="login-redirect">¿Ya tienes una cuenta? Inicia sesión</a>
+            <a href="iniciar-sesion" class="login-redirect">¿Ya tienes una cuenta? Inicia sesión</a>
         </form>
     </div>
 

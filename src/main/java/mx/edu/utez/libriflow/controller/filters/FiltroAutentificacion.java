@@ -21,19 +21,24 @@ public class FiltroAutentificacion extends HttpFilter {
         boolean logeado = session != null && session.getAttribute("tipo_usuario")!=null;
 
         boolean publico =
-                ruta.endsWith("Crear_cuenta_usuario.jsp") ||
-                ruta.endsWith("index.jsp") ||
-                ruta.endsWith("/Libriflow_war/") ||
-                ruta.endsWith("/Iniciar_sesionSv") ||
-                ruta.endsWith("/Crear_cuenta_usuarioSv")    ||
-                ruta.contains("/assets/") ||
-                        ruta.contains("/") ||
-                ruta.endsWith("Iniciar_sesion.jsp");
+                ruta.endsWith("CrearCuenta.jsp") ||
+                        ruta.endsWith("index.jsp") ||
+                        ruta.endsWith("index") ||
+                        ruta.endsWith("/Libriflow_war/") ||
+                        ruta.endsWith("/iniciar-sesion") ||
+                        ruta.endsWith("/crear-cuenta-usuario") ||
+                        ruta.contains("/assets/") ||
+                        ruta.endsWith("/") ||
+                        ruta.endsWith("/ValidarCorreoCC.jsp") ||
+                        ruta.endsWith("/validar-correo-cc") ||
+                        ruta.endsWith("IniciarSesion.jsp");
 
         if (publico || logeado){
         chain.doFilter(req,res);
         } else {
-            res.sendRedirect(req.getContextPath() + "/Iniciar_sesion.jsp");
+            res.sendRedirect(req.getContextPath() + "/IniciarSesion.jsp");
+            System.out.println("Direccion no perimitida: "+ ruta);
+            System.out.println("Usuario no autenticado, redirigiendo a la página de inicio de sesión.");
         }
 
 

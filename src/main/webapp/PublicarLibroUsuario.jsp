@@ -44,7 +44,7 @@
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                 </a>
-                <a href="Publicar.jsp" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
+                <a href="PublicarLibroUsuario.jsp" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
                 </a>
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
 
-                <form action="PublicarLibroSv" method="POST" enctype="multipart/form-data">
+                <form action="publicar-libro-usuario" id="formPublicar"  method="POST" enctype="multipart/form-data">
 
                     <div class="mb-4">
                         <label class="form-label-lf">Nombre del libro</label>
@@ -100,9 +100,11 @@
                             <input type="number" step="0.01" name="precio" class="form-control form-control-lf" placeholder="$" required>
                         </div>
                         <div class="col-md-6 mb-4">
-                            <label class="form-label-lf">Imágenes (3 necesarias)</label>
-                            <div class="input-group">
-                                <input type="file" name="imagenes" class="form-control form-control-lf" id="inputGroupFile" multiple required>
+                            <label class="form-label-lf">Imágenes del libro</label>
+                            <div>
+                                <button type="button" class="btn btn-action-lf shadow-sm w-100" data-bs-toggle="modal" data-bs-target="#modalSubirImagenes">
+                                    <i class="bi bi-images me-2"></i> Subir 3 imágenes necesarias
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -112,13 +114,51 @@
                         <button type="button" class="btn btn-preview-lf shadow-sm">Vista Previa</button>
                     </div>
 
+                    <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                                <div class="modal-header bg-lf-dark text-white p-3">
+                                    <h5 class="modal-title fw-bold" id="modalImagenesLabel">
+                                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-4 bg-light">
+                                    <div class="row">
+                                        <div class="col-12 mb-4">
+                                            <label class="form-label-lf small fw-bold mb-2">
+                                                 1. Portada (Principal)
+                                            </label>
+                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5" >
+                                        </div>
+                                        <div class="col-12 mb-4">
+                                            <label class="form-label-lf small fw-bold mb-2">
+                                                 2. Reverso / Contraportada
+                                            </label>
+                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5" >
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <label class="form-label-lf small fw-bold mb-2">
+                                                3. Estado general / Páginas
+                                            </label>
+                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-white p-2">
+                                    <button type="button" class="btn btn-action-lf shadow-sm px-4" data-bs-dismiss="modal">Listo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
         </main>
 
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/dist/umd/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/Publicar.js"></script>
 </body>
 </html>

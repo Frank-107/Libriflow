@@ -25,15 +25,20 @@
       <img src="assets/img/LogoLibriflow.png" alt="LibriFlow Tu Biblioteca Digital" class="logo-img" />
     </div>
 
-    <c:if test="${not empty mensaje}">
-      <div class="alert-mensaje">${mensaje}</div>
+    <c:if test="${not empty sessionScope.mensaje}">
+      <div class="alert-mensaje">${sessionScope.mensaje}</div>
+      <c:remove var="mensaje" scope="session"/>
+    </c:if>
+    <c:if test="${not empty sessionScope.error}">
+      <div class="alert-error">${sessionScope.error}</div>
+      <c:remove var="error" scope="session"/>
     </c:if>
 
     <h1 class="titulo-principal">Miles de libros a un solo click</h1>
 
     <div class="botones-accion">
-      <a href="Iniciar_sesion.jsp" class="btn-oscuro">Iniciar Sesión</a>
-      <a href="Crear_cuenta_usuario.jsp" class="btn-claro">Crear Cuenta</a>
+      <a href="iniciar-sesion" class="btn-oscuro">Iniciar Sesión</a>
+      <a href="crear-cuenta-usuario" class="btn-claro">Crear Cuenta</a>
     </div>
   </div>
 

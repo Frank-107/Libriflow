@@ -6,15 +6,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import mx.edu.utez.libriflow.model.Dao.Iniciar_sesionDao;
+import mx.edu.utez.libriflow.model.Dao.IniciarSesionDao;
 import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
-@WebServlet(name = "Iniciar_sesionSv", value = "/Iniciar_sesionSv")
-public class Iniciar_sesionSV extends HttpServlet {
-    Iniciar_sesionDao iniciarSesionDao = new Iniciar_sesionDao();
+@WebServlet(name = "IniciarSesionSv", value = "/iniciar-sesion")
+public class IniciarSesionSv extends HttpServlet {
+    IniciarSesionDao iniciarSesionDao = new IniciarSesionDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("IniciarSesion.jsp").forward(req, resp);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Iniciar_sesionSV extends HttpServlet {
 
             }else{
                 req.setAttribute("error", "Usuario o contraseña incorrectos. Inténtalo de nuevo.");
-                req.getRequestDispatcher("Iniciar_sesion.jsp").forward(req, resp);
+                req.getRequestDispatcher("IniciarSesion.jsp").forward(req, resp);
             }
 
     }

@@ -19,7 +19,7 @@
 
 <h2 class="login-top-bar">Inicio de sesión</h2>
 
-<form action="Iniciar_sesionSv" method="post" class="login-card">
+<form action="iniciar-sesion" method="post" class="login-card">
 
     <!-- Imagen .jpg agregada en la parte superior del contenedor -->
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
@@ -40,7 +40,7 @@
 
     <button type="submit" class="login-btn">Iniciar sesión </button>
     <br class="login-br">
-    <a href="Crear_cuenta_usuario.jsp" class="login-footer-link">¿No tienes cuenta? Crear cuenta</a>
+    <a href="crear-cuenta-usuario" class="login-footer-link">¿No tienes cuenta? Crear cuenta</a>
 
 </form>
 

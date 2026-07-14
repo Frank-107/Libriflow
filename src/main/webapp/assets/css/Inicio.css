@@ -20,7 +20,30 @@ body {
 }
 
 .rounded-lf-header {
-    border-radius: 35px;
+    border-radius: 30px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+/* Logo y avatar más compactos para que la barra se vea más delgada */
+.rounded-lf-header img {
+    height: 40px !important;
+}
+
+.rounded-lf-header .bg-lf-capsule.rounded-circle {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+/* Hover consistente para el botón de "volver" cuando aparece dentro de la barra oscura */
+.rounded-lf-header .btn-lf-pill {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    border-radius: 50%;
 }
 
 .rounded-lf-sidebar {

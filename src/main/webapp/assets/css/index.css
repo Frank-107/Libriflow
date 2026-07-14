@@ -1,7 +1,7 @@
 body {
     background-color: #F0EBE6;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #474541;
+    color: #4A4641;
     margin: 0;
     padding: 0;
 }
@@ -12,24 +12,19 @@ body {
     padding: 20px;
 }
 
-/* --- Barra de Navegación Estilo Píldora Flotante --- */
-.barra-nav {
-    background-color: #474541; /* Color oscuro exacto */
-    padding: 12px 30px;
+/* --- Clases de la barra de navegación --- */
+.bg-lf-dark {
+    background-color: #4A4641;
+}
 
-    /* Esto hace que las esquinas queden completamente redondas como una píldora */
-    border-radius: 50px;
+.rounded-lf-header {
+    border-radius: 30px;
+    height: 70px !important; /* Altura fija para igualar el inicio */
+}
 
-    /* Margen superior para despegarla del borde de arriba, y laterales para que respire */
-    margin: 25px auto 40px auto;
-
-    /* Controlamos el ancho para que mantenga la misma proporción de la imagen */
-    max-width: 1060px;
-    width: 95%;
-
-    /* Alineación interna de los botones */
-    display: flex;
-    align-items: center;
+/* Esta clase maneja el espacio cuando la barra está fuera del contenedor */
+.navbar-outer {
+    margin: 20px 20px 40px 20px; /* Margen superior, lados y margen inferior */
 }
 
 .nav-links {
@@ -39,18 +34,22 @@ body {
 
 .btn-nav {
     background-color: #E6DED1;
-    color: #474541;
+    color: #4A4641;
     text-decoration: none;
-    padding: 6px 18px;
+    height: 40px;
+    padding: 0 18px;
     border-radius: 15px;
     font-size: 0.9rem;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
     transition: opacity 0.2s ease;
 }
 
 .btn-nav:hover {
     opacity: 0.9;
-    color: #474541;
+    color: #4A4641;
 }
 
 .hero {
@@ -70,7 +69,7 @@ body {
 .titulo-principal {
     font-size: 2.8rem;
     font-weight: 800;
-    color: #474541;
+    color: #4A4641;
     margin-bottom: 25px;
 }
 
@@ -94,27 +93,27 @@ body {
 }
 
 .btn-oscuro {
-    background-color: #474541;
+    background-color: #4A4641;
     color: #F0EBE6;
 }
 
 .btn-claro {
     background-color: #E6DED1;
-    color: #474541;
+    color: #4A4641;
 }
 
 .btn-oscuro:hover {
-    background-color: #474541 !important; /* Mantiene el fondo oscuro */
-    color: #F0EBE6 !important;            /* Fuerza a que el texto sea crema */
-    transform: translateY(-2px);          /* Mantiene el efecto de alzarse */
+    background-color: #4A4641 !important;
+    color: #F0EBE6 !important;
+    transform: translateY(-2px);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     text-decoration: none;
 }
 
 .btn-claro:hover {
-    background-color: #E6DED1 !important; /* Mantiene su fondo arena */
-    color: #474541 !important;            /* Fuerza el texto gris oscuro */
-    transform: translateY(-2px);          /* Mantiene el efecto de alzarse */
+    background-color: #E6DED1 !important;
+    color: #4A4641 !important;
+    transform: translateY(-2px);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     text-decoration: none;
 }
@@ -137,13 +136,11 @@ body {
     transform: translateY(-5px);
 }
 
-/* Contenedor de la imagen para que mantenga proporciones y tamaño reducido */
 .img-contenedor {
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 10px;
     background-color: #f7f7f7;
-    /* Controla la altura máxima para que se vea compacta */
     height: 330px;
     display: flex;
     align-items: center;
@@ -156,7 +153,6 @@ body {
     object-fit: cover;
 }
 
-
 .tarjeta-pie {
     display: flex;
     align-items: center;
@@ -166,7 +162,7 @@ body {
 }
 
 .estrellas {
-    color: #474541; /* Estrellas oscuras como en la imagen */
+    color: #4A4641;
     font-size: 0.95rem;
 }
 
@@ -176,7 +172,7 @@ body {
 }
 
 .alert-mensaje {
-    color: #474541;
+    color: #4A4641;
     background-color: #E6DED1;
     padding: 10px;
     border-radius: 10px;

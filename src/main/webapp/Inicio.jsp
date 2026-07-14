@@ -28,7 +28,7 @@
 
         <div class="d-none d-md-flex align-items-center gap-3">
             <div class="text-end">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()}</div>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()} ${usuario.getApellidoPaterno()}</div>
                 <small class="text-white-50" style="font-size: 0.8rem;">${usuario.getCorreo()}</small>
             </div>
 
@@ -39,7 +39,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="perfil.jsp">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="#">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>

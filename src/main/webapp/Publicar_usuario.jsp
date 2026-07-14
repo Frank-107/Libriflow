@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar Libro - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
+    <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
 </head>
 <body class="p-3 p-md-4">
@@ -25,11 +24,27 @@
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()}</div>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()} ${usuario.getApellidoPaterno()}</div>
                 <small class="text-white-50" style="font-size: 0.8rem;">${usuario.getCorreo()}</small>
             </div>
-            <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
-                <i class="bi bi-person-fill fs-4 text-dark"></i>
+
+            <div class="dropdown">
+                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-fill fs-4 text-dark"></i>
+                </div>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
+                    <li>
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="#">
+                            <i class="bi bi-person me-2"></i>Ver perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2 dropdown-lf-logout" href="logout">
+                            <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </header>
@@ -38,6 +53,9 @@
 
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm">
+                <a href="Inicio.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <i class="bi bi-house me-3 fs-5"></i> Inicio
+                </a>
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
                 </a>
@@ -71,7 +89,7 @@
                     </div>
                 </div>
 
-                <form action="PublicarLibroUsuarioSv" id="formPublicar"  method="POST" enctype="multipart/form-data">
+                <form action="PublicarLibroUsuarioSv" id="formPublicar" method="POST" enctype="multipart/form-data">
 
                     <div class="mb-4">
                         <label class="form-label-lf">Nombre del libro</label>
@@ -127,13 +145,13 @@
                                     <div class="row">
                                         <div class="col-12 mb-4">
                                             <label class="form-label-lf small fw-bold mb-2">
-                                                 1. Portada (Principal)
+                                                1. Portada (Principal)
                                             </label>
                                             <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5" >
                                         </div>
                                         <div class="col-12 mb-4">
                                             <label class="form-label-lf small fw-bold mb-2">
-                                                 2. Reverso / Contraportada
+                                                2. Reverso / Contraportada
                                             </label>
                                             <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5" >
                                         </div>

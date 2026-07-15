@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - LibriFlow</title>
-
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
@@ -39,7 +39,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="#">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfil.jsp">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>

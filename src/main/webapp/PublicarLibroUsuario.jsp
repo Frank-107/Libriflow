@@ -35,7 +35,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="#">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfil.jsp">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>

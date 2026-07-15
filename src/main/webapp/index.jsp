@@ -7,17 +7,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LibriFlow - Tu Biblioteca Digital</title>
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
   <link rel="stylesheet" href="assets/css/bootstrap.css" />
-  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/index.css?v=3" />
 </head>
 <body>
 
-<nav class="barra-nav">
+<!-- Barra de navegación fuera del contenedor para que se estire -->
+<nav class="bg-lf-dark rounded-lf-header navbar-outer shadow-sm d-flex align-items-center px-4 px-md-5">
   <div class="nav-links">
     <a href="#" class="btn-nav">Nuestras Redes</a>
   </div>
 </nav>
 
+<!-- Contenido principal dentro del contenedor -->
 <div class="container-pagina">
 
   <div class="hero">

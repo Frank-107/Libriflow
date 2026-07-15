@@ -7,7 +7,7 @@ body {
 
 /* Navbar */
 .barra-nav {
-    background-color: #2e2b27;
+    background-color: #4A4641;
     margin: 16px;
     border-radius: 50px;
     padding: 10px 20px;
@@ -17,7 +17,7 @@ body {
 
 .barra-nav a {
     background-color: #f5f0e8;
-    color: #2e2b27;
+    color: #4A4641;
     text-decoration: none;
     padding: 8px 20px;
     border-radius: 50px;
@@ -25,13 +25,12 @@ body {
     font-weight: 600;
 }
 
-/* Página */
+/* Pagina principal */
 .pagina {
     width: 100%;
     padding-bottom: 48px;
 }
 
-/* Hero */
 .hero {
     text-align: center;
     padding: 40px 20px 30px;
@@ -52,7 +51,7 @@ body {
     font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: 3px;
-    color: #2b2724;
+    color: #4A4641;
 }
 
 .logo small {
@@ -64,11 +63,10 @@ body {
 .hero h1 {
     font-size: 2.8rem;
     font-weight: 800;
-    color: #2b2724;
+    color: #4A4641;
     margin-bottom: 30px;
 }
 
-/* Botones */
 .botones {
     display: flex;
     justify-content: center;
@@ -84,21 +82,20 @@ body {
 }
 
 .btn-oscuro {
-    background-color: #2e2b27;
+    background-color: #4A4641;
     color: #f5f0e8;
 }
 
 .btn-claro {
     background-color: #ddd7cc;
-    color: #2e2b27;
+    color: #4A4641;
 }
 
-/* Catálogo */
+/* Catalogo */
 .catalogo {
     padding: 30px 28px 0;
     display: flex;
     justify-content: center;
-
 }
 
 .tarjeta {
@@ -132,10 +129,7 @@ body {
     font-size: 0.75rem;
 }
 
-
-
-/* Pantalla crear cuenta usuario*/
-
+/* Registro */
 .pantalla-registro {
     display: flex;
     flex-direction: column;
@@ -144,29 +138,38 @@ body {
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    background-color: #f4ede4; /* Tu fondo beige específico */
+    background-color: #f4ede4;
 }
 
-/* Barra Superior */
 .pantalla-registro .top-bar {
-    background-color: #5a5450;
+    background-color: #4A4641;
     width: 100%;
-    max-width: 900px;
-    border-radius: 50px;
-    padding: 12px 25px;
+    height: 70px;
+    border-radius: 30px;
+    padding: 0 25px;
     display: flex;
     align-items: center;
+    gap: 15px;
     box-sizing: border-box;
+    flex-shrink: 0;
     margin-bottom: 30px;
 }
 
 .pantalla-registro .back-link {
     color: white;
     text-decoration: none;
-    font-size: 24px;
-    margin-right: 15px;
+    font-size: 22px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.pantalla-registro .back-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .pantalla-registro .top-bar h1 {
@@ -176,7 +179,6 @@ body {
     font-weight: 600;
 }
 
-/* Tarjeta Contenedora */
 .pantalla-registro .card-container {
     background-color: #e3ded7;
     border-radius: 40px;
@@ -186,11 +188,11 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
     box-sizing: border-box;
+    margin: auto;
 }
 
-/* Logotipo */
 .pantalla-registro .logo-img-completo {
-    max-width: 140px; /* Tamaño ideal y pequeño para tu logo */
+    max-width: 140px;
     width: 100%;
     height: auto;
     margin-bottom: 15px;
@@ -203,10 +205,9 @@ body {
     margin: 10px 0 25px 0;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #5a5450;
+    color: #4A4641;
 }
 
-/* Grilla del Formulario */
 .pantalla-registro .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -242,12 +243,11 @@ body {
 }
 
 .pantalla-registro .form-group input:focus {
-    border-color: #5a5450;
+    border-color: #4A4641;
 }
 
-/* Botón Registrar */
 .pantalla-registro .btn-submit {
-    background-color: #5a5450;
+    background-color: #4A4641;
     color: white;
     border: none;
     border-radius: 25px;
@@ -262,14 +262,13 @@ body {
 }
 
 .pantalla-registro .btn-submit:hover {
-    background-color: #47423e;
+    background-color: #3A3733;
 }
 
-/* Enlace inferior */
 .pantalla-registro .login-redirect {
     display: block;
     margin-top: 20px;
-    color: #5a5450;
+    color: #4A4641;
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
@@ -279,7 +278,6 @@ body {
     text-decoration: underline;
 }
 
-/* Errores */
 .pantalla-registro .error-msg {
     color: #cc0000;
     background-color: #f8d7da;
@@ -289,7 +287,6 @@ body {
     font-size: 14px;
 }
 
-/* Responsivo */
 @media (max-width: 600px) {
     .pantalla-registro .form-grid {
         grid-template-columns: 1fr;
@@ -300,55 +297,62 @@ body {
     }
 }
 
-/*inicio de sesion*/
+/* Login */
 .login-body {
     display: flex;
     flex-direction: column;
-    align-items: center;
     min-height: 100vh;
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    background-color: #f4ede4; /* Color beige de fondo */
+    background-color: #f4ede4;
 }
 
-/* Ocultamos los <br> y el label de contraseña para limpiar el diseño tipo Card */
-.login-br,
-.login-label-pass {
+.login-br {
     display: none !important;
 }
 
 .login-top-bar {
-    background-color: #5a5450;
+    background-color: #4A4641;
     width: 100%;
-    max-width: 900px;
-    border-radius: 50px;
-    padding: 12px 25px;
+    height: 70px !important;
+    border-radius: 30px;
+    padding: 0 25px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 15px;
     box-sizing: border-box;
-    margin-bottom: 30px;
+    flex-shrink: 0;
+}
+
+.login-top-bar-title {
     color: white;
     font-size: 18px;
     font-weight: 600;
-    position: relative;
+    margin: 0;
 }
 
 .login-back-link {
-    position: absolute;
-    left: 45px;
     color: white;
     text-decoration: none;
-    font-size: 0; /* Oculta la palabra 'Volver' */
+    font-size: 0;
     display: inline-flex;
     align-items: center;
-    z-index: 10;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.login-back-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .login-back-link::before {
-    content: "←"; /* Muestra la flecha de regreso */
-    font-size: 26px;
+    content: "←";
+    font-size: 22px;
     color: white;
     cursor: pointer;
 }
@@ -364,84 +368,81 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    margin: auto;
 }
 
-.login-card::before {
-    content: "";
+.login-logo {
     display: block;
+    max-width: 135px;
     width: 100%;
-    height: 90px;
-    margin-bottom: 10px;
-    background-image: url('../img/logo.png'); /* Apunta a tu carpeta assets/img */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    order: 0;
-}
-
-.login-label-email {
-    font-size: 0; /* Oculta la palabra 'Correo:' */
-    font-weight: 800;
-    margin: 10px 0 25px 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #5a5450;
-    order: 1;
+    height: auto;
+    margin: 0 auto 15px auto;
+    object-fit: contain;
 }
 
 .login-label-email::before {
-    content: "INICIAR SESIÓN";
+    content: "INICIAR SESIÓN\A";
+    white-space: pre;
     font-size: 22px;
+    font-weight: 800;
+    color: #4A4641;
+    display: block;
+    margin-bottom: 25px;
+    text-align: center;
+    letter-spacing: 1px;
 }
 
-/* Contenedor del Mensaje de Error JSTL */
+.login-label-email,
+.login-label-pass {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6e6762;
+    text-align: left;
+    margin-bottom: 6px;
+    padding-left: 10px;
+}
+
 .login-error {
-    order: 2;
     color: #cc0000 !important;
     background-color: #f8d7da;
     padding: 10px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     font-size: 14px;
     text-align: center;
 }
 
-/* Campos de Input estilizados */
 .login-input {
     background-color: #fcfbfa;
     border: 1px solid #b5afaa;
     border-radius: 25px;
-    padding: 12px 18px 12px 45px; /* Espacio para los iconos de la izquierda */
+    padding: 11px 18px 11px 45px;
     font-size: 14px;
     color: #333;
     outline: none;
     transition: border-color 0.2s;
     box-sizing: border-box;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 15px;
     background-repeat: no-repeat;
     background-position: 18px center;
     background-size: 16px;
 }
 
 .login-correo {
-    order: 3;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236e6762' class='bi bi-envelope' viewBox='0 0 16 16'%3E%3Cpath d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z'/%3E%3C/svg%3E");
 }
 
 .login-contrasena {
-    order: 4;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236e6762' class='bi bi-lock' viewBox='0 0 16 16'%3E%3Cpath d='M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1'/%3E%3C/svg%3E");
 }
 
 .login-input:focus {
-    border-color: #5a5450;
+    border-color: #4A4641;
 }
 
-/* Botón de envío */
 .login-btn {
-    order: 5;
-    background-color: #5a5450;
+    background-color: #4A4641;
     color: white;
     border: none;
     border-radius: 25px;
@@ -457,14 +458,20 @@ body {
 }
 
 .login-btn:hover {
-    background-color: #47423e;
+    background-color: #3A3733;
+}
+
+.login-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .login-footer-link {
-    order: 6;
-    display: block;
-    margin-top: 25px;
-    color: #5a5450;
+    color: #4A4641;
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
@@ -476,6 +483,6 @@ body {
 
 @media (max-width: 500px) {
     .login-card {
-        padding: 30px 20px;
+        padding: 26px 22px;
     }
 }

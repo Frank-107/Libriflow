@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - LibriFlow</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/inicio.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
 </head>
 <body class="p-3 p-md-4">
 
@@ -19,7 +18,7 @@
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center mx-auto mx-md-0">
             <a href="Inicio.jsp" class="d-flex align-items-center text-decoration-none">
-                <img src="${pageContext.request.contextPath}/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 50px; width: auto;" class="me-2">
+                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 50px; width: auto;" class="me-2">
                 <div class="text-start">
                     <div class="fw-bold tracking-widest fs-4 text-white">LIBRIFLOW</div>
                     <small style="font-size: 0.65rem; letter-spacing: 2px; color: #CBC2B9; display: block;">TU BIBLIOTECA DIGITAL</small>
@@ -32,8 +31,24 @@
                 <div class="fw-bold mb-0" style="font-size: 0.95rem;">${sessionScope.usuario.nombre}</div>
                 <small class="text-white-50" style="font-size: 0.8rem;">${sessionScope.usuario.correo}</small>
             </div>
-            <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
-                <i class="bi bi-person-fill fs-4 text-dark"></i>
+
+            <div class="dropdown">
+                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-fill fs-4 text-dark"></i>
+                </div>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
+                    <li>
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="#">
+                            <i class="bi bi-person me-2"></i>Ver perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2 dropdown-lf-logout" href="logout">
+                            <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </header>
@@ -52,7 +67,6 @@
                 <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
                 </a>
-
                 <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                     <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
                 </a>

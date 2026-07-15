@@ -20,7 +20,28 @@ body {
 }
 
 .rounded-lf-header {
-    border-radius: 35px;
+    border-radius: 30px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.rounded-lf-header img {
+    height: 40px !important;
+}
+
+.rounded-lf-header .bg-lf-capsule.rounded-circle {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.rounded-lf-header .btn-lf-pill {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    border-radius: 50%;
 }
 
 .rounded-lf-sidebar {
@@ -57,26 +78,70 @@ body {
     z-index: 5;
 }
 
-.btn-details-lf {
-    background-color: #E6DFD7;
+/* Dropdown Navbar */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: aparecerDropdown 0.3s ease;
+}
+
+@keyframes aparecerDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu-lf {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    min-width: 200px;
+    background-color: #F4EFEA !important;
+    border-radius: 25px !important;
+    padding: 10px !important;
+    margin-top: 0 !important; /* Se elimina el espacio para evitar que el menú se cierre */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+/* Puente invisible para que no se pierda el hover al bajar el cursor */
+.dropdown-menu-lf::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: transparent;
+}
+
+.dropdown-lf-item, .dropdown-lf-logout {
     color: #4A4641;
-    border-radius: 20px;
-    font-weight: 500;
-    border: none;
-    padding: 6px 20px;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+    padding: 8px 15px !important;
 }
 
-.btn-details-lf:hover {
-    background-color: #4A4641;
-    color: #FFF;
+.dropdown-lf-item:hover {
+    background-color: #A39B93 !important;
+    color: #FFF !important;
 }
 
-.book-img-container {
-    background-color: #F4EFEA;
-    border-radius: 20px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 180px;
+.dropdown-lf-logout {
+    color: #d93025;
+    margin-top: 5px;
+}
+
+.dropdown-lf-logout:hover {
+    background-color: #ffeaea !important;
+    color: #c5221f !important;
 }

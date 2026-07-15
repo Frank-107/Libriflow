@@ -18,7 +18,7 @@
     <h2 class="login-top-bar-title">Iniciar sesión</h2>
 </div>
 
-<form action="iniciar-sesion" method="post" class="login-card">
+<form action="iniciar-sesion" method="post" class="login-card"  onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
 
     <!-- Imagen .jpg agregada en la parte superior del contenedor -->
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">

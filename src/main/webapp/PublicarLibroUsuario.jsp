@@ -24,7 +24,7 @@
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()} ${usuario.getApellidoPaterno()}</div>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()}</div>
                 <small class="text-white-50" style="font-size: 0.8rem;">${usuario.getCorreo()}</small>
             </div>
 
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <form action="publicar-libro-usuario" id="formPublicar"  method="POST" enctype="multipart/form-data">
+                <form action="publicar-libro-usuario" id="formPublicar"  method="POST" enctype="multipart/form-data"  onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
 
                     <div class="mb-4">
                         <label class="form-label-lf">Nombre del libro</label>

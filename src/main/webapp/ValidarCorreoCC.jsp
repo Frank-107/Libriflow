@@ -21,7 +21,7 @@
 <c:if test="${not empty error}">
     <div class="error-msg">${error}</div>
 </c:if>
-<form action="validar-correo-cc" method="POST">
+<form action="validar-correo-cc" method="POST"  onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
     <input type="text" name="codigo" placeholder="Código de verificación" required>
     <br><br>
     <button type="submit">Verificar</button>

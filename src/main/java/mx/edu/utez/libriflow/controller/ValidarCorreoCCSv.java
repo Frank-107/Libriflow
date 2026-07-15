@@ -65,7 +65,7 @@ public class ValidarCorreoCCSv extends HttpServlet {
             session.removeAttribute("codigoVerificacion");
 
             session.setAttribute("mensaje", "Cuenta creada con éxito, ahora inicia sesión.");
-            resp.sendRedirect("indexSv");
+            resp.sendRedirect("index");
 
         } catch (Exception e) {
             System.err.println( e.getMessage());

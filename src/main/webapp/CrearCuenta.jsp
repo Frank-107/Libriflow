@@ -31,7 +31,7 @@
             <div class="error-msg">${error}</div>
         </c:if>
 
-        <form method="post" action="crear-cuenta-usuario">
+        <form method="post" action="crear-cuenta-usuario" onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
             <div class="form-grid">
 
                 <div class="form-group">

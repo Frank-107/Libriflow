@@ -3,18 +3,18 @@ package mx.edu.utez.libriflow.controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
+import mx.edu.utez.libriflow.model.Dao.ImagenDao;
 import mx.edu.utez.libriflow.model.Dao.LibroDao;
 import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
+import mx.edu.utez.libriflow.model.Imagen;
 import mx.edu.utez.libriflow.model.Libro;
-import mx.edu.utez.libriflow.model.Publicacion;
 import mx.edu.utez.libriflow.model.PublicacionUsuario;
+import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.PrivateKey;
 
 @WebServlet(name = "PublicarLibroUsuarioSv", value = "/publicar-libro-usuario")
 @MultipartConfig(
@@ -23,6 +23,13 @@ import java.io.IOException;
         maxRequestSize = 1024 * 1024 * 20 // 20 MB (3 imágenes)
 )
 public class PublicarLibroUsuarioSv extends HttpServlet {
+    private final PublicacionUsuarioDao publicacionDao = new PublicacionUsuarioDao();
+    private final LibroDao libroDao = new LibroDao();
+    private final ImagenDao imagenDao = new ImagenDao();
+
+
+
+
 
 
 
@@ -37,6 +44,8 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        //Pendiente: implementar transacciones (commit/rollback) utilizando una única conexión
+        // compartida entre los DAO para garantizar la consistencia de la publicación.
 
 
         try {
@@ -59,8 +68,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
             String rutaImagen3 = guardarImagen(imagen3);
 
 
-            LibroDao libroDao = new LibroDao();
-            PublicacionUsuarioDao publicacionDao = new PublicacionUsuarioDao();
             // 1. Crear libro
             Libro libro = new Libro(
                     titulo,
@@ -80,17 +87,13 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
 
 
             // 2. Crear publicación
-
-
+            Usuario usuario = (Usuario) req.getSession(false).getAttribute("usuario");
+            int idUsuario = usuario.getId();
+            PublicacionUsuario publicacion = new PublicacionUsuario();
+            publicacion.setIdUsuario(idUsuario);
             publicacion.setIdLibro(idLibro);
-
-            publicacion.setFechaPublicacion(
-                    LocalDate.now().toString()
-            );
-
-            publicacion.setEstado("ACTIVO");
-            publicacion.setTipoServicio("RENTA");
             publicacion.setPrecio(precio);
+            publicacion.setSinopsis(sinopsis);
 
 
 
@@ -99,20 +102,34 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
 
 
             if(idPublicacion == -1){
-                throw new Exception("No se pudo guardar la publicación");
+                throw new Exception("No se pudo guardar la publicación intentalo nuevamente ");
             }
 
 
 
 
             // 3. Guardar imágenes
+            Imagen objetoImagen1 = new Imagen(idPublicacion, rutaImagen1);
+            Imagen objetoImagen2 = new Imagen(idPublicacion, rutaImagen2);
+            Imagen objetoImagen3 = new Imagen(idPublicacion, rutaImagen3);
 
-            imagenDao.create(idPublicacion, rutaImagen1);
-            imagenDao.create(idPublicacion, rutaImagen2);
-            imagenDao.create(idPublicacion, rutaImagen3);
+            if(
+                    !imagenDao.createUs(objetoImagen1)||
+                    !imagenDao.createUs(objetoImagen2)||
+                    !imagenDao.createUs(objetoImagen3)
+            ){
+                throw new RuntimeException("No se pudo guardar la imagen");
+            }
 
 
+            System.out.println("========== PUBLICACIÓN EXITOSA ==========");
+            System.out.println("ID Libro: " + idLibro);
+            System.out.println("ID Publicación: " + idPublicacion);
+            System.out.println("Título: " + titulo);
+            System.out.println("Usuario: " + idUsuario);
+            System.out.println("=========================================");
 
+            req.getSession(false).setAttribute("mensaje", "Libro publicado exitosamente");
             resp.sendRedirect("publicar-libro-usuario");
 
 
@@ -120,6 +137,7 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
         } catch(Exception e){
 
             e.printStackTrace();
+            System.err.println(e.getMessage());
 
             req.setAttribute(
                     "error",

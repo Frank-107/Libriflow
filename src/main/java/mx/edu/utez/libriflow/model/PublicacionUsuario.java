@@ -4,52 +4,22 @@ public class PublicacionUsuario {
     private int idPublicacionUs;
     private int idUsuario;
     private int idLibro;
-
     private String fechaPublicacion;
     private String estado;
-    private String tipoServicio;
     private double precio;
+    private String sinopsis;
 
 
-    // Constructor vacío
     public PublicacionUsuario() {
     }
 
-
-    // Constructor sin ID (para crear una publicación nueva)
-    public PublicacionUsuario(int idUsuario, int idLibro,
-                              String fechaPublicacion,
-                              String estado,
-                              String tipoServicio,
-                              double precio) {
-
-        this.idUsuario = idUsuario;
-        this.idLibro = idLibro;
-        this.fechaPublicacion = fechaPublicacion;
-        this.estado = estado;
-        this.tipoServicio = tipoServicio;
-        this.precio = precio;
+    public String getSinopsis() {
+        return sinopsis;
     }
 
-
-    // Constructor completo
-    public PublicacionUsuario(int idPublicacionUs,
-                              int idUsuario,
-                              int idLibro,
-                              String fechaPublicacion,
-                              String estado,
-                              String tipoServicio,
-                              double precio) {
-
-        this.idPublicacionUs = idPublicacionUs;
-        this.idUsuario = idUsuario;
-        this.idLibro = idLibro;
-        this.fechaPublicacion = fechaPublicacion;
-        this.estado = estado;
-        this.tipoServicio = tipoServicio;
-        this.precio = precio;
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
-
 
     public int getIdPublicacionUs() {
         return idPublicacionUs;
@@ -93,15 +63,6 @@ public class PublicacionUsuario {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-
-    public String getTipoServicio() {
-        return tipoServicio;
-    }
-
-    public void setTipoServicio(String tipoServicio) {
-        this.tipoServicio = tipoServicio;
     }
 
 

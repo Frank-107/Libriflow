@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="es">
@@ -88,6 +89,12 @@
                         <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" style="height: 35px; width: auto;">
                     </div>
                 </div>
+                <c:if test="${not empty mensaje}">
+                    <div class="alert alert-success text-center mb-4" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i> ${mensaje}
+                    </div>
+                    <c:remove var="mensaje" scope="session"/>
+                </c:if>
 
                 <form action="publicar-libro-usuario" id="formPublicar"  method="POST" enctype="multipart/form-data"  onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
 
@@ -111,20 +118,70 @@
                         <label class="form-label-lf">Sipnosis</label>
                         <textarea name="sinopsis" class="form-control form-control-lf rows-3" style="resize: none;" required></textarea>
                     </div>
-
                     <div class="row align-items-end">
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label-lf">Género</label>
+
+                            <select name="genero" class="form-control form-control-lf" required>
+                                <option value="" disabled selected>Selecciona un género</option>
+                                <option value="Novela">Novela</option>
+                                <option value="Fantasía">Fantasía</option>
+                                <option value="Ciencia ficción">Ciencia ficción</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Romance">Romance</option>
+                                <option value="Misterio">Misterio</option>
+                                <option value="Suspenso">Suspenso</option>
+                                <option value="Drama">Drama</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="Historia">Historia</option>
+                                <option value="Biografía">Biografía</option>
+                                <option value="Autobiografía">Autobiografía</option>
+                                <option value="Ciencia">Ciencia</option>
+                                <option value="Tecnología">Tecnología</option>
+                                <option value="Educación">Educación</option>
+                                <option value="Infantil">Infantil</option>
+                                <option value="Poesía">Poesía</option>
+                                <option value="Filosofía">Filosofía</option>
+                                <option value="Religión">Religión</option>
+                                <option value="Cómic">Cómic</option>
+                            </select>
+                        </div>
+
+
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Precio MXN</label>
-                            <input type="number" step="0.01" name="precio" class="form-control form-control-lf" placeholder="$" required>
+
+                            <input
+                                    type="number"
+                                    step="0.01"
+                                    name="precio"
+                                    class="form-control form-control-lf"
+                                    placeholder="$"
+                                    required>
                         </div>
-                        <div class="col-md-6 mb-4">
+
+                    </div>
+
+
+                    <div class="row justify-content-center mb-4">
+
+                        <div class="col-md-8 text-center">
+
                             <label class="form-label-lf">Imágenes del libro</label>
-                            <div>
-                                <button type="button" class="btn btn-action-lf shadow-sm w-100" data-bs-toggle="modal" data-bs-target="#modalSubirImagenes">
-                                    <i class="bi bi-images me-2"></i> Subir 3 imágenes necesarias
-                                </button>
-                            </div>
+
+                            <button
+                                    type="button"
+                                    class="btn btn-action-lf shadow-sm w-100"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalSubirImagenes">
+
+                                <i class="bi bi-images me-2"></i> Subir 3 imágenes necesarias
+
+                            </button>
+
                         </div>
+
                     </div>
 
                     <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">

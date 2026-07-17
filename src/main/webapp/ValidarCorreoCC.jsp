@@ -27,7 +27,6 @@ s
         <div class="login-error">${error}</div>
     </c:if>
 
-    <!-- Textos informativos estilizados en un contenedor flexible -->
     <div style="text-align: left; margin-bottom: 20px; color: #6e6762; font-size: 14px;">
         <p style="margin-bottom: 10px;">
             Hemos enviado un código de verificación al correo:
@@ -39,7 +38,6 @@ s
     </div>
 
     <label for="codigo" class="login-label-pass">Código de verificación:</label>
-    <!-- Se usa 'login-contrasena' para heredar el icono del candado en el input -->
     <input type="text" id="codigo" name="codigo" placeholder="Código de verificación" required class="login-input login-contrasena">
 
     <button type="submit" class="login-btn">Verificar</button>

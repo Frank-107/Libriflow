@@ -8,7 +8,6 @@ public class Usuario {
     private String telefono;
     private int id;
     private String contrasenaHash;
-    private String foto;
 
 
     public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono, String contrasena) {
@@ -76,13 +75,5 @@ public class Usuario {
 
     public void setContrasenaHash(String contrasena) {
         this.contrasenaHash = contrasena;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
     }
 }

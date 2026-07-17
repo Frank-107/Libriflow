@@ -6,13 +6,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import mx.edu.utez.libriflow.model.Dao.IniciarSesionDao;
+import mx.edu.utez.libriflow.model.Dao.CredencialDao;
+import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
 @WebServlet(name = "IniciarSesionSv", value = "/iniciar-sesion")
 public class IniciarSesionSv extends HttpServlet {
-    IniciarSesionDao iniciarSesionDao = new IniciarSesionDao();
+    UsuarioDao usuarioDao = new UsuarioDao();
+    CredencialDao credencialDao = new CredencialDao();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("IniciarSesion.jsp").forward(req, resp);
@@ -23,18 +25,24 @@ public class IniciarSesionSv extends HttpServlet {
             String correo = req.getParameter("correo");
             String contrasena = req.getParameter("contrasena");
 
-            if (iniciarSesionDao.validarCredenciales(correo,contrasena)){
-                HttpSession session = req.getSession(true);
-                Usuario usuario = iniciarSesionDao.obtenerUsuario(correo);
-                session.setAttribute("tipo_usuario", "usuario");
-                session.setAttribute("usuario",usuario);
-                System.out.println("se validaron las credenciales");
-                resp.sendRedirect("Inicio.jsp");
 
-            }else{
-                req.setAttribute("error", "Usuario o contraseña incorrectos. Inténtalo de nuevo.");
-                req.getRequestDispatcher("IniciarSesion.jsp").forward(req, resp);
+            //nuevo if
+            int id_usuario = usuarioDao.getIdUsuario(correo);
+            if (id_usuario != -1){
+                if (credencialDao.validarContrasena(id_usuario, contrasena)) {
+                    HttpSession session = req.getSession(true);
+                    Usuario usuario = usuarioDao.obtenerUsuario(correo);
+                    session.setAttribute("tipo_usuario", "usuario");
+                    session.setAttribute("usuario",usuario);
+                    System.out.println("se validaron las credenciales");
+                    resp.sendRedirect("Inicio.jsp");
+                    return;
+                }
+
             }
+        req.setAttribute("error", "Usuario o contraseña incorrectos. Inténtalo de nuevo.");
+        req.getRequestDispatcher("IniciarSesion.jsp").forward(req, resp);
+        return;
 
     }
 

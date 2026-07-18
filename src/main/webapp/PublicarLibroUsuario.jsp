@@ -96,29 +96,25 @@
                     <c:remove var="mensaje" scope="session"/>
                 </c:if>
 
-                <form action="publicar-libro-usuario" id="formPublicar"  method="POST" enctype="multipart/form-data"  onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
-
-                    <div class="mb-4">
-                        <label class="form-label-lf">Nombre del libro</label>
-                        <input type="text" name="titulo" class="form-control form-control-lf w-100" required>
-                    </div>
+                <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data"
+                      onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
 
                     <div class="row">
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label-lf">Nombre del libro</label>
+                            <input type="text" name="titulo" class="form-control form-control-lf" required>
+                        </div>
+
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Autor</label>
                             <input type="text" name="autor" class="form-control form-control-lf" required>
                         </div>
+
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Editorial</label>
                             <input type="text" name="editorial" class="form-control form-control-lf" required>
                         </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label-lf">Sipnosis</label>
-                        <textarea name="sinopsis" class="form-control form-control-lf rows-3" style="resize: none;" required></textarea>
-                    </div>
-                    <div class="row align-items-end">
 
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Género</label>
@@ -145,87 +141,96 @@
                                 <option value="Filosofía">Filosofía</option>
                                 <option value="Religión">Religión</option>
                                 <option value="Cómic">Cómic</option>
+                                <option value="Cómic">Otro</option>
                             </select>
                         </div>
-
 
                         <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Precio MXN</label>
 
-                            <input
-                                    type="number"
-                                    step="0.01"
-                                    name="precio"
-                                    class="form-control form-control-lf"
-                                    placeholder="$"
-                                    required>
+                            <input type="number"
+                                   step="0.01"
+                                   name="precio"
+                                   class="form-control form-control-lf"
+                                   placeholder="$"
+                                   required>
                         </div>
 
-                    </div>
-
-
-                    <div class="row justify-content-center mb-4">
-
-                        <div class="col-md-8 text-center">
-
+                        <div class="col-md-6 mb-4">
                             <label class="form-label-lf">Imágenes del libro</label>
 
-                            <button
-                                    type="button"
+                            <button type="button"
                                     class="btn btn-action-lf shadow-sm w-100"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalSubirImagenes">
 
-                                <i class="bi bi-images me-2"></i> Subir 3 imágenes necesarias
+                                <i class="bi bi-images me-2"></i>
+                                Subir 3 imágenes necesarias
 
                             </button>
+                        </div>
 
+                        <div class="col-12 mb-4">
+                            <label class="form-label-lf">Sipnosis</label>
+
+                            <textarea name="sinopsis"
+                                      class="form-control form-control-lf"
+                                      rows="5"
+                                      style="resize:none;"
+                                      required></textarea>
                         </div>
 
                     </div>
 
-                    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
-                        <button type="submit" class="btn btn-action-lf shadow-sm">Publicar</button>
-                        <button type="button" class="btn btn-preview-lf shadow-sm">Vista Previa</button>
-                    </div>
+                    <div class="text-center mt-4 mb-3">
+                        <button type="submit" class="btn btn-action-lf shadow-sm">
+                            Publicar
+                        </button>
+                    </div>    <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                            <div class="modal-header bg-lf-dark text-white p-3">
+                                <h5 class="modal-title fw-bold" id="modalImagenesLabel">
+                                    <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas
+                                </h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
 
-                    <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
-                                <div class="modal-header bg-lf-dark text-white p-3">
-                                    <h5 class="modal-title fw-bold" id="modalImagenesLabel">
-                                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas
-                                    </h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body p-4 bg-light">
-                                    <div class="row">
-                                        <div class="col-12 mb-4">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                1. Portada (Principal)
-                                            </label>
-                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5" >
-                                        </div>
-                                        <div class="col-12 mb-4">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                2. Reverso / Contraportada
-                                            </label>
-                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5" >
-                                        </div>
-                                        <div class="col-12 mb-2">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                3. Estado general / Páginas
-                                            </label>
-                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5" >
-                                        </div>
+                            <div class="modal-body p-4 bg-light">
+                                <div class="row">
+
+                                    <div class="col-12 mb-4">
+                                        <label class="form-label-lf small fw-bold mb-2">
+                                            1. Portada (Principal)
+                                        </label>
+                                        <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5">
                                     </div>
+
+                                    <div class="col-12 mb-4">
+                                        <label class="form-label-lf small fw-bold mb-2">
+                                            2. Reverso / Contraportada
+                                        </label>
+                                        <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5">
+                                    </div>
+
+                                    <div class="col-12 mb-2">
+                                        <label class="form-label-lf small fw-bold mb-2">
+                                            3. Estado general / Páginas
+                                        </label>
+                                        <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5">
+                                    </div>
+
                                 </div>
-                                <div class="modal-footer bg-white p-2">
-                                    <button type="button" class="btn btn-action-lf shadow-sm px-4" data-bs-dismiss="modal">Listo</button>
-                                </div>
+                            </div>
+
+                            <div class="modal-footer bg-white p-2">
+                                <button type="button" class="btn btn-action-lf shadow-sm px-4" data-bs-dismiss="modal">
+                                    Listo
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
 
                 </form>
             </div>

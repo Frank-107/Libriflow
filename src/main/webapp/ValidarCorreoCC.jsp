@@ -20,7 +20,6 @@ s
 
 <form action="validar-correo-cc" method="POST" class="login-card" onsubmit="this.querySelector('.login-btn').disabled=true; this.querySelector('.login-btn').value='Enviando...';">
 
-    <!-- Imagen .jpg agregada en la parte superior del contenedor -->
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
 
     <c:if test="${not empty error}">

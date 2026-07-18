@@ -39,4 +39,4 @@ build/
 .DS_Store
 /.idea/
 /src/main/resources/
-/.ai/
+src/main/resources-1/

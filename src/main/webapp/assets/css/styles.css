@@ -764,3 +764,12 @@ body {
     max-width: 100%;
     display: block;
 }
+
+.btn-login-style:not(:disabled) {
+    background-color: #4A4641 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+}
+
+.btn-login-style:hover:not(:disabled) {
+    background-color: #3A3733 !important;
+}

@@ -1,43 +1,39 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("formActualizarPerfil");
-    const btnSubmit = document.getElementById("btnActualizarForm");
+    const formulario = document.getElementById("formActualizarPerfil");
+    const btnGuardar = document.getElementById("btnActualizarForm");
     const btnConfirmar = document.getElementById("btnConfirmarSubmit");
-    const modalElement = document.getElementById('modalConfirmarActualizacion');
+    const ventanaModal = document.getElementById("modalConfirmarActualizacion");
 
-    if(form && btnSubmit && modalElement) {
-        const modalConfirmacion = new bootstrap.Modal(modalElement);
-        const inputs = form.querySelectorAll("input");
-        const initialValues = {};
+    if (!formulario || !btnGuardar || !btnConfirmar || !ventanaModal) return;
 
-        // 1. Guardar estado inicial de los campos
+    const modal = new bootstrap.Modal(ventanaModal);
+    const inputs = formulario.querySelectorAll("input");
+    const valoresIniciales = {};
+
+    inputs.forEach(input => {
+        valoresIniciales[input.name] = input.value;
+    });
+
+    formulario.addEventListener("input", function() {
+        let hayCambios = false;
+
         inputs.forEach(input => {
-            initialValues[input.name] = input.value;
+            if (input.value !== valoresIniciales[input.name]) {
+                hayCambios = true;
+            }
         });
 
-        // 2. Escuchar cambios en el formulario
-        form.addEventListener("input", function() {
-            let hasChanged = false;
-            inputs.forEach(input => {
-                if (input.value !== initialValues[input.name]) {
-                    hasChanged = true;
-                }
-            });
+        btnGuardar.disabled = !hayCambios;
+    });
 
-            // Habilitar o deshabilitar botón dependiendo si hubo cambios
-            btnSubmit.disabled = !hasChanged;
-        });
+    formulario.addEventListener("submit", function(e) {
+        e.preventDefault();
+        modal.show();
+    });
 
-        // 3. Interceptar el submit del formulario para mostrar el Modal
-        form.addEventListener("submit", function(e) {
-            e.preventDefault(); // Detenemos el envío
-            modalConfirmacion.show(); // Mostramos nuestro modal
-        });
-
-        // 4. Si el usuario confirma en el modal, enviamos el formulario
-        btnConfirmar.addEventListener("click", function() {
-            btnConfirmar.disabled = true;
-            btnConfirmar.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Actualizando...';
-            form.submit(); // Enviamos el formulario de verdad
-        });
-    }
+    btnConfirmar.addEventListener("click", function() {
+        btnConfirmar.disabled = true;
+        btnConfirmar.innerHTML = 'Actualizando...';
+        formulario.submit();
+    });
 });

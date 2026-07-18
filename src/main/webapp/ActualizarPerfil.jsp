@@ -153,7 +153,7 @@
             </div>
           </div>
 
-          <button type="submit" id="btnActualizarForm" class="btn btn-action-lf shadow-sm w-100 py-2.5 fs-6 mt-3" disabled>
+          <button type="submit" id="btnActualizarForm" class="btn btn-action-lf btn-login-style shadow-sm w-100 py-2.5 fs-6 mt-3" disabled>
             Actualizar
           </button>
 
@@ -165,18 +165,29 @@
 
 <div class="modal fade" id="modalConfirmarActualizacion" tabindex="-1" aria-labelledby="modalConfirmarLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow-lg" style="border-radius: 25px; background-color: #2D2A26; color: #FFF; border: none;">
-      <div class="modal-header border-0 pb-0">
-        <h5 class="modal-title fw-bold" id="modalConfirmarLabel"><i class="bi bi-exclamation-circle me-2 text-warning"></i> Confirmar cambios</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-content shadow-lg" style="border-radius: 40px; background-color: #e3ded7; color: #4A4641; border: none;">
+
+      <div class="modal-header border-0 pb-0 position-relative">
+        <h5 class="modal-title fw-bold w-100 text-center" id="modalConfirmarLabel" style="color: #4A4641;">
+          <i class="bi bi-question-circle me-2" style="color: #7A746E;"></i> Confirmar cambios
+        </h5>
+        <button type="button" class="btn-close position-absolute end-0 me-4 mt-2" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body py-4 text-center">
-        <p class="mb-0 fs-6">¿Estás seguro de que deseas actualizar los datos de tu perfil?</p>
+        <p class="mb-0 fs-6 fw-medium" style="color: #6e6762;">¿Estás seguro de que deseas actualizar los datos de tu perfil?</p>
       </div>
+
       <div class="modal-footer border-0 pt-0 d-flex justify-content-center gap-3">
-        <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal" style="font-weight: 600;">Cancelar</button>
-        <button type="button" class="btn btn-warning rounded-pill px-4" id="btnConfirmarSubmit" style="font-weight: 600;">Sí, actualizar</button>
+        <button type="button" class="btn bg-lf-capsule btn-lf-pill" data-bs-dismiss="modal" style="font-weight: 600; padding: 12px 30px; border-radius: 25px;">
+          Cancelar
+        </button>
+
+        <button type="button" class="btn btn-action-lf btn-login-style" id="btnConfirmarSubmit" style="font-weight: 600; padding: 12px 30px; border-radius: 25px; margin: 0;">
+          Sí, actualizar
+        </button>
       </div>
+
     </div>
   </div>
 </div>

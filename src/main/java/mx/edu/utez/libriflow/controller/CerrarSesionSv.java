@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "Cerrar_sesionSV", value = "/logout")
+@WebServlet(name = "Cerrar_sesionSV", value = "/cerrar-sesion")
 public class CerrarSesionSv extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

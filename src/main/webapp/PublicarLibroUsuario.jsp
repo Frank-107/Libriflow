@@ -41,7 +41,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-logout" href="logout">
+                        <a class="dropdown-item py-2 dropdown-lf-logout" href="cerrar-sesion">
                             <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
                         </a>
                     </li>

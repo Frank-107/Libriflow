@@ -106,7 +106,22 @@ public class UsuarioDao {
     }
 
     public boolean update(Usuario entidad) {
-        return false;
+        String sql = "UPDATE Usuario SET nombre = ?, apellido_paterno = ?, apellido_materno = ?, telefono = ? WHERE Id_Usuario = ?";
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)){
+
+            ps.setString(1, entidad.getNombre());
+            ps.setString(2, entidad.getApellidoPaterno());
+            ps.setString(3, entidad.getApellidoMaterno());
+            ps.setString(4, entidad.getTelefono());
+            ps.setInt(5, entidad.getId());
+
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean delete(Integer id) {

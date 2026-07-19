@@ -44,7 +44,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-logout" href="logout">
+                        <a class="dropdown-item py-2 dropdown-lf-logout" href="cerrar-sesion">
                             <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
                         </a>
                     </li>
@@ -80,11 +80,46 @@
         </aside>
 
         <main class="col-12 col-md-8 col-lg-9">
-            <div class="position-relative mb-4">
-                <i class="bi bi-search search-icon-inside"></i>
-                <input type="text" class="form-control search-bar-lf shadow-sm" placeholder="Buscar">
-            </div>
+            <div class="d-flex gap-3 mb-4 align-items-center">
+                <div class="position-relative flex-grow-1">
+                    <i class="bi bi-search search-icon-inside"></i>
+                    <input type="text" class="form-control search-bar-lf shadow-sm" placeholder="Buscar libros, autores...">
+                </div>
+                <div class="dropdown">
+                    <button class="btn bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
+                            type="button"
+                            id="filtroGenerosDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="width: 46px; height: 46px; transition: all 0.2s; color: #4A4641;">
+                        <i class="bi bi-sliders fs-5"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 dropdown-menu-filter" aria-labelledby="filtroGenerosDropdown">
+                        <li class="dropdown-header fw-bold text-secondary border-bottom pb-2 mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">FILTRAR POR GÉNERO</li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Novela</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Fantasía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia ficción</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Terror</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Romance</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Misterio</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Suspenso</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Drama</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Aventura</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Historia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Biografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Autobiografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Tecnología</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Educación</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Infantil</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Poesía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Filosofía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Religión</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Cómic</a></li>
+                    </ul>
+                </div>
 
+            </div>
             <div class="row g-4">
                 <div class="col-12">
                     <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">

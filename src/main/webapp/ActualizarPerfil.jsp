@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="es">
 <head>
@@ -31,12 +32,12 @@
 
       <div class="dropdown">
         <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer;">
-          <i class="bi bi-person fs-4 text-dark"></i>
+          <i class="bi bi-person-fill fs-4 text-dark"></i>
         </div>
 
         <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
           <li>
-            <a class="dropdown-item py-2 dropdown-lf-logout" href="logout">
+            <a class="dropdown-item py-2 dropdown-lf-logout" href="cerrar-sesion">
               <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
             </a>
           </li>
@@ -79,6 +80,20 @@
 
         <form action="actualizar-perfil" id="formActualizarPerfil" method="POST">
 
+          <c:if test="${not empty error}">
+            <div class="alert alert-danger alert-dismissible fade show rounded-4 mb-4 text-center shadow-sm fw-medium" role="alert" style="border: none; background-color: #f8d7da; color: #842029;">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i> ${error}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </c:if>
+
+          <c:if test="${not empty exito}">
+            <div class="alert alert-success alert-dismissible fade show rounded-4 mb-4 text-center shadow-sm fw-medium" role="alert" style="border: none; background-color: #d1e7dd; color: #0f5132;">
+              <i class="bi bi-check-circle-fill me-2"></i> ${exito}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          </c:if>
+
           <div class="text-center mb-4">
             <div class="position-relative d-inline-block mt-2">
               <div class="perfil-avatar mx-auto shadow-sm" style="cursor: default;">
@@ -111,7 +126,7 @@
 
           <h6 class="fw-bold mb-3 mt-4" style="color: #4A4641;"><i class="bi bi-person-vcard me-2"></i>Datos Personales</h6>
           <div class="row g-3 mb-4">
-            <div class="col-12 col-md-6">
+            <div class="col-12" style="grid-column: span 2;">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Nombre(s)</label>
               <input type="text" name="nombre" value="${usuario.getNombre() != null ? usuario.getNombre() : ''}" class="form-control form-control-lf" required>
             </div>
@@ -131,11 +146,11 @@
           <div class="row g-3 mb-4">
             <div class="col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Correo electrónico</label>
-              <input type="email" name="correo" value="${usuario.getCorreo() != null ? usuario.getCorreo() : ''}" class="form-control form-control-lf" required>
+              <input type="email" name="correo" value="${usuario.getCorreo() != null ? usuario.getCorreo() : ''}" class="form-control form-control-lf bg-light text-muted" readonly>
             </div>
             <div class="col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Teléfono</label>
-              <input type="tel" name="telefono" value="${usuario.getTelefono() != null ? usuario.getTelefono() : ''}" class="form-control form-control-lf">
+              <input type="number" name="telefono" value="${usuario.getTelefono() != null ? usuario.getTelefono() : ''}" class="form-control form-control-lf">
             </div>
           </div>
 

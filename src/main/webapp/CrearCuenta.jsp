@@ -36,12 +36,11 @@
         <form method="post" action="crear-cuenta-usuario"
               onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
 
-            <!-- SECCIÓN 1: DATOS PERSONALES -->
             <div class="form-section-title">
                 <i class="bi bi-person-vcard me-2"></i> Datos Personales
             </div>
             <div class="form-grid">
-                <div class="form-group">
+                <div class="form-group" style="grid-column: span 2;">
                     <label for="nombre">Nombre(s)</label>
                     <input type="text" id="nombre" name="nombre" value="${param.nombre}" required>
                 </div>
@@ -55,7 +54,6 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN 2: CONTACTO -->
             <div class="form-section-title">
                 <i class="bi bi-envelope-at me-2"></i> Información de Contacto
             </div>
@@ -68,13 +66,8 @@
                     <label for="correo">Correo electrónico</label>
                     <input type="email" id="correo" name="correo" value="${param.correo}" required>
                 </div>
-                <div class="form-group">
-                    <label for="correo2">Confirmar correo electrónico</label>
-                    <input type="email" id="correo2" name="correo2" value="${param.correo2}" required>
-                </div>
             </div>
 
-            <!-- SECCIÓN 3: SEGURIDAD -->
             <div class="form-section-title">
                 <i class="bi bi-shield-lock me-2"></i> Seguridad
             </div>

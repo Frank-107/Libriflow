@@ -78,22 +78,22 @@
 
       <div class="perfil-card-container mt-2">
 
+        <c:if test="${not empty error}">
+          <div class="libri-toast libri-toast-error">
+            <i class="bi bi-exclamation-circle-fill fs-5"></i>
+            <span><c:out value="${error}" escapeXml="true" /></span>
+          </div>
+        </c:if>
+
+        <c:if test="${not empty exito}">
+          <div class="libri-toast libri-toast-success">
+            <i class="bi bi-check-circle-fill fs-5"></i>
+            <span><c:out value="${exito}" escapeXml="true" /></span>
+          </div>
+        </c:if>
+
+
         <form action="actualizar-perfil" id="formActualizarPerfil" method="POST">
-
-          <c:if test="${not empty error}">
-            <div class="alert alert-danger alert-dismissible fade show rounded-4 mb-4 text-center shadow-sm fw-medium" role="alert" style="border: none; background-color: #f8d7da; color: #842029;">
-              <i class="bi bi-exclamation-triangle-fill me-2"></i> ${error}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          </c:if>
-
-          <c:if test="${not empty exito}">
-            <div class="alert alert-success alert-dismissible fade show rounded-4 mb-4 text-center shadow-sm fw-medium" role="alert" style="border: none; background-color: #d1e7dd; color: #0f5132;">
-              <i class="bi bi-check-circle-fill me-2"></i> ${exito}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          </c:if>
-
           <div class="text-center mb-4">
             <div class="position-relative d-inline-block mt-2">
               <div class="perfil-avatar mx-auto shadow-sm" style="cursor: default;">
@@ -209,6 +209,6 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/ActualizarPerfil.js"></script>
-
+<script src="assets/js/Notificacion.js"></script>
 </body>
 </html>

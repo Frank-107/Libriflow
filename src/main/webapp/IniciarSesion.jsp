@@ -9,6 +9,7 @@
     <title>Libriflow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css">
 </head>
 <body class="login-body">
@@ -20,12 +21,15 @@
 
 <form action="iniciar-sesion" method="post" class="login-card"  onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
 
+    <c:if test="${not empty error}">
+        <div class="libri-toast libri-toast-error">
+            <i class="bi bi-exclamation-circle-fill fs-5"></i>
+            <span><c:out value="${error}" escapeXml="true" /></span>
+        </div>
+    </c:if>
+
     <!-- Imagen .jpg agregada en la parte superior del contenedor -->
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
-
-    <c:if test="${not empty error}">
-        <div class="login-error">${error}</div>
-    </c:if>
 
     <label for="correo" class="login-label-email">Correo:</label>
     <input type="email" id="correo" name="correo" value="${param.correo}" required class="login-input login-correo" placeholder="Ej: 20263ds117@utez.edu.mx">
@@ -42,6 +46,6 @@
     </div>
 
 </form>
-
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

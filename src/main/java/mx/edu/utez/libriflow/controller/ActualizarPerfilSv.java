@@ -37,14 +37,12 @@ public class ActualizarPerfilSv extends HttpServlet {
         String confirmarContrasena = req.getParameter("confirmar_contrasena");
 
 
-        // 1. Validaciones de teléfono
         if (!telefono.matches("\\d{10}")) {
             req.setAttribute("error", "Formato de teléfono inválido.");
             req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
             return;
         }
 
-        // 2. Lógica de Contraseña
         if (nuevaContrasena != null && !nuevaContrasena.trim().isEmpty()) {
 
             if (!nuevaContrasena.equals(confirmarContrasena)) {
@@ -72,7 +70,7 @@ public class ActualizarPerfilSv extends HttpServlet {
                 boolean passActualizada = credencialDao.updateCredencial(usuarioSesion);
 
                 if (!passActualizada) {
-                    req.setAttribute("error", "Ocurrió un problema en el servidor al guardar tu nueva contraseña. Intenta más tarde.");
+                    req.setAttribute("error", "Ocurrió un problema al guardar tu nueva contraseña. Intentalo más tarde.");
                     req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                     return;
                 }

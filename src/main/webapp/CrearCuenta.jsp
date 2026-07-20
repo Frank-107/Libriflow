@@ -30,7 +30,77 @@
         <h3 class="card-title">Crea tu cuenta</h3>
 
         <c:if test="${not empty error}">
-            <div class="error-msg">${error}</div>
+            <!-- 1. Estilos visuales redondeados y posicionamiento -->
+            <style>
+                .libri-toast {
+                    position: fixed;
+                    top: 100px; /* <--- Ajusta este número para subirlo o bajarlo más */
+                    right: 40px; /* Distancia desde la derecha */
+                    background-color: #fca5a5; /* Rosa/rojo suave idéntico a tu interfaz */
+                    color: #b91c1c; /* Texto rojo oscuro */
+                    padding: 10px 20px;
+                    border-radius: 25px; /* Bordes muy redondeados (estilo píldora) */
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    font-family: sans-serif;
+                    font-size: 14px;
+                    font-weight: 600;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px; /* Espacio entre el icono y el texto */
+                    z-index: 9999;
+
+                    /* Animación suave de entrada (deslice de arriba a abajo) */
+                    opacity: 0;
+                    transform: translateY(-20px);
+                    transition: opacity 0.4s ease, transform 0.4s ease;
+                }
+
+                /* Clase para activar la animación */
+                .libri-toast.show {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                .libri-toast svg {
+                    flex-shrink: 0;
+                    stroke: #b91c1c;
+                }
+            </style>
+
+            <!-- 2. Contenedor del Mensaje -->
+            <div id="errorToast" class="libri-toast">
+                <!-- Icono de advertencia en formato SVG (no requiere librerías externas) -->
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+
+                <!-- Texto dinámico de tu error -->
+                <span><c:out value="${error}" escapeXml="true" /></span>
+            </div>
+
+            <!-- 3. Animación y desaparición automática -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const toast = document.getElementById('errorToast');
+
+                    // Aparece suavemente a los 100ms de cargar la página
+                    setTimeout(() => {
+                        toast.classList.add('show');
+                    }, 100);
+
+                    // Se desvanece y se elimina por completo tras 3.5 segundos
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+
+                        // Espera a que termine la animación de desvanecimiento para borrar el HTML
+                        setTimeout(() => {
+                            toast.remove();
+                        }, 400);
+                    }, 3500);
+                });
+            </script>
         </c:if>
 
         <form method="post" action="crear-cuenta-usuario"

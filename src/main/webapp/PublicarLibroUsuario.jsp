@@ -97,7 +97,7 @@
                 </c:if>
 
                 <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data"
-                      onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
+                      onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Enviando...';">
 
                     <div class="row">
 
@@ -160,7 +160,7 @@
                             <label class="form-label-lf">Imágenes del libro</label>
 
                             <button type="button"
-                                    class="btn btn-action-lf shadow-sm w-100"
+                                    class="btn btn-action-lf shadow-sm w-100 btn-submit"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalSubirImagenes">
 
@@ -183,7 +183,7 @@
                     </div>
 
                     <div class="text-center mt-4 mb-3">
-                        <button type="submit" class="btn btn-action-lf shadow-sm">
+                        <button type="submit" class="btn btn-action-lf shadow-sm btn-submit">
                             Publicar
                         </button>
                     </div>    <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">

@@ -1,5 +1,7 @@
 package mx.edu.utez.libriflow.model;
 
+import org.eclipse.tags.shaded.org.apache.xpath.objects.XString;
+
 public class PublicacionResumen {
 
     private int idPublicacion;
@@ -8,9 +10,10 @@ public class PublicacionResumen {
     private String genero;
     private Double precio;
     private String imagenPrincipal;
+    private String estado;
     private boolean esLibriFlow;
 
-    public PublicacionResumen(int idPublicacion, String titulo, String autor, String genero, Double precio, String imagenPrincipal, boolean esLibriFlow) {
+    public PublicacionResumen(int idPublicacion, String titulo, String autor, String genero, Double precio, String imagenPrincipal, boolean esLibriFlow, String estado) {
         this.idPublicacion = idPublicacion;
         this.titulo = titulo;
         this.autor = autor;
@@ -18,6 +21,11 @@ public class PublicacionResumen {
         this.precio = precio;
         this.imagenPrincipal = imagenPrincipal;
         this.esLibriFlow = esLibriFlow;
+        this.estado = estado;
+    }
+
+    public PublicacionResumen() {
+
     }
 
     public boolean isEsLibriFlow() {
@@ -74,5 +82,13 @@ public class PublicacionResumen {
 
     public void setIdPublicacion(int idPublicacion) {
         this.idPublicacion = idPublicacion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

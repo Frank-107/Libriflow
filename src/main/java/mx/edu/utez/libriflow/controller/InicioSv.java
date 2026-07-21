@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 import mx.edu.utez.libriflow.model.PublicacionResumen;
 
 import java.io.IOException;
@@ -12,10 +13,12 @@ import java.util.List;
 
 @WebServlet(name = "InicioSv", value = "/inicio")
 public class InicioSv extends HttpServlet {
+    PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //List<PublicacionResumen> publicaciones = PublicacionResumen.obtenerPublicaciones();
+        List<PublicacionResumen> publicaciones = publicacionUsuarioDao.getResumenCatalogo();
+        req.setAttribute("publicaciones", publicaciones);
         req.getRequestDispatcher("Inicio.jsp").forward(req, resp);
     }
 

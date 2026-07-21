@@ -9,12 +9,13 @@ import java.sql.SQLException;
 
 public class ImagenDao {
 
-    public boolean createUs(Imagen entidad) {
-        String sql = "Insert into imagen(id_publicacion_us, imagen) values(?,?)";
+    public boolean createUs(Imagen entidad, int tipo) {
+        String sql = "Insert into imagen(id_publicacion_us, imagen, tipo) values(?,?,?)";
         try(Connection con = SQLconnector.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);){
             ps.setInt(1, entidad.getIdPublicacionUs());
             ps.setString(2, entidad.getImagen());
+            ps.setInt(3, tipo);
             int filasAfectadas = ps.executeUpdate();
             return filasAfectadas>0;
         }

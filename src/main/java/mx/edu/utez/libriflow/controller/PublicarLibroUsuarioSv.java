@@ -114,9 +114,9 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
             Imagen objetoImagen3 = new Imagen(idPublicacion, rutaImagen3);
 
             if(
-                    !imagenDao.createUs(objetoImagen1)||
-                    !imagenDao.createUs(objetoImagen2)||
-                    !imagenDao.createUs(objetoImagen3)
+                    !imagenDao.createUs(objetoImagen1,1)||
+                    !imagenDao.createUs(objetoImagen2,2)||
+                    !imagenDao.createUs(objetoImagen3,3)
             ){
                 throw new RuntimeException("No se pudo guardar la imagen");
             }

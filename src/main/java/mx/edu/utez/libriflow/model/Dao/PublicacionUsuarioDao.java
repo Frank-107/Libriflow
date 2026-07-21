@@ -45,6 +45,7 @@ public class PublicacionUsuarioDao {
 
         String sql = "SELECT \n" +
                 "    pu.id_publicacion_us,\n" +
+                "    pu.id_usuario,\n" +
                 "    pu.precio,\n" +
                 "    l.titulo,\n" +
                 "    l.autor,\n" +
@@ -69,6 +70,7 @@ public class PublicacionUsuarioDao {
 
                 resumen.setIdPublicacion(rs.getInt("id_publicacion_us"));
                 resumen.setTitulo(rs.getString("titulo"));
+                resumen.setIdPropietario(rs.getInt("id_usuario"));
                 resumen.setAutor(rs.getString("autor"));
                 resumen.setGenero(rs.getString("genero"));
                 resumen.setPrecio(rs.getDouble("precio"));

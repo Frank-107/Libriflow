@@ -11,21 +11,19 @@ public class PublicacionResumen {
     private Double precio;
     private String imagenPrincipal;
     private String estado;
+    private int idPropietario;
     private boolean esLibriFlow;
-
-    public PublicacionResumen(int idPublicacion, String titulo, String autor, String genero, Double precio, String imagenPrincipal, boolean esLibriFlow, String estado) {
-        this.idPublicacion = idPublicacion;
-        this.titulo = titulo;
-        this.autor = autor;
-        this.genero = genero;
-        this.precio = precio;
-        this.imagenPrincipal = imagenPrincipal;
-        this.esLibriFlow = esLibriFlow;
-        this.estado = estado;
-    }
 
     public PublicacionResumen() {
 
+    }
+
+    public int getIdPropietario() {
+        return idPropietario;
+    }
+
+    public void setIdPropietario(int idPropietario) {
+        this.idPropietario = idPropietario;
     }
 
     public boolean isEsLibriFlow() {

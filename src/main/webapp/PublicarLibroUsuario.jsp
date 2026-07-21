@@ -160,7 +160,7 @@
                             <label class="form-label-lf">Imágenes del libro</label>
 
                             <button type="button"
-                                    class="btn btn-action-lf shadow-sm w-100 btn-submit"
+                                    class="btn btn-action-lf shadow-sm w-100"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalSubirImagenes">
 

@@ -79,7 +79,7 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9">
+        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="position-relative mb-4">
                 <i class="bi bi-search search-icon-inside"></i>
                 <input type="text" class="form-control search-bar-lf shadow-sm" placeholder="Buscar">
@@ -97,7 +97,7 @@
                 <c:otherwise>
             <div class="row g-3">
                     <c:forEach var="publicacion" items="${publicaciones}">
-                        <c:if test="${publicacion.idUsuario != sessionScope.usuario.id}">
+                        <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
                         <div class="col-12 col-md-6">
 
                         <article class="card-libro">

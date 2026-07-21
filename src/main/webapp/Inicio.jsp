@@ -79,7 +79,7 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9">
+        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="d-flex gap-3 mb-4 align-items-center">
                 <div class="position-relative flex-grow-1">
                     <i class="bi bi-search search-icon-inside"></i>
@@ -120,14 +120,61 @@
                 </div>
 
             </div>
-            <div class="row g-4">
-                <div class="col-12">
-                    <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
-                        <h4 class="fw-bold text-dark">Poner libros</h4>
-                        <p class="mb-0">Aqui se pondran todos los libros.</p>
+            <c:choose>
+                <c:when test="${empty publicaciones}">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
+                                <h4 class="fw-bold text-dark">No hay ninguna publicacion...</h4>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="row g-3">
+                        <c:forEach var="publicacion" items="${publicaciones}">
+                            <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
+                                <div class="col-12 col-md-6">
+
+                                    <article class="card-libro">
+
+                                        <div class="card-portada">
+                                            <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
+                                        </div>
+
+                                        <div class="card-contenido">
+
+                                            <div class="card-info">
+                                                <h3 class="card-titulo">
+                                                        ${publicacion.titulo}
+                                                </h3>
+
+                                                <p class="card-autor">
+                                                    Autor: ${publicacion.autor}
+                                                </p>
+
+                                                <p class="card-genero">
+                                                    Género: ${publicacion.genero}
+                                                </p>
+
+                                                <p class="card-precio">
+                                                    $${publicacion.precio}
+                                                </p>
+                                            </div>
+
+                                            <button type="button" class="btn-detalles">
+                                                Ver detalles
+                                            </button>
+
+                                        </div>
+
+                                    </article>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </main>
 
     </div>

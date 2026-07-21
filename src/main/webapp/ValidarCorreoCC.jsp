@@ -18,7 +18,7 @@ s
     <h2 class="login-top-bar-title">Verifica tu correo electrónico</h2>
 </div>
 
-<form action="validar-correo-cc" method="POST" class="login-card" onsubmit="this.querySelector('.login-btn').disabled=true; this.querySelector('.login-btn').value='Enviando...';">
+<form action="validar-correo-cc" method="POST" class="login-card" onsubmit="this.querySelector('button[type=submit]').disabled=true; this.querySelector('button[type=submit]').value='Enviando...';">
 
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
 

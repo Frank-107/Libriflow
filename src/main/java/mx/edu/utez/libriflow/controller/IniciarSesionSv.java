@@ -35,7 +35,7 @@ public class IniciarSesionSv extends HttpServlet {
                     session.setAttribute("tipo_usuario", "usuario");
                     session.setAttribute("usuario",usuario);
                     System.out.println("se validaron las credenciales");
-                    resp.sendRedirect("Inicio.jsp");
+                    resp.sendRedirect("inicio");
                     return;
                 }
 

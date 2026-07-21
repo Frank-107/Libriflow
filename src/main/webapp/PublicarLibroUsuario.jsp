@@ -17,7 +17,7 @@
 
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center gap-3">
-            <a href="Inicio.jsp" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
+            <a href="inicio" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
                 <i class="bi bi-arrow-left"></i>
             </a>
             <span class="fw-bold fs-4 tracking-wide">Publicar</span>
@@ -97,7 +97,7 @@
                 </c:if>
 
                 <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data"
-                      onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
+                      onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Enviando...';">
 
                     <div class="row">
 
@@ -183,7 +183,7 @@
                     </div>
 
                     <div class="text-center mt-4 mb-3">
-                        <button type="submit" class="btn btn-action-lf shadow-sm">
+                        <button type="submit" class="btn btn-action-lf shadow-sm btn-submit">
                             Publicar
                         </button>
                     </div>    <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">

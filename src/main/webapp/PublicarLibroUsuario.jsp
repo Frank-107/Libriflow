@@ -16,7 +16,11 @@
 <div class="container-fluid max-width-xl mx-auto">
 
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-2 gap-md-3">
+            <button class="btn text-white d-md-none p-0 border-0 me-1" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+                <i class="bi bi-list" style="font-size: 2rem;"></i>
+            </button>
+
             <a href="inicio" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
                 <i class="bi bi-arrow-left"></i>
             </a>
@@ -53,28 +57,30 @@
     <div class="row g-4">
 
         <aside class="col-12 col-md-4 col-lg-3">
-            <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm">
-                <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-house me-3 fs-5"></i> Inicio
-                </a>
-                <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
-                </a>
-                <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-bag-check me-3 fs-5"></i> Compras
-                </a>
-                <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
-                </a>
-                <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
-                </a>
-                <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
-                </a>
-                <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
-                </a>
+            <div class="collapse d-md-block" id="sidebarMenu">
+                <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
+                    <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-house me-3 fs-5"></i> Inicio
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-bag-check me-3 fs-5"></i> Compras
+                    </a>
+                    <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
+                    </a>
+                </div>
             </div>
         </aside>
 
@@ -101,22 +107,22 @@
 
                     <div class="row">
 
-                        <div class="col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Nombre del libro</label>
                             <input type="text" name="titulo" class="form-control form-control-lf" required>
                         </div>
 
-                        <div class="col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Autor</label>
                             <input type="text" name="autor" class="form-control form-control-lf" required>
                         </div>
 
-                        <div class="col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Editorial</label>
                             <input type="text" name="editorial" class="form-control form-control-lf" required>
                         </div>
 
-                        <div class="col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Género</label>
 
                             <select name="genero" class="form-control form-control-lf" required>
@@ -141,11 +147,11 @@
                                 <option value="Filosofía">Filosofía</option>
                                 <option value="Religión">Religión</option>
                                 <option value="Cómic">Cómic</option>
-                                <option value="Cómic">Otro</option>
+                                <option value="Otro">Otro</option>
                             </select>
                         </div>
 
-                        <div class="col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Precio MXN</label>
 
                             <input type="number"
@@ -156,7 +162,7 @@
                                    required>
                         </div>
 
-                        <div class="col-md-6 mb-4">
+                        <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Imágenes del libro</label>
 
                             <button type="button"
@@ -165,8 +171,7 @@
                                     data-bs-target="#modalSubirImagenes">
 
                                 <i class="bi bi-images me-2"></i>
-                                Subir 3 imágenes necesarias
-
+                                Subir 3 imágenes
                             </button>
                         </div>
 
@@ -183,54 +188,56 @@
                     </div>
 
                     <div class="text-center mt-4 mb-3">
-                        <button type="submit" class="btn btn-action-lf shadow-sm btn-submit">
+                        <button type="submit" class="btn btn-action-lf shadow-sm btn-submit px-5">
                             Publicar
                         </button>
-                    </div>    <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
-                            <div class="modal-header bg-lf-dark text-white p-3">
-                                <h5 class="modal-title fw-bold" id="modalImagenesLabel">
-                                    <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas
-                                </h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
+                    </div>
 
-                            <div class="modal-body p-4 bg-light">
-                                <div class="row">
-
-                                    <div class="col-12 mb-4">
-                                        <label class="form-label-lf small fw-bold mb-2">
-                                            1. Portada (Principal)
-                                        </label>
-                                        <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5">
-                                    </div>
-
-                                    <div class="col-12 mb-4">
-                                        <label class="form-label-lf small fw-bold mb-2">
-                                            2. Reverso / Contraportada
-                                        </label>
-                                        <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5">
-                                    </div>
-
-                                    <div class="col-12 mb-2">
-                                        <label class="form-label-lf small fw-bold mb-2">
-                                            3. Estado general / Páginas
-                                        </label>
-                                        <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5">
-                                    </div>
-
+                    <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
+                                <div class="modal-header bg-lf-dark text-white p-3">
+                                    <h5 class="modal-title fw-bold" id="modalImagenesLabel">
+                                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                            </div>
 
-                            <div class="modal-footer bg-white p-2">
-                                <button type="button" class="btn btn-action-lf shadow-sm px-4" data-bs-dismiss="modal">
-                                    Listo
-                                </button>
+                                <div class="modal-body p-4 bg-light">
+                                    <div class="row">
+
+                                        <div class="col-12 mb-4">
+                                            <label class="form-label-lf small fw-bold mb-2">
+                                                1. Portada (Principal)
+                                            </label>
+                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5">
+                                        </div>
+
+                                        <div class="col-12 mb-4">
+                                            <label class="form-label-lf small fw-bold mb-2">
+                                                2. Reverso / Contraportada
+                                            </label>
+                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5">
+                                        </div>
+
+                                        <div class="col-12 mb-2">
+                                            <label class="form-label-lf small fw-bold mb-2">
+                                                3. Estado general / Páginas
+                                            </label>
+                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer bg-white p-2">
+                                    <button type="button" class="btn btn-action-lf shadow-sm px-4" data-bs-dismiss="modal">
+                                        Listo
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
                 </form>
             </div>

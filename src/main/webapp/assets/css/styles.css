@@ -309,6 +309,33 @@ body {
     .pantalla-registro .card-container {
         padding: 30px 20px;
     }
+    .pantalla-registro .form-group {
+        grid-column: span 1 !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .pantalla-registro .top-bar h1 {
+        font-size: 16px;
+    }
+    .libri-toast {
+        white-space: normal;
+        text-align: center;
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .barra-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .botones {
+        flex-wrap: wrap;
+    }
 }
 
 /* Pantalla de Login */
@@ -499,6 +526,19 @@ body {
     .login-card {
         padding: 26px 22px;
     }
+    .login-top-bar {
+        padding: 0 15px !important;
+    }
+    .login-label-email::before {
+        font-size: 18px;
+    }
+    .login-footer-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .login-logo {
+        max-width: 100px;
+    }
 }
 
 /* Utilidades generales Dashboard */
@@ -547,7 +587,12 @@ body {
 /* Sidebar lateral */
 .rounded-lf-sidebar {
     border-radius: 40px;
-    min-height: 80vh;
+}
+
+@media (min-width: 768px) {
+    .rounded-lf-sidebar {
+        min-height: 80vh;
+    }
 }
 
 .btn-lf-pill {
@@ -805,6 +850,7 @@ body {
     transform: translate(-50%, 0);
 }
 
+/*Color para las notificaciones de exito y error*/
 .libri-toast-error {
     background-color: #fca5a5;
     color: #b91c1c;
@@ -813,4 +859,17 @@ body {
 .libri-toast-success {
     background-color: #86efac;
     color: #15803d;
+}
+/*------------------------------------------*/
+
+@media (max-width: 768px) {
+    .perfil-card-container {
+        padding: 30px 20px;
+    }
+}
+
+@media (min-width: 576px) {
+    .border-start-sm {
+        border-left: 1px solid rgba(108, 117, 125, 0.25);
+    }
 }

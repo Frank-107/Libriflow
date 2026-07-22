@@ -20,6 +20,6 @@ public class CerrarSesionSv extends HttpServlet {
             session.removeAttribute("usuario");
             session.invalidate();
         }
-        response.sendRedirect("IniciarSesion.jsp");
+        response.sendRedirect("index.jsp");
     }
 }

@@ -78,7 +78,6 @@ body {
     z-index: 5;
 }
 
-/* Dropdown Navbar */
 .dropdown {
     position: relative;
 }
@@ -108,11 +107,10 @@ body {
     background-color: #F4EFEA !important;
     border-radius: 25px !important;
     padding: 10px !important;
-    margin-top: 0 !important; /* Se elimina el espacio para evitar que el menú se cierre */
+    margin-top: 0 !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
 }
 
-/* Puente invisible para que no se pierda el hover al bajar el cursor */
 .dropdown-menu-lf::before {
     content: '';
     position: absolute;
@@ -145,6 +143,7 @@ body {
     background-color: #ffeaea !important;
     color: #c5221f !important;
 }
+
 .dropdown-menu-filter {
     max-height: 300px;
     overflow-y: auto;
@@ -152,27 +151,31 @@ body {
     border-radius: 20px !important;
     background-color: #FFFFFF;
     border: 1px solid #EFE5D8 !important;
-    /* FIX: Fuerza al menú a alinearse a la derecha del botón y abrirse hacia la izquierda */
     right: 0 !important;
     left: auto !important;
 }
+
 .dropdown-menu-filter::-webkit-scrollbar {
     width: 6px;
 }
+
 .dropdown-menu-filter::-webkit-scrollbar-thumb {
     background-color: #CBC2B9;
     border-radius: 10px;
 }
+
 .filter-item-lf {
     transition: all 0.2s ease;
     color: #4A4641 !important;
     font-size: 0.95rem;
 }
+
 .filter-item-lf:hover {
     background-color: #F6F1E9 !important;
     color: #6B4F3A !important;
     padding-left: 20px;
 }
+
 .card-libro {
     background-color: #C3BEB5;
     border-radius: 20px;
@@ -250,7 +253,64 @@ body {
 .btn-detalles:hover {
     background-color: #D1CDC4;
 }
+
 .catalogo-scroll {
     height: calc(100vh - 180px);
     overflow-y: auto;
+}
+
+@media (max-width: 767.98px) {
+    .rounded-lf-sidebar {
+        min-height: auto;
+    }
+
+    .catalogo-scroll {
+        height: auto;
+        overflow-y: visible;
+    }
+
+    .card-libro {
+        padding: 12px;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .card-portada img {
+        width: 80px;
+        height: 116px;
+        object-fit: cover;
+    }
+
+    .card-titulo {
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .card-autor,
+    .card-genero {
+        font-size: 0.8rem;
+    }
+
+    .card-precio {
+        font-size: 0.95rem;
+        margin-top: 4px;
+    }
+
+    .btn-detalles {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        margin-top: 8px;
+    }
+
+    header.mb-4 {
+        margin-bottom: 0.75rem !important;
+    }
+
+    .row.g-4 {
+        --bs-gutter-y: 0.5rem;
+    }
+
+    .d-flex.gap-3.mb-4.align-items-center {
+        margin-bottom: 1rem !important;
+    }
 }

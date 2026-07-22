@@ -101,5 +101,52 @@
 
 </div>
 
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-col brand-col">
+      <h3 class="footer-logo">Libriflow</h3>
+      <p class="footer-tagline">Miles de libros a un solo click.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Soporte</h4>
+      <ul>
+        <li><a href="#">Centro de ayuda</a></li>
+        <li><a href="#">Preguntas Frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Legales</h4>
+      <ul>
+        <li><a href="#">Términos y Condiciones</a></li>
+        <li><a href="#">Aviso de Privacidad</a></li>
+        <li><a href="#">Política de reembolsos</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p class="copyright-text">
+      <img src="assets/css/bi/c-circle.svg" alt="Copyright" width="14" height="14">
+      2026 Libriflow. Todos los derechos reservados.
+    </p>
+
+    <div class="social-links">
+      <a href="#" aria-label="Instagram">
+        <img src="assets/css/bi/instagram.svg" alt="Instagram" width="20" height="20">
+      </a>
+      <a href="#" aria-label="X">
+        <img src="assets/css/bi/twitter-x.svg" alt="X" width="20" height="20">
+      </a>
+      <a href="#" aria-label="Facebook">
+        <img src="assets/css/bi/facebook.svg" alt="Facebook" width="20" height="20">
+      </a>
+    </div>
+
+  </div>
+</footer>
 </body>
 </html>

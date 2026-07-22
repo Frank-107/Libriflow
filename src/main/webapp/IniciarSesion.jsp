@@ -19,7 +19,7 @@
     <h2 class="login-top-bar-title">Iniciar sesión</h2>
 </div>
 
-<form action="iniciar-sesion" method="post" class="login-card"  onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
+<form action="iniciar-sesion" method="post" class="login-card"  onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Iniciando sesión...';">
 
     <c:if test="${not empty error}">
         <div class="libri-toast libri-toast-error">
@@ -37,7 +37,7 @@
     <label for="contrasena" class="login-label-pass">Contraseña:</label>
     <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required class="login-input login-contrasena" placeholder="Ej: 12345678">
 
-    <button type="submit" class="login-btn">Iniciar sesión </button>
+    <button type="submit" class="btn btn-action-lf shadow-sm btn-submit">Iniciar sesión </button>
     <br class="login-br">
 
     <div class="login-footer-row">
@@ -46,6 +46,7 @@
     </div>
 
 </form>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

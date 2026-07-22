@@ -38,7 +38,11 @@ body {
 }
 .rounded-lf-sidebar {
     border-radius: 40px;
-    min-height: 80vh;
+}
+@media (min-width: 768px) {
+    .rounded-lf-sidebar {
+        min-height: 80vh;
+    }
 }
 .btn-lf-pill {
     border-radius: 20px;

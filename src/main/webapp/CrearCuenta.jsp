@@ -40,7 +40,7 @@
         </c:if>
 
         <form method="post" action="crear-cuenta-usuario"
-              onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
+              onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Registrando...';">
 
             <div class="form-section-title">
                 <i class="bi bi-person-vcard me-2"></i> Datos Personales
@@ -88,13 +88,14 @@
                 </div>
             </div>
 
-            <input type="submit" class="btn-submit" style="margin-top: 20px;" value="Registrar">
+            <button type="submit" class="btn btn-action-lf shadow-sm btn-submit" style="margin-top: 20px;">Registrar</button>
 
             <a href="iniciar-sesion" class="login-redirect">¿Ya tienes una cuenta? Inicia sesión</a>
         </form>
     </div>
 
 </div>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

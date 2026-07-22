@@ -18,6 +18,9 @@
 
   <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
     <div class="d-flex align-items-center gap-3">
+      <button class="btn text-white p-0 d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuLateral" aria-expanded="false" aria-controls="menuLateral">
+        <i class="bi bi-list fs-1"></i>
+      </button>
       <a href="inicio" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-left"></i>
       </a>
@@ -49,28 +52,30 @@
   <div class="row g-4">
 
     <aside class="col-12 col-md-4 col-lg-3">
-      <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm">
-        <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-          <i class="bi bi-house me-3 fs-5"></i> Inicio
-        </a>
-        <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-          <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
-        </a>
-        <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-          <i class="bi bi-bag-check me-3 fs-5"></i> Compras
-        </a>
-        <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-          <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
-        </a>
-        <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-          <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
-        </a>
-        <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-          <i class="bi bi-book me-3 fs-5"></i> Mis rentas
-        </a>
-        <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-          <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
-        </a>
+      <div class="collapse d-md-block" id="menuLateral">
+        <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
+          <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-house me-3 fs-5"></i> Inicio
+          </a>
+          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
+          </a>
+          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-bag-check me-3 fs-5"></i> Compras
+          </a>
+          <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
+          </a>
+          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
+          </a>
+          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-book me-3 fs-5"></i> Mis rentas
+          </a>
+          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
+          </a>
+        </div>
       </div>
     </aside>
 

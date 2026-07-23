@@ -29,11 +29,18 @@
     </div>
 
     <c:if test="${not empty sessionScope.mensaje}">
-      <div class="alert-mensaje">${sessionScope.mensaje}</div>
+      <div class="libri-toast libri-toast-success">
+        <i class="bi bi-check-circle-fill fs-5"></i>
+        <span><c:out value="${sessionScope.mensaje}" escapeXml="true" /></span>
+      </div>
       <c:remove var="mensaje" scope="session"/>
     </c:if>
+
     <c:if test="${not empty sessionScope.error}">
-      <div class="alert-error">${sessionScope.error}</div>
+      <div class="libri-toast libri-toast-error">
+        <i class="bi bi-exclamation-circle-fill fs-5"></i>
+        <span><c:out value="${sessionScope.error}" escapeXml="true" /></span>
+      </div>
       <c:remove var="error" scope="session"/>
     </c:if>
 
@@ -148,5 +155,6 @@
 
   </div>
 </footer>
+<script src="assets/js/Notificacion.js"></script>
 </body>
 </html>

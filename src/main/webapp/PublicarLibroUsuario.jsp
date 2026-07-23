@@ -96,8 +96,9 @@
                     </div>
                 </div>
                 <c:if test="${not empty mensaje}">
-                    <div class="alert alert-success text-center mb-4" role="alert">
-                        <i class="bi bi-check-circle-fill me-2"></i> ${mensaje}
+                    <div class="libri-toast libri-toast-success">
+                        <i class="bi bi-check-circle-fill fs-5"></i>
+                        <span><c:out value="${mensaje}" escapeXml="true" /></span>
                     </div>
                     <c:remove var="mensaje" scope="session"/>
                 </c:if>
@@ -247,5 +248,6 @@
 </div>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/Publicar.js"></script>
+<script src="assets/js/Notificacion.js"></script>
 </body>
 </html>

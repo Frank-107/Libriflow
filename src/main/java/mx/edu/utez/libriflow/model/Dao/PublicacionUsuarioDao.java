@@ -1,6 +1,7 @@
 package mx.edu.utez.libriflow.model.Dao;
 import mx.edu.utez.libriflow.model.PublicacionResumen;
 import mx.edu.utez.libriflow.model.PublicacionUsuario;
+import mx.edu.utez.libriflow.model.PublicacionUsuarioCompleta;
 import mx.edu.utez.libriflow.utils.SQLconnector;
 
 import java.sql.Connection;
@@ -85,6 +86,102 @@ public class PublicacionUsuarioDao {
         }
 
         return lista;
+    }
+
+    public PublicacionUsuarioCompleta getPublicacionUsuarioCompleta(int id) {
+
+        String sql = """
+            SELECT
+                pu.id_publicacion_us,
+                pu.id_usuario,
+                pu.id_libro,
+                pu.fecha,
+                pu.sinopsis,
+                pu.precio,
+                pu.estado,
+
+                li.titulo,
+                li.autor,
+                li.editorial,
+                li.genero,
+
+                im.tipo,
+                im.imagen
+
+            FROM publicacion_us pu
+
+            JOIN libro li
+                ON pu.id_libro = li.id_libro
+
+            JOIN imagen im
+                ON im.id_publicacion_us = pu.id_publicacion_us
+
+            WHERE pu.id_publicacion_us = ?
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                PublicacionUsuarioCompleta publicacion = null;
+
+                while (rs.next()) {
+
+                    if (publicacion == null) {
+
+                        publicacion = new PublicacionUsuarioCompleta();
+
+                        publicacion.setIdPublicacion(rs.getInt("id_publicacion_us"));
+                        publicacion.setIdPropietario(rs.getInt("id_usuario"));
+                        publicacion.setIdLibro(rs.getInt("id_libro"));
+
+                        publicacion.setFecha(
+                                rs.getTimestamp("fecha").toLocalDateTime()
+                        );
+
+                        publicacion.setTitulo(rs.getString("titulo"));
+                        publicacion.setAutor(rs.getString("autor"));
+                        publicacion.setEditorial(rs.getString("editorial"));
+                        publicacion.setGenero(rs.getString("genero"));
+
+                        publicacion.setSinopsis(rs.getString("sinopsis"));
+                        publicacion.setPrecio(rs.getDouble("precio"));
+                        publicacion.setEstado(rs.getString("estado"));
+                    }
+
+                    switch (rs.getInt("tipo")) {
+
+                        case 1:
+                            publicacion.setImagenPrincipal(
+                                    rs.getString("imagen")
+                            );
+                            break;
+
+                        case 2:
+                            publicacion.setImagenReverso(
+                                    rs.getString("imagen")
+                            );
+                            break;
+
+                        case 3:
+                            publicacion.setImagenInterior(
+                                    rs.getString("imagen")
+                            );
+                            break;
+                    }
+                }
+
+                return publicacion;
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<PublicacionUsuario> getAll() {

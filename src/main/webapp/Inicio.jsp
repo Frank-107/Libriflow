@@ -167,9 +167,10 @@
                                                 </p>
                                             </div>
 
-                                            <button type="button" class="btn-detalles">
+                                            <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
+                                               class="btn-detalles">
                                                 Ver detalles
-                                            </button>
+                                            </a>
 
                                         </div>
 

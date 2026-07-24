@@ -239,6 +239,7 @@ body {
 
 .btn-detalles {
     align-self: flex-end;
+    text-decoration: none;
     margin-top: 12px;
     background-color: #E2DFD8;
     color: #333333;

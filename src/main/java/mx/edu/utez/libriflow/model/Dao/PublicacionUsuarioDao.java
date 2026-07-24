@@ -9,13 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PublicacionUsuarioDao {
 
 
     public int create(PublicacionUsuario entidad){
-        String sql = "INSERT INTO Publicacion_Us(id_usuario, id_libro, sinopsis, precio) VALUES( ?, ?, ?, ?)";
+        String sql = "INSERT INTO Publicacion_Us(id_usuario, id_libro, sinopsis, precio, estado) VALUES( ?, ?, ?, ?,?)";
 
         try(Connection con = SQLconnector.getConnection();
         PreparedStatement ps = con.prepareStatement(sql, new String[] {"id_publicacion_us"});){
@@ -23,6 +24,7 @@ public class PublicacionUsuarioDao {
             ps.setInt(2,entidad.getIdLibro());
             ps.setString(3,entidad.getSinopsis());
             ps.setDouble(4,entidad.getPrecio());
+            ps.setString(5,"PENDIENTE");
 
             int filasAfectadas = ps.executeUpdate();
             if(filasAfectadas == 0) throw new SQLException("No se pudo insertar la publicación del usuario.");
@@ -40,7 +42,7 @@ public class PublicacionUsuarioDao {
     }
 
 
-    public List<PublicacionResumen> getResumenCatalogo() {
+    public List<PublicacionResumen> getResumenPublicacionesUs(String estado) {
 
         List<PublicacionResumen> lista = new ArrayList<>();
 
@@ -59,12 +61,13 @@ public class PublicacionUsuarioDao {
                 "JOIN imagen i \n" +
                 "    ON pu.id_publicacion_us = i.id_publicacion_us\n" +
                 "WHERE i.tipo = 1\n" +
-                "AND pu.estado = 'ACTIVO'";
+                "AND pu.estado = ?";
 
         try (Connection con = SQLconnector.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = con.prepareStatement(sql);) {
 
+             ps.setString(1, estado);
+             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
 
                 PublicacionResumen resumen = new PublicacionResumen();
@@ -80,6 +83,7 @@ public class PublicacionUsuarioDao {
 
                 lista.add(resumen);
             }
+            rs.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -183,6 +187,103 @@ public class PublicacionUsuarioDao {
             return null;
         }
     }
+
+    public List<PublicacionResumen> getPublicacionesByArreglo(List<Integer> ids) {
+
+        List<PublicacionResumen> lista = new ArrayList<>();
+
+        if (ids == null || ids.isEmpty()) {
+            return lista;
+        }
+
+
+        String placeholders = String.join(",", Collections.nCopies(ids.size(), "?"));
+
+
+        String sql = """
+            SELECT 
+                pu.id_publicacion_us,
+                pu.id_usuario,
+                pu.precio,
+                l.titulo,
+                l.autor,
+                l.genero,
+                i.imagen
+            FROM publicacion_us pu
+            JOIN libro l 
+                ON pu.id_libro = l.id_libro
+            JOIN imagen i 
+                ON pu.id_publicacion_us = i.id_publicacion_us
+            WHERE i.tipo = 1
+            AND pu.id_publicacion_us IN (%s)
+            """.formatted(placeholders);
+
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+
+            // Meter los IDs del carrito en los ?
+            for (int i = 0; i < ids.size(); i++) {
+
+                ps.setInt(i + 1, ids.get(i));
+
+            }
+
+
+            ResultSet rs = ps.executeQuery();
+
+
+            while (rs.next()) {
+
+                PublicacionResumen resumen = new PublicacionResumen();
+
+                resumen.setIdPublicacion(
+                        rs.getInt("id_publicacion_us")
+                );
+
+                resumen.setIdPropietario(
+                        rs.getInt("id_usuario")
+                );
+
+                resumen.setTitulo(
+                        rs.getString("titulo")
+                );
+
+                resumen.setAutor(
+                        rs.getString("autor")
+                );
+
+                resumen.setGenero(
+                        rs.getString("genero")
+                );
+
+                resumen.setPrecio(
+                        rs.getDouble("precio")
+                );
+
+                resumen.setImagenPrincipal(
+                        rs.getString("imagen")
+                );
+
+                resumen.setEsLibriFlow(false);
+
+
+                lista.add(resumen);
+
+            }
+
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+
+        return lista;
+    }
+
 
     public List<PublicacionUsuario> getAll() {
         return List.of();

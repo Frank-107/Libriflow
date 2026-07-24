@@ -17,7 +17,7 @@ public class InicioSv extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<PublicacionResumen> publicaciones = publicacionUsuarioDao.getResumenCatalogo();
+        List<PublicacionResumen> publicaciones = publicacionUsuarioDao.getResumenPublicacionesUs("ACTIVO");
         req.setAttribute("publicaciones", publicaciones);
         req.getRequestDispatcher("Inicio.jsp").forward(req, resp);
     }

@@ -5,10 +5,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 import mx.edu.utez.libriflow.model.PublicacionUsuarioCompleta;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 @WebServlet(name = "DetallePublicacionSv", value = "/detalle-publicacion")
 public class DetallePublicacionSv extends HttpServlet {
     PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
@@ -21,9 +24,20 @@ public class DetallePublicacionSv extends HttpServlet {
 
     }
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String idPublicacion = req.getParameter("idPublicacion");
+        HttpSession session = req.getSession();
+        ArrayList<Integer> carrito = (ArrayList<Integer>) session.getAttribute("carrito");
+        if (carrito == null) {
+            carrito = new ArrayList<>();
+        }
+        if(!carrito.contains(Integer.parseInt(idPublicacion))) {
+            carrito.add(Integer.parseInt(idPublicacion));
+        }
+        session.setAttribute("carrito", carrito);
+        resp.sendRedirect("carrito");
     }
 
     @Override

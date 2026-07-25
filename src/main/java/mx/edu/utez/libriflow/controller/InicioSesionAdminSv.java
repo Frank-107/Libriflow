@@ -27,7 +27,7 @@ public class InicioSesionAdminSv extends HttpServlet {
         // Verificar que sea administrador
         String tipoUsuario = (String) session.getAttribute("tipo_usuario");
 
-        if (!"admin".equals(tipoUsuario)) {
+        if (!"ADMIN".equals(tipoUsuario)) {
             resp.sendRedirect("inicio");
             return;
         }

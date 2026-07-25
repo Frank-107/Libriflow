@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.CredencialDao;
+import mx.edu.utez.libriflow.model.Dao.RolDao;
 import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
 
@@ -15,10 +16,9 @@ import java.io.IOException;
 @WebServlet(name = "IniciarSesionSv", value = "/iniciar-sesion")
 public class IniciarSesionSv extends HttpServlet {
 
-    private static final String CORREO_ADMIN = "20253ds094@utez.edu.mx";
-
     UsuarioDao usuarioDao = new UsuarioDao();
     CredencialDao credencialDao = new CredencialDao();
+    RolDao rolDao = new RolDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -34,33 +34,36 @@ public class IniciarSesionSv extends HttpServlet {
         String correo = req.getParameter("correo");
         String contrasena = req.getParameter("contrasena");
 
-        int id_usuario = usuarioDao.getIdUsuario(correo);
+        int idUsuario = usuarioDao.getIdUsuario(correo);
 
-        if (id_usuario != -1) {
+        System.out.println("Correo: " + correo);
+        System.out.println("ID Usuario: " + idUsuario);
 
-            if (credencialDao.validarContrasena(id_usuario, contrasena)) {
+        boolean contraseñaCorrecta = credencialDao.validarContrasena(idUsuario, contrasena);
 
-                HttpSession session = req.getSession(true);
-                Usuario usuario = usuarioDao.obtenerUsuario(correo);
+        if (idUsuario != -1 && contraseñaCorrecta) {
 
-                session.setAttribute("usuario", usuario);
+            HttpSession session = req.getSession(true);
 
-                if (correo.equalsIgnoreCase(CORREO_ADMIN)) {
+            Usuario usuario = usuarioDao.obtenerUsuario(correo);
 
-                    session.setAttribute("tipo_usuario", "admin");
-                    System.out.println("Se validaron las credenciales del administrador");
-                    resp.sendRedirect("inicio-admin");
+            // Obtener el rol desde la BD
+            String rol = rolDao.obtenerRol(idUsuario);
 
-                } else {
+            session.setAttribute("usuario", usuario);
+            session.setAttribute("tipo_usuario", rol);
 
-                    session.setAttribute("tipo_usuario", "usuario");
-                    System.out.println("Se validaron las credenciales del usuario");
-                    resp.sendRedirect("inicio");
+            if ("ADMIN".equalsIgnoreCase(rol)) {
 
-                }
+                resp.sendRedirect("inicio-admin");
 
-                return;
+            } else {
+
+                resp.sendRedirect("inicio");
+
             }
+
+            return;
         }
 
         req.setAttribute("error", "Usuario o contraseña incorrectos. Inténtalo de nuevo.");

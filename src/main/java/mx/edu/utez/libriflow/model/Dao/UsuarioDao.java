@@ -82,21 +82,25 @@ public class UsuarioDao {
 
     public int getIdUsuario(String correo) {
         String sql = "SELECT Id_Usuario FROM Usuario WHERE correo_electronico = ?";
+
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setString(1, correo);
+
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
                 return rs.getInt("Id_Usuario");
             }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return -1; // Retorna -1 si no se encuentra el usuario
+
+        return -1;
     }
-
-
     public java.util.List<Usuario> getAll() {
         return null;
     }

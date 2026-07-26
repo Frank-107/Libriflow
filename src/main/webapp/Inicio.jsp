@@ -167,7 +167,14 @@
                                                 </p>
 
                                                 <p class="card-precio">
-                                                    $${publicacion.precio}
+                                                    <c:choose>
+                                                        <c:when test="${publicacion.precio == 0.0}">
+                                                            <span class="texto-solo-renta">Solo renta</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            $${publicacion.precio}
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </p>
                                             </div>
 

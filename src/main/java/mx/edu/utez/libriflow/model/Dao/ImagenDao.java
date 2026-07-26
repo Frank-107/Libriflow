@@ -29,4 +29,21 @@ public class ImagenDao {
 
     }
 
+    public boolean createLf(Imagen entidad, int tipo) {
+        String sql = "Insert into imagen(id_publicacion_lf, imagen, tipo) values(?,?,?)";
+        try(Connection con = SQLconnector.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);){
+            ps.setInt(1, entidad.getIdPublicacionLibriflow());
+            ps.setString(2, entidad.getImagen());
+            ps.setInt(3, tipo);
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas>0;
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

@@ -140,8 +140,12 @@
                         <c:forEach var="publicacion" items="${publicaciones}">
                             <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
                                 <div class="col-12 col-md-6">
-
-                                    <article class="card-libro">
+                                    <article class="card-libro" style="position: relative;">
+                                        <c:if test="${publicacion.esLibriFlow}">
+                                            <div style="position: absolute; top: 12px; right: 12px; background-color: #F1ECE5; color: #5B564F; font-size: 0.65rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 10;">
+                                                Catálogo LibriFlow
+                                            </div>
+                                        </c:if>
 
                                         <div class="card-portada">
                                             <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">

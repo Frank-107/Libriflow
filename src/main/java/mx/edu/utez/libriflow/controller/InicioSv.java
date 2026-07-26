@@ -5,20 +5,38 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mx.edu.utez.libriflow.model.Dao.PublicacionAdministradorDao;
 import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 import mx.edu.utez.libriflow.model.PublicacionResumen;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @WebServlet(name = "InicioSv", value = "/inicio")
 public class InicioSv extends HttpServlet {
-    PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
+    private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
+    private final PublicacionAdministradorDao publicacionAdministradorDao = new PublicacionAdministradorDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<PublicacionResumen> publicaciones = publicacionUsuarioDao.getResumenCatalogo();
-        req.setAttribute("publicaciones", publicaciones);
+        List<PublicacionResumen> publicacionesAdmin = publicacionAdministradorDao.getResumenCatalogo();
+
+        List<PublicacionResumen> catalogo = new ArrayList<>();
+
+        if (publicacionesAdmin != null) {
+            catalogo.addAll(publicacionesAdmin);
+        }
+        if (publicaciones != null) {
+            catalogo.addAll(publicaciones);
+        }
+
+        Collections.shuffle(catalogo);
+
+        req.setAttribute("publicaciones", catalogo);
         req.getRequestDispatcher("Inicio.jsp").forward(req, resp);
     }
 

@@ -61,24 +61,18 @@
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-                    <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
                     </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-bag-check me-3 fs-5"></i> Compras
+                        <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
                     </a>
 
                     <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
+                        <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
                     </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
-                    </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
-                    </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
+                        <i class="bi bi-cash-stack me-3 fs-5"></i> Ingresos
                     </a>
                 </div>
             </div>
@@ -140,12 +134,8 @@
                         <c:forEach var="publicacion" items="${publicaciones}">
                             <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
                                 <div class="col-12 col-md-6">
-                                    <article class="card-libro" style="position: relative;">
-                                        <c:if test="${publicacion.esLibriFlow}">
-                                            <div style="position: absolute; top: 12px; right: 12px; background-color: #F1ECE5; color: #5B564F; font-size: 0.65rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 10;">
-                                                Catálogo LibriFlow
-                                            </div>
-                                        </c:if>
+
+                                    <article class="card-libro">
 
                                         <div class="card-portada">
                                             <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
@@ -171,10 +161,9 @@
                                                 </p>
                                             </div>
 
-                                            <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                                               class="btn-detalles">
+                                            <button type="button" class="btn-detalles">
                                                 Ver detalles
-                                            </a>
+                                            </button>
 
                                         </div>
 

@@ -11,7 +11,6 @@ import mx.edu.utez.libriflow.model.PublicacionResumen;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class InicioSv extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<PublicacionResumen> publicaciones = publicacionUsuarioDao.getResumenCatalogo();
+        List<PublicacionResumen> publicaciones = publicacionUsuarioDao.getResumenPublicacionesUs("ACTIVO");
         List<PublicacionResumen> publicacionesAdmin = publicacionAdministradorDao.getResumenCatalogo();
 
         List<PublicacionResumen> catalogo = new ArrayList<>();

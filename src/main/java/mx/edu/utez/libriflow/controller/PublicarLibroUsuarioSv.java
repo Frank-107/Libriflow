@@ -129,7 +129,7 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
             System.out.println("Usuario: " + idUsuario);
             System.out.println("=========================================");
 
-            req.getSession(false).setAttribute("mensaje", "Libro publicado exitosamente");
+            req.getSession(false).setAttribute("mensaje", "Listo, Entrega tu libro en la libreria para completar la publicación");
             resp.sendRedirect("publicar-libro-usuario");
 
 

@@ -21,7 +21,7 @@
                 <i class="bi bi-list" style="font-size: 2rem;"></i>
             </button>
 
-            <a href="inicio" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
+            <a href="InicioAdmin.jsp" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
                 <i class="bi bi-arrow-left"></i>
             </a>
             <span class="fw-bold fs-4 tracking-wide">Publicar</span>
@@ -40,7 +40,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfil.jsp">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfilAdmin.jsp">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>
@@ -59,8 +59,20 @@
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-                    <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="InicioAdmin.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-house me-3 fs-5"></i> Inicio
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
+                    </a>
+                    <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-cash-stack me-3 fs-5"></i> Ingresos
                     </a>
                 </div>
             </div>

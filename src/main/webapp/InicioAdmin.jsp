@@ -21,7 +21,7 @@
                 <i class="bi bi-list" style="font-size: 2rem;"></i>
             </button>
 
-            <a href="inicio" class="d-flex align-items-center text-decoration-none">
+            <a href="InicioAdmin.jsp" class="d-flex align-items-center text-decoration-none">
                 <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 40px; width: auto;" class="me-2">
                 <div class="text-start d-none d-sm-block">
                     <div class="fw-bold tracking-widest fs-5 text-white">LIBRIFLOW</div>
@@ -42,7 +42,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfil.jsp">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfilAdmin.jsp">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>
@@ -64,11 +64,13 @@
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
                     </a>
+                    <a href="publicar-libro-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-file-earmark-text me-3 fs-5"></i> Publicar
+                    </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
                     </a>
-
-                    <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
                     </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">

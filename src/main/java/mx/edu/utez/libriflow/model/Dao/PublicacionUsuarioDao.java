@@ -53,13 +53,16 @@ public class PublicacionUsuarioDao {
                 "    l.titulo,\n" +
                 "    l.autor,\n" +
                 "    l.genero,\n" +
-                "    i.imagen\n" +
+                "    i.imagen,\n" +
+                "    u.nombre\n"+
                 "   \n" +
                 "FROM publicacion_us pu\n" +
                 "JOIN libro l \n" +
                 "    ON pu.id_libro = l.id_libro\n" +
                 "JOIN imagen i \n" +
                 "    ON pu.id_publicacion_us = i.id_publicacion_us\n" +
+                "JOIN usuario u \n" +
+                "    ON pu.id_usuario = u.id_usuario\n" +
                 "WHERE i.tipo = 1\n" +
                 "AND pu.estado = ?";
 
@@ -77,6 +80,7 @@ public class PublicacionUsuarioDao {
                 resumen.setIdPropietario(rs.getInt("id_usuario"));
                 resumen.setAutor(rs.getString("autor"));
                 resumen.setGenero(rs.getString("genero"));
+                resumen.setNombrePropietario(rs.getString("nombre"));
                 resumen.setPrecio(rs.getDouble("precio"));
                 resumen.setImagenPrincipal(rs.getString("imagen"));
                 resumen.setEsLibriFlow(false);
@@ -338,6 +342,33 @@ public class PublicacionUsuarioDao {
 
         return lista;
     }
+
+    public boolean cambiarEstadoPublicacion(int idPublicacion, String estado) {
+
+        String sql = """
+            UPDATE publicacion_us
+            SET estado = ?
+            WHERE id_publicacion_us = ?
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, estado);
+            ps.setInt(2, idPublicacion);
+
+            int filasActualizadas = ps.executeUpdate();
+
+            return filasActualizadas > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
 
 
     public List<PublicacionUsuario> getAll() {

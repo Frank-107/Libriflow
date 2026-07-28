@@ -23,7 +23,7 @@
         <%= request.getAttribute("error") %>
     </div>
     <% } %>
-    <form action="${pageContext.request.contextPath}/validar-tarjeta" method="POST">
+    <form action="validar-tarjeta" method="POST">
 
         <div class="form-section-title">Datos de la Tarjeta</div>
 

@@ -53,13 +53,16 @@ public class PublicacionUsuarioDao {
                 "    l.titulo,\n" +
                 "    l.autor,\n" +
                 "    l.genero,\n" +
-                "    i.imagen\n" +
+                "    i.imagen,\n" +
+                "    u.nombre\n"+
                 "   \n" +
                 "FROM publicacion_us pu\n" +
                 "JOIN libro l \n" +
                 "    ON pu.id_libro = l.id_libro\n" +
                 "JOIN imagen i \n" +
                 "    ON pu.id_publicacion_us = i.id_publicacion_us\n" +
+                "JOIN usuario u \n" +
+                "    ON pu.id_usuario = u.id_usuario\n" +
                 "WHERE i.tipo = 1\n" +
                 "AND pu.estado = ?";
 
@@ -77,6 +80,7 @@ public class PublicacionUsuarioDao {
                 resumen.setIdPropietario(rs.getInt("id_usuario"));
                 resumen.setAutor(rs.getString("autor"));
                 resumen.setGenero(rs.getString("genero"));
+                resumen.setNombrePropietario(rs.getString("nombre"));
                 resumen.setPrecio(rs.getDouble("precio"));
                 resumen.setImagenPrincipal(rs.getString("imagen"));
                 resumen.setEsLibriFlow(false);
@@ -283,6 +287,88 @@ public class PublicacionUsuarioDao {
 
         return lista;
     }
+    public List<PublicacionResumen> getResumenPublicacionesPorUsuario(int idUsuario) {
+
+        List<PublicacionResumen> lista = new ArrayList<>();
+
+        String sql = """
+            SELECT 
+                pu.id_publicacion_us,
+                pu.id_usuario,
+                pu.precio,
+                pu.estado,
+                l.titulo,
+                l.autor,
+                l.genero,
+                i.imagen
+            FROM publicacion_us pu
+            JOIN libro l
+                ON pu.id_libro = l.id_libro
+            JOIN imagen i
+                ON pu.id_publicacion_us = i.id_publicacion_us
+            WHERE i.tipo = 1
+            AND pu.id_usuario = ?
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                PublicacionResumen resumen = new PublicacionResumen();
+
+                resumen.setIdPublicacion(rs.getInt("id_publicacion_us"));
+                resumen.setTitulo(rs.getString("titulo"));
+                resumen.setIdPropietario(rs.getInt("id_usuario"));
+                resumen.setAutor(rs.getString("autor"));
+                resumen.setGenero(rs.getString("genero"));
+                resumen.setPrecio(rs.getDouble("precio"));
+                resumen.setImagenPrincipal(rs.getString("imagen"));
+                resumen.setEstado(rs.getString("estado"));
+                resumen.setEsLibriFlow(false);
+
+                lista.add(resumen);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    public boolean cambiarEstadoPublicacion(int idPublicacion, String estado) {
+
+        String sql = """
+            UPDATE publicacion_us
+            SET estado = ?
+            WHERE id_publicacion_us = ?
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, estado);
+            ps.setInt(2, idPublicacion);
+
+            int filasActualizadas = ps.executeUpdate();
+
+            return filasActualizadas > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
 
 
     public List<PublicacionUsuario> getAll() {

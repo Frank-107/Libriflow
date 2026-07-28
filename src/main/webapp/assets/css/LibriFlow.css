@@ -1,0 +1,312 @@
+/* ==========================
+   CONFIGURACIÓN GENERAL
+========================== */
+
+body {
+    background-color: #F4EFEA;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* ==========================
+   COLORES PRINCIPALES
+========================== */
+
+.bg-lf-dark {
+    background-color: #4A4641;
+}
+
+.bg-lf-capsule {
+    background-color: #A39B93;
+    color: #2D2A26 !important;
+    border: none;
+    font-weight: 500;
+}
+
+
+/* Botón seleccionado del sidebar */
+
+.sidebar-active {
+    background-color: #7A746E !important;
+    color: #FFFFFF !important;
+}
+
+
+/* ==========================
+   HEADER PRINCIPAL
+========================== */
+
+.rounded-lf-header {
+
+    border-radius: 30px;
+
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+
+}
+
+
+.rounded-lf-header img {
+
+    height: 40px;
+
+}
+
+
+.rounded-lf-header .rounded-circle {
+
+    width: 45px !important;
+    height: 45px !important;
+
+}
+
+
+
+/* ==========================
+   SIDEBAR
+========================== */
+
+
+.rounded-lf-sidebar {
+
+    border-radius: 40px;
+
+    min-height: 80vh;
+
+}
+
+
+.btn-lf-pill {
+
+    border-radius: 20px;
+
+    transition: all .2s ease;
+
+}
+
+
+.btn-lf-pill:hover {
+
+    background-color: #8C847C;
+
+    color: white !important;
+
+}
+
+
+
+/* tamaño uniforme de botones */
+
+.sidebar-lf .btn {
+
+    min-height: 48px;
+
+}
+
+
+
+/* ==========================
+   DROPDOWN DE USUARIO
+========================== */
+
+
+.dropdown {
+
+    position: relative;
+
+}
+
+
+.dropdown:hover .dropdown-menu {
+
+    display:block;
+
+}
+
+
+.dropdown-menu-lf {
+
+
+    background-color:#F4EFEA !important;
+
+    border-radius:25px !important;
+
+    padding:10px !important;
+
+    border:none !important;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+
+}
+
+
+
+.dropdown-lf-item,
+.dropdown-lf-logout {
+
+
+    color:#4A4641;
+
+    font-weight:600;
+
+    border-radius:15px;
+
+    padding:10px 15px !important;
+
+    transition:.2s;
+
+
+}
+
+
+
+.dropdown-lf-item:hover {
+
+
+    background-color:#A39B93 !important;
+
+    color:white !important;
+
+
+}
+
+
+
+.dropdown-lf-logout {
+
+
+    color:#d93025;
+
+}
+
+
+
+.dropdown-lf-logout:hover {
+
+
+    background-color:#ffeaea !important;
+
+}
+
+
+
+/* ==========================
+   CONTENEDORES GENERALES
+========================== */
+
+
+.lf-container {
+
+
+    background:white;
+
+    border-radius:40px;
+
+    border:2px solid #CBC2B9;
+
+    padding:35px;
+
+
+}
+
+
+
+/* títulos de sección */
+
+.lf-title {
+
+
+    color:#4A4641;
+
+    font-weight:700;
+
+    margin-bottom:25px;
+
+
+}
+
+
+
+/* ==========================
+   TARJETAS GENERALES
+========================== */
+
+
+.lf-card {
+
+
+    background:#CBC2B9;
+
+    border-radius:25px;
+
+    padding:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+
+}
+
+
+
+/* ==========================
+   SCROLL DE CATÁLOGOS
+========================== */
+
+
+.catalogo-scroll {
+
+
+    height:calc(100vh - 180px);
+
+    overflow-y:auto;
+
+
+}
+
+
+
+.catalogo-scroll::-webkit-scrollbar {
+
+
+    width:8px;
+
+
+}
+
+
+.catalogo-scroll::-webkit-scrollbar-thumb {
+
+
+    background:#CBC2B9;
+
+    border-radius:10px;
+
+
+}
+
+
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+
+@media(max-width:768px){
+
+
+    .rounded-lf-sidebar {
+
+        min-height:auto;
+
+    }
+
+
+    .lf-container {
+
+        padding:20px;
+
+    }
+
+
+}

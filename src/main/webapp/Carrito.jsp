@@ -207,7 +207,7 @@
                         Publicar
                     </a>
 
-                    <a href="#"
+                    <a href="mis-publicaciones"
                        class="btn bg-lf-capsule btn-lf-pill w-100
                               text-start d-flex align-items-center px-4">
 
@@ -386,14 +386,15 @@
                                 $${total}
                             </h4>
 
-
-                            <button class="btn btn-action-lf mt-3">
+                            <form action="carrito" method="post">
+                                <input type="hidden" value="comprar" name="action" >
+                            <button class="btn btn-action-lf mt-3" type="submit">
 
                                 <i class="bi bi-credit-card me-2"></i>
                                 Continuar compra
 
                             </button>
-
+                            </form>
                         </div>
 
 

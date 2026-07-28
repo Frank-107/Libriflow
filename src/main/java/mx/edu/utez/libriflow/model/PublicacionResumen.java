@@ -11,6 +11,7 @@ public class PublicacionResumen {
     private Double precio;
     private String imagenPrincipal;
     private String estado;
+    private String nombrePropietario;
     private int idPropietario;
     private boolean esLibriFlow;
 
@@ -88,5 +89,13 @@ public class PublicacionResumen {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getNombrePropietario() {
+        return nombrePropietario;
+    }
+
+    public void setNombrePropietario(String nombrePropietario) {
+        this.nombrePropietario = nombrePropietario;
     }
 }

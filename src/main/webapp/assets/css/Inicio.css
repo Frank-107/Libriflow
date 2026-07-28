@@ -249,6 +249,10 @@ body {
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
+.sidebar-active {
+    background-color: #7A746E !important;
+    color: #FFF !important;
+}
 
 .btn-detalles:hover {
     background-color: #D1CDC4;

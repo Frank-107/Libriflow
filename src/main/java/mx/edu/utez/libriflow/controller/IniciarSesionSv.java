@@ -36,12 +36,10 @@ public class IniciarSesionSv extends HttpServlet {
 
         int idUsuario = usuarioDao.getIdUsuario(correo);
 
-        System.out.println("Correo: " + correo);
-        System.out.println("ID Usuario: " + idUsuario);
 
-        boolean contraseñaCorrecta = credencialDao.validarContrasena(idUsuario, contrasena);
+        boolean contrasenaCorrecta = credencialDao.validarContrasena(idUsuario, contrasena);
 
-        if (idUsuario != -1 && contraseñaCorrecta) {
+        if (idUsuario != -1 && contrasenaCorrecta) {
 
             HttpSession session = req.getSession(true);
 

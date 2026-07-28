@@ -44,8 +44,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //Pendiente: implementar transacciones (commit/rollback) utilizando una única conexión
-        // compartida entre los DAO para garantizar la consistencia de la publicación.
 
 
         try {

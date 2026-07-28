@@ -50,6 +50,9 @@ public class CarritoSv extends HttpServlet {
             session.setAttribute("carrito",ids);
             resp.sendRedirect("carrito");
         }
+        if (action.equals("comprar")){
+            resp.sendRedirect("validar-tarjeta");
+        }
     }
 
     @Override

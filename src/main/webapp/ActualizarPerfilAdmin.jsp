@@ -95,7 +95,7 @@
         </c:if>
 
 
-        <form action="actualizar-perfil" id="formActualizarPerfil" method="POST">
+        <form action="actualizar-perfil-admin" id="formActualizarPerfil" method="POST">
           <div class="text-center mb-4">
             <div class="position-relative d-inline-block mt-2">
               <div class="perfil-avatar mx-auto shadow-sm" style="cursor: default;">
@@ -147,7 +147,7 @@
             </div>
             <div class="col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Teléfono</label>
-              <input type="number" name="telefono" value="${usuario.getTelefono() != null ? usuario.getTelefono() : ''}" class="form-control form-control-lf">
+              <input type="tel" name="telefono" value="${usuario.getTelefono() != null ? usuario.getTelefono() : ''}" class="form-control form-control-lf">
             </div>
           </div>
 

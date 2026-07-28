@@ -283,6 +283,61 @@ public class PublicacionUsuarioDao {
 
         return lista;
     }
+    public List<PublicacionResumen> getResumenPublicacionesPorUsuario(int idUsuario) {
+
+        List<PublicacionResumen> lista = new ArrayList<>();
+
+        String sql = """
+            SELECT 
+                pu.id_publicacion_us,
+                pu.id_usuario,
+                pu.precio,
+                pu.estado,
+                l.titulo,
+                l.autor,
+                l.genero,
+                i.imagen
+            FROM publicacion_us pu
+            JOIN libro l
+                ON pu.id_libro = l.id_libro
+            JOIN imagen i
+                ON pu.id_publicacion_us = i.id_publicacion_us
+            WHERE i.tipo = 1
+            AND pu.id_usuario = ?
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                PublicacionResumen resumen = new PublicacionResumen();
+
+                resumen.setIdPublicacion(rs.getInt("id_publicacion_us"));
+                resumen.setTitulo(rs.getString("titulo"));
+                resumen.setIdPropietario(rs.getInt("id_usuario"));
+                resumen.setAutor(rs.getString("autor"));
+                resumen.setGenero(rs.getString("genero"));
+                resumen.setPrecio(rs.getDouble("precio"));
+                resumen.setImagenPrincipal(rs.getString("imagen"));
+                resumen.setEstado(rs.getString("estado"));
+                resumen.setEsLibriFlow(false);
+
+                lista.add(resumen);
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 
 
     public List<PublicacionUsuario> getAll() {

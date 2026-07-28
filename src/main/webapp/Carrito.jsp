@@ -207,7 +207,7 @@
                         Publicar
                     </a>
 
-                    <a href="#"
+                    <a href="mis-publicaciones"
                        class="btn bg-lf-capsule btn-lf-pill w-100
                               text-start d-flex align-items-center px-4">
 

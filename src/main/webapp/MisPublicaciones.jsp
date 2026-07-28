@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
 
 </head>
 
@@ -301,48 +302,56 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="publicaciones-lista">
-                            <c:forEach var="publicacion" items="${publicaciones}">
-                                    <div class="publicacion-header">
-                        <span class="estado ${publicacion.estado}">
-                                ${publicacion.estado}
-                        </span>
-                                    </div>
-                                    <div class="publicacion-body">
-                                        <div class="publicacion-portada">
-                                            <img src="${publicacion.imagenPrincipal}"
-                                                 alt="${publicacion.titulo}">
-                                        </div>
-                                        <div class="publicacion-info">
-                                            <h4>
-                                                    ${publicacion.titulo}
-                                            </h4>
-                                            <p>
-                                                    ${publicacion.autor}
-                                            </p>
-                                            <p>
-                                                    ${publicacion.genero}
-                                            </p>
-                                        </div>
-                                        <div class="publicacion-precio">
-                                            <c:choose>
-                                                <c:when test="${not empty publicacion.precio}">
-                                                    $${publicacion.precio}
-                                                </c:when>
-                                                <c:otherwise>
-                                                    Renta
-                                                </c:otherwise>
+                <div class="publicaciones-lista">
 
-                                            </c:choose>
-                                        </div>
-                                    </div>
-                            </c:forEach>
+                    <c:forEach var="publicacion" items="${publicaciones}">
+
+                        <div class="publicacion-card">
+
+                            <div class="publicacion-estado">
+            <span class="estado ${publicacion.estado}">
+                    ${publicacion.estado}
+            </span>
+                            </div>
+
+                            <div class="publicacion-contenido">
+
+                                <div class="publicacion-portada">
+                                    <img src="${publicacion.imagenPrincipal}"
+                                         alt="${publicacion.titulo}">
+                                </div>
 
 
+                                <div class="publicacion-info">
+
+                                    <h4>
+                                            ${publicacion.titulo}
+                                    </h4>
+
+                                    <p>
+                                            ${publicacion.autor}
+                                    </p>
+
+                                    <small>
+                                            ${publicacion.genero}
+                                    </small>
+
+                                </div>
+
+
+                                <div class="publicacion-precio">
+
+                                    $${publicacion.precio}
+
+                                </div>
+
+                            </div>
 
                         </div>
 
+                    </c:forEach>
 
+                </div>
 
                     </c:otherwise>
 

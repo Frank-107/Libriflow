@@ -1,47 +1,73 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Verificar Correo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libriflow - Verificar Correo</title>
+
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css">
 </head>
-<body class="login-body">
-s
-<div class="login-top-bar">
-    <a href="index.jsp" class="login-back-link">Volver</a>
-    <h2 class="login-top-bar-title">Verifica tu correo electrónico</h2>
-</div>
+<body>
 
-<form action="validar-correo-cc" method="POST" class="login-card" onsubmit="this.querySelector('button[type=submit]').disabled=true; this.querySelector('button[type=submit]').value='Enviando...';">
+<div class="pantalla-registro">
 
-    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
-
-    <c:if test="${not empty error}">
-        <div class="login-error">${error}</div>
-    </c:if>
-
-    <div style="text-align: left; margin-bottom: 20px; color: #6e6762; font-size: 14px;">
-        <p style="margin-bottom: 10px;">
-            Hemos enviado un código de verificación al correo:
-            <strong style="color: #4A4641;">${sessionScope.usuarioPendiente.correo}</strong>
-        </p>
-        <p style="margin-bottom: 0;">
-            Ingresa el código que recibiste para activar tu cuenta.
-        </p>
+    <div class="top-bar">
+        <a href="crear-cuenta-usuario" class="back-link">&#x2190;</a>
+        <h1>Verificar correo</h1>
     </div>
 
-    <label for="codigo" class="login-label-pass">Código de verificación:</label>
-    <input type="text" id="codigo" name="codigo" placeholder="Código de verificación" required class="login-input login-contrasena">
+    <div class="card-container">
 
-    <button type="submit" class="login-btn">Verificar</button>
+        <div class="logo-area">
+            <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logotipo LibriFlow" class="logo-img-completo">
+        </div>
+        <h3 class="card-title">Verificar Correo</h3>
+        <c:if test="${not empty error}">
+            <div id="errorToast" class="libri-toast libri-toast-error">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                    <line x1="12" y1="9" x2="12" y2="13"/>
+                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span><c:out value="${error}" escapeXml="true" /></span>
+            </div>
+        </c:if>
 
-</form>
+        <form method="post" action="validar-correo-cc"
+              onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Verificando...';">
 
+            <div style="text-align: center; margin-bottom: 20px; color: #6e6762; font-size: 14px;">
+                <p style="margin-bottom: 8px;">
+                    Hemos enviado un código de verificación al correo:
+                </p>
+                <p style="margin-bottom: 12px;">
+                    <strong style="color: #4A4641; font-size: 15px;">${sessionScope.usuarioPendiente.correo}</strong>
+                </p>
+                <p style="margin-bottom: 0;">
+                    Ingresa el código que recibiste para activar tu cuenta.
+                </p>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group" style="grid-column: span 2;">
+                    <label for="codigo">Código de verificación:</label>
+                    <input type="text" id="codigo" name="codigo" placeholder="Código de verificación" required style="text-align: center;">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-action-lf shadow-sm btn-submit" style="margin-top: 20px;">Verificar</button>
+
+        </form>
+    </div>
+
+</div>
+
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

@@ -68,7 +68,7 @@
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
                     </a>
-                    <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
                     </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">

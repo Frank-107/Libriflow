@@ -8,12 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LibriFlow - Tu Biblioteca Digital</title>
   <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/css/bootstrap.css" />
   <link rel="stylesheet" href="assets/css/index.css?v=3" />
 </head>
 <body>
 
-<!-- Barra de navegación fuera del contenedor para que se estire -->
+
 <nav class="bg-lf-dark rounded-lf-header navbar-outer shadow-sm d-flex align-items-center px-4 px-md-5">
   <div class="nav-links">
     <a href="#" class="btn-nav">Nuestras Redes</a>
@@ -155,6 +156,7 @@
 
   </div>
 </footer>
-<script src="assets/js/Notificacion.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

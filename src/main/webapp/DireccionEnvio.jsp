@@ -9,6 +9,7 @@
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
 </head>
 <body class="p-3 p-md-4">
@@ -69,8 +70,12 @@
                 </div>
 
                 <c:if test="${not empty error}">
-                    <div class="libri-toast libri-toast-error mb-3">
-                        <i class="bi bi-exclamation-circle-fill fs-5"></i>
+                    <div id="errorToast" class="libri-toast libri-toast-error">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
                         <span><c:out value="${error}" escapeXml="true" /></span>
                     </div>
                 </c:if>
@@ -138,19 +143,17 @@
                                 <option value="Zacatecas" ${param.estado == 'Zacatecas' ? 'selected' : ''}>Zacatecas</option>
                             </select>
                         </div>
-                        <div class="col-12 mb-4">
-                            <label class="form-label-lf">Teléfono de Contacto</label>
-                            <input type="text" name="telefono" maxlength="10" class="form-control form-control-lf" value="${param.telefono}" required>
-                        </div>
                     </div>
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-action-lf shadow-sm btn-submit px-5">Continuar al Pago</button>
                     </div>
                 </form>
-            </div></main>
+            </div>
+        </main>
     </div>
 </div>
 
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

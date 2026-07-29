@@ -328,8 +328,8 @@ body {
 
 /* Diseño de las alertas*/
 .libri-toast {
-    position: absolute;
-    top: -55px;
+    position: fixed;
+    top: 20px;
     left: 50%;
     transform: translate(-50%, -10px);
     padding: 10px 25px;

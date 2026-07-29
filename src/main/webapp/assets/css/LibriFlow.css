@@ -109,87 +109,72 @@ body {
    DROPDOWN DE USUARIO
 ========================== */
 
-
 .dropdown {
-
     position: relative;
-
 }
-
 
 .dropdown:hover .dropdown-menu {
-
-    display:block;
-
+    display: block;
+    animation: aparecerDropdown 0.3s ease;
 }
 
+@keyframes aparecerDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .dropdown-menu-lf {
-
-
-    background-color:#F4EFEA !important;
-
-    border-radius:25px !important;
-
-    padding:10px !important;
-
-    border:none !important;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    min-width: 200px;
+    background-color: #F4EFEA !important;
+    border-radius: 25px !important;
+    padding: 10px !important;
+    margin-top: 0 !important;
+    border: none !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
 }
 
-
-
-.dropdown-lf-item,
-.dropdown-lf-logout {
-
-
-    color:#4A4641;
-
-    font-weight:600;
-
-    border-radius:15px;
-
-    padding:10px 15px !important;
-
-    transition:.2s;
-
-
+.dropdown-menu-lf::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: transparent;
 }
 
-
+.dropdown-lf-item, .dropdown-lf-logout {
+    color: #4A4641;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+    padding: 8px 15px !important;
+}
 
 .dropdown-lf-item:hover {
-
-
-    background-color:#A39B93 !important;
-
-    color:white !important;
-
-
+    background-color: #A39B93 !important;
+    color: #FFF !important;
 }
-
-
 
 .dropdown-lf-logout {
-
-
-    color:#d93025;
-
+    color: #d93025;
+    margin-top: 5px;
 }
-
-
 
 .dropdown-lf-logout:hover {
-
-
-    background-color:#ffeaea !important;
-
+    background-color: #ffeaea !important;
+    color: #c5221f !important;
 }
-
-
 
 /* ==========================
    CONTENEDORES GENERALES

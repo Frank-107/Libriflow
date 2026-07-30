@@ -386,4 +386,20 @@ public class PublicacionUsuarioDao {
     public boolean delete(Integer id) {
         return false;
     }
+
+    public int contarPublicacionesPorUsuario(int idUsuario) {
+        String sql = "SELECT COUNT(*) FROM publicacion_us WHERE id_usuario = ?";
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

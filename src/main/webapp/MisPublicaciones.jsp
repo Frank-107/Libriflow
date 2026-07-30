@@ -116,7 +116,7 @@
                     <li>
 
                         <a class="dropdown-item py-2 dropdown-lf-item"
-                           href="ActualizarPerfil.jsp">
+                           href="actualizar-perfil">
 
                             <i class="bi bi-person me-2"></i>
 

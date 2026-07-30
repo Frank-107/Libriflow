@@ -388,7 +388,8 @@ public class PublicacionUsuarioDao {
     }
 
     public int contarPublicacionesPorUsuario(int idUsuario) {
-        String sql = "SELECT COUNT(*) FROM publicacion_us WHERE id_usuario = ?";
+        String sql = "SELECT COUNT(*) FROM publicacion_us WHERE id_usuario = ? AND estado = 'ACTIVO'";
+
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idUsuario);

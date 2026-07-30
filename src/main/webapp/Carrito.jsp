@@ -354,8 +354,8 @@
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="action" value="eliminar">
                                             <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
-                                            <button type="submit">
-                                                Eliminar
+                                            <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 shadow-sm d-inline-flex align-items-center gap-1 mt-2">
+                                                <i class="bi bi-trash"></i> Eliminar
                                             </button>
                                         </form>
 
@@ -388,12 +388,9 @@
 
                             <form action="carrito" method="post">
                                 <input type="hidden" value="comprar" name="action" >
-                            <button class="btn btn-action-lf mt-3" type="submit">
-
-                                <i class="bi bi-credit-card me-2"></i>
-                                Continuar compra
-
-                            </button>
+                                <button type="submit" class="btn bg-lf-dark text-white rounded-pill px-4 py-2.5 shadow fw-semibold d-inline-flex align-items-center gap-2">
+                                    <i class="bi bi-credit-card-fill fs-5"></i> Continuar compra
+                                </button>
                             </form>
                         </div>
 

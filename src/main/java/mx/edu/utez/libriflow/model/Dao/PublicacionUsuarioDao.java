@@ -402,4 +402,67 @@ public class PublicacionUsuarioDao {
         }
         return 0;
     }
+    public List<PublicacionResumen> buscarYFiltrarPublicacionesUs(String estado, String busqueda, String genero) {
+        List<PublicacionResumen> lista = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("""
+            SELECT 
+                pu.id_publicacion_us,
+                pu.id_usuario,
+                pu.precio,
+                l.titulo,
+                l.autor,
+                l.genero,
+                i.imagen,
+                u.nombre
+            FROM publicacion_us pu
+            JOIN libro l ON pu.id_libro = l.id_libro
+            JOIN imagen i ON pu.id_publicacion_us = i.id_publicacion_us
+            JOIN usuario u ON pu.id_usuario = u.id_usuario
+            WHERE i.tipo = 1
+            AND pu.estado = ?
+        """);
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            sql.append(" AND (LOWER(l.titulo) LIKE ? OR LOWER(l.autor) LIKE ?)");
+        }
+
+        if (genero != null && !genero.trim().isEmpty() && !genero.equalsIgnoreCase("TODOS")) {
+            sql.append(" AND LOWER(l.genero) = LOWER(?)");
+        }try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+            int index = 1;
+            ps.setString(index++, estado);
+
+            if (busqueda != null && !busqueda.trim().isEmpty()) {
+                String term = "%" + busqueda.trim().toLowerCase() + "%";
+                ps.setString(index++, term);
+                ps.setString(index++, term);
+            }
+
+            if (genero != null && !genero.trim().isEmpty() && !genero.equalsIgnoreCase("TODOS")) {
+                ps.setString(index++, genero.trim());
+            } try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    PublicacionResumen resumen = new PublicacionResumen();
+                    resumen.setIdPublicacion(rs.getInt("id_publicacion_us"));
+                    resumen.setTitulo(rs.getString("titulo"));
+                    resumen.setIdPropietario(rs.getInt("id_usuario"));
+                    resumen.setAutor(rs.getString("autor"));
+                    resumen.setGenero(rs.getString("genero"));
+                    resumen.setNombrePropietario(rs.getString("nombre"));
+                    resumen.setPrecio(rs.getDouble("precio"));
+                    resumen.setImagenPrincipal(rs.getString("imagen"));
+                    resumen.setEsLibriFlow(false);
+
+                    lista.add(resumen);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
 }

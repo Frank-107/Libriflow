@@ -86,10 +86,17 @@
 
         <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="d-flex gap-3 mb-4 align-items-center">
-                <div class="position-relative flex-grow-1">
+                <form action="inicio" method="GET" class="position-relative flex-grow-1 m-0">
                     <i class="bi bi-search search-icon-inside"></i>
-                    <input type="text" class="form-control search-bar-lf shadow-sm" placeholder="Buscar libros, autores...">
-                </div>
+                    <c:if test="${not empty paramGenero}">
+                        <input type="hidden" name="genero" value="${paramGenero}">
+                    </c:if>
+                    <input type="text"
+                           name="q"
+                           value="${paramBusqueda != null ? paramBusqueda : ''}"
+                           class="form-control search-bar-lf shadow-sm"
+                           placeholder="Buscar libros, autores...">
+                </form>
                 <div class="dropdown">
                     <button class="btn bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
                             type="button"
@@ -101,26 +108,27 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 dropdown-menu-filter" aria-labelledby="filtroGenerosDropdown">
                         <li class="dropdown-header fw-bold text-secondary border-bottom pb-2 mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">FILTRAR POR GÉNERO</li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Novela</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Fantasía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia ficción</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Terror</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Romance</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Misterio</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Suspenso</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Drama</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Aventura</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Historia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Biografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Autobiografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Tecnología</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Educación</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Infantil</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Poesía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Filosofía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Religión</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Cómic</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=TODOS">Todos</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Novela">Novela</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Fantasía">Fantasía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia ficción">Ciencia ficción</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Terror">Terror</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Romance">Romance</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Misterio">Misterio</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Suspenso">Suspenso</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Drama">Drama</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Aventura">Aventura</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Historia">Historia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Biografía">Biografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Autobiografía">Autobiografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia">Ciencia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Tecnología">Tecnología</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Educación">Educación</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Infantil">Infantil</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Poesía">Poesía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Filosofía">Filosofía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Religión">Religión</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Cómic">Cómic</a></li>
                     </ul>
                 </div>
 

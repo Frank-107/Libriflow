@@ -28,7 +28,13 @@ public class FiltroAutentificacion extends HttpFilter {
                         ruta.endsWith("CrearCuenta.jsp") ||
                         ruta.endsWith("/crear-cuenta-usuario") ||
                         ruta.endsWith("ValidarCorreoCC.jsp") ||
-                        ruta.endsWith("/validar-correo-cc");
+                        ruta.endsWith("/validar-correo-cc")||
+                        ruta.endsWith("RestablecerContrasena.jsp")||
+                        ruta.endsWith("/restablecer-contrasena") ||
+                        ruta.endsWith("ValidarTokenRC.jsp")||
+                        ruta.endsWith("/validar-token-rc")||
+                        ruta.endsWith("IngresarNuevaContrasena.jsp")||
+                        ruta.endsWith("/ingresar-nueva-contrasena");
 
         boolean publico =
                 ruta.endsWith("index.jsp") ||

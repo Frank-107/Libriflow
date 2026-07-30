@@ -128,6 +128,28 @@ public class UsuarioDao {
         }
     }
 
+    public boolean actualizarContrasena(String correo, String nuevaContrasena) {
+
+        String sql = "UPDATE credencial " +
+                "SET contrasena = STANDARD_HASH(?, 'SHA256') " +
+                "WHERE id_usuario = (SELECT id_usuario FROM usuario WHERE correo_electronico = ?)";
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, nuevaContrasena);
+            ps.setString(2, correo);
+
+            int filas = ps.executeUpdate();
+            return (filas == 1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return  false;
+        }
+    }
+
+
+
     public boolean delete(Integer id) {
         return false;
     }

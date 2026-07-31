@@ -268,7 +268,7 @@
                 <div class="mis-publicaciones-header">
 
                     <h2>
-                        Mis publicaciones (${publicaciones.size()})
+                        Publicaciones totalest (${publicaciones.size()})
                     </h2>
 
 

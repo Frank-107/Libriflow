@@ -17,7 +17,7 @@
 
 <nav class="bg-lf-dark rounded-lf-header navbar-outer shadow-sm d-flex align-items-center px-4 px-md-5">
   <div class="nav-links">
-    <a href="#" class="btn-nav">Nuestras Redes</a>
+    <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn-nav">Nuestras Redes</a>
   </div>
 </nav>
 
@@ -143,7 +143,7 @@
     </p>
 
     <div class="social-links">
-      <a href="#" aria-label="Instagram">
+      <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" aria-label="Instagram">
         <img src="assets/css/bi/instagram.svg" alt="Instagram" width="20" height="20">
       </a>
       <a href="#" aria-label="X">

@@ -7,35 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar Libro - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
-    <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
 </head>
 <body class="p-3 p-md-4">
 
 <div class="container-fluid max-width-xl mx-auto">
 
-    <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
+    <header class="bg-lf-dark text-white py-2 px-4 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-2 gap-md-3">
             <button class="btn text-white d-md-none p-0 border-0 me-1" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
-                <i class="bi bi-list" style="font-size: 2rem;"></i>
+                <i class="bi bi-list" style="font-size: 1.8rem;"></i>
             </button>
 
-            <a href="inicio" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
+            <a href="inicio" class="text-white text-decoration-none fs-5 btn-lf-pill p-1 px-2 d-inline-flex align-items-center justify-content-center">
                 <i class="bi bi-arrow-left"></i>
             </a>
-            <span class="fw-bold fs-4 tracking-wide">Publicar</span>
+            <span class="fw-bold fs-5 tracking-wide">Publicar</span>
         </div>
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()}</div>
-                <small class="text-white-50" style="font-size: 0.8rem;">${usuario.getCorreo()}</small>
+                <div class="fw-bold mb-0" style="font-size: 0.85rem;">${usuario.getNombre()}</div>
+                <small class="text-white-50" style="font-size: 0.75rem;">${usuario.getCorreo()}</small>
             </div>
 
             <div class="dropdown">
-                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-fill fs-4 text-dark"></i>
+                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 38px; height: 38px; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-fill fs-5 text-dark"></i>
                 </div>
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
@@ -54,11 +54,11 @@
         </div>
     </header>
 
-    <div class="row g-4">
+    <div class="row g-4 align-items-stretch">
 
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
-                <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
+                <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0 h-100">
                     <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-house me-3 fs-5"></i> Inicio
                     </a>
@@ -77,7 +77,7 @@
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
                     </a>
                 </div>
@@ -85,22 +85,30 @@
         </aside>
 
         <main class="col-12 col-md-8 col-lg-9">
-            <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white">
+            <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white h-100">
 
                 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
                     <div>
-                        <h4 class="fw-bold text-dark mb-1">Nueva Publicacion</h4>
+                        <h4 class="fw-bold text-dark mb-1">Nueva Publicación</h4>
                     </div>
                     <div class="text-end">
                         <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" style="height: 35px; width: auto;">
                     </div>
                 </div>
+
                 <c:if test="${not empty mensaje}">
                     <div class="libri-toast libri-toast-success">
                         <i class="bi bi-check-circle-fill fs-5"></i>
                         <span><c:out value="${mensaje}" escapeXml="true" /></span>
                     </div>
                     <c:remove var="mensaje" scope="session"/>
+                </c:if>
+
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger rounded-3" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <c:out value="${error}" escapeXml="true" />
+                    </div>
                 </c:if>
 
                 <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data"
@@ -125,7 +133,6 @@
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Género</label>
-
                             <select name="genero" class="form-control form-control-lf" required>
                                 <option value="" disabled selected>Selecciona un género</option>
                                 <option value="Novela">Novela</option>
@@ -154,36 +161,26 @@
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Precio MXN</label>
+                            <input type="number" step="0.01" name="precio" class="form-control form-control-lf" placeholder="$" required>
 
-                            <input type="number"
-                                   step="0.01"
-                                   name="precio"
-                                   class="form-control form-control-lf"
-                                   placeholder="$"
-                                   required>
+                            <div class="alert alert-warning border-0 mt-2 p-2.5 rounded-3" style="background-color: #fff8ec; border-left: 4px solid #e8a020 !important;">
+                                <small class="text-dark d-block" style="font-size: 0.8rem;">
+                                    <i class="bi bi-exclamation-circle-fill text-warning me-1"></i>
+                                    <strong>Nota:</strong> Se descontará el 15% del valor ingresado por comisión de venta de LibriFlow.
+                                </small>
+                            </div>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Imágenes del libro</label>
-
-                            <button type="button"
-                                    class="btn btn-action-lf shadow-sm w-100"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalSubirImagenes">
-
-                                <i class="bi bi-images me-2"></i>
-                                Subir 3 imágenes
+                            <button type="button" class="btn btn-action-lf shadow-sm w-100" data-bs-toggle="modal" data-bs-target="#modalSubirImagenes">
+                                <i class="bi bi-images me-2"></i> Subir 3 imágenes
                             </button>
                         </div>
 
                         <div class="col-12 mb-4">
-                            <label class="form-label-lf">Sipnosis</label>
-
-                            <textarea name="sinopsis"
-                                      class="form-control form-control-lf"
-                                      rows="5"
-                                      style="resize:none;"
-                                      required></textarea>
+                            <label class="form-label-lf">Sinopsis</label>
+                            <textarea name="sinopsis" class="form-control form-control-lf" rows="5" style="resize:none;" required></textarea>
                         </div>
 
                     </div>
@@ -206,7 +203,6 @@
 
                                 <div class="modal-body p-4 bg-light">
                                     <div class="row">
-
                                         <div class="col-12 mb-4">
                                             <label class="form-label-lf small fw-bold mb-2">
                                                 1. Portada (Principal)
@@ -227,7 +223,6 @@
                                             </label>
                                             <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5">
                                         </div>
-
                                     </div>
                                 </div>
 

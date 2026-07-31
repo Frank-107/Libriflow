@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.time.YearMonth;
@@ -17,6 +18,8 @@ public class ValidarTarjetaSv extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        req.setAttribute("total",session.getAttribute("total"));
         req.getRequestDispatcher("/ValidarTarjeta.jsp").forward(req, resp);
     }
     @Override

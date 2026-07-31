@@ -873,3 +873,35 @@ body {
         border-left: 1px solid rgba(108, 117, 125, 0.25);
     }
 }
+.resumen-pago{
+    margin-top:20px;
+    margin-bottom:10px;
+    padding:15px 20px;
+    background:#F7F3EE;
+    border:2px solid #D9CEC2;
+    border-radius:18px;
+}
+
+.resumen-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:1.1rem;
+}
+
+.resumen-item span{
+    color:#5E5953;
+    font-weight:600;
+}
+
+.resumen-item strong{
+    font-size:1.4rem;
+    color:#4A4641;
+}
+.detalle-envio{
+    display:block;
+    font-size:0.55rem;
+    font-weight:400;
+    color:#9A9088;
+    margin-top:1px;
+}

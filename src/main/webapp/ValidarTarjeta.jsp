@@ -7,6 +7,7 @@
     <title>Validar Tarjeta - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="pantalla-registro">
@@ -46,6 +47,14 @@
                 <label for="cvv">CVV</label>
                 <input type="password" id="cvv" name="cvv" placeholder="3 o 4 dígitos" maxlength="4" required>
             </div></div>
+        <div class="resumen-pago mt-3">
+
+            <div class="resumen-item">
+                <span>Total a pagar</span>
+                <strong>$${total}</strong>
+            </div>
+
+        </div>
         <button type="submit" class="btn-submit" style="margin-top: 20px;">
             <i class="bi bi-credit-card-fill" style="margin-right: 8px;"></i>Pagar ahora
         </button>

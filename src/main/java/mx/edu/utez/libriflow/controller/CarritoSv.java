@@ -42,16 +42,34 @@ public class CarritoSv extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        HttpSession session = req.getSession(false);
+        if (action.equals("comprar")){
+
+            boolean tieneCompras = Boolean.parseBoolean(req.getParameter("contieneEnvio")); //validar si no, etnonces sera solo renta
+            double subtotal = Double.parseDouble(req.getParameter("subtotal"));
+
+            if(tieneCompras){
+
+                //no hay envio, por ende es todo el costo
+                session.setAttribute("total",subtotal);
+                resp.sendRedirect("direccion-envio");
+                return;
+
+
+            }
+            resp.sendRedirect("validar-tarjeta");
+
+
+
+
+
+        }
         if (action.equals("eliminar")) {
             int idEliminar = Integer.parseInt(req.getParameter("idPublicacion"));
-            HttpSession session = req.getSession();
             List<Integer> ids = (List<Integer>) session.getAttribute("carrito");
             ids.remove(Integer.valueOf(idEliminar));
             session.setAttribute("carrito",ids);
             resp.sendRedirect("carrito");
-        }
-        if (action.equals("comprar")){
-            resp.sendRedirect("validar-tarjeta");
         }
     }
 

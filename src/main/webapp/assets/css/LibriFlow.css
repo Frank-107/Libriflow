@@ -36,11 +36,6 @@ body {
    LAYOUT FIJO (header y sidebar no se mueven)
 ========================== */
 
-html, body {
-    height: 100%;
-    overflow: hidden; /* la página en sí ya no hace scroll */
-}
-
 .container-fluid.max-width-xl.mx-auto {
     height: 100vh;
     display: flex;

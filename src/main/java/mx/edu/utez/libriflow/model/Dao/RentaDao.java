@@ -95,6 +95,94 @@ public class RentaDao {
         return lista;
     }
 
+    public List<RentaResumen> getResumenRentasPorUsuario(int idUsuario) {
+
+        List<RentaResumen> lista = new ArrayList<>();
+
+        String sql = """
+        SELECT
+            dr.id_detalle,
+            dr.fecha_inicio,
+            dr.fecha_limite,
+            dr.fecha_devolucion,
+            dr.estado,
+            dt.id_transaccion,
+            dt.precio,
+            uc.nombre AS nombre_comprador,
+            uv.nombre AS nombre_vendedor,
+            COALESCE(lus.titulo, llf.titulo) AS titulo,
+            COALESCE(lus.autor, llf.autor) AS autor,
+            COALESCE(ius.imagen, ilf.imagen) AS imagen
+        FROM detalle_renta dr
+        JOIN detalle_transaccion dt
+            ON dr.id_detalle = dt.id_detalle
+        JOIN transaccion t
+            ON dt.id_transaccion = t.id_transaccion
+        JOIN usuario uc
+            ON t.id_comprador = uc.id_usuario
+        JOIN usuario uv
+            ON dt.id_vendedor = uv.id_usuario
+        LEFT JOIN publicacion_us pus
+            ON dt.id_publicacion_us = pus.id_publicacion_us
+        LEFT JOIN libro lus
+            ON pus.id_libro = lus.id_libro
+        LEFT JOIN imagen ius
+            ON ius.id_publicacion_us = pus.id_publicacion_us
+            AND ius.tipo = 1
+        LEFT JOIN publicacion_lf plf
+            ON dt.id_publicacion_lf = plf.id_publicacion_lf
+        LEFT JOIN libro llf
+            ON plf.id_libro = llf.id_libro
+        LEFT JOIN imagen ilf
+            ON ilf.id_publicacion_lf = plf.id_publicacion_lf
+            AND ilf.tipo = 1
+        WHERE t.id_comprador = ?
+        ORDER BY dr.fecha_inicio DESC
+        """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    RentaResumen renta = new RentaResumen();
+
+                    renta.setIdDetalle(rs.getInt("id_detalle"));
+                    renta.setIdTransaccion(rs.getInt("id_transaccion"));
+                    renta.setTitulo(rs.getString("titulo"));
+                    renta.setAutor(rs.getString("autor"));
+                    renta.setImagenPrincipal(rs.getString("imagen"));
+                    renta.setPrecio(rs.getDouble("precio"));
+                    renta.setNombreComprador(rs.getString("nombre_comprador"));
+                    renta.setNombreVendedor(rs.getString("nombre_vendedor"));
+
+                    if (rs.getDate("fecha_inicio") != null) {
+                        renta.setFechaInicio(rs.getDate("fecha_inicio").toLocalDate());
+                    }
+                    if (rs.getDate("fecha_limite") != null) {
+                        renta.setFechaLimite(rs.getDate("fecha_limite").toLocalDate());
+                    }
+                    if (rs.getDate("fecha_devolucion") != null) {
+                        renta.setFechaDevolucion(rs.getDate("fecha_devolucion").toLocalDate());
+                    }
+
+                    renta.setEstado(rs.getString("estado"));
+
+                    lista.add(renta);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
     public boolean cambiarEstadoRenta(int idDetalle, String estado) {
 
         String sql = """

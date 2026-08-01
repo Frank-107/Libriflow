@@ -118,9 +118,11 @@
                                             <form action="${pageContext.request.contextPath}/mis-rentas-admin" method="post" class="d-flex gap-2 align-items-center">
                                                 <input type="hidden" name="idDetalle" value="${renta.idDetalle}">
                                                 <select name="estado" class="form-select form-select-sm" style="width:auto;">
-                                                    <option value="En proceso" ${renta.estado == 'En proceso' ? 'selected' : ''}>En proceso</option>
-                                                    <option value="En camino" ${renta.estado == 'En camino' ? 'selected' : ''}>En camino</option>
-                                                    <option value="Finalizada" ${renta.estado == 'Finalizada' ? 'selected' : ''}>Finalizada</option>
+                                                    <option value="ACTIVA" ${renta.estado == 'ACTIVA' ? 'selected' : ''}>Activa</option>
+                                                    <option value="ATRASADA" ${renta.estado == 'ATRASADA' ? 'selected' : ''}>Atrasada</option>
+                                                    <option value="MUY ATRASADA" ${renta.estado == 'MUY ATRASADA' ? 'selected' : ''}>Muy atrasada</option>
+                                                    <option value="DEVUELTA" ${renta.estado == 'DEVUELTA' ? 'selected' : ''}>Devuelta</option>
+                                                    <option value="CANCELADA" ${renta.estado == 'CANCELADA' ? 'selected' : ''}>Cancelada</option>
                                                 </select>
                                                 <button type="submit" class="btn btn-sm btn-dark">Actualizar</button>
                                             </form>

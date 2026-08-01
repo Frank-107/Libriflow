@@ -204,5 +204,19 @@ body {
     background-color: #86efac;
     color: #15803d;
 }
+/* Header fijo arriba al hacer scroll */
+.rounded-lf-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030; /* por encima del contenido, debajo de modales de Bootstrap */
+}
+
+/* Sidebar fijo al hacer scroll */
+.rounded-lf-sidebar {
+    position: sticky;
+    top: 1rem; /* deja un pequeño espacio debajo del header */
+    max-height: calc(100vh - 2rem); /* que no se salga de la pantalla */
+    overflow-y: auto; /* si el menú creciera mucho, tendría su propio scroll */
+}
 
 /*----------------------------*/

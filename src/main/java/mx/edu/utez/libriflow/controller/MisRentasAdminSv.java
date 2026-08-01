@@ -10,11 +10,16 @@ import mx.edu.utez.libriflow.model.RentaResumen;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @WebServlet(name = "MisRentasAdminSv", value = "/mis-rentas-admin")
 public class MisRentasAdminSv extends HttpServlet {
 
     RentaDao rentaDao = new RentaDao();
+
+    private static final Set<String> ESTADOS_VALIDOS = Set.of(
+            "ACTIVA", "DEVUELTA", "ATRASADA", "MUY ATRASADA", "CANCELADA"
+    );
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,8 +36,12 @@ public class MisRentasAdminSv extends HttpServlet {
         int idDetalle = Integer.parseInt(req.getParameter("idDetalle"));
         String nuevoEstado = req.getParameter("estado");
 
-        rentaDao.cambiarEstadoRenta(idDetalle, nuevoEstado);
+        if (!ESTADOS_VALIDOS.contains(nuevoEstado)) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Estado no válido");
+            return;
+        }
 
+        rentaDao.cambiarEstadoRenta(idDetalle, nuevoEstado);
         resp.sendRedirect(req.getContextPath() + "/mis-rentas-admin");
     }
 }

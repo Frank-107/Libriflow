@@ -63,7 +63,7 @@
           <a href="publicar-libro-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-file-earmark-text me-3 fs-5"></i> Publicar
           </a>
-          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="${pageContext.request.contextPath}/mis-rentas-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
           </a>
           <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">

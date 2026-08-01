@@ -330,3 +330,10 @@ body {
         margin-top: 5px;
     }
 }
+.detalle-envio{
+    display:block;
+    font-size:0.80rem;
+    font-weight:400;
+    color:#9A9088;
+    margin-top:1px;
+}

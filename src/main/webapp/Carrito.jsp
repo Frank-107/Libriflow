@@ -297,10 +297,14 @@
 
                     <c:otherwise>
 
-                        <c:set var="total" value="0"/>
+                        <c:set var="subtotal" value="0"/>
+                        <c:set var="contieneEnvio" value="false"/>
 
 
                         <c:forEach var="publicacion" items="${publicaciones}">
+                            <c:if test="${!contieneEnvio}">
+                                <c:set var="contieneEnvio" value="true"/>
+                        </c:if>
 
                             <div class="card-libro mb-4">
 
@@ -313,44 +317,28 @@
 
 
                                 <div class="card-contenido">
-
-
                                     <div class="card-info">
-
                                         <h3 class="card-titulo">
                                                 ${publicacion.titulo}
                                         </h3>
-
-
                                         <p class="card-autor">
                                             Autor:
                                                 ${publicacion.autor}
                                         </p>
-
-
                                         <p class="card-genero">
                                             Género:
                                                 ${publicacion.genero}
                                         </p>
-
-
                                         <p class="card-precio">
                                             $${publicacion.precio}
                                         </p>
-
                                     </div>
-
 
                                     <form action="carrito"
                                           method="post">
-
-
-
                                         <input type="hidden"
                                                name="idPublicacion"
                                                value="${publicacion.idPublicacion}">
-
-
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="action" value="eliminar">
                                             <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
@@ -369,8 +357,8 @@
                             </div>
 
 
-                            <c:set var="total"
-                                   value="${total + publicacion.precio}"/>
+                            <c:set var="subtotal"
+                                   value="${subtotal + publicacion.precio}"/>
 
 
                         </c:forEach>
@@ -382,12 +370,31 @@
                         <div class="text-end mt-4">
 
                             <h4 class="fw-bold">
-                                Total:
-                                $${total}
+                                <c:choose>
+                                    <c:when test="${contieneEnvio}">
+                                        Subtotal:
+                                        $${subtotal}
+                                        <br>
+                                        Envio:
+                                        $50-$100
+                                        <small class="detalle-envio">
+                                            (Dependiendo ubicación)
+                                        </small>
+
+                                    </c:when>
+                                    <c:otherwise>
+                                        Total:
+                                        $${subtotal}
+                                    </c:otherwise>
+
+
+                                </c:choose>
                             </h4>
 
                             <form action="carrito" method="post">
+                                <input type="hidden" value="${contieneEnvio}" name="contieneEnvio">
                                 <input type="hidden" value="comprar" name="action" >
+                                <input type="hidden" value="${subtotal}" name="subtotal" >
                                 <button type="submit" class="btn bg-lf-dark text-white rounded-pill px-4 py-2.5 shadow fw-semibold d-inline-flex align-items-center gap-2">
                                     <i class="bi bi-credit-card-fill fs-5"></i> Continuar compra
                                 </button>

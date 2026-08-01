@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="pantalla-registro">
+<%
+    HttpSession sessionActual = request.getSession(false);
+
+    if (sessionActual == null || sessionActual.getAttribute("pagoRealizado") == null) {
+        response.sendRedirect(request.getContextPath() + "/inicio");
+        return;
+    }
+%>
 <div class="top-bar">
     <a href="${pageContext.request.contextPath}/inicio" class="back-link" title="Ir al Inicio">←</a>
     <h1>Confirmación de Compra</h1>
@@ -26,6 +34,7 @@
     <h2 class="card-title" style="margin-bottom: 10px;">¡PAGO EXITOSO!</h2>
     <p style="color: #6e6762; font-size: 15px; font-weight: 500; margin-bottom: 30px; line-height: 1.5;">
         Tu transacción ha sido procesada correctamente.<br>
+        Hemos enviado toda la informacion a tu correo. <br>
         ¡Gracias por comprar en <strong>LibriFlow</strong>!
     </p>
 

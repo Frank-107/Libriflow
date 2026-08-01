@@ -19,17 +19,33 @@ public class ValidarTarjetaSv extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        req.setAttribute("total",session.getAttribute("total"));
+        if(session.getAttribute("puedePagar")==null){
+            resp.sendRedirect("inicio");
+            return;
+        }
+        double envio = (Double) session.getAttribute("envio");
+        double total;
+        double subtotal = (Double) session.getAttribute("subtotal");
+        total= subtotal+envio;
+        req.setAttribute("total", total);
         req.getRequestDispatcher("/ValidarTarjeta.jsp").forward(req, resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if(session.getAttribute("puedepagar")==null){
+            resp.sendRedirect("inicio");
+            return;
+        }
 
         String titular = req.getParameter("titular");
         String numeroTarjeta = req.getParameter("numeroTarjeta");
         String fechaVencimiento = req.getParameter("fechaVencimiento");
         String cvv = req.getParameter("cvv");
+        double precio = Double.parseDouble(req.getParameter("precio"));
+        req.setAttribute("total",precio);
+
 
         req.setAttribute("titular", titular);
         req.setAttribute("numeroTarjeta", numeroTarjeta);
@@ -78,7 +94,12 @@ public class ValidarTarjetaSv extends HttpServlet {
             req.setAttribute("error", "El código CVV debe tener 3 o 4 dígitos numéricos");
             req.getRequestDispatcher("/ValidarTarjeta.jsp").forward(req, resp);
             return;}
+        session.setAttribute("pagoRealizado",true);
         resp.sendRedirect(req.getContextPath() + "/PagoExitoso.jsp");
+        session.removeAttribute("puedePagar");
+        session.removeAttribute("pagoRealizado");
+        session.removeAttribute("pagoDireccion");
+
     }
     private boolean validarLuhn(String numero) {
         int suma = 0;

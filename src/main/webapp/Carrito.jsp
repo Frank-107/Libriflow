@@ -342,7 +342,7 @@
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="action" value="eliminar">
                                             <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
-                                            <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 shadow-sm d-inline-flex align-items-center gap-1 mt-2">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 shadow-sm d-inline-flex align-items-center gap-1 mt-2">
                                                 <i class="bi bi-trash"></i> Eliminar
                                             </button>
                                         </form>

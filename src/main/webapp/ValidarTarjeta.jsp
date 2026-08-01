@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,11 +20,14 @@
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" class="logo-img-completo">
 
     <h2 class="card-title">VALIDAR TARJETA</h2>
-    <% if (request.getAttribute("error") != null) { %>
-    <div class="error-msg" style="color: #cc0000; background-color: #f8d7da; padding: 10px; border-radius: 10px; margin-bottom: 15px; font-size: 14px;">
-        <%= request.getAttribute("error") %>
-    </div>
-    <% } %>
+    <c:if test="${error != null && not empty error}">
+        <div class="libri-toast libri-toast-error">
+            <i class="bi bi-exclamation-circle-fill fs-5"></i>
+            <span>
+            <c:out value="${error}" escapeXml="true"/>
+        </span>
+        </div>
+    </c:if>
     <form action="validar-tarjeta" method="POST">
 
         <div class="form-section-title">Datos de la Tarjeta</div>
@@ -55,6 +59,7 @@
             </div>
 
         </div>
+        <input type="hidden" value="${total}" name="precio">
         <button type="submit" class="btn-submit" style="margin-top: 20px;">
             <i class="bi bi-credit-card-fill" style="margin-right: 8px;"></i>Pagar ahora
         </button>
@@ -62,6 +67,6 @@
     </form>
 
 </div>
-
+<script src="assets/js/Notificacion.js"></script>
 </body>
 </html>

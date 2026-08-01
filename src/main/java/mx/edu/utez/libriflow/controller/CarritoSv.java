@@ -44,19 +44,20 @@ public class CarritoSv extends HttpServlet {
         String action = req.getParameter("action");
         HttpSession session = req.getSession(false);
         if (action.equals("comprar")){
-
+            session.setAttribute("puedeDireccion",true);
             boolean tieneCompras = Boolean.parseBoolean(req.getParameter("contieneEnvio")); //validar si no, etnonces sera solo renta
             double subtotal = Double.parseDouble(req.getParameter("subtotal"));
+            session.setAttribute("subtotal",subtotal);
 
             if(tieneCompras){
-
-                //no hay envio, por ende es todo el costo
-                session.setAttribute("total",subtotal);
+                session.setAttribute("puedePagar",true);
                 resp.sendRedirect("direccion-envio");
                 return;
 
 
             }
+            session.setAttribute("envio",0.0);
+            session.setAttribute("puedePagar",true);
             resp.sendRedirect("validar-tarjeta");
 
 

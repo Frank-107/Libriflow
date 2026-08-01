@@ -81,8 +81,7 @@ public class FiltroAutentificacion extends HttpFilter {
         // Un usuario normal no puede acceder a rutas de administrador
         if (!esAdmin && rutaAdmin) {
             System.out.println("Acceso denegado: usuario intentó acceder a zona admin -> " + ruta);
-            res.sendError(HttpServletResponse.SC_FORBIDDEN,
-                    "No tienes permisos para acceder a este recurso.");
+            res.sendRedirect(req.getContextPath() + "/inicio");
             return;
         }
 

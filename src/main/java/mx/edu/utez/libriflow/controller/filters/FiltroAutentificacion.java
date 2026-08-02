@@ -39,6 +39,7 @@ public class FiltroAutentificacion extends HttpFilter {
                         ruta.endsWith("index") ||
                         ruta.endsWith("/Libriflow_war/") ||
                         ruta.contains("/assets/") ||
+                        ruta.contains("/uploads/") ||
                         ruta.endsWith("/");
 
         // Nueva ruta permitida

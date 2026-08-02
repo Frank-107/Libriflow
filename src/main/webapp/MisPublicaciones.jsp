@@ -115,7 +115,7 @@
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
                     <h2>
-                        Publicaciones totalest (${publicaciones.size()})
+                        Publicaciones totales (${publicaciones.size()})
                     </h2>
                 </div>
                 <c:choose>

@@ -185,11 +185,20 @@
                                                     </c:choose>
                                                 </p>
                                             </div>
-
-                                            <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                                               class="btn-detalles">
-                                                Ver detalles
-                                            </a>
+                                            <c:choose>
+                                                <c:when test="${publicacion.esLibriFlow}">
+                                                    <a href="detalle-publicacion-superad?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:otherwise>
+                                            </c:choose>
 
                                         </div>
 

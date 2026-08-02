@@ -46,7 +46,7 @@ body {
     border-radius: 30px;
     padding-top: 10px !important;
     padding-bottom: 10px !important;
-    flex-shrink: 0; /* nunca se encoge ni se mueve */
+    flex-shrink: 0;
 }
 
 .rounded-lf-header img {
@@ -60,7 +60,7 @@ body {
 
 .row.g-4 {
     flex: 1;
-    min-height: 0; /* necesario para que el scroll interno funcione bien */
+    min-height: 0;
     overflow: hidden;
 }
 
@@ -84,18 +84,17 @@ aside {
 }
 
 /* tamaño uniforme de botones */
+
 .sidebar-lf .btn {
     min-height: 48px;
 }
 
-/* Este selector aplica a CUALQUIER <main>, sin importar si además
-   tiene la clase "col" (MisRentasAdmin) o clases de ancho tipo
-   "col-12 col-md-8 col-lg-9" (InicioAdmin). Así ambos comparten
-   el mismo comportamiento de scroll interno. */
+/* Scroll interno del contenido */
+
 main {
     height: 100%;
-    overflow-y: auto; /* SOLO esto hace scroll */
-    padding-right: 8px; /* pequeño respiro para que no se pegue la barra de scroll al contenido */
+    overflow-y: auto;
+    padding-right: 8px;
 }
 
 
@@ -109,14 +108,43 @@ main {
 
 .dropdown:hover .dropdown-menu {
     display: block;
+    animation: aparecerDropdown 0.3s ease;
+}
+
+@keyframes aparecerDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dropdown-menu-lf {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    min-width: 200px;
     background-color: #F4EFEA !important;
     border-radius: 25px !important;
     padding: 10px !important;
+    margin-top: 0 !important;
     border: none !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,.15) !important;
+}
+
+.dropdown-menu-lf::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: transparent;
 }
 
 .dropdown-lf-item,
@@ -124,23 +152,24 @@ main {
     color: #4A4641;
     font-weight: 600;
     border-radius: 15px;
-    padding: 10px 15px !important;
-    transition: .2s;
+    transition: all .2s ease;
+    padding: 8px 15px !important;
 }
 
 .dropdown-lf-item:hover {
     background-color: #A39B93 !important;
-    color: white !important;
+    color: #FFF !important;
 }
 
 .dropdown-lf-logout {
     color: #d93025;
+    margin-top: 5px;
 }
 
 .dropdown-lf-logout:hover {
     background-color: #ffeaea !important;
+    color: #c5221f !important;
 }
-
 
 /* ==========================
    CONTENEDORES GENERALES
@@ -154,6 +183,7 @@ main {
 }
 
 /* títulos de sección */
+
 .lf-title {
     color: #4A4641;
     font-weight: 700;

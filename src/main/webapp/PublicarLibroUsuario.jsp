@@ -9,6 +9,7 @@
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
 </head>
 <body class="p-3 p-md-4">
@@ -29,8 +30,8 @@
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.85rem;">${usuario.getNombre()}</div>
-                <small class="text-white-50" style="font-size: 0.75rem;">${usuario.getCorreo()}</small>
+                <div class="fw-bold mb-0" style="font-size: 0.85rem;">${usuario.nombre}</div>
+                <small class="text-white-50" style="font-size: 0.75rem;">${usuario.correo}</small>
             </div>
 
             <div class="dropdown">
@@ -105,68 +106,67 @@
                 </c:if>
 
                 <c:if test="${not empty error}">
-                    <div class="alert alert-danger rounded-3" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        <c:out value="${error}" escapeXml="true" />
+                    <div class="libri-toast libri-toast-danger">
+                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                        <span><c:out value="${error}" escapeXml="true" /></span>
                     </div>
                 </c:if>
 
-                <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data"
-                      onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Enviando...';">
+                <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data">
 
                     <div class="row">
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Nombre del libro</label>
-                            <input type="text" name="titulo" class="form-control form-control-lf" required>
+                            <input type="text" name="titulo" value="${param.titulo}" class="form-control form-control-lf" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Autor</label>
-                            <input type="text" name="autor" class="form-control form-control-lf" required>
+                            <input type="text" name="autor" value="${param.autor}" class="form-control form-control-lf" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Editorial</label>
-                            <input type="text" name="editorial" class="form-control form-control-lf" required>
+                            <input type="text" name="editorial" value="${param.editorial}" class="form-control form-control-lf" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Género</label>
                             <select name="genero" class="form-control form-control-lf" required>
-                                <option value="" disabled selected>Selecciona un género</option>
-                                <option value="Novela">Novela</option>
-                                <option value="Fantasía">Fantasía</option>
-                                <option value="Ciencia ficción">Ciencia ficción</option>
-                                <option value="Terror">Terror</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Misterio">Misterio</option>
-                                <option value="Suspenso">Suspenso</option>
-                                <option value="Drama">Drama</option>
-                                <option value="Aventura">Aventura</option>
-                                <option value="Historia">Historia</option>
-                                <option value="Biografía">Biografía</option>
-                                <option value="Autobiografía">Autobiografía</option>
-                                <option value="Ciencia">Ciencia</option>
-                                <option value="Tecnología">Tecnología</option>
-                                <option value="Educación">Educación</option>
-                                <option value="Infantil">Infantil</option>
-                                <option value="Poesía">Poesía</option>
-                                <option value="Filosofía">Filosofía</option>
-                                <option value="Religión">Religión</option>
-                                <option value="Cómic">Cómic</option>
-                                <option value="Otro">Otro</option>
+                                <option value="" disabled ${empty param.genero ? 'selected' : ''}>Selecciona un género</option>
+                                <option value="Novela" ${param.genero == 'Novela' ? 'selected' : ''}>Novela</option>
+                                <option value="Fantasía" ${param.genero == 'Fantasía' ? 'selected' : ''}>Fantasía</option>
+                                <option value="Ciencia ficción" ${param.genero == 'Ciencia ficción' ? 'selected' : ''}>Ciencia ficción</option>
+                                <option value="Terror" ${param.genero == 'Terror' ? 'selected' : ''}>Terror</option>
+                                <option value="Romance" ${param.genero == 'Romance' ? 'selected' : ''}>Romance</option>
+                                <option value="Misterio" ${param.genero == 'Misterio' ? 'selected' : ''}>Misterio</option>
+                                <option value="Suspenso" ${param.genero == 'Suspenso' ? 'selected' : ''}>Suspenso</option>
+                                <option value="Drama" ${param.genero == 'Drama' ? 'selected' : ''}>Drama</option>
+                                <option value="Aventura" ${param.genero == 'Aventura' ? 'selected' : ''}>Aventura</option>
+                                <option value="Historia" ${param.genero == 'Historia' ? 'selected' : ''}>Historia</option>
+                                <option value="Biografía" ${param.genero == 'Biografía' ? 'selected' : ''}>Biografía</option>
+                                <option value="Autobiografía" ${param.genero == 'Autobiografía' ? 'selected' : ''}>Autobiografía</option>
+                                <option value="Ciencia" ${param.genero == 'Ciencia' ? 'selected' : ''}>Ciencia</option>
+                                <option value="Tecnología" ${param.genero == 'Tecnología' ? 'selected' : ''}>Tecnología</option>
+                                <option value="Educación" ${param.genero == 'Educación' ? 'selected' : ''}>Educación</option>
+                                <option value="Infantil" ${param.genero == 'Infantil' ? 'selected' : ''}>Infantil</option>
+                                <option value="Poesía" ${param.genero == 'Poesía' ? 'selected' : ''}>Poesía</option>
+                                <option value="Filosofía" ${param.genero == 'Filosofía' ? 'selected' : ''}>Filosofía</option>
+                                <option value="Religión" ${param.genero == 'Religión' ? 'selected' : ''}>Religión</option>
+                                <option value="Cómic" ${param.genero == 'Cómic' ? 'selected' : ''}>Cómic</option>
+                                <option value="Otro" ${param.genero == 'Otro' ? 'selected' : ''}>Otro</option>
                             </select>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Precio MXN</label>
-                            <input type="number" step="0.01" name="precio" class="form-control form-control-lf" placeholder="$" required>
+                            <input type="number" step="0." min="0" name="precio" value="${param.precio}" class="form-control form-control-lf" placeholder="$" required>
 
                             <div class="alert alert-warning border-0 mt-2 p-2.5 rounded-3" style="background-color: #fff8ec; border-left: 4px solid #e8a020 !important;">
                                 <small class="text-dark d-block" style="font-size: 0.8rem;">
                                     <i class="bi bi-exclamation-circle-fill text-warning me-1"></i>
-                                    <strong>Nota:</strong> Se descontará el 15% del valor ingresado por comisión de venta de LibriFlow.
+                                    <strong>Nota:</strong> Se descontara el 15% del valor ingresado por comisión de venta de LibriFlow.
                                 </small>
                             </div>
                         </div>
@@ -180,7 +180,7 @@
 
                         <div class="col-12 mb-4">
                             <label class="form-label-lf">Sinopsis</label>
-                            <textarea name="sinopsis" class="form-control form-control-lf" rows="5" style="resize:none;" required></textarea>
+                            <textarea name="sinopsis" minlength="100" class="form-control form-control-lf" rows="5" style="resize:none;" required>${param.sinopsis}</textarea>
                         </div>
 
                     </div>
@@ -204,24 +204,18 @@
                                 <div class="modal-body p-4 bg-light">
                                     <div class="row">
                                         <div class="col-12 mb-4">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                1. Portada (Principal)
-                                            </label>
-                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5">
+                                            <label class="form-label-lf small fw-bold mb-2">1. Portada (Principal)</label>
+                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5" required>
                                         </div>
 
                                         <div class="col-12 mb-4">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                2. Reverso / Contraportada
-                                            </label>
-                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5">
+                                            <label class="form-label-lf small fw-bold mb-2">2. Reverso / Contraportada</label>
+                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5" required>
                                         </div>
 
                                         <div class="col-12 mb-2">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                3. Estado general / Páginas
-                                            </label>
-                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5">
+                                            <label class="form-label-lf small fw-bold mb-2">3. Estado general / Páginas</label>
+                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5" required>
                                         </div>
                                     </div>
                                 </div>
@@ -241,8 +235,9 @@
 
     </div>
 </div>
-<script src="assets/js/bootstrap.js"></script>
-<script src="assets/js/Publicar.js"></script>
-<script src="assets/js/Notificacion.js"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Publicar.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

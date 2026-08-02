@@ -34,7 +34,7 @@ public class ValidarTarjetaSv extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        if(session.getAttribute("puedepagar")==null){
+        if(session.getAttribute("puedePagar")==null){
             resp.sendRedirect("inicio");
             return;
         }
@@ -96,9 +96,9 @@ public class ValidarTarjetaSv extends HttpServlet {
             return;}
         session.setAttribute("pagoRealizado",true);
         resp.sendRedirect(req.getContextPath() + "/PagoExitoso.jsp");
+        System.out.println("mandado a pago exitoso");
         session.removeAttribute("puedePagar");
-        session.removeAttribute("pagoRealizado");
-        session.removeAttribute("pagoDireccion");
+        session.removeAttribute("puedeDireccion");
 
     }
     private boolean validarLuhn(String numero) {

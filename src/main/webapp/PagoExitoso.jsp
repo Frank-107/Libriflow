@@ -16,8 +16,11 @@
 
     if (sessionActual == null || sessionActual.getAttribute("pagoRealizado") == null) {
         response.sendRedirect(request.getContextPath() + "/inicio");
+        System.out.println("no puedes ver el pago realizado sin haber pagado");
         return;
     }
+    session.removeAttribute("pagoRealizado");
+
 %>
 <div class="top-bar">
     <a href="${pageContext.request.contextPath}/inicio" class="back-link" title="Ir al Inicio">←</a>

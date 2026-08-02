@@ -127,6 +127,18 @@
                                 <c:if test="${publicacion.esLibriFlow}">
                                     <div style="position:absolute; top:12px; right:12px; background:#F1ECE5; color:#5B564F; font-size:.65rem; padding:4px 12px; border-radius:20px; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,.05); z-index:10;">
                                         Catálogo LibriFlow
+                                        <c:choose>
+                                            <c:when test="${publicacion.esRentaSeleccionada}">
+                                                <span>: Renta</span>
+                                            </c:when>
+                                            <c:otherwise>
+
+                                                <span>: Compra</span>
+                                                <c:set var="contieneEnvio" value="true"/>
+
+                                            </c:otherwise>
+                                        </c:choose>
+
                                     </div>
                                 </c:if>
                                 <div class="card-portada">

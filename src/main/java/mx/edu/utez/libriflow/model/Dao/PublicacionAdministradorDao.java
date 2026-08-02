@@ -1,5 +1,6 @@
 package mx.edu.utez.libriflow.model.Dao;
 
+import mx.edu.utez.libriflow.model.PublicacionAdminCompleta;
 import mx.edu.utez.libriflow.model.PublicacionAdministrador;
 import mx.edu.utez.libriflow.model.PublicacionResumen;
 import mx.edu.utez.libriflow.utils.SQLconnector;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PublicacionAdministradorDao {
+
     public int create(PublicacionAdministrador entidad){
         String sql = "Insert into Publicacion_Lf (ID_Libro, Sinopsis, Cantidad, Es_venta, Es_renta, Precio) values(?, ?, ?, ?, ?, ?)";
         try(Connection con = SQLconnector.getConnection();
@@ -85,5 +87,69 @@ public class PublicacionAdministradorDao {
         }
 
         return lista;
+    }
+
+    public PublicacionAdminCompleta getPublicacionAdminCompleta(int idPublicacionLf) {
+        PublicacionAdminCompleta publicacion = null;
+
+        String sql = "SELECT " +
+                "    plf.id_publicacion_lf, " +
+                "    plf.id_libro, " +
+                "    l.titulo, " +
+                "    l.autor, " +
+                "    l.editorial, " +
+                "    l.genero, " +
+                "    plf.sinopsis, " +
+                "    plf.precio, " +
+                "    plf.estado, " +
+                "    plf.cantidad, " +
+                "    plf.es_venta, " +
+                "    plf.es_renta, " +
+                "    plf.fecha_publicacion, " +
+                "    MAX(CASE WHEN i.tipo = 1 THEN i.imagen END) AS imagen_principal, " +
+                "    MAX(CASE WHEN i.tipo = 2 THEN i.imagen END) AS imagen_reverso, " +
+                "    MAX(CASE WHEN i.tipo = 3 THEN i.imagen END) AS imagen_interior " +
+                "FROM publicacion_lf plf " +
+                "JOIN libro l ON plf.id_libro = l.id_libro " +
+                "LEFT JOIN imagen i ON plf.id_publicacion_lf = i.id_publicacion_lf " +
+                "WHERE plf.id_publicacion_lf = ? " +
+                "GROUP BY plf.id_publicacion_lf, plf.id_libro, l.titulo, l.autor, l.editorial, " +
+                "         l.genero, plf.sinopsis, plf.precio, plf.estado, plf.cantidad, " +
+                "         plf.es_venta, plf.es_renta, plf.fecha_publicacion";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idPublicacionLf);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    publicacion = new PublicacionAdminCompleta();
+
+                    publicacion.setIdPublicacionLf(rs.getInt("id_publicacion_lf"));
+                    publicacion.setIdLibro(rs.getInt("id_libro"));
+                    publicacion.setTitulo(rs.getString("titulo"));
+                    publicacion.setAutor(rs.getString("autor"));
+                    publicacion.setEditorial(rs.getString("editorial"));
+                    publicacion.setGenero(rs.getString("genero"));
+                    publicacion.setSinopsis(rs.getString("sinopsis"));
+                    publicacion.setPrecio(rs.getDouble("precio"));
+                    publicacion.setEstado(rs.getString("estado"));
+                    publicacion.setCantidad(rs.getInt("cantidad"));
+                    publicacion.setEsVenta(rs.getInt("es_venta"));
+                    publicacion.setEsRenta(rs.getInt("es_renta"));
+                    publicacion.setFechaPublicacion(rs.getString("fecha_publicacion"));
+                    publicacion.setImagenPrincipal(rs.getString("imagen_principal"));
+                    publicacion.setImagenReverso(rs.getString("imagen_reverso"));
+                    publicacion.setImagenInterior(rs.getString("imagen_interior"));
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener la publicación completa del administrador: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return publicacion;
     }
 }

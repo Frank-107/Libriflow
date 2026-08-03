@@ -33,280 +33,219 @@ body {
 
 
 /* ==========================
-   HEADER PRINCIPAL
+   LAYOUT FIJO (header y sidebar no se mueven)
 ========================== */
+
+.container-fluid.max-width-xl.mx-auto {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
 .rounded-lf-header {
-
     border-radius: 30px;
-
     padding-top: 10px !important;
     padding-bottom: 10px !important;
-
+    flex-shrink: 0;
 }
-
 
 .rounded-lf-header img {
-
     height: 40px;
-
 }
-
 
 .rounded-lf-header .rounded-circle {
-
     width: 45px !important;
     height: 45px !important;
-
 }
 
+.row.g-4 {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
 
-
-/* ==========================
-   SIDEBAR
-========================== */
-
+aside {
+    height: 100%;
+}
 
 .rounded-lf-sidebar {
-
     border-radius: 40px;
-
-    min-height: 80vh;
-
+    height: 100%;
 }
-
 
 .btn-lf-pill {
-
     border-radius: 20px;
-
     transition: all .2s ease;
-
 }
-
 
 .btn-lf-pill:hover {
-
     background-color: #8C847C;
-
     color: white !important;
-
 }
-
-
 
 /* tamaño uniforme de botones */
 
 .sidebar-lf .btn {
-
     min-height: 48px;
-
 }
 
+/* Scroll interno del contenido */
+
+main {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 8px;
+}
 
 
 /* ==========================
    DROPDOWN DE USUARIO
 ========================== */
 
-
 .dropdown {
-
     position: relative;
-
 }
-
 
 .dropdown:hover .dropdown-menu {
-
-    display:block;
-
+    display: block;
+    animation: aparecerDropdown 0.3s ease;
 }
 
+@keyframes aparecerDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .dropdown-menu-lf {
-
-
-    background-color:#F4EFEA !important;
-
-    border-radius:25px !important;
-
-    padding:10px !important;
-
-    border:none !important;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
-
-
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    min-width: 200px;
+    background-color: #F4EFEA !important;
+    border-radius: 25px !important;
+    padding: 10px !important;
+    margin-top: 0 !important;
+    border: none !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,.15) !important;
 }
 
-
+.dropdown-menu-lf::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: transparent;
+}
 
 .dropdown-lf-item,
 .dropdown-lf-logout {
-
-
-    color:#4A4641;
-
-    font-weight:600;
-
-    border-radius:15px;
-
-    padding:10px 15px !important;
-
-    transition:.2s;
-
-
+    color: #4A4641;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all .2s ease;
+    padding: 8px 15px !important;
 }
-
-
 
 .dropdown-lf-item:hover {
-
-
-    background-color:#A39B93 !important;
-
-    color:white !important;
-
-
+    background-color: #A39B93 !important;
+    color: #FFF !important;
 }
-
-
 
 .dropdown-lf-logout {
-
-
-    color:#d93025;
-
+    color: #d93025;
+    margin-top: 5px;
 }
-
-
 
 .dropdown-lf-logout:hover {
-
-
-    background-color:#ffeaea !important;
-
+    background-color: #ffeaea !important;
+    color: #c5221f !important;
 }
-
-
 
 /* ==========================
    CONTENEDORES GENERALES
 ========================== */
 
-
 .lf-container {
-
-
-    background:white;
-
-    border-radius:40px;
-
-    border:2px solid #CBC2B9;
-
-    padding:35px;
-
-
+    background: white;
+    border-radius: 40px;
+    border: 2px solid #CBC2B9;
+    padding: 35px;
 }
-
-
 
 /* títulos de sección */
 
 .lf-title {
-
-
-    color:#4A4641;
-
-    font-weight:700;
-
-    margin-bottom:25px;
-
-
+    color: #4A4641;
+    font-weight: 700;
+    margin-bottom: 25px;
 }
-
 
 
 /* ==========================
    TARJETAS GENERALES
 ========================== */
 
-
 .lf-card {
-
-
-    background:#CBC2B9;
-
-    border-radius:25px;
-
-    padding:20px;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-
-
+    background: #CBC2B9;
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
 }
-
 
 
 /* ==========================
    SCROLL DE CATÁLOGOS
 ========================== */
 
-
-.catalogo-scroll {
-
-
-    height:calc(100vh - 180px);
-
-    overflow-y:auto;
-
-
-}
-
-
+/* La altura y el overflow ya los controla la regla "main" de arriba.
+   Aquí solo dejamos el estilo cosmético de la barra de scroll. */
 
 .catalogo-scroll::-webkit-scrollbar {
-
-
-    width:8px;
-
-
+    width: 8px;
 }
-
 
 .catalogo-scroll::-webkit-scrollbar-thumb {
-
-
-    background:#CBC2B9;
-
-    border-radius:10px;
-
-
+    background: #CBC2B9;
+    border-radius: 10px;
 }
-
 
 
 /* ==========================
    RESPONSIVE
 ========================== */
 
+@media (max-width: 768px) {
 
-@media(max-width:768px){
+    .row.g-4 {
+        overflow: visible;
+    }
 
+    aside {
+        height: auto;
+    }
 
     .rounded-lf-sidebar {
-
-        min-height:auto;
-
+        height: auto;
+        min-height: auto;
     }
 
+    main {
+        height: auto;
+        overflow-y: visible;
+    }
 
     .lf-container {
-
-        padding:20px;
-
+        padding: 20px;
     }
-
 
 }

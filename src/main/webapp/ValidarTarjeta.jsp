@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,6 +8,7 @@
     <title>Validar Tarjeta - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="pantalla-registro">
@@ -18,11 +20,14 @@
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" class="logo-img-completo">
 
     <h2 class="card-title">VALIDAR TARJETA</h2>
-    <% if (request.getAttribute("error") != null) { %>
-    <div class="error-msg" style="color: #cc0000; background-color: #f8d7da; padding: 10px; border-radius: 10px; margin-bottom: 15px; font-size: 14px;">
-        <%= request.getAttribute("error") %>
-    </div>
-    <% } %>
+    <c:if test="${error != null && not empty error}">
+        <div class="libri-toast libri-toast-error">
+            <i class="bi bi-exclamation-circle-fill fs-5"></i>
+            <span>
+            <c:out value="${error}" escapeXml="true"/>
+        </span>
+        </div>
+    </c:if>
     <form action="validar-tarjeta" method="POST">
 
         <div class="form-section-title">Datos de la Tarjeta</div>
@@ -46,6 +51,15 @@
                 <label for="cvv">CVV</label>
                 <input type="password" id="cvv" name="cvv" placeholder="3 o 4 dígitos" maxlength="4" required>
             </div></div>
+        <div class="resumen-pago mt-3">
+
+            <div class="resumen-item">
+                <span>Total a pagar</span>
+                <strong>$${total}</strong>
+            </div>
+
+        </div>
+        <input type="hidden" value="${total}" name="precio">
         <button type="submit" class="btn-submit" style="margin-top: 20px;">
             <i class="bi bi-credit-card-fill" style="margin-right: 8px;"></i>Pagar ahora
         </button>
@@ -53,6 +67,6 @@
     </form>
 
 </div>
-
+<script src="assets/js/Notificacion.js"></script>
 </body>
 </html>

@@ -74,7 +74,7 @@
                     <a href="mis-publicaciones" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
                     </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -185,11 +185,20 @@
                                                     </c:choose>
                                                 </p>
                                             </div>
-
-                                            <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                                               class="btn-detalles">
-                                                Ver detalles
-                                            </a>
+                                            <c:choose>
+                                                <c:when test="${publicacion.esLibriFlow}">
+                                                    <a href="detalle-publicacion-superad?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:otherwise>
+                                            </c:choose>
 
                                         </div>
 

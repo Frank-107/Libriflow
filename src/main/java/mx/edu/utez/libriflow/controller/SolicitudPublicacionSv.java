@@ -11,7 +11,7 @@ import mx.edu.utez.libriflow.model.PublicacionResumen;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet (name = "SolicitudPublicacionSv", value = "/solicitud-publicacion")
+@WebServlet (name = "SolicitudPublicacionAdminSv", value = "/solicitud-publicacion-admin")
 public class SolicitudPublicacionSv extends HttpServlet {
     PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
     @Override

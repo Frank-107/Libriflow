@@ -5,17 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis publicaciones - LibriFlow</title>
+    <title>Mis rentas - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
 </head>
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
-        <!-- Titulo de la pagina -->
         <div class="d-flex align-items-center">
             <button class="btn text-white d-md-none p-0 border-0 me-1"
                     type="button"
@@ -30,18 +29,13 @@
                 <i class="bi bi-arrow-left"></i>
             </a>
             <span class="fw-bold fs-4 tracking-wide">
-            Mis publicaciones
-        </span>
+                Mis rentas
+            </span>
         </div>
-        <!-- Usuario -->
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold">
-                    ${sessionScope.usuario.nombre}
-                </div>
-                <small class="text-white-50">
-                    ${sessionScope.usuario.correo}
-                </small>
+                <div class="fw-bold">${sessionScope.usuario.nombre}</div>
+                <small class="text-white-50">${sessionScope.usuario.correo}</small>
             </div>
             <div class="dropdown">
                 <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
@@ -94,12 +88,12 @@
                         Publicar
                     </a>
                     <a href="mis-publicaciones"
-                       class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
+                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i>
                         Mis publicaciones
                     </a>
-                    <a href="#"
-                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-rentas"
+                       class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>
                         Mis rentas
                     </a>
@@ -115,52 +109,58 @@
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
                     <h2>
-                        Publicaciones totales (${publicaciones.size()})
+                        Mis rentas (${rentas.size()})
                     </h2>
                 </div>
                 <c:choose>
-                    <c:when test="${empty publicaciones}">
+                    <c:when test="${empty rentas}">
                         <div class="sin-publicaciones">
                             <i class="bi bi-journal-x"></i>
                             <h4>
-                                No tienes publicaciones.
+                                No tienes rentas activas.
                             </h4>
                             <p>
-                                Cuando publiques un libro aparecerá aquí.
+                                Cuando rentes un libro aparecerá aquí.
                             </p>
                         </div>
                     </c:when>
                     <c:otherwise>
-                <div class="publicaciones-lista">
-                    <c:forEach var="publicacion" items="${publicaciones}">
-                        <div class="publicacion-card">
-                            <div class="publicacion-estado">
-            <span class="estado ${publicacion.estado}">
-                    ${publicacion.estado}
-            </span>
-                            </div>
-                            <div class="publicacion-contenido">
-                                <div class="publicacion-portada">
-                                    <img src="${publicacion.imagenPrincipal}" alt="${publicacion.titulo}">
+                        <div class="publicaciones-lista">
+                            <c:forEach var="renta" items="${rentas}">
+                                <div class="publicacion-card">
+                                    <div class="publicacion-estado">
+                                        <span class="estado">
+                                                ${renta.estado}
+                                        </span>
+                                    </div>
+                                    <div class="publicacion-contenido">
+                                        <div class="publicacion-portada">
+                                            <img src="${renta.imagenPrincipal}" alt="${renta.titulo}">
+                                        </div>
+                                        <div class="publicacion-info">
+                                            <h4>
+                                                    ${renta.titulo}
+                                            </h4>
+                                            <p>
+                                                    ${renta.autor}
+                                            </p>
+                                            <small>
+                                                Vendedor: ${renta.nombreVendedor}
+                                            </small><br>
+                                            <small>
+                                                Del ${renta.fechaInicio} al ${renta.fechaLimite}
+                                                <c:if test="${not empty renta.fechaDevolucion}">
+                                                    (Devuelto: ${renta.fechaDevolucion})
+                                                </c:if>
+                                            </small>
+                                        </div>
+                                        <div class="publicacion-precio">
+                                            $${renta.precio}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="publicacion-info">
-                                    <h4>
-                                            ${publicacion.titulo}
-                                    </h4>
-                                    <p>
-                                            ${publicacion.autor}
-                                    </p>
-                                    <small>
-                                            ${publicacion.genero}
-                                    </small>
-                                </div>
-                                <div class="publicacion-precio">
-                                    $${publicacion.precio}
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
-                    </c:forEach>
-                </div>
                     </c:otherwise>
                 </c:choose>
             </section>

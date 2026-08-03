@@ -5,6 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import javax.lang.model.util.SimpleElementVisitor7;
 import java.io.IOException;
 
 @WebServlet(name = "DireccionEnvioSv", value = "/direccion-envio")
@@ -13,6 +16,11 @@ public class DireccionEnvioSv extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        if(session.getAttribute("puedeDireccion")==null){
+            resp.sendRedirect("inicio");
+            return;
+        }
         req.getRequestDispatcher("DireccionEnvio.jsp").forward(req, resp);
     }
 
@@ -26,6 +34,8 @@ public class DireccionEnvioSv extends HttpServlet {
         String codigoPostal = req.getParameter("codigoPostal");
         String municipio = req.getParameter("municipio");
         String estado = req.getParameter("estado");
+        double envio = 100;
+        HttpSession sesion = req.getSession(false);
 
         if (destinatario == null || destinatario.trim().isEmpty()) {
             req.setAttribute("error", "Por favor ingresa el nombre de quien recibe.");
@@ -64,6 +74,12 @@ public class DireccionEnvioSv extends HttpServlet {
             req.getRequestDispatcher("DireccionEnvio.jsp").forward(req, resp);
             return;
         }
+        if (estado.equals("Morelos"))
+        {
+            envio=50;
+        }
+        sesion.setAttribute("envio", envio);
+        sesion.setAttribute("puedePagar",true);
         resp.sendRedirect(req.getContextPath() + "/validar-tarjeta");
     }
 }

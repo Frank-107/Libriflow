@@ -1,0 +1,247 @@
+/* Lista */
+
+.publicaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* Tarjeta */
+
+.publicacion-card {
+
+    position: relative;
+    background-color: #CBC2B9;
+    border-radius: 30px;
+    padding: 22px;
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+
+    transition: .25s;
+
+}
+
+
+.publicacion-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 12px 25px rgba(0,0,0,.15);
+
+}
+
+
+/* Estado */
+
+.publicacion-estado {
+
+    position: absolute;
+
+    top: 18px;
+    right: 22px;
+
+}
+
+
+/* Estado */
+
+.estado {
+
+    padding: 7px 18px;
+
+    border-radius: 20px;
+
+    font-size: .85rem;
+
+    font-weight: 700;
+
+}
+
+
+/* Contenido */
+
+.publicacion-contenido {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+}
+
+
+/* Portada */
+
+.publicacion-portada {
+
+    background-color: white;
+
+    padding: 8px;
+
+    border-radius: 18px;
+
+}
+
+
+.publicacion-portada img {
+
+    width: 90px;
+
+    height: 130px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+}
+
+
+/* Información */
+
+.publicacion-info {
+
+    flex: 1;
+
+}
+
+
+.publicacion-info h4 {
+
+    margin: 0 0 8px;
+
+    font-size: 1.2rem;
+
+    font-weight: 700;
+
+    color: #2D2A26;
+
+}
+
+
+.publicacion-info p {
+
+    margin: 0 0 5px;
+
+    color: #4A4641;
+
+}
+
+
+.publicacion-info small {
+
+    color: #7A746E;
+
+}
+
+
+/* Precio */
+
+.publicacion-precio {
+
+    font-size: 1.4rem;
+
+    font-weight: 800;
+
+    color: #4A4641;
+
+    margin-right: 15px;
+
+}
+.solicitudes-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:25px;
+}
+@media(max-width:768px){
+
+    .solicitudes-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+.solicitud-card{
+    background:#CBC2B9;
+    border-radius:30px;
+    padding:20px;
+    display:flex;
+    gap:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.12);
+    transition:.2s;
+}
+
+
+.solicitud-card:hover{
+    transform:translateY(-4px);
+}
+
+
+.solicitud-portada{
+    background:white;
+    padding:8px;
+    border-radius:18px;
+    height:max-content;
+}
+
+
+.solicitud-portada img{
+    width:110px;
+    height:160px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+
+.solicitud-info{
+    flex:1;
+}
+
+
+.solicitud-info h3{
+    margin:0 0 12px;
+    font-size:1.2rem;
+    font-weight:700;
+    color:#2D2A26;
+}
+
+
+.solicitud-info p{
+    margin:6px 0;
+    color:#4A4641;
+    font-size:.9rem;
+}
+
+
+.solicitud-extra{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:15px 0;
+}
+
+
+.precio{
+    font-size:1.2rem;
+    font-weight:700;
+    color:#4A4641;
+}
+
+
+.btn-aprobar{
+    width:100%;
+    background:#4A4641;
+    color:white;
+    border:none;
+    padding:10px;
+    border-radius:20px;
+    font-weight:600;
+    transition:.2s;
+}
+
+
+.btn-aprobar:hover{
+    background:#7A746E;
+}

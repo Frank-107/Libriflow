@@ -8,43 +8,84 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 import java.io.IOException;
+
 @WebFilter("/*")
 public class FiltroAutentificacion extends HttpFilter {
 
+    private static final String ROL_ADMIN = "ADMIN";
+
     @Override
-    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
+    protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+            throws IOException, ServletException {
+
         String ruta = req.getRequestURI();
         HttpSession session = req.getSession(false);
 
-        boolean logeado = session != null && session.getAttribute("tipo_usuario")!=null;
+        String rol = (session != null) ? (String) session.getAttribute("tipo_usuario") : null;
+        boolean logeado = rol != null;
+        boolean esAdmin = ROL_ADMIN.equalsIgnoreCase(rol);
+
+        boolean rutaLogin =
+                ruta.endsWith("IniciarSesion.jsp") ||
+                        ruta.endsWith("/iniciar-sesion") ||
+                        ruta.endsWith("CrearCuenta.jsp") ||
+                        ruta.endsWith("/crear-cuenta-usuario") ||
+                        ruta.endsWith("ValidarCorreoCC.jsp") ||
+                        ruta.endsWith("/validar-correo-cc");
 
         boolean publico =
-                ruta.endsWith("CrearCuenta.jsp") ||
-                        ruta.endsWith("index.jsp") ||
+                ruta.endsWith("index.jsp") ||
                         ruta.endsWith("index") ||
                         ruta.endsWith("/Libriflow_war/") ||
-                        ruta.endsWith("/iniciar-sesion") ||
-                        ruta.endsWith("/crear-cuenta-usuario") ||
                         ruta.contains("/assets/") ||
-                        ruta.endsWith("/") ||
-                        ruta.endsWith("/ValidarCorreoCC.jsp") ||
-                        ruta.endsWith("/validar-correo-cc") ||
-                        ruta.endsWith("IniciarSesion.jsp");
+                        ruta.contains("/uploads/") ||
+                        ruta.endsWith("/");
 
-        if (publico || logeado){
-        chain.doFilter(req,res);
-        } else {
-            res.sendRedirect(req.getContextPath() + "/IniciarSesion.jsp");
-            System.out.println("Direccion no perimitida: "+ ruta);
-            System.out.println("Usuario no autenticado, redirigiendo a la página de inicio de sesión.");
+        // Nueva ruta permitida
+        boolean rutaCerrarSesion =
+                ruta.endsWith("/cerrar-sesion");
+
+        boolean rutaAdmin = ruta.toLowerCase().contains("admin");
+
+        // Usuario no autenticado
+        if (!logeado) {
+            if (rutaLogin || publico) {
+                chain.doFilter(req, res);
+            } else {
+                System.out.println("Dirección no permitida: " + ruta);
+                System.out.println("Usuario no autenticado, redirigiendo al inicio de sesión.");
+                res.sendRedirect(req.getContextPath() + "/iniciar-sesion");
+            }
+            return;
         }
 
+        // Usuario autenticado intentando entrar al login
+        if (rutaLogin) {
+            res.sendRedirect(req.getContextPath() + (esAdmin ? "/inicio-admin" : "/inicio"));
+            return;
+        }
 
+        // Permitir siempre cerrar sesión
+        if (rutaCerrarSesion) {
+            chain.doFilter(req, res);
+            return;
+        }
 
+        // El administrador solo puede acceder a sus rutas
+        if (esAdmin && !rutaAdmin && !publico) {
+            System.out.println("Admin intentó salir de su zona: " + ruta);
+            res.sendRedirect(req.getContextPath() + "/inicio-admin");
+            return;
+        }
 
+        // Un usuario normal no puede acceder a rutas de administrador
+        if (!esAdmin && rutaAdmin) {
+            System.out.println("Acceso denegado: usuario intentó acceder a zona admin -> " + ruta);
+            res.sendRedirect(req.getContextPath() + "/inicio");
+            return;
+        }
 
-
+        chain.doFilter(req, res);
     }
 }

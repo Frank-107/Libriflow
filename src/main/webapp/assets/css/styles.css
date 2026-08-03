@@ -1,3 +1,4 @@
+/* Base */
 body {
     background-color: #ede8e0;
     font-family: Arial, sans-serif;
@@ -7,7 +8,7 @@ body {
 
 /* Navbar */
 .barra-nav {
-    background-color: #2e2b27;
+    background-color: #4A4641;
     margin: 16px;
     border-radius: 50px;
     padding: 10px 20px;
@@ -17,7 +18,7 @@ body {
 
 .barra-nav a {
     background-color: #f5f0e8;
-    color: #2e2b27;
+    color: #4A4641;
     text-decoration: none;
     padding: 8px 20px;
     border-radius: 50px;
@@ -25,13 +26,12 @@ body {
     font-weight: 600;
 }
 
-/* Página */
+/* Pagina principal */
 .pagina {
     width: 100%;
     padding-bottom: 48px;
 }
 
-/* Hero */
 .hero {
     text-align: center;
     padding: 40px 20px 30px;
@@ -52,7 +52,7 @@ body {
     font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: 3px;
-    color: #2b2724;
+    color: #4A4641;
 }
 
 .logo small {
@@ -64,11 +64,10 @@ body {
 .hero h1 {
     font-size: 2.8rem;
     font-weight: 800;
-    color: #2b2724;
+    color: #4A4641;
     margin-bottom: 30px;
 }
 
-/* Botones */
 .botones {
     display: flex;
     justify-content: center;
@@ -84,21 +83,20 @@ body {
 }
 
 .btn-oscuro {
-    background-color: #2e2b27;
+    background-color: #4A4641;
     color: #f5f0e8;
 }
 
 .btn-claro {
     background-color: #ddd7cc;
-    color: #2e2b27;
+    color: #4A4641;
 }
 
-/* Catálogo */
+/* Catalogo */
 .catalogo {
     padding: 30px 28px 0;
     display: flex;
     justify-content: center;
-
 }
 
 .tarjeta {
@@ -132,10 +130,7 @@ body {
     font-size: 0.75rem;
 }
 
-
-
-/* Pantalla crear cuenta usuario*/
-
+/* Pantalla de Registro */
 .pantalla-registro {
     display: flex;
     flex-direction: column;
@@ -144,29 +139,38 @@ body {
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    background-color: #f4ede4; /* Tu fondo beige específico */
+    background-color: #f4ede4;
 }
 
-/* Barra Superior */
 .pantalla-registro .top-bar {
-    background-color: #5a5450;
+    background-color: #4A4641;
     width: 100%;
-    max-width: 900px;
-    border-radius: 50px;
-    padding: 12px 25px;
+    height: 70px;
+    border-radius: 30px;
+    padding: 0 25px;
     display: flex;
     align-items: center;
+    gap: 15px;
     box-sizing: border-box;
+    flex-shrink: 0;
     margin-bottom: 30px;
 }
 
 .pantalla-registro .back-link {
     color: white;
     text-decoration: none;
-    font-size: 24px;
-    margin-right: 15px;
+    font-size: 22px;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.pantalla-registro .back-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .pantalla-registro .top-bar h1 {
@@ -176,7 +180,6 @@ body {
     font-weight: 600;
 }
 
-/* Tarjeta Contenedora */
 .pantalla-registro .card-container {
     background-color: #e3ded7;
     border-radius: 40px;
@@ -186,11 +189,11 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: center;
     box-sizing: border-box;
+    margin: auto;
 }
 
-/* Logotipo */
 .pantalla-registro .logo-img-completo {
-    max-width: 140px; /* Tamaño ideal y pequeño para tu logo */
+    max-width: 140px;
     width: 100%;
     height: auto;
     margin-bottom: 15px;
@@ -203,16 +206,28 @@ body {
     margin: 10px 0 25px 0;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #5a5450;
+    color: #4A4641;
 }
 
-/* Grilla del Formulario */
+/* === NUEVA CLASE PARA DIVISIONES (AJUSTADA) === */
+.pantalla-registro .form-section-title {
+    text-align: left;
+    color: #4A4641;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+    border-bottom: 1px solid rgba(74, 70, 65, 0.2);
+    padding-bottom: 5px;
+}
+
+/* === CLASE GRID (AJUSTADA PARA REDUCIR ALTURA) === */
 .pantalla-registro .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px 25px;
+    gap: 10px 25px;
     text-align: left;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 
 .pantalla-registro .form-group {
@@ -242,12 +257,11 @@ body {
 }
 
 .pantalla-registro .form-group input:focus {
-    border-color: #5a5450;
+    border-color: #4A4641;
 }
 
-/* Botón Registrar */
 .pantalla-registro .btn-submit {
-    background-color: #5a5450;
+    background-color: #4A4641;
     color: white;
     border: none;
     border-radius: 25px;
@@ -262,14 +276,13 @@ body {
 }
 
 .pantalla-registro .btn-submit:hover {
-    background-color: #47423e;
+    background-color: #3A3733;
 }
 
-/* Enlace inferior */
 .pantalla-registro .login-redirect {
     display: block;
     margin-top: 20px;
-    color: #5a5450;
+    color: #4A4641;
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
@@ -279,7 +292,6 @@ body {
     text-decoration: underline;
 }
 
-/* Errores */
 .pantalla-registro .error-msg {
     color: #cc0000;
     background-color: #f8d7da;
@@ -289,7 +301,6 @@ body {
     font-size: 14px;
 }
 
-/* Responsivo */
 @media (max-width: 600px) {
     .pantalla-registro .form-grid {
         grid-template-columns: 1fr;
@@ -298,57 +309,91 @@ body {
     .pantalla-registro .card-container {
         padding: 30px 20px;
     }
+    .pantalla-registro .form-group {
+        grid-column: span 1 !important;
+    }
 }
 
-/*inicio de sesion*/
+@media (max-width: 400px) {
+    .pantalla-registro .top-bar h1 {
+        font-size: 16px;
+    }
+    .libri-toast {
+        white-space: normal;
+        text-align: center;
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .barra-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .botones {
+        flex-wrap: wrap;
+    }
+}
+
+/* Pantalla de Login */
 .login-body {
     display: flex;
     flex-direction: column;
-    align-items: center;
     min-height: 100vh;
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
-    background-color: #f4ede4; /* Color beige de fondo */
+    background-color: #f4ede4;
 }
 
-/* Ocultamos los <br> y el label de contraseña para limpiar el diseño tipo Card */
-.login-br,
-.login-label-pass {
+.login-br {
     display: none !important;
 }
 
 .login-top-bar {
-    background-color: #5a5450;
+    background-color: #4A4641;
     width: 100%;
-    max-width: 900px;
-    border-radius: 50px;
-    padding: 12px 25px;
+    height: 70px !important;
+    border-radius: 30px;
+    padding: 0 25px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 15px;
     box-sizing: border-box;
-    margin-bottom: 30px;
+    flex-shrink: 0;
+}
+
+.login-top-bar-title {
     color: white;
     font-size: 18px;
     font-weight: 600;
-    position: relative;
+    margin: 0;
 }
 
 .login-back-link {
-    position: absolute;
-    left: 45px;
     color: white;
     text-decoration: none;
-    font-size: 0; /* Oculta la palabra 'Volver' */
+    font-size: 0;
     display: inline-flex;
     align-items: center;
-    z-index: 10;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.login-back-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .login-back-link::before {
-    content: "←"; /* Muestra la flecha de regreso */
-    font-size: 26px;
+    content: "←";
+    font-size: 22px;
     color: white;
     cursor: pointer;
 }
@@ -364,84 +409,81 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    margin: auto;
 }
 
-.login-card::before {
-    content: "";
+.login-logo {
     display: block;
+    max-width: 135px;
     width: 100%;
-    height: 90px;
-    margin-bottom: 10px;
-    background-image: url('../img/logo.png'); /* Apunta a tu carpeta assets/img */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    order: 0;
-}
-
-.login-label-email {
-    font-size: 0; /* Oculta la palabra 'Correo:' */
-    font-weight: 800;
-    margin: 10px 0 25px 0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #5a5450;
-    order: 1;
+    height: auto;
+    margin: 0 auto 15px auto;
+    object-fit: contain;
 }
 
 .login-label-email::before {
-    content: "INICIAR SESIÓN";
+    content: "INICIAR SESIÓN\A";
+    white-space: pre;
     font-size: 22px;
+    font-weight: 800;
+    color: #4A4641;
+    display: block;
+    margin-bottom: 25px;
+    text-align: center;
+    letter-spacing: 1px;
 }
 
-/* Contenedor del Mensaje de Error JSTL */
+.login-label-email,
+.login-label-pass {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6e6762;
+    text-align: left;
+    margin-bottom: 6px;
+    padding-left: 10px;
+}
+
 .login-error {
-    order: 2;
     color: #cc0000 !important;
     background-color: #f8d7da;
     padding: 10px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     font-size: 14px;
     text-align: center;
 }
 
-/* Campos de Input estilizados */
 .login-input {
     background-color: #fcfbfa;
     border: 1px solid #b5afaa;
     border-radius: 25px;
-    padding: 12px 18px 12px 45px; /* Espacio para los iconos de la izquierda */
+    padding: 11px 18px 11px 45px;
     font-size: 14px;
     color: #333;
     outline: none;
     transition: border-color 0.2s;
     box-sizing: border-box;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 15px;
     background-repeat: no-repeat;
     background-position: 18px center;
     background-size: 16px;
 }
 
 .login-correo {
-    order: 3;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236e6762' class='bi bi-envelope' viewBox='0 0 16 16'%3E%3Cpath d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z'/%3E%3C/svg%3E");
 }
 
 .login-contrasena {
-    order: 4;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236e6762' class='bi bi-lock' viewBox='0 0 16 16'%3E%3Cpath d='M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1'/%3E%3C/svg%3E");
 }
 
 .login-input:focus {
-    border-color: #5a5450;
+    border-color: #4A4641;
 }
 
-/* Botón de envío */
 .login-btn {
-    order: 5;
-    background-color: #5a5450;
+    background-color: #4A4641;
     color: white;
     border: none;
     border-radius: 25px;
@@ -457,14 +499,20 @@ body {
 }
 
 .login-btn:hover {
-    background-color: #47423e;
+    background-color: #3A3733;
+}
+
+.login-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .login-footer-link {
-    order: 6;
-    display: block;
-    margin-top: 25px;
-    color: #5a5450;
+    color: #4A4641;
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
@@ -476,6 +524,397 @@ body {
 
 @media (max-width: 500px) {
     .login-card {
+        padding: 26px 22px;
+    }
+    .login-top-bar {
+        padding: 0 15px !important;
+    }
+    .login-label-email::before {
+        font-size: 18px;
+    }
+    .login-footer-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .login-logo {
+        max-width: 100px;
+    }
+}
+
+/* Utilidades generales Dashboard */
+.bg-lf-dark {
+    background-color: #4A4641;
+}
+
+.bg-lf-capsule {
+    background-color: #A39B93;
+    color: #2D2A26 !important;
+    border: none;
+    font-weight: 500;
+}
+
+.sidebar-active {
+    background-color: #7A746E !important;
+    color: #FFF !important;
+}
+
+/* Header superior */
+.rounded-lf-header {
+    border-radius: 30px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.rounded-lf-header img {
+    height: 40px !important;
+}
+
+.rounded-lf-header .bg-lf-capsule.rounded-circle {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.rounded-lf-header .btn-lf-pill {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    border-radius: 50%;
+}
+
+/* Sidebar lateral */
+.rounded-lf-sidebar {
+    border-radius: 40px;
+}
+
+@media (min-width: 768px) {
+    .rounded-lf-sidebar {
+        min-height: 80vh;
+    }
+}
+
+.btn-lf-pill {
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.btn-lf-pill:hover {
+    background-color: #8C847C;
+    color: #fff !important;
+}
+
+/* Formularios perfil */
+.form-container-lf {
+    background-color: #FFF;
+    border: 2px solid #CBC2B9;
+    border-radius: 40px;
+}
+
+.form-label-lf {
+    font-weight: 600;
+    color: #7A746E;
+    margin-left: 15px;
+    margin-bottom: 2px;
+}
+
+.form-control-lf {
+    border-radius: 25px;
+    border: 1.5px solid #A39B93;
+    background-color: #FAF6F2;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.form-control-lf:focus {
+    background-color: #FFF;
+    border-color: #4A4641;
+    box-shadow: none;
+}
+
+.form-control-lf::placeholder {
+    color: #b3aea9;
+}
+
+.error-texto-lf {
+    color: #DC3545;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-left: 15px;
+    margin-bottom: 2px;
+    display: block;
+}
+
+/* Botones de accion general */
+.btn-action-lf {
+    background-color: #7A746E;
+    color: #FFF;
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 12px 40px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-action-lf:hover:not(:disabled) {
+    background-color: #4A4641;
+    color: #FFF;
+}
+
+.btn-action-lf:disabled {
+    background-color: #C4BCB4 !important;
+    color: #8C847C !important;
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+}
+
+.btn-preview-lf {
+    background-color: #968F87;
+    color: #FFF;
+    border-radius: 25px;
+    font-weight: 600;
+    padding: 12px 40px;
+    border: none;
+}
+
+.btn-preview-lf:hover {
+    background-color: #7A746E;
+    color: #FFF;
+}
+
+/* Dropdown Navbar */
+.dropdown {
+    position: relative;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: aparecerDropdown 0.3s ease;
+}
+
+@keyframes aparecerDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-menu-lf {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    min-width: 200px;
+    background-color: #F4EFEA !important;
+    border-radius: 25px !important;
+    padding: 10px !important;
+    margin-top: 0 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+
+.dropdown-menu-lf::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: transparent;
+}
+
+.dropdown-lf-item, .dropdown-lf-logout {
+    color: #4A4641;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+    padding: 8px 15px !important;
+}
+
+.dropdown-lf-item:hover {
+    background-color: #A39B93 !important;
+    color: #FFF !important;
+}
+
+.dropdown-lf-logout {
+    color: #d93025;
+    margin-top: 5px;
+}
+
+.dropdown-lf-logout:hover {
+    background-color: #ffeaea !important;
+    color: #c5221f !important;
+}
+
+/* Tarjeta Perfil */
+.perfil-card-container {
+    background-color: #e3ded7;
+    border-radius: 40px;
+    padding: 40px 50px;
+    width: 100%;
+    max-width: 750px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin: auto;
+}
+
+.perfil-avatar {
+    width: 110px;
+    height: 110px;
+    background-color: #a8b2b8;
+    border: 4px solid #FFF;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.2s ease;
+}
+
+.btn-plus-mockup {
+    background-color: #4A4641;
+    border: 2px solid #FFF !important;
+    color: #FFF;
+    width: 32px !important;
+    height: 32px !important;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-plus-mockup:hover {
+    background-color: #7A746E;
+    transform: scale(1.15);
+}
+
+.img-container-cropper {
+    max-height: 400px;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+.img-container-cropper img {
+    max-width: 100%;
+    display: block;
+}
+
+.btn-login-style:not(:disabled) {
+    background-color: #4A4641 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+}
+
+.btn-login-style:hover:not(:disabled) {
+    background-color: #3A3733 !important;
+}
+
+.card-container,
+.perfil-card-container,
+.login-card{
+    position: relative;
+}
+
+.libri-toast {
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding: 10px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.libri-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/*Color para las notificaciones de exito y error*/
+.libri-toast-error {
+    background-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.libri-toast-success {
+    background-color: #86efac;
+    color: #15803d;
+}
+/*------------------------------------------*/
+
+@media (max-width: 768px) {
+    .perfil-card-container {
         padding: 30px 20px;
     }
+}
+
+@media (min-width: 576px) {
+    .border-start-sm {
+        border-left: 1px solid rgba(108, 117, 125, 0.25);
+    }
+}
+.resumen-pago{
+    margin-top:20px;
+    margin-bottom:10px;
+    padding:15px 20px;
+    background:#F7F3EE;
+    border:2px solid #D9CEC2;
+    border-radius:18px;
+}
+
+.resumen-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:1.1rem;
+}
+
+.resumen-item span{
+    color:#5E5953;
+    font-weight:600;
+}
+
+.resumen-item strong{
+    font-size:1.4rem;
+    color:#4A4641;
+}
+.detalle-envio{
+    display:block;
+    font-size:0.55rem;
+    font-weight:400;
+    color:#9A9088;
+    margin-top:1px;
+}
+.error-msg {
+    color: #b91c1c;
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    padding: 12px 16px;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

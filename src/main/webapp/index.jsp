@@ -7,17 +7,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LibriFlow - Tu Biblioteca Digital</title>
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/css/bootstrap.css" />
-  <link rel="stylesheet" href="assets/css/index.css" />
+  <link rel="stylesheet" href="assets/css/index.css?v=3" />
 </head>
 <body>
 
-<nav class="barra-nav">
+
+<nav class="bg-lf-dark rounded-lf-header navbar-outer shadow-sm d-flex align-items-center px-4 px-md-5">
   <div class="nav-links">
     <a href="#" class="btn-nav">Nuestras Redes</a>
   </div>
 </nav>
 
+<!-- Contenido principal dentro del contenedor -->
 <div class="container-pagina">
 
   <div class="hero">
@@ -26,11 +30,18 @@
     </div>
 
     <c:if test="${not empty sessionScope.mensaje}">
-      <div class="alert-mensaje">${sessionScope.mensaje}</div>
+      <div class="libri-toast libri-toast-success">
+        <i class="bi bi-check-circle-fill fs-5"></i>
+        <span><c:out value="${sessionScope.mensaje}" escapeXml="true" /></span>
+      </div>
       <c:remove var="mensaje" scope="session"/>
     </c:if>
+
     <c:if test="${not empty sessionScope.error}">
-      <div class="alert-error">${sessionScope.error}</div>
+      <div class="libri-toast libri-toast-error">
+        <i class="bi bi-exclamation-circle-fill fs-5"></i>
+        <span><c:out value="${sessionScope.error}" escapeXml="true" /></span>
+      </div>
       <c:remove var="error" scope="session"/>
     </c:if>
 
@@ -98,5 +109,54 @@
 
 </div>
 
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-col brand-col">
+      <h3 class="footer-logo">Libriflow</h3>
+      <p class="footer-tagline">Miles de libros a un solo click.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Soporte</h4>
+      <ul>
+        <li><a href="#">Centro de ayuda</a></li>
+        <li><a href="#">Preguntas Frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Legales</h4>
+      <ul>
+        <li><a href="#">Términos y Condiciones</a></li>
+        <li><a href="#">Aviso de Privacidad</a></li>
+        <li><a href="#">Política de reembolsos</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p class="copyright-text">
+      <img src="assets/css/bi/c-circle.svg" alt="Copyright" width="14" height="14">
+      2026 Libriflow. Todos los derechos reservados.
+    </p>
+
+    <div class="social-links">
+      <a href="#" aria-label="Instagram">
+        <img src="assets/css/bi/instagram.svg" alt="Instagram" width="20" height="20">
+      </a>
+      <a href="#" aria-label="X">
+        <img src="assets/css/bi/twitter-x.svg" alt="X" width="20" height="20">
+      </a>
+      <a href="#" aria-label="Facebook">
+        <img src="assets/css/bi/facebook.svg" alt="Facebook" width="20" height="20">
+      </a>
+    </div>
+
+  </div>
+</footer>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 body {
     background-color: #F0EBE6;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #474541;
+    color: #4A4641;
     margin: 0;
     padding: 0;
 }
@@ -12,24 +12,19 @@ body {
     padding: 20px;
 }
 
-/* --- Barra de Navegación Estilo Píldora Flotante --- */
-.barra-nav {
-    background-color: #474541; /* Color oscuro exacto */
-    padding: 12px 30px;
+/* --- Clases de la barra de navegación --- */
+.bg-lf-dark {
+    background-color: #4A4641;
+}
 
-    /* Esto hace que las esquinas queden completamente redondas como una píldora */
-    border-radius: 50px;
+.rounded-lf-header {
+    border-radius: 30px;
+    height: 70px !important;
+}
 
-    /* Margen superior para despegarla del borde de arriba, y laterales para que respire */
-    margin: 25px auto 40px auto;
-
-    /* Controlamos el ancho para que mantenga la misma proporción de la imagen */
-    max-width: 1060px;
-    width: 95%;
-
-    /* Alineación interna de los botones */
-    display: flex;
-    align-items: center;
+/* Esta clase maneja el espacio cuando la barra está fuera del contenedor */
+.navbar-outer {
+    margin: 20px 20px 40px 20px; /* Margen superior, lados y margen inferior */
 }
 
 .nav-links {
@@ -39,18 +34,22 @@ body {
 
 .btn-nav {
     background-color: #E6DED1;
-    color: #474541;
+    color: #4A4641;
     text-decoration: none;
-    padding: 6px 18px;
+    height: 40px;
+    padding: 0 18px;
     border-radius: 15px;
     font-size: 0.9rem;
     font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
     transition: opacity 0.2s ease;
 }
 
 .btn-nav:hover {
     opacity: 0.9;
-    color: #474541;
+    color: #4A4641;
 }
 
 .hero {
@@ -68,9 +67,9 @@ body {
 }
 
 .titulo-principal {
-    font-size: 2.8rem;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
     font-weight: 800;
-    color: #474541;
+    color: #4A4641;
     margin-bottom: 25px;
 }
 
@@ -94,27 +93,27 @@ body {
 }
 
 .btn-oscuro {
-    background-color: #474541;
+    background-color: #4A4641;
     color: #F0EBE6;
 }
 
 .btn-claro {
     background-color: #E6DED1;
-    color: #474541;
+    color: #4A4641;
 }
 
 .btn-oscuro:hover {
-    background-color: #474541 !important; /* Mantiene el fondo oscuro */
-    color: #F0EBE6 !important;            /* Fuerza a que el texto sea crema */
-    transform: translateY(-2px);          /* Mantiene el efecto de alzarse */
+    background-color: #4A4641 !important;
+    color: #F0EBE6 !important;
+    transform: translateY(-2px);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     text-decoration: none;
 }
 
 .btn-claro:hover {
-    background-color: #E6DED1 !important; /* Mantiene su fondo arena */
-    color: #474541 !important;            /* Fuerza el texto gris oscuro */
-    transform: translateY(-2px);          /* Mantiene el efecto de alzarse */
+    background-color: #E6DED1 !important;
+    color: #4A4641 !important;
+    transform: translateY(-2px);
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     text-decoration: none;
 }
@@ -137,14 +136,13 @@ body {
     transform: translateY(-5px);
 }
 
-/* Contenedor de la imagen para que mantenga proporciones y tamaño reducido */
 .img-contenedor {
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 10px;
     background-color: #f7f7f7;
-    /* Controla la altura máxima para que se vea compacta */
-    height: 330px;
+    height: auto;
+    aspect-ratio: 2 / 3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -156,7 +154,6 @@ body {
     object-fit: cover;
 }
 
-
 .tarjeta-pie {
     display: flex;
     align-items: center;
@@ -166,7 +163,7 @@ body {
 }
 
 .estrellas {
-    color: #474541; /* Estrellas oscuras como en la imagen */
+    color: #4A4641;
     font-size: 0.95rem;
 }
 
@@ -176,7 +173,7 @@ body {
 }
 
 .alert-mensaje {
-    color: #474541;
+    color: #4A4641;
     background-color: #E6DED1;
     padding: 10px;
     border-radius: 10px;
@@ -184,3 +181,193 @@ body {
     margin-bottom: 15px;
     font-size: 0.9rem;
 }
+
+/*Diseño del footer */
+:root {
+    --footer-bg: #38322E;
+    --text-light: #F5F1EB;
+    --text-muted: #BDB4AC;
+    --accent-hover: #D4A373;
+}
+
+.footer {
+    background-color: var(--footer-bg);
+    color: var(--text-light);
+    font-family: system-ui, -apple-system, sans-serif;
+    padding: 3.5rem 2rem 2rem 2rem;
+    margin-top: 4rem;
+}
+
+.footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+}
+
+.footer-logo {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.footer-tagline {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-width: 320px;
+}
+
+.footer-col h4 {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.7rem;
+}
+
+.footer-col ul li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+    color: var(--accent-hover);
+}
+
+.footer-bottom {
+    max-width: 1100px;
+    margin: 2.5rem auto 0 auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid #4E4843;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.copyright-text {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.social-links img, .copyright-text img {
+    filter: invert(80%) sepia(8%) saturate(191%) hue-rotate(344deg) brightness(88%) contrast(87%);
+    transition: filter 0.2s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-2px);
+}
+
+.social-links a:hover img {
+    filter: invert(73%) sepia(19%) saturate(1142%) hue-rotate(345deg) brightness(91%) contrast(93%);
+}
+
+@media (max-width: 768px) {
+    .navbar-outer {
+        margin: 10px 10px 20px 10px;
+        padding: 10px 15px !important;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+    }
+
+    .copyright-text {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .botones-accion {
+        flex-direction: column;
+        padding: 0 20px;
+    }
+
+    .btn-oscuro, .btn-claro {
+        width: 100%;
+    }
+}
+/*--------------------------------*/
+
+/* Diseño de las alertas*/
+.libri-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding: 10px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.libri-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.libri-toast-error {
+    background-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.libri-toast-success {
+    background-color: #86efac;
+    color: #15803d;
+}
+
+
+@media (max-width: 400px) {
+    .libri-toast {
+        white-space: normal;
+        text-align: center;
+        width: 90%;
+    }
+}
+/*---------------------------*/

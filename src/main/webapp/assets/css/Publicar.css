@@ -16,11 +16,33 @@ body {
     color: #FFF !important;
 }
 .rounded-lf-header {
-    border-radius: 35px;
+    border-radius: 30px;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.rounded-lf-header img {
+    height: 40px !important;
+}
+.rounded-lf-header .bg-lf-capsule.rounded-circle {
+    width: 40px !important;
+    height: 40px !important;
+}
+.rounded-lf-header .btn-lf-pill {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    border-radius: 50%;
 }
 .rounded-lf-sidebar {
     border-radius: 40px;
-    min-height: 80vh;
+}
+@media (min-width: 768px) {
+    .rounded-lf-sidebar {
+        min-height: 80vh;
+    }
 }
 .btn-lf-pill {
     border-radius: 20px;
@@ -30,8 +52,6 @@ body {
     background-color: #8C847C;
     color: #fff !important;
 }
-
-/* Contenedor del Formulario */
 .form-container-lf {
     background-color: #FFF;
     border: 2px solid #CBC2B9;
@@ -55,8 +75,6 @@ body {
     border-color: #4A4641;
     box-shadow: none;
 }
-
-/* Botones */
 .btn-action-lf {
     background-color: #7A746E;
     color: #FFF;
@@ -81,8 +99,6 @@ body {
     background-color: #7A746E;
     color: #FFF;
 }
-
-/* Texto de error sencillo arriba de cada input */
 .error-texto-lf {
     color: #DC3545;
     font-size: 0.85rem;
@@ -91,3 +107,116 @@ body {
     margin-bottom: 2px;
     display: block;
 }
+
+/* Dropdown Navbar */
+.dropdown {
+    position: relative;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    animation: aparecerDropdown 0.3s ease;
+}
+@keyframes aparecerDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.dropdown-menu-lf {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    min-width: 200px;
+    background-color: #F4EFEA !important;
+    border-radius: 25px !important;
+    padding: 10px !important;
+    margin-top: 0 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+}
+.dropdown-menu-lf::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: transparent;
+}
+.dropdown-lf-item, .dropdown-lf-logout {
+    color: #4A4641;
+    font-weight: 600;
+    border-radius: 15px;
+    transition: all 0.2s ease;
+    padding: 8px 15px !important;
+}
+.dropdown-lf-item:hover {
+    background-color: #A39B93 !important;
+    color: #FFF !important;
+}
+.dropdown-lf-logout {
+    color: #d93025;
+    margin-top: 5px;
+}
+.dropdown-lf-logout:hover {
+    background-color: #ffeaea !important;
+    color: #c5221f !important;
+}
+
+/*Estilo de alerta flotante*/
+.form-container-lf {
+    background-color: #FFF;
+    border: 2px solid #CBC2B9;
+    border-radius: 40px;
+    position: relative;
+}
+
+.libri-toast {
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding: 10px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.libri-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.libri-toast-success {
+    background-color: #86efac;
+    color: #15803d;
+}
+/* Header fijo arriba al hacer scroll */
+.rounded-lf-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030; /* por encima del contenido, debajo de modales de Bootstrap */
+}
+
+/* Sidebar fijo al hacer scroll */
+.rounded-lf-sidebar {
+    position: sticky;
+    top: 1rem; /* deja un pequeño espacio debajo del header */
+    max-height: calc(100vh - 2rem); /* que no se salga de la pantalla */
+    overflow-y: auto; /* si el menú creciera mucho, tendría su propio scroll */
+}
+
+/*----------------------------*/

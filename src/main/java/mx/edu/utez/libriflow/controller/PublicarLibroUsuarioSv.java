@@ -3,44 +3,207 @@ package mx.edu.utez.libriflow.controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
+import mx.edu.utez.libriflow.model.Dao.ImagenDao;
+import mx.edu.utez.libriflow.model.Dao.LibroDao;
+import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
+import mx.edu.utez.libriflow.model.Imagen;
+import mx.edu.utez.libriflow.model.Libro;
+import mx.edu.utez.libriflow.model.PublicacionUsuario;
+import mx.edu.utez.libriflow.model.Usuario;
+
+import java.io.File;
 import java.io.IOException;
+import java.security.PrivateKey;
 
 @WebServlet(name = "PublicarLibroUsuarioSv", value = "/publicar-libro-usuario")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024, // 1 MB
         maxFileSize = 1024 * 1024 * 5,   // 5 MB
-        maxRequestSize = 1024 * 1024 * 10 // 10 MB
+        maxRequestSize = 1024 * 1024 * 20 // 20 MB (3 imágenes)
 )
 public class PublicarLibroUsuarioSv extends HttpServlet {
+    private final PublicacionUsuarioDao publicacionDao = new PublicacionUsuarioDao();
+    private final LibroDao libroDao = new LibroDao();
+    private final ImagenDao imagenDao = new ImagenDao();
+
+
+
+
+
+
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("PublicarLibroUsuario.jsp").forward(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        req.getRequestDispatcher("PublicarLibroUsuario.jsp")
+                .forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String titulo = req.getParameter("titulo");
-        String autor = req.getParameter("autor");
-        String editorial = req.getParameter("editorial");
-        String sinopsis = req.getParameter("sinopsis");
-        String precio = req.getParameter("precio");
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+
+        try {
+
+            String titulo = req.getParameter("titulo");
+            String autor = req.getParameter("autor");
+            String editorial = req.getParameter("editorial");
+            String genero = req.getParameter("genero");
+            String sinopsis = req.getParameter("sinopsis");
+            double precio = Double.parseDouble(req.getParameter("precio"));
+
+
+            Part imagen1 = req.getPart("imagen1");
+            Part imagen2 = req.getPart("imagen2");
+            Part imagen3 = req.getPart("imagen3");
+
+
+            String rutaImagen1 = guardarImagen(imagen1);
+            String rutaImagen2 = guardarImagen(imagen2);
+            String rutaImagen3 = guardarImagen(imagen3);
+
+
+            // 1. Crear libro
+            Libro libro = new Libro(
+                    titulo,
+                    autor,
+                    editorial,
+                    genero
+            );
+
+
+            int idLibro = libroDao.create(libro);
+
+
+            if(idLibro == -1){
+                throw new Exception("No se pudo guardar el libro");
+            }
 
 
 
+            // 2. Crear publicación
+            Usuario usuario = (Usuario) req.getSession(false).getAttribute("usuario");
+            int idUsuario = usuario.getId();
+            PublicacionUsuario publicacion = new PublicacionUsuario();
+            publicacion.setIdUsuario(idUsuario);
+            publicacion.setIdLibro(idLibro);
+            publicacion.setPrecio(precio);
+            publicacion.setSinopsis(sinopsis);
+
+
+
+            int idPublicacion = publicacionDao.create(publicacion);
+
+
+
+            if(idPublicacion == -1){
+                throw new Exception("No se pudo guardar la publicación intentalo nuevamente ");
+            }
+
+
+
+
+            // 3. Guardar imágenes
+            Imagen objetoImagen1 = new Imagen(idPublicacion, rutaImagen1);
+            Imagen objetoImagen2 = new Imagen(idPublicacion, rutaImagen2);
+            Imagen objetoImagen3 = new Imagen(idPublicacion, rutaImagen3);
+
+            if(
+                    !imagenDao.createUs(objetoImagen1,1)||
+                    !imagenDao.createUs(objetoImagen2,2)||
+                    !imagenDao.createUs(objetoImagen3,3)
+            ){
+                throw new RuntimeException("No se pudo guardar la imagen");
+            }
+
+
+            System.out.println("========== PUBLICACIÓN EXITOSA ==========");
+            System.out.println("ID Libro: " + idLibro);
+            System.out.println("ID Publicación: " + idPublicacion);
+            System.out.println("Título: " + titulo);
+            System.out.println("Usuario: " + idUsuario);
+            System.out.println("=========================================");
+
+            req.getSession(false).setAttribute("mensaje", "Listo, Entrega tu libro en la libreria para completar la publicación");
+            resp.sendRedirect("publicar-libro-usuario");
+
+
+
+        } catch(Exception e){
+
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+
+            req.setAttribute(
+                    "error",
+                    "No se pudo publicar el libro"
+            );
+
+            req.getRequestDispatcher(
+                    "PublicarLibroUsuario.jsp"
+            ).forward(req, resp);
+        }
 
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+
+
+    private String guardarImagen(Part imagen) throws IOException {
+
+
+        if(imagen == null || imagen.getSubmittedFileName() == null
+                || imagen.getSubmittedFileName().isEmpty()){
+
+            return null;
+        }
+
+
+        String nombreOriginal = imagen.getSubmittedFileName();
+
+
+        String nombreUnico = System.currentTimeMillis()
+                + "_"
+                + nombreOriginal;
+
+
+        // Carpeta física donde se guardan
+        String uploadPath = getServletContext().getRealPath("")
+                + File.separator
+                + "uploads"
+                + File.separator
+                + "libros";
+
+
+        File carpeta = new File(uploadPath);
+
+
+        if(!carpeta.exists()){
+            carpeta.mkdirs();
+        }
+
+
+        imagen.write(
+                uploadPath + File.separator + nombreUnico
+        );
+
+
+        return "uploads/libros/" + nombreUnico;
+
     }
 
+
+
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+    }
+
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
     }
 }

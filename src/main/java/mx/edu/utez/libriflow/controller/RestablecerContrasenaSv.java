@@ -29,6 +29,12 @@ public class RestablecerContrasenaSv extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String correo = req.getParameter("correo");
 
+        if (correo == null || !correo.trim().toLowerCase().endsWith("@utez.edu.mx")) {
+            req.setAttribute("error", "Solo se admiten correos institucionales (UTEZ).");
+            req.getRequestDispatcher("RestablecerContrasena.jsp").forward(req, resp);
+            return;
+        }
+
         if (!usuarioDao.correoExistente(correo)) {
             resp.sendRedirect("ValidarTokenRC.jsp");
         } else {

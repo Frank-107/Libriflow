@@ -26,6 +26,13 @@ public class IngresarNuevaContrasenaSv extends HttpServlet {
         String nuevaContrasena=req.getParameter("nuevaContrasena");
         String correo=(String) session.getAttribute("correo");
 
+        if(nuevaContrasena.length() < 8){
+            req.setAttribute("error", "La contraseña debe tener al menos 8 caracteres.");
+            req.getRequestDispatcher("IngresarNuevaContrasena.jsp").forward(req, resp);
+            return;
+        }
+
+
         if((boolean)session.getAttribute("cambioDeContrasenaVerificado")){
             if (usuarioDao.actualizarContrasena(correo, nuevaContrasena)){
                 session.setAttribute("mensaje", "Contrasena actualizada correctamente");

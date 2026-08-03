@@ -337,3 +337,7 @@ body {
     color:#9A9088;
     margin-top:1px;
 }
+
+.btn.bg-lf-dark:hover {
+    color: #4A4641 !important;
+}

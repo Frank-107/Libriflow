@@ -143,7 +143,7 @@
                                     </div>
 
 
-                                    <form action="solicitud-publicacion" method="post">
+                                    <form action="solicitud-publicacion-admin" method="post">
 
                                         <input type="hidden"
                                                name="idPublicacion"

@@ -18,7 +18,7 @@ public class SolicitudPublicacionSv extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idPublicacion = Integer.parseInt(req.getParameter("idPublicacion"));
         publicacionUsuarioDao.cambiarEstadoPublicacion(idPublicacion,"ACTIVO");
-        resp.sendRedirect("solicitud-publicacion");
+        resp.sendRedirect("solicitud-publicacion-admin");
 
     }
 

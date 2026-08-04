@@ -102,7 +102,27 @@ public class UsuarioDao {
         return -1;
     }
     public java.util.List<Usuario> getAll() {
-        return null;
+        java.util.List<Usuario> lista = new java.util.ArrayList<>();
+        String sql = "SELECT Id_Usuario, Nombre, Apellido_Paterno, Apellido_Materno, Correo_Electronico, Telefono, estado_cuenta FROM Usuario";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setId(rs.getInt("Id_Usuario"));
+                u.setNombre(rs.getString("Nombre"));
+                u.setApellidoPaterno(rs.getString("Apellido_Paterno"));
+                u.setApellidoMaterno(rs.getString("Apellido_Materno"));
+                u.setCorreo(rs.getString("Correo_Electronico"));
+                u.setTelefono(rs.getString("Telefono"));
+                lista.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
     }
 
     public Usuario getById(Integer id) {

@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const today = new Date().toISOString().split('T')[0];
+    const hoy = new Date();
+    const today = hoy.toISOString().split('T')[0];
     const fechaInicio = document.getElementById('fechaInicio');
     const fechaFin = document.getElementById('fechaFin');
     const montoMostrado = document.getElementById('montoMostrado');
@@ -46,6 +47,13 @@ document.addEventListener("DOMContentLoaded", function () {
     ['change', 'input'].forEach(tipoEvento => {
         fechaInicio.addEventListener(tipoEvento, function () {
             fechaFin.setAttribute('min', fechaInicio.value);
+
+            const fechaMaxima = new Date(fechaInicio.value + "T00:00:00");
+            fechaMaxima.setDate(fechaMaxima.getDate() + 13);
+
+            const max = fechaMaxima.toISOString().split('T')[0];
+            fechaFin.setAttribute('max', max);
+
             calcularRenta();
         });
 

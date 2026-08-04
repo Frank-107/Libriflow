@@ -34,14 +34,9 @@ public class MisRentasAdminSv extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         int idDetalle = Integer.parseInt(req.getParameter("idDetalle"));
-        String nuevoEstado = req.getParameter("estado");
 
-        if (!ESTADOS_VALIDOS.contains(nuevoEstado)) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Estado no válido");
-            return;
-        }
+        rentaDao.marcarComoDevuelta(idDetalle);
 
-        rentaDao.cambiarEstadoRenta(idDetalle, nuevoEstado);
         resp.sendRedirect(req.getContextPath() + "/mis-rentas-admin");
     }
 }

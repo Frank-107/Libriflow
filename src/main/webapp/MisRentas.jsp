@@ -105,7 +105,7 @@
                 </div>
             </div>
         </aside>
-        <main class="col">
+        <main class="col catalogo-scroll">
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
                     <h2>
@@ -114,14 +114,22 @@
                 </div>
                 <c:choose>
                     <c:when test="${empty rentas}">
-                        <div class="sin-publicaciones">
-                            <i class="bi bi-journal-x"></i>
-                            <h4>
-                                No tienes rentas activas.
+                        <div class="text-center bg-white rounded-4 shadow-sm p-5 mx-auto" style="max-width: 480px;">
+                            <div class="bg-lf-capsule rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+                                 style="width: 90px; height: 90px;">
+                                <i class="bi bi-journal-bookmark" style="font-size: 2.5rem; color: #4A4641;"></i>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: #4A4641;">
+                                Aún no tienes rentas activas
                             </h4>
-                            <p>
-                                Cuando rentes un libro aparecerá aquí.
+                            <p class="text-muted mb-4">
+                                Explora el catálogo y renta tu próximo libro favorito —
+                                aparecerá aquí en cuanto confirmes tu primera renta.
                             </p>
+                            <a href="inicio" class="btn bg-lf-dark text-white btn-lf-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-search me-2"></i>
+                                Explorar catálogo
+                            </a>
                         </div>
                     </c:when>
                     <c:otherwise>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
 </head>
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
@@ -63,19 +63,25 @@
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-                    <a href="inicio-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-house me-3 fs-5"></i> Inicio
+                    <a href="solicitud-publicacion-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
                     </a>
-                    <a href="publicaciones-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Publicaciones
+                    <a href="publicar-libro-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-file-earmark-text me-3 fs-5"></i> Publicar
                     </a>
                     <a href="mis-rentas-admin" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
+                        <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
+                    </a>
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-cash-stack me-3 fs-5"></i> Ingresos
                     </a>
                 </div>
             </div>
         </aside>
-        <main class="col">
+        <main class="col catalogo-scroll">
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
                     <h2>Rentas (${rentas.size()})</h2>
@@ -115,17 +121,22 @@
                                             $${renta.precio}
                                         </div>
                                         <div class="publicacion-acciones">
-                                            <form action="${pageContext.request.contextPath}/mis-rentas-admin" method="post" class="d-flex gap-2 align-items-center">
-                                                <input type="hidden" name="idDetalle" value="${renta.idDetalle}">
-                                                <select name="estado" class="form-select form-select-sm" style="width:auto;">
-                                                    <option value="ACTIVA" ${renta.estado == 'ACTIVA' ? 'selected' : ''}>Activa</option>
-                                                    <option value="ATRASADA" ${renta.estado == 'ATRASADA' ? 'selected' : ''}>Atrasada</option>
-                                                    <option value="MUY ATRASADA" ${renta.estado == 'MUY ATRASADA' ? 'selected' : ''}>Muy atrasada</option>
-                                                    <option value="DEVUELTA" ${renta.estado == 'DEVUELTA' ? 'selected' : ''}>Devuelta</option>
-                                                    <option value="CANCELADA" ${renta.estado == 'CANCELADA' ? 'selected' : ''}>Cancelada</option>
-                                                </select>
-                                                <button type="submit" class="btn btn-sm btn-dark">Actualizar</button>
-                                            </form>
+                                            <c:choose>
+                                                <c:when test="${renta.estado == 'DEVUELTA' || renta.estado == 'CANCELADA'}">
+            <span class="badge rounded-pill bg-secondary px-3 py-2">
+                <i class="bi bi-check2-circle me-1"></i> Sin acciones disponibles
+            </span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <form action="${pageContext.request.contextPath}/mis-rentas-admin" method="post">
+                                                        <input type="hidden" name="idDetalle" value="${renta.idDetalle}">
+                                                        <button type="submit" class="btn bg-lf-dark text-white btn-lf-pill px-4 py-2">
+                                                            <i class="bi bi-check-circle me-2"></i>
+                                                            Marcar como devuelta
+                                                        </button>
+                                                    </form>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                     </div>
                                 </div>

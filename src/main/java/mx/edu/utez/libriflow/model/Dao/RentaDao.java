@@ -183,6 +183,31 @@ public class RentaDao {
         return lista;
     }
 
+    public boolean marcarComoDevuelta(int idDetalle) {
+
+        String sql = """
+        UPDATE detalle_renta
+        SET estado = 'DEVUELTA',
+            fecha_devolucion = SYSDATE
+        WHERE id_detalle = ?
+        """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idDetalle);
+
+            int filasActualizadas = ps.executeUpdate();
+
+            return filasActualizadas > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public boolean cambiarEstadoRenta(int idDetalle, String estado) {
 
         String sql = """

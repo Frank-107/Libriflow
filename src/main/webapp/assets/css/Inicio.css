@@ -2,6 +2,11 @@ body {
     background-color: #F4EFEA;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.container-fluid.max-width-xl.mx-auto {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
 .bg-lf-dark {
     background-color: #4A4641;

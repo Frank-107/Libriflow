@@ -6,11 +6,18 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import mx.edu.utez.libriflow.model.*;
+import mx.edu.utez.libriflow.model.Dao.DetalleTransaccionDao;
+import mx.edu.utez.libriflow.model.Dao.PublicacionAdministradorDao;
+import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
+import mx.edu.utez.libriflow.model.Dao.TransaccionDao;
 
 import java.io.IOException;
+import java.sql.ClientInfoStatus;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 @WebServlet(name = "ValidarTarjetaSv", value = "/validar-tarjeta")
 public class ValidarTarjetaSv extends HttpServlet {
@@ -28,7 +35,11 @@ public class ValidarTarjetaSv extends HttpServlet {
         double subtotal = (Double) session.getAttribute("subtotal");
         total= subtotal+envio;
         req.setAttribute("total", total);
+        session.setAttribute("total", total);
+        session.setAttribute("subtotal", subtotal);
+        session.setAttribute("envio", envio);
         req.getRequestDispatcher("/ValidarTarjeta.jsp").forward(req, resp);
+
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -94,13 +105,93 @@ public class ValidarTarjetaSv extends HttpServlet {
             req.setAttribute("error", "El código CVV debe tener 3 o 4 dígitos numéricos");
             req.getRequestDispatcher("/ValidarTarjeta.jsp").forward(req, resp);
             return;}
-        session.setAttribute("pagoRealizado",true);
-        resp.sendRedirect(req.getContextPath() + "/PagoExitoso.jsp");
-        System.out.println("mandado a pago exitoso");
-        session.removeAttribute("puedePagar");
-        session.removeAttribute("puedeDireccion");
+
+
+        // logica para procesar el pago y mandar los correos correspondientes y registros a la base de datos
+
+        try {
+            procesarCompra(req);
+
+            session.setAttribute("pagoRealizado", true);
+            session.removeAttribute("puedePagar");
+            session.removeAttribute("puedeDireccion");
+
+            resp.sendRedirect(req.getContextPath() + "/PagoExitoso.jsp");
+
+        } catch (Exception e) {
+            req.setAttribute("error", "Ocurrió un error al procesar el pago.");
+            System.err.println(e.getMessage());
+            req.getRequestDispatcher("/ValidarTarjeta.jsp").forward(req, resp);
+        }
 
     }
+
+    private void procesarCompra(HttpServletRequest req){
+        PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
+        TransaccionDao transaccionDao = new TransaccionDao();
+        DetalleTransaccionDao detalleTransaccionDao = new DetalleTransaccionDao();
+        PublicacionAdministradorDao publicacionAdminDao = new PublicacionAdministradorDao();
+        HttpSession session = req.getSession(false);
+
+        ArrayList<Integer> carritoPubUsuario = (ArrayList<Integer>) session.getAttribute("carrito");
+        ArrayList<ItemCarritoAdmin> carritoAdmin = (ArrayList<ItemCarritoAdmin>) session.getAttribute("carritoAdmin");
+        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
+        int idUsuario = usuario.getId();
+        Transaccion transaccion = new Transaccion();
+        transaccion.setIdComprador(idUsuario);
+        transaccion.setTotal(Double.parseDouble(session.getAttribute("total").toString()));
+        transaccion.setSubtotal(Double.parseDouble(session.getAttribute("subtotal").toString()));
+        transaccion.setCostoEnvio(Double.parseDouble(session.getAttribute("envio").toString()));
+        transaccion.setEstado("PAGADO");
+
+        int idTransaccion = transaccionDao.create(transaccion);
+        if(idTransaccion==-1){
+            throw new RuntimeException("No se pudo crear la transacción");
+        }
+
+        if(carritoPubUsuario!=null){
+        for(Integer idPublicaion_us :carritoPubUsuario) {
+            PublicacionUsuarioCompleta publicacionUsuario = publicacionUsuarioDao.getPublicacionUsuarioCompleta(idPublicaion_us);
+            DetalleTransaccion detalleTransaccion = new DetalleTransaccion();
+            detalleTransaccion.setIdTransaccion(idTransaccion);
+            detalleTransaccion.setIdPublicacionUs(publicacionUsuario.getIdPublicacion());
+            detalleTransaccion.setIdVendedor(publicacionUsuario.getIdPropietario());
+            detalleTransaccion.setTipoOperacion("COMPRA");
+            detalleTransaccion.setPrecio(publicacionUsuario.getPrecio());
+            detalleTransaccion.setGananciaLibriFlow(publicacionUsuario.getPrecio() * 0.15);
+            detalleTransaccion.setGananciaVendedor(publicacionUsuario.getPrecio() * 0.85);
+            detalleTransaccionDao.create(detalleTransaccion);
+            publicacionUsuarioDao.cambiarEstadoPublicacion(idPublicaion_us, "VENDIDO");
+            //mandar correo al vendedor con su transaccion
+        }
+        }
+        if(carritoAdmin!=null){
+        for(ItemCarritoAdmin item : carritoAdmin){
+            String tipoOperacion = item.getTipoOperacion().toUpperCase();
+            tipoOperacion = tipoOperacion.equals("VENTA") ? "COMPRA" : tipoOperacion;
+            DetalleTransaccion detalleTransaccion = new DetalleTransaccion();
+            detalleTransaccion.setIdTransaccion(idTransaccion);
+            detalleTransaccion.setIdPublicacionLf(item.getIdPublicacion());
+            detalleTransaccion.setTipoOperacion(tipoOperacion);
+            detalleTransaccion.setPrecio(item.getPrecio());
+            detalleTransaccion.setGananciaVendedor(0.0);
+            detalleTransaccion.setGananciaLibriFlow(item.getPrecio());
+
+            detalleTransaccionDao.create(detalleTransaccion);
+            if(!publicacionAdminDao.disminuirInventario(item.getIdPublicacion()) ){
+                throw new RuntimeException("No se pudo disminuir el inventario de la publicación con id: " + item.getIdPublicacion());
+            }
+
+            if(tipoOperacion.equals("RENTA")){
+            }
+        }}
+
+
+        System.out.println("todo bien, el id genereado es:" + idTransaccion);
+
+    }
+
     private boolean validarLuhn(String numero) {
         int suma = 0;
         boolean alternar = false;

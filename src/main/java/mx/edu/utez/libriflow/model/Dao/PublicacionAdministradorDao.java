@@ -152,4 +152,24 @@ public class PublicacionAdministradorDao {
 
         return publicacion;
     }
+    public boolean disminuirInventario(int idPublicacion) {
+        String sql = "UPDATE PUBLICACION_LF " +
+                "SET CANTIDAD = CANTIDAD - 1 " +
+                "WHERE ID_PUBLICACION_LF = ? AND CANTIDAD > 0";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idPublicacion);
+
+            int filasAfectadas = ps.executeUpdate();
+
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

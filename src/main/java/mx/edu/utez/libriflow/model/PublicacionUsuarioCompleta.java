@@ -16,6 +16,7 @@ public class PublicacionUsuarioCompleta {
     private double precio;
     private String estado;
     private LocalDateTime fecha;
+    private int esVenta;
 
     private String imagenPrincipal;
     private String imagenReverso;
@@ -134,5 +135,13 @@ public class PublicacionUsuarioCompleta {
 
     public void setImagenInterior(String imagenInterior) {
         this.imagenInterior = imagenInterior;
+    }
+
+    public int getEsVenta() {
+        return esVenta;
+    }
+
+    public void setEsVenta(int esVenta) {
+        this.esVenta = esVenta;
     }
 }

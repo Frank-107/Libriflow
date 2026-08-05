@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.*;
-import mx.edu.utez.libriflow.model.Dao.DetalleTransaccionDao;
-import mx.edu.utez.libriflow.model.Dao.PublicacionAdministradorDao;
-import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
-import mx.edu.utez.libriflow.model.Dao.TransaccionDao;
+import mx.edu.utez.libriflow.model.Dao.*;
 
 import java.io.IOException;
 import java.sql.ClientInfoStatus;
@@ -149,6 +146,7 @@ public class ValidarTarjetaSv extends HttpServlet {
         if(idTransaccion==-1){
             throw new RuntimeException("No se pudo crear la transacción");
         }
+        System.out.println("transaccion creada con id "+ idTransaccion);
 
         if(carritoPubUsuario!=null){
         for(Integer idPublicaion_us :carritoPubUsuario) {
@@ -161,7 +159,13 @@ public class ValidarTarjetaSv extends HttpServlet {
             detalleTransaccion.setPrecio(publicacionUsuario.getPrecio());
             detalleTransaccion.setGananciaLibriFlow(publicacionUsuario.getPrecio() * 0.15);
             detalleTransaccion.setGananciaVendedor(publicacionUsuario.getPrecio() * 0.85);
-            detalleTransaccionDao.create(detalleTransaccion);
+
+            int idDetalleTransaccion = detalleTransaccionDao.create(detalleTransaccion);
+            if(idDetalleTransaccion==-1){
+                throw new RuntimeException("No se pudo crear el detalle de la transacción para la publicación de usuario con id: " + idPublicaion_us);
+            }
+            System.out.println("detalle transaccion creado con id: " + idDetalleTransaccion);
+
             publicacionUsuarioDao.cambiarEstadoPublicacion(idPublicaion_us, "VENDIDO");
             //mandar correo al vendedor con su transaccion
         }
@@ -178,17 +182,29 @@ public class ValidarTarjetaSv extends HttpServlet {
             detalleTransaccion.setGananciaVendedor(0.0);
             detalleTransaccion.setGananciaLibriFlow(item.getPrecio());
 
-            detalleTransaccionDao.create(detalleTransaccion);
+            int idDetalleTransaccion = detalleTransaccionDao.create(detalleTransaccion);
+            System.out.println("detalle transaccion creado con id: " + idDetalleTransaccion);
             if(!publicacionAdminDao.disminuirInventario(item.getIdPublicacion()) ){
                 throw new RuntimeException("No se pudo disminuir el inventario de la publicación con id: " + item.getIdPublicacion());
             }
 
             if(tipoOperacion.equals("RENTA")){
+                DetalleRentaDao detalleRentaDao = new DetalleRentaDao();
+                DetalleRenta renta = new DetalleRenta();
+                renta.setIdDetalle(idDetalleTransaccion);
+                renta.setFechaInicio(item.getFechaInicio());
+                renta.setFechaLimite(item.getFechaFin());
+                renta.setEstado("ACTIVA");
+                int idDetalleRenta = detalleRentaDao.create(renta);
+                if(idDetalleRenta==-1){
+                    throw new RuntimeException("No se pudo crear el detalle de renta");
+                }
+                System.out.println("detalle renta creado con id: " + idDetalleRenta);
             }
         }}
 
 
-        System.out.println("todo bien, el id genereado es:" + idTransaccion);
+        System.out.println("todo se inserto correctamente");
 
     }
 

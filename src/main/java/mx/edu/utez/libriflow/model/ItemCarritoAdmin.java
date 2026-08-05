@@ -1,9 +1,14 @@
 package mx.edu.utez.libriflow.model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+
 public class ItemCarritoAdmin {
     private int idPublicacion;
     private String tipoOperacion; // "venta" o "renta"
     private double precio;
+    private Timestamp fechaInicio;
+    private Timestamp fechaFin;
 
     public ItemCarritoAdmin() {}
 
@@ -21,4 +26,20 @@ public class ItemCarritoAdmin {
 
     public double getPrecio() { return precio; }
     public void setPrecio(double precio) { this.precio = precio; }
+
+    public Timestamp getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Timestamp fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Timestamp getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Timestamp fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 }

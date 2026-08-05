@@ -205,6 +205,9 @@ public class ValidarTarjetaSv extends HttpServlet {
 
 
         System.out.println("todo se inserto correctamente");
+        //borrar todo del carrito
+        session.removeAttribute("carritoAdmin");
+        session.removeAttribute("carrito");
 
     }
 

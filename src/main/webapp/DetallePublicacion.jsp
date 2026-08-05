@@ -107,7 +107,16 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-2 mt-2 fw-bold fs-5 text-dark">
-                        <span class="badge bg-secondary rounded-pill px-3 py-2">Precio base: $${publicacion.precio}</span>
+                       <span class="badge bg-secondary rounded-pill px-3 py-2">
+                        <c:choose>
+                             <c:when test="${publicacion.esVenta == 0}">
+                                Solo renta
+                             </c:when>
+                           <c:otherwise>
+                                Precio base: $${publicacion.precio}
+                           </c:otherwise>
+                        </c:choose>
+                        </span>
                     </div>
                 </div>
 

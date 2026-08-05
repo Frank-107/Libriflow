@@ -226,6 +226,8 @@ body {
     min-height: 180px;
     display: flex;
     flex-direction: column;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 .modal-content-lf {

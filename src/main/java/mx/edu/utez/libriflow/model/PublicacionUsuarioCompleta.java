@@ -16,7 +16,7 @@ public class PublicacionUsuarioCompleta {
     private double precio;
     private String estado;
     private LocalDateTime fecha;
-    private int esVenta;
+    private int esVenta = 1;
 
     private String imagenPrincipal;
     private String imagenReverso;

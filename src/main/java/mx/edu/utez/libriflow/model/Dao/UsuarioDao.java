@@ -168,6 +168,40 @@ public class UsuarioDao {
         }
     }
 
+    public Usuario getDuenoPublicacionById(int idPublicacion) {
+        String sql = """
+            SELECT u.ID_USUARIO,
+                   u.NOMBRE,
+                   u.CORREO_ELECTRONICO
+            FROM PUBLICACION_US pu, USUARIO u
+            WHERE pu.ID_USUARIO = u.ID_USUARIO
+              AND pu.ID_PUBLICACION_US = ?
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idPublicacion);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("ID_USUARIO"));
+                usuario.setNombre(rs.getString("NOMBRE"));
+                usuario.setCorreo(rs.getString("CORREO_ELECTRONICO"));
+
+                return usuario;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 
 
     public boolean delete(Integer id) {

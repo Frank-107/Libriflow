@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis rentas - LibriFlow</title>
+    <title>Mis compras - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -29,7 +29,7 @@
                 <i class="bi bi-arrow-left"></i>
             </a>
             <span class="fw-bold fs-4 tracking-wide">
-                Mis rentas
+                Mis compras
             </span>
         </div>
         <div class="d-flex align-items-center gap-3">
@@ -78,7 +78,7 @@
                         Carrito
                     </a>
                     <a href="mis-compras"
-                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                       class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i>
                         Compras
                     </a>
@@ -93,11 +93,11 @@
                         Mis publicaciones
                     </a>
                     <a href="mis-rentas"
-                       class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
+                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>
                         Mis rentas
                     </a>
-                    <a href="#"
+                    <a href="nuestras-redes"
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i>
                         Nuestras redes
@@ -109,22 +109,21 @@
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
                     <h2>
-                        Mis rentas (${rentas.size()})
+                        Mis compras (${compras.size()})
                     </h2>
                 </div>
                 <c:choose>
-                    <c:when test="${empty rentas}">
+                    <c:when test="${empty compras}">
                         <div class="text-center bg-white rounded-4 shadow-sm p-5 mx-auto" style="max-width: 480px;">
                             <div class="bg-lf-capsule rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
                                  style="width: 90px; height: 90px;">
-                                <i class="bi bi-journal-bookmark" style="font-size: 2.5rem; color: #4A4641;"></i>
+                                <i class="bi bi-bag-check" style="font-size: 2.5rem; color: #4A4641;"></i>
                             </div>
                             <h4 class="fw-bold mb-2" style="color: #4A4641;">
-                                Aún no tienes rentas activas
+                                Aún no tienes compras
                             </h4>
                             <p class="text-muted mb-4">
-                                Explora el catálogo y renta tu próximo libro favorito —
-                                aparecerá aquí en cuanto confirmes tu primera renta.
+                                Cuando compres un libro en LibriFlow, aparecerá aquí con todos sus detalles.
                             </p>
                             <a href="inicio" class="btn bg-lf-dark text-white btn-lf-pill px-4 py-2 fw-semibold">
                                 <i class="bi bi-search me-2"></i>
@@ -134,36 +133,33 @@
                     </c:when>
                     <c:otherwise>
                         <div class="publicaciones-lista">
-                            <c:forEach var="renta" items="${rentas}">
+                            <c:forEach var="compra" items="${compras}">
                                 <div class="publicacion-card">
                                     <div class="publicacion-estado">
                                         <span class="estado">
-                                                ${renta.estado}
+                                                ${compra.estadoTransaccion}
                                         </span>
                                     </div>
                                     <div class="publicacion-contenido">
                                         <div class="publicacion-portada">
-                                            <img src="${renta.imagenPrincipal}" alt="${renta.titulo}">
+                                            <img src="${compra.imagenPrincipal}" alt="${compra.titulo}">
                                         </div>
                                         <div class="publicacion-info">
                                             <h4>
-                                                    ${renta.titulo}
+                                                    ${compra.titulo}
                                             </h4>
                                             <p>
-                                                    ${renta.autor}
+                                                    ${compra.autor}
                                             </p>
                                             <small>
-                                                Vendedor: ${renta.nombreVendedor}
+                                                Vendedor: ${compra.nombreVendedor}
                                             </small><br>
                                             <small>
-                                                Del ${renta.fechaInicio} al ${renta.fechaLimite}
-                                                <c:if test="${not empty renta.fechaDevolucion}">
-                                                    (Devuelto: ${renta.fechaDevolucion})
-                                                </c:if>
+                                                    ${compra.fechaFormateada}
                                             </small>
                                         </div>
                                         <div class="publicacion-precio">
-                                            $${renta.precio}
+                                            $${compra.precio}
                                         </div>
                                     </div>
                                 </div>

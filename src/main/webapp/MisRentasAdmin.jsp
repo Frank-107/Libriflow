@@ -88,10 +88,17 @@
                 </div>
                 <c:choose>
                     <c:when test="${empty rentas}">
-                        <div class="sin-publicaciones">
-                            <i class="bi bi-journal-x"></i>
-                            <h4>No hay rentas registradas.</h4>
-                            <p>Cuando un usuario rente un libro aparecerá aquí.</p>
+                        <div class="text-center bg-white rounded-4 shadow-sm p-5 mx-auto" style="max-width: 480px;">
+                            <div class="bg-lf-capsule rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+                                 style="width: 90px; height: 90px;">
+                                <i class="bi bi-journal-bookmark" style="font-size: 2.5rem; color: #4A4641;"></i>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: #4A4641;">
+                                No hay rentas registradas
+                            </h4>
+                            <p class="text-muted mb-0">
+                                Cuando un usuario rente un libro, aparecerá aquí para que puedas darle seguimiento.
+                            </p>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -121,22 +128,17 @@
                                             $${renta.precio}
                                         </div>
                                         <div class="publicacion-acciones">
-                                            <c:choose>
-                                                <c:when test="${renta.estado == 'DEVUELTA' || renta.estado == 'CANCELADA'}">
-            <span class="badge rounded-pill bg-secondary px-3 py-2">
-                <i class="bi bi-check2-circle me-1"></i> Sin acciones disponibles
-            </span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <form action="${pageContext.request.contextPath}/mis-rentas-admin" method="post">
-                                                        <input type="hidden" name="idDetalle" value="${renta.idDetalle}">
-                                                        <button type="submit" class="btn bg-lf-dark text-white btn-lf-pill px-4 py-2">
-                                                            <i class="bi bi-check-circle me-2"></i>
-                                                            Marcar como devuelta
-                                                        </button>
-                                                    </form>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <form action="${pageContext.request.contextPath}/mis-rentas-admin" method="post" class="d-flex gap-2 align-items-center">
+                                                <input type="hidden" name="idDetalle" value="${renta.idDetalle}">
+                                                <select name="estado" class="form-select form-select-sm" style="width:auto;">
+                                                    <option value="ACTIVA" ${renta.estado == 'ACTIVA' ? 'selected' : ''}>Activa</option>
+                                                    <option value="ATRASADA" ${renta.estado == 'ATRASADA' ? 'selected' : ''}>Atrasada</option>
+                                                    <option value="MUY ATRASADA" ${renta.estado == 'MUY ATRASADA' ? 'selected' : ''}>Muy atrasada</option>
+                                                    <option value="DEVUELTA" ${renta.estado == 'DEVUELTA' ? 'selected' : ''}>Devuelta</option>
+                                                    <option value="CANCELADA" ${renta.estado == 'CANCELADA' ? 'selected' : ''}>Cancelada</option>
+                                                </select>
+                                                <button type="submit" class="btn btn-sm btn-dark">Actualizar</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

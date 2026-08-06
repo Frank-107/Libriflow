@@ -10,6 +10,7 @@
     <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css" />
 </head>
 <body class="p-3 p-md-4">
 
@@ -65,7 +66,7 @@
                     <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                     </a>
                     <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -84,7 +85,7 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9">
+        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white">
 
                 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">

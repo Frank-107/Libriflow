@@ -67,7 +67,7 @@
                         <i class="bi bi-cart3 me-3 fs-5"></i>
                         Carrito
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
+                    <a href="MisCompras.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i>
                         Compras
                     </a>
@@ -83,7 +83,7 @@
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>
                         Mis rentas
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
+                    <a href="NuestrasRedes.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i>
                         Nuestras redes
                     </a>
@@ -100,16 +100,21 @@
                 </div>
                 <c:choose>
                     <c:when test="${empty publicaciones}">
-                        <div class="text-center p-5">
-                            <i class="bi bi-cart-x fs-1 text-secondary"></i>
-                            <h5 class="mt-3 fw-bold">
+                        <div class="text-center bg-white rounded-4 shadow-sm p-5 mx-auto" style="max-width: 480px;">
+                            <div class="bg-lf-capsule rounded-circle d-inline-flex align-items-center justify-content-center mb-4"
+                                 style="width: 90px; height: 90px;">
+                                <i class="bi bi-cart-x" style="font-size: 2.5rem; color: #4A4641;"></i>
+                            </div>
+                            <h4 class="fw-bold mb-2" style="color: #4A4641;">
                                 Tu carrito está vacío
-                            </h5>
-                            <p class="text-secondary">
-                                Explora nuestro catálogo y agrega libros.
+                            </h4>
+                            <p class="text-muted mb-4">
+                                Explora el catálogo y agrega los libros que te interesen —
+                                aparecerán aquí listos para que completes tu compra o renta.
                             </p>
-                            <a href="inicio" class="btn btn-action-lf">
-                                Ver libros
+                            <a href="inicio" class="btn bg-lf-dark text-white btn-lf-pill px-4 py-2 fw-semibold">
+                                <i class="bi bi-search me-2"></i>
+                                Explorar catálogo
                             </a>
                         </div>
                     </c:when>

@@ -10,6 +10,7 @@
     <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css" />
 </head>
 <body class="p-3 p-md-4">
 
@@ -78,7 +79,7 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9">
+        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white">
 
                 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">

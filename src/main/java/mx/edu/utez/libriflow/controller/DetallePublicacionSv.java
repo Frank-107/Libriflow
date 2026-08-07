@@ -8,7 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 import mx.edu.utez.libriflow.model.PublicacionUsuarioCompleta;
-
+import mx.edu.utez.libriflow.model.Dao.ResenaDao;
+import mx.edu.utez.libriflow.model.Resena;
+import java.util.List;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,6 +21,9 @@ public class DetallePublicacionSv extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idPublicacion = Integer.parseInt(req.getParameter("idPublicacion"));
         PublicacionUsuarioCompleta publicacionUsuarioCompleta = publicacionUsuarioDao.getPublicacionUsuarioCompleta(idPublicacion);
+        ResenaDao resenaDao = new ResenaDao();
+        List<Resena> resenas = resenaDao.getResenasByPublicacion(idPublicacion);
+        req.setAttribute("resenas", resenas);
         req.setAttribute("publicacion", publicacionUsuarioCompleta);
         req.getRequestDispatcher("/DetallePublicacion.jsp").forward(req, resp);
 

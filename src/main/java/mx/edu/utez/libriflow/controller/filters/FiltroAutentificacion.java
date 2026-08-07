@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebFilter("/*")
+//@WebFilter("/*")
 public class FiltroAutentificacion extends HttpFilter {
 
     private static final String ROL_ADMIN = "ADMIN";

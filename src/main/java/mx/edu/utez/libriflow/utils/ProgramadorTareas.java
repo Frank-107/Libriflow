@@ -10,6 +10,12 @@ public class ProgramadorTareas {
 
     public static void iniciar() {
 
+        // Evita crear otro scheduler si ya existe uno
+        if (scheduler != null && !scheduler.isShutdown()) {
+            System.out.println("El programador de tareas ya está iniciado.");
+            return;
+        }
+
         scheduler = Executors.newScheduledThreadPool(1);
 
         scheduler.scheduleAtFixedRate(
@@ -26,8 +32,7 @@ public class ProgramadorTareas {
 
         if (scheduler != null && !scheduler.isShutdown()) {
             scheduler.shutdown();
+            System.out.println("Tareas programadas detenidas.");
         }
-
-        System.out.println("Tareas programadas detenidas.");
     }
 }

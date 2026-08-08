@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis rentas - LibriFlow</title>
+    <title>Rentas Activas - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -29,7 +29,7 @@
                 <i class="bi bi-arrow-left"></i>
             </a>
             <span class="fw-bold fs-4 tracking-wide">
-                Mis rentas
+                Rentas Activas
             </span>
         </div>
         <div class="d-flex align-items-center gap-3">
@@ -46,7 +46,7 @@
                 </div>
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="actualizar-perfil">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfilAdmin.jsp">
                             <i class="bi bi-person me-2"></i> Ver perfil
                         </a>
                     </li>

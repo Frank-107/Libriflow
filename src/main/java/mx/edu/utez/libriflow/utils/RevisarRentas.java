@@ -48,15 +48,20 @@ public class RevisarRentas implements Runnable {
                     detalleRentaDao.getRentasRetrasadasActivas();
 
             for (DetalleRenta renta : rentasRetrasadas) {
+                System.out.println(
+                        "Renta " + renta.getIdDetalle()
+                                + " está retrasada desde "
+                                + renta.getFechaLimite()
+                );
 
                 long diasRetraso = ChronoUnit.DAYS.between(
                         renta.getFechaLimite().toLocalDateTime().toLocalDate(),
                         ahora.toLocalDateTime().toLocalDate()
                 );
-
+                System.out.println("y tiente estos dias de retraso:"+diasRetraso);
                 if (diasRetraso > 3 &&
                         renta.getPenalizacion() < 2) {
-
+                    System.out.println("hay una renta con mas de 3 dias de retraso activa ");
                     detalleRentaDao.cambiarPenalizacion(
                             renta.getIdDetalle(),
                             2

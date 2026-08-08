@@ -13,8 +13,8 @@ public class DetalleRentaDao {
 
     public int create(DetalleRenta entidad) {
         String sql = "INSERT INTO Detalle_Renta " +
-                "(ID_DETALLE_TRANSACCION, FECHA_INICIO, FECHA_LIMITE, ESTADO) " +
-                "VALUES (?, ?, ?, ?)";
+                "(ID_DETALLE_TRANSACCION, FECHA_INICIO, FECHA_LIMITE, ESTADO, CODIGO) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(
@@ -25,6 +25,7 @@ public class DetalleRentaDao {
             ps.setTimestamp(2, entidad.getFechaInicio());
             ps.setTimestamp(3, entidad.getFechaLimite());
             ps.setString(4, entidad.getEstado());
+            ps.setString(5, entidad.getCodigo());
 
             int filasAfectadas = ps.executeUpdate();
 

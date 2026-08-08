@@ -28,7 +28,7 @@
         </span>
         </div>
     </c:if>
-    <form action="validar-tarjeta" method="POST">
+    <form action="validar-tarjeta" method="POST" onsubmit="this.querySelector('.btn-submit').disabled=true; this.querySelector('.btn-submit').value='Enviando...';">
 
         <div class="form-section-title">Datos de la Tarjeta</div>
 

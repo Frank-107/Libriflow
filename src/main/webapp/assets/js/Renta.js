@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         const inicio = new Date(fechaInicio.value + "T00:00:00");
-        const fin = new Date(fechaFin.value + "T00:00:00");
+        const fin = new Date(fechaFin.value + "T23:59:59");
 
         const diferenciaTiempo = fin.getTime() - inicio.getTime();
         const dias = Math.ceil(diferenciaTiempo / (1000 * 3600 * 24)) + 1;

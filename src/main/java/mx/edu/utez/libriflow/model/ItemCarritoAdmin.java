@@ -40,6 +40,16 @@ public class ItemCarritoAdmin {
     }
 
     public void setFechaFin(Timestamp fechaFin) {
-        this.fechaFin = fechaFin;
+        if (fechaFin != null) {
+            this.fechaFin = Timestamp.valueOf(
+                    fechaFin.toLocalDateTime()
+                            .withHour(23)
+                            .withMinute(59)
+                            .withSecond(59)
+                            .withNano(0)
+            );
+        } else {
+            this.fechaFin = null;
+        }
     }
 }

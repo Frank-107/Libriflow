@@ -9,6 +9,7 @@ public class DetalleRenta {
     private Timestamp fechaLimite;
     private Timestamp fechaDevolucion;
     private String estado;
+    private String codigo;
 
     public DetalleRenta() {
     }
@@ -60,5 +61,13 @@ public class DetalleRenta {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

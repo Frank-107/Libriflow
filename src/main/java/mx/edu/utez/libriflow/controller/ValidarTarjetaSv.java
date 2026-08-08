@@ -268,7 +268,7 @@ public class ValidarTarjetaSv extends HttpServlet {
                     renta.setIdDetalle(idDetalleTransaccion);
                     renta.setFechaInicio(item.getFechaInicio());
                     renta.setFechaLimite(item.getFechaFin());
-                    renta.setEstado("ACTIVA");
+                    renta.setEstado("PROGRAMADA");
                     String codigoRenta = generarCodigoRenta();
                     renta.setCodigo(codigoRenta);
 

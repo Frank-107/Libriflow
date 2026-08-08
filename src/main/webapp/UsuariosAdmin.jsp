@@ -64,8 +64,11 @@
     <div class="row g-4">
         <!-- SIDEBAR MENU -->
         <aside class="col-12 col-md-4 col-lg-3">
-            <div class="collapse d-md-block" id="sidebarMenu">
+            <div class="collapse d-md-block" id="menuLateral">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
+                    <a href="inicio-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-house me-3 fs-5"></i> Inicio
+                    </a>
                     <a href="solicitud-publicacion-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
                     </a>
@@ -75,15 +78,16 @@
                     <a href="mis-rentas-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
                     </a>
-                    <a href="usuarios-admin" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="usuarios-admin" class="btn bg-lf-capsule sidebar-active btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="ingresos-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-cash-stack me-3 fs-5"></i> Ingresos
                     </a>
                 </div>
             </div>
         </aside>
+
 
         <!-- MAIN CONTENT -->
         <main class="col catalogo-scroll">

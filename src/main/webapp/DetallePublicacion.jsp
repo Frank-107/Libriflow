@@ -167,6 +167,8 @@
                             <c:otherwise>
                                 <form action="detalle-publicacion" method="POST" class="w-100">
                                     <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+                                    <input type="hidden" name="tipoOperacion" value="venta">
+                                    <input type="hidden" name="precioCalculado" value="${publicacion.precio}">
                                     <button type="submit" class="btn btn-action-lf w-100 py-3 rounded-pill fw-bold shadow-sm">
                                         <i class="bi bi-cart-plus me-2"></i> Agregar al carrito
                                     </button>
@@ -179,90 +181,94 @@
 
             </div>
             <div class="mt-4">
+                <c:if test="${not empty esAdminPub}">
 
-                <h4 class="fw-bold mb-4">
-                    <i class="bi bi-star-fill text-warning me-2"></i> Reseñas
-                </h4>
+                    <h4 class="fw-bold mb-4">
+                        <i class="bi bi-star-fill text-warning me-2"></i> Reseñas
+                    </h4>
 
-                <%-- ALERTAS ESTILO LOGIN (LIBRI-TOAST) --%>
-                <c:if test="${not empty sessionScope.mensaje}">
-                    <div id="successToast" class="libri-toast libri-toast-success">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <polyline points="22 4 12 14.01 9 11.01"/>
-                        </svg>
-                        <span><c:out value="${sessionScope.mensaje}" escapeXml="true" /></span>
-                    </div>
-                    <c:remove var="mensaje" scope="session" />
-                </c:if>
-
-                <c:if test="${not empty sessionScope.error}">
-                    <div id="errorToast" class="libri-toast libri-toast-error">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
-                            <line x1="12" y1="9" x2="12" y2="13"/>
-                            <line x1="12" y1="17" x2="12.01" y2="17"/>
-                        </svg>
-                        <span><c:out value="${sessionScope.error}" escapeXml="true" /></span>
-                    </div>
-                    <c:remove var="error" scope="session" />
-                </c:if>
-
-                <!-- FORMULARIO DE RESEÑA -->
-                <div class="card shadow-sm p-4 mb-4 rounded-4">
-                    <form action="resena" method="post">
-
-                        <input type="hidden" name="idPublicacion" value="${not empty publicacion.idPublicacionLf ? publicacion.idPublicacionLf : publicacion.idPublicacion}">
-
-                        <div class="mb-3">
-                            <label for="comentario" class="form-label fw-bold">Deja tu opinión:</label>
-                            <textarea id="comentario" name="comentario" class="form-control" rows="3" placeholder="¿Qué te pareció este libro?" required></textarea>
+                    <%-- ALERTAS ESTILO LOGIN (LIBRI-TOAST) --%>
+                    <c:if test="${not empty sessionScope.mensaje}">
+                        <div id="successToast" class="libri-toast libri-toast-success">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                            <span><c:out value="${sessionScope.mensaje}" escapeXml="true" /></span>
                         </div>
+                        <c:remove var="mensaje" scope="session" />
+                    </c:if>
 
-                        <div class="mb-3">
-                            <label for="calificacion" class="form-label fw-bold">Calificación:</label>
-                            <select id="calificacion" name="calificacion" class="form-select">
-                                <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                                <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                                <option value="3">⭐⭐⭐ (3/5)</option>
-                                <option value="2">⭐⭐ (2/5)</option>
-                                <option value="1">⭐ (1/5)</option>
-                            </select>
+                    <c:if test="${not empty sessionScope.error}">
+                        <div id="errorToast" class="libri-toast libri-toast-error">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                                <line x1="12" y1="9" x2="12" y2="13"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17"/>
+                            </svg>
+                            <span><c:out value="${sessionScope.error}" escapeXml="true" /></span>
                         </div>
+                        <c:remove var="error" scope="session" />
+                    </c:if>
 
-                        <button type="submit" class="btn btn-action-lf shadow-sm btn-submit px-4">Enviar reseña</button>
+                    <!-- FORMULARIO DE RESEÑA -->
+                    <div class="card shadow-sm p-4 mb-4 rounded-4">
+                        <form action="resena" method="post">
 
-                    </form>
-                </div>
+                            <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacionLf}">
 
-                <!-- LISTA DE RESEÑAS -->
-                <c:choose>
-                    <c:when test="${empty resenas}">
-                        <div class="alert alert-light border rounded-4 text-muted">
-                            No hay reseñas aún. ¡Sé el primero en opinar sobre este libro!
-                        </div>
-                    </c:when>
-
-                    <c:otherwise>
-                        <c:forEach var="r" items="${resenas}">
-                            <div class="card p-3 mb-3 shadow-sm rounded-4 border-0 bg-light">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <strong class="text-dark">${not empty r.nombreUsuario ? r.nombreUsuario : 'Usuario'}</strong>
-                                    <div>
-                                        <c:forEach begin="1" end="${r.calificacion}">
-                                            <i class="bi bi-star-fill text-warning"></i>
-                                        </c:forEach>
-                                        <c:forEach begin="${r.calificacion + 1}" end="5">
-                                            <i class="bi bi-star text-muted"></i>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                                <p class="mb-0 text-secondary">${r.comentario}</p>
+                            <div class="mb-3">
+                                <label for="comentario" class="form-label fw-bold">Deja tu opinión:</label>
+                                <textarea id="comentario" name="comentario" class="form-control" rows="3" placeholder="¿Qué te pareció este libro?" required></textarea>
                             </div>
-                        </c:forEach>
-                    </c:otherwise>
-                </c:choose>
 
+                            <div class="mb-3">
+                                <label for="calificacion" class="form-label fw-bold">Calificación:</label>
+                                <select id="calificacion" name="calificacion" class="form-select">
+                                    <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                    <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                    <option value="3">⭐⭐⭐ (3/5)</option>
+                                    <option value="2">⭐⭐ (2/5)</option>
+                                    <option value="1">⭐ (1/5)</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-action-lf shadow-sm btn-submit px-4">Enviar reseña</button>
+
+                        </form>
+                    </div>
+
+                    <!-- LISTA DE RESEÑAS -->
+                    <c:choose>
+                        <c:when test="${empty resenas}">
+                            <div class="alert alert-light border rounded-4 text-muted">
+                                No hay reseñas aún. ¡Sé el primero en opinar sobre este libro!
+                            </div>
+                        </c:when>
+
+                        <c:otherwise>
+                            <div class="pe-2" style="max-height: 400px; overflow-y: auto;">
+                                <c:forEach var="r" items="${resenas}">
+                                    <div class="card p-3 mb-3 shadow-sm rounded-4 border-0 bg-light">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <strong class="text-dark">${not empty r.nombreUsuario ? r.nombreUsuario : 'Usuario'}</strong>
+                                            <div>
+                                                <c:forEach begin="1" end="${r.calificacion}">
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                </c:forEach>
+                                                <c:forEach begin="${r.calificacion + 1}" end="5">
+                                                    <i class="bi bi-star text-muted"></i>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                        <p class="mb-0 text-secondary">${r.comentario}</p>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+
+                </c:if>
             </div>
         </main>
 

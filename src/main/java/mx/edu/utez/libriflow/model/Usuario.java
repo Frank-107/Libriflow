@@ -1,5 +1,8 @@
 package mx.edu.utez.libriflow.model;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class Usuario {
     private String nombre;
     private String apellidoPaterno;
@@ -8,6 +11,8 @@ public class Usuario {
     private String telefono;
     private int id;
     private String contrasenaHash;
+    private String estado;
+    Timestamp fechaDesbloqueo;
 
 
     public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono, String contrasena) {
@@ -17,6 +22,14 @@ public class Usuario {
         this.correo = correo;
         this.telefono = telefono;
         this.contrasenaHash = contrasena;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Usuario() {
@@ -75,5 +88,13 @@ public class Usuario {
 
     public void setContrasenaHash(String contrasena) {
         this.contrasenaHash = contrasena;
+    }
+
+    public Timestamp getFechaDesbloqueo() {
+        return fechaDesbloqueo;
+    }
+
+    public void setFechaDesbloqueo(Timestamp fechaDesbloqueo) {
+        this.fechaDesbloqueo = fechaDesbloqueo;
     }
 }

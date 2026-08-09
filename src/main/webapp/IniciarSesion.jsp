@@ -41,7 +41,7 @@
     <br class="login-br">
 
     <div class="login-footer-row">
-        <a href="#" class="login-footer-link">Restablecer contraseña</a>
+        <a href="restablecer-contrasena" class="login-footer-link">Restablecer contraseña</a>
         <a href="crear-cuenta-usuario" class="login-footer-link">¿No tienes cuenta? Crear cuenta</a>
     </div>
 

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - LibriFlow</title>
+    <title>Inicio Admin - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -14,7 +14,6 @@
 <body class="p-3 p-md-4">
 
 <div class="container-fluid max-width-xl mx-auto">
-
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center">
             <button class="btn text-white d-md-none me-2 p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
@@ -57,76 +56,40 @@
     </header>
 
     <div class="row g-4">
-
         <aside class="col-12 col-md-4 col-lg-3">
-            <div class="collapse d-md-block" id="sidebarMenu">
+            <div class="collapse d-md-block" id="menuLateral">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-                    <a href="solicitud-publicacion" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="inicio-admin" class="btn bg-lf-capsule sidebar-active btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-house me-3 fs-5"></i> Inicio
+                    </a>
+                    <a href="solicitud-publicacion-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
                     </a>
                     <a href="publicar-libro-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-file-earmark-text me-3 fs-5"></i> Publicar
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-rentas-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="usuarios-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="ingresos-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-cash-stack me-3 fs-5"></i> Ingresos
                     </a>
                 </div>
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
-            <div class="d-flex gap-3 mb-4 align-items-center">
-                <div class="position-relative flex-grow-1">
-                    <i class="bi bi-search search-icon-inside"></i>
-                    <input type="text" class="form-control search-bar-lf shadow-sm" placeholder="Buscar libros, autores...">
-                </div>
-                <div class="dropdown">
-                    <button class="btn bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
-                            type="button"
-                            id="filtroGenerosDropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            style="width: 46px; height: 46px; transition: all 0.2s; color: #4A4641;">
-                        <i class="bi bi-sliders fs-5"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 dropdown-menu-filter" aria-labelledby="filtroGenerosDropdown">
-                        <li class="dropdown-header fw-bold text-secondary border-bottom pb-2 mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">FILTRAR POR GÉNERO</li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Novela</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Fantasía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia ficción</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Terror</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Romance</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Misterio</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Suspenso</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Drama</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Aventura</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Historia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Biografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Autobiografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Tecnología</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Educación</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Infantil</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Poesía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Filosofía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Religión</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Cómic</a></li>
-                    </ul>
-                </div>
 
-            </div>
+        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
+
             <c:choose>
                 <c:when test="${empty publicaciones}">
                     <div class="row g-4">
                         <div class="col-12">
                             <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
-                                <h4 class="fw-bold text-dark">No hay ninguna publicacion...</h4>
+                                <h4 class="fw-bold text-dark">No hay ninguna publicación...</h4>
                             </div>
                         </div>
                     </div>
@@ -134,52 +97,51 @@
                 <c:otherwise>
                     <div class="row g-3">
                         <c:forEach var="publicacion" items="${publicaciones}">
-                            <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
-                                <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6">
+                                <article class="card-libro">
 
-                                    <article class="card-libro">
+                                    <div class="card-portada">
+                                        <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
+                                    </div>
 
-                                        <div class="card-portada">
-                                            <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
+                                    <div class="card-contenido">
+
+                                        <div class="card-info">
+                                            <h3 class="card-titulo">
+                                                    ${publicacion.titulo}
+                                            </h3>
+
+                                            <p class="card-autor">
+                                                Autor: ${publicacion.autor}
+                                            </p>
+
+                                            <p class="card-genero">
+                                                Género: ${publicacion.genero}
+                                            </p>
+
+                                            <p class="card-precio">
+                                                $${publicacion.precio}
+                                            </p>
                                         </div>
 
-                                        <div class="card-contenido">
+                                        <button type="button" class="btn-detalles">
+                                            Ver detalles
+                                        </button>
 
-                                            <div class="card-info">
-                                                <h3 class="card-titulo">
-                                                        ${publicacion.titulo}
-                                                </h3>
+                                    </div>
 
-                                                <p class="card-autor">
-                                                    Autor: ${publicacion.autor}
-                                                </p>
-
-                                                <p class="card-genero">
-                                                    Género: ${publicacion.genero}
-                                                </p>
-
-                                                <p class="card-precio">
-                                                    $${publicacion.precio}
-                                                </p>
-                                            </div>
-
-                                            <button type="button" class="btn-detalles">
-                                                Ver detalles
-                                            </button>
-
-                                        </div>
-
-                                    </article>
-                                </div>
-                            </c:if>
+                                </article>
+                            </div>
                         </c:forEach>
                     </div>
                 </c:otherwise>
             </c:choose>
+
         </main>
 
     </div>
 </div>
+
 <script src="assets/js/bootstrap.js"></script>
 </body>
 </html>

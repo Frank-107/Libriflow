@@ -12,6 +12,8 @@ import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @WebServlet(name = "IniciarSesionSv", value = "/iniciar-sesion")
 public class IniciarSesionSv extends HttpServlet {
@@ -40,10 +42,33 @@ public class IniciarSesionSv extends HttpServlet {
         boolean contrasenaCorrecta = credencialDao.validarContrasena(idUsuario, contrasena);
 
         if (idUsuario != -1 && contrasenaCorrecta) {
+            Usuario usuario = usuarioDao.obtenerUsuario(correo);
+            if (!usuario.getEstado().equals("ACTIVA")) {
+
+                Timestamp ahora = Timestamp.valueOf(LocalDateTime.now());
+
+                if (usuario.getFechaDesbloqueo() != null &&
+                        ahora.after(usuario.getFechaDesbloqueo())) {
+                    usuarioDao.activarUsuario(idUsuario);
+                    usuario.setEstado("ACTIVA");
+                    System.out.println(
+                            "Usuario " + usuario.getCorreo() + " activado automáticamente."
+                    );
+
+                } else {
+
+                    req.setAttribute(
+                            "error",
+                            "La cuenta está inactiva. Por favor, contacta al administrador."
+                    );
+
+                    req.getRequestDispatcher("IniciarSesion.jsp").forward(req, resp);
+                    return;
+                }
+            }
 
             HttpSession session = req.getSession(true);
 
-            Usuario usuario = usuarioDao.obtenerUsuario(correo);
 
             // Obtener el rol desde la BD
             String rol = rolDao.obtenerRol(idUsuario);

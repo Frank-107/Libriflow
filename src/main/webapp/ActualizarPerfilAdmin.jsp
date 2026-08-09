@@ -24,7 +24,7 @@
       <a href="InicioAdmin.jsp" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-left"></i>
       </a>
-      <span class="fw-bold fs-5 tracking-wide">Perfil de Usuario</span>
+      <span class="fw-bold fs-5 tracking-wide">Perfil de Administrador</span>
     </div>
 
     <div class="d-flex align-items-center gap-3">
@@ -54,22 +54,22 @@
     <aside class="col-12 col-md-4 col-lg-3">
       <div class="collapse d-md-block" id="menuLateral">
         <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-          <a href="InicioAdmin.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="inicio-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-house me-3 fs-5"></i> Inicio
           </a>
-          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="solicitud-publicacion-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
           </a>
           <a href="publicar-libro-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-file-earmark-text me-3 fs-5"></i> Publicar
           </a>
-          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="mis-rentas-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
           </a>
-          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="usuarios-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
           </a>
-          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="ingresos-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-cash-stack me-3 fs-5"></i> Ingresos
           </a>
         </div>
@@ -101,23 +101,6 @@
               <div class="perfil-avatar mx-auto shadow-sm" style="cursor: default;">
                 <i class="bi bi-person-fill text-white" style="font-size: 4.5rem; margin-top: 5px;"></i>
               </div>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-evenly align-items-center mb-4 py-3 rounded-4 bg-white shadow-sm border border-light mx-auto" style="max-width: 550px;">
-            <div class="text-center px-2">
-              <span class="d-block fs-5 fw-bold text-dark">0</span>
-              <span class="text-muted" style="font-size: 0.8rem;">Publicaciones</span>
-            </div>
-            <div class="vr bg-secondary opacity-25"></div>
-            <div class="text-center px-2">
-              <span class="d-block fs-5 fw-bold text-dark">0</span>
-              <span class="text-muted" style="font-size: 0.8rem;">Vendidos</span>
-            </div>
-            <div class="vr bg-secondary opacity-25"></div>
-            <div class="text-center px-2">
-              <span class="d-block fs-5 fw-bold text-dark">0</span>
-              <span class="text-muted" style="font-size: 0.8rem;">Rentados</span>
             </div>
           </div>
 

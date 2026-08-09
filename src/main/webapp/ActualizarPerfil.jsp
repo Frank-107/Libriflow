@@ -108,10 +108,10 @@
           </div>
 
           <div class="d-flex justify-content-evenly align-items-center mb-4 py-3 rounded-4 bg-white shadow-sm border border-light mx-auto" style="max-width: 550px;">
-            <div class="text-center px-2">
-              <span class="d-block fs-5 fw-bold text-dark">0</span>
-              <span class="text-muted" style="font-size: 0.8rem;">Publicaciones</span>
-            </div>
+              <div class="text-center px-2">
+                  <span class="d-block fs-5 fw-bold text-dark">${totalPublicaciones != null ? totalPublicaciones : 0}</span>
+                  <span class="text-muted" style="font-size: 0.8rem;">Publicaciones</span>
+              </div>
             <div class="vr bg-secondary opacity-25"></div>
             <div class="text-center px-2">
               <span class="d-block fs-5 fw-bold text-dark">0</span>

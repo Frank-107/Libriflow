@@ -40,6 +40,64 @@ public class PublicacionUsuarioDao {
             return -1;
         }
     }
+    public boolean deletePublicacionById(int idPublicacion) {
+
+        String sqlLibro = "SELECT id_libro FROM Publicacion_Us WHERE id_publicacion_us = ?";
+        String sqlImagen = "DELETE FROM Imagen WHERE id_publicacion_us = ?";
+        String sqlPublicacion = "DELETE FROM Publicacion_Us WHERE id_publicacion_us = ?";
+        String sqlLibroDelete = "DELETE FROM Libro WHERE id_libro = ?";
+
+        try (Connection con = SQLconnector.getConnection()) {
+
+            con.setAutoCommit(false);
+
+            int idLibro;
+
+            // Obtener el libro de la publicación
+            try (PreparedStatement ps = con.prepareStatement(sqlLibro)) {
+
+                ps.setInt(1, idPublicacion);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (!rs.next()) {
+                    return false;
+                }
+
+                idLibro = rs.getInt("id_libro");
+            }
+
+            // Eliminar las imágenes
+            try (PreparedStatement ps = con.prepareStatement(sqlImagen)) {
+
+                ps.setInt(1, idPublicacion);
+                ps.executeUpdate();
+            }
+
+            // Eliminar la publicación
+            try (PreparedStatement ps = con.prepareStatement(sqlPublicacion)) {
+
+                ps.setInt(1, idPublicacion);
+                ps.executeUpdate();
+            }
+
+            // Eliminar el libro
+            try (PreparedStatement ps = con.prepareStatement(sqlLibroDelete)) {
+
+                ps.setInt(1, idLibro);
+                ps.executeUpdate();
+            }
+
+            con.commit();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
     public List<PublicacionResumen> getResumenPublicacionesUs(String estado) {
@@ -386,4 +444,85 @@ public class PublicacionUsuarioDao {
     public boolean delete(Integer id) {
         return false;
     }
+
+    public int contarPublicacionesPorUsuario(int idUsuario) {
+        String sql = "SELECT COUNT(*) FROM publicacion_us WHERE id_usuario = ? AND estado = 'ACTIVO'";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public List<PublicacionResumen> buscarYFiltrarPublicacionesUs(String estado, String busqueda, String genero) {
+        List<PublicacionResumen> lista = new ArrayList<>();
+
+        StringBuilder sql = new StringBuilder("""
+            SELECT 
+                pu.id_publicacion_us,
+                pu.id_usuario,
+                pu.precio,
+                l.titulo,
+                l.autor,
+                l.genero,
+                i.imagen,
+                u.nombre
+            FROM publicacion_us pu
+            JOIN libro l ON pu.id_libro = l.id_libro
+            JOIN imagen i ON pu.id_publicacion_us = i.id_publicacion_us
+            JOIN usuario u ON pu.id_usuario = u.id_usuario
+            WHERE i.tipo = 1
+            AND pu.estado = ?
+        """);
+        if (busqueda != null && !busqueda.trim().isEmpty()) {
+            sql.append(" AND (LOWER(l.titulo) LIKE ? OR LOWER(l.autor) LIKE ?)");
+        }
+
+        if (genero != null && !genero.trim().isEmpty() && !genero.equalsIgnoreCase("TODOS")) {
+            sql.append(" AND LOWER(l.genero) = LOWER(?)");
+        }try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql.toString())) {
+            int index = 1;
+            ps.setString(index++, estado);
+
+            if (busqueda != null && !busqueda.trim().isEmpty()) {
+                String term = "%" + busqueda.trim().toLowerCase() + "%";
+                ps.setString(index++, term);
+                ps.setString(index++, term);
+            }
+
+            if (genero != null && !genero.trim().isEmpty() && !genero.equalsIgnoreCase("TODOS")) {
+                ps.setString(index++, genero.trim());
+            } try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    PublicacionResumen resumen = new PublicacionResumen();
+                    resumen.setIdPublicacion(rs.getInt("id_publicacion_us"));
+                    resumen.setTitulo(rs.getString("titulo"));
+                    resumen.setIdPropietario(rs.getInt("id_usuario"));
+                    resumen.setAutor(rs.getString("autor"));
+                    resumen.setGenero(rs.getString("genero"));
+                    resumen.setNombrePropietario(rs.getString("nombre"));
+                    resumen.setPrecio(rs.getDouble("precio"));
+                    resumen.setImagenPrincipal(rs.getString("imagen"));
+                    resumen.setEsLibriFlow(false);
+
+                    lista.add(resumen);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+
 }

@@ -57,6 +57,7 @@ public class SQLconnector {
             config.setDriverClassName("oracle.jdbc.OracleDriver");
 
             // Concatenamos la variable dbName dinámicamente aquí:
+
             config.setJdbcUrl("jdbc:oracle:thin:@" + dbName + "?TNS_ADMIN=" + walletPath);
 
             // Asignar los valores dinámicos y seguros

@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "InicioSesionAdminSv", value = "/inicio-admin")
+@WebServlet(name = "InicioSesionAdminSv", value = "/inicio-sesion-admin")
 public class InicioSesionAdminSv extends HttpServlet {
 
     @Override

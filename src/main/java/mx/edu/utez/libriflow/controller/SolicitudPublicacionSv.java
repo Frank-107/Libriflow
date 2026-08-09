@@ -11,14 +11,14 @@ import mx.edu.utez.libriflow.model.PublicacionResumen;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet (name = "SolicitudPublicacionSv", value = "/solicitud-publicacion")
+@WebServlet (name = "SolicitudPublicacionAdminSv", value = "/solicitud-publicacion-admin")
 public class SolicitudPublicacionSv extends HttpServlet {
     PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idPublicacion = Integer.parseInt(req.getParameter("idPublicacion"));
         publicacionUsuarioDao.cambiarEstadoPublicacion(idPublicacion,"ACTIVO");
-        resp.sendRedirect("solicitud-publicacion");
+        resp.sendRedirect("solicitud-publicacion-admin");
 
     }
 

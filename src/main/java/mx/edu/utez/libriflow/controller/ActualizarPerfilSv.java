@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.CredencialDao;
 import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
+import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -16,8 +17,21 @@ import java.security.MessageDigest;
 
 @WebServlet(name = "ActualizarPerfilSv", value = "/actualizar-perfil")
 public class ActualizarPerfilSv extends HttpServlet {
+
+    // -
+    private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession(false);
+
+        if (session != null && session.getAttribute("usuario") != null) {
+            Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
+            int totalPublicaciones = publicacionUsuarioDao.contarPublicacionesPorUsuario(usuarioSesion.getId());
+            req.setAttribute("totalPublicaciones", totalPublicaciones);
+        }
+
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
     }
 
@@ -44,7 +58,6 @@ public class ActualizarPerfilSv extends HttpServlet {
         }
 
         if (nuevaContrasena != null && !nuevaContrasena.trim().isEmpty()) {
-
             if (!nuevaContrasena.equals(confirmarContrasena)) {
                 req.setAttribute("error", "Las contraseñas no coinciden.");
                 req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
@@ -55,7 +68,6 @@ public class ActualizarPerfilSv extends HttpServlet {
                 req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                 return;
             }
-
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
                 byte[] hash = md.digest(nuevaContrasena.getBytes(StandardCharsets.UTF_8));
@@ -63,25 +75,20 @@ public class ActualizarPerfilSv extends HttpServlet {
                 for (byte b : hash) {
                     sb.append(String.format("%02X", b));
                 }
-
                 usuarioSesion.setContrasenaHash(sb.toString());
-
                 CredencialDao credencialDao = new CredencialDao();
                 boolean passActualizada = credencialDao.updateCredencial(usuarioSesion);
-
                 if (!passActualizada) {
                     req.setAttribute("error", "Ocurrió un problema al guardar tu nueva contraseña. Intentalo más tarde.");
                     req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                     return;
                 }
-
             } catch (Exception e) {
                 req.setAttribute("error", "Error al actualizar perfil.");
                 req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                 return;
             }
         }
-
         usuarioSesion.setNombre(nombre);
         usuarioSesion.setApellidoPaterno(apellidoPaterno);
         usuarioSesion.setApellidoMaterno(apellidoMaterno);
@@ -96,6 +103,11 @@ public class ActualizarPerfilSv extends HttpServlet {
         } else {
             req.setAttribute("error", "Ocurrió un error inesperado al actualizar tus datos personales.");
         }
+
+        if (usuarioSesion != null) {
+            req.setAttribute("totalPublicaciones", publicacionUsuarioDao.contarPublicacionesPorUsuario(usuarioSesion.getId()));
+        }
+
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
     }
 }

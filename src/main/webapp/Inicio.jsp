@@ -42,7 +42,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfil.jsp">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="actualizar-perfil">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>
@@ -64,7 +64,7 @@
                     <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                     </a>
 
@@ -74,7 +74,7 @@
                     <a href="mis-publicaciones" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
                     </a>
                     <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -86,10 +86,17 @@
 
         <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="d-flex gap-3 mb-4 align-items-center">
-                <div class="position-relative flex-grow-1">
+                <form action="inicio" method="GET" class="position-relative flex-grow-1 m-0">
                     <i class="bi bi-search search-icon-inside"></i>
-                    <input type="text" class="form-control search-bar-lf shadow-sm" placeholder="Buscar libros, autores...">
-                </div>
+                    <c:if test="${not empty paramGenero}">
+                        <input type="hidden" name="genero" value="${paramGenero}">
+                    </c:if>
+                    <input type="text"
+                           name="q"
+                           value="${paramBusqueda != null ? paramBusqueda : ''}"
+                           class="form-control search-bar-lf shadow-sm"
+                           placeholder="Buscar libros, autores...">
+                </form>
                 <div class="dropdown">
                     <button class="btn bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
                             type="button"
@@ -101,26 +108,27 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 dropdown-menu-filter" aria-labelledby="filtroGenerosDropdown">
                         <li class="dropdown-header fw-bold text-secondary border-bottom pb-2 mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">FILTRAR POR GÉNERO</li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Novela</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Fantasía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia ficción</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Terror</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Romance</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Misterio</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Suspenso</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Drama</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Aventura</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Historia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Biografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Autobiografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Ciencia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Tecnología</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Educación</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Infantil</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Poesía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Filosofía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Religión</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="#">Cómic</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=TODOS">Todos</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Novela">Novela</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Fantasía">Fantasía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia ficción">Ciencia ficción</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Terror">Terror</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Romance">Romance</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Misterio">Misterio</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Suspenso">Suspenso</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Drama">Drama</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Aventura">Aventura</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Historia">Historia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Biografía">Biografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Autobiografía">Autobiografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia">Ciencia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Tecnología">Tecnología</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Educación">Educación</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Infantil">Infantil</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Poesía">Poesía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Filosofía">Filosofía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Religión">Religión</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Cómic">Cómic</a></li>
                     </ul>
                 </div>
 
@@ -177,11 +185,20 @@
                                                     </c:choose>
                                                 </p>
                                             </div>
-
-                                            <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                                               class="btn-detalles">
-                                                Ver detalles
-                                            </a>
+                                            <c:choose>
+                                                <c:when test="${publicacion.esLibriFlow}">
+                                                    <a href="detalle-publicacion-superad?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:otherwise>
+                                            </c:choose>
 
                                         </div>
 

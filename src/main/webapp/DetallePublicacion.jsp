@@ -58,6 +58,7 @@
 
     <div class="row g-4">
 
+        <!-- Sidebar -->
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
@@ -79,16 +80,18 @@
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
                     </a>
-                    <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
                     </a>
                 </div>
             </div>
         </aside>
 
+        <!-- Contenido Principal -->
         <main class="col-12 col-md-8 col-lg-9">
             <div class="row g-4">
 
+                <!-- Galería -->
                 <div class="col-12 col-lg-6 d-flex flex-column align-items-center">
                     <div class="portada-principal-container mb-3 shadow-sm">
                         <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}" class="img-fluid rounded-4">
@@ -108,6 +111,7 @@
                     </div>
                 </div>
 
+                <!-- Info de la publicación -->
                 <div class="col-12 col-lg-6 d-flex flex-column justify-content-between gap-3">
                     <div class="d-flex flex-column gap-3">
                         <div class="pill-info-lf shadow-sm">
@@ -137,72 +141,11 @@
                         <button type="submit" class="btn btn-action-lf w-100 py-3 rounded-pill fw-bold shadow-sm">
                             Agregar al carrito
                         </button>
+
                     </form>
                 </div>
 
             </div>
-
-            <hr class="my-5">
-            <div class="row mt-4">
-                <div class="col-12">
-                    <h4 class="fw-bold mb-4"><i class="bi bi-star-fill text-warning me-2"></i>Reseñas y Opiniones</h4>
-
-                    <c:choose>
-                        <c:when test="${pudoComentar}">
-                            <div class="card p-3 mb-4 shadow-sm border-0 bg-light">
-                                <h5 class="fw-bold mb-3" style="font-size: 1rem;">Escribe tu reseña</h5>
-                                <form action="publicar-resena" method="POST">
-                                    <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
-
-                                    <div class="mb-3">
-                                        <label class="form-label font-weight-bold">Calificación:</label>
-                                        <select name="calificacion" class="form-select w-auto" required>
-                                            <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                                            <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                                            <option value="3">⭐⭐⭐ (3/5)</option>
-                                            <option value="2">⭐⭐ (2/5)</option>
-                                            <option value="1">⭐ (1/5)</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <textarea name="comentario" class="form-control" rows="3" placeholder="¿Qué te pareció este libro?" required></textarea>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-primary px-4">Publicar Reseña</button>
-                                </form>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="alert alert-info border-0 shadow-sm d-flex align-items-center gap-2 mb-4">
-                                <i class="bi bi-info-circle-fill fs-5"></i>
-                                <span>Solo los usuarios que hayan <strong>comprado o rentado</strong> este libro pueden dejar una reseña.</span>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-
-                    <div class="d-flex flex-column gap-3">
-                        <c:forEach var="resena" items="${listaResenas}">
-                            <div class="card border-0 shadow-sm p-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <div class="fw-bold text-dark">${resena.nombreUsuario}</div>
-                                    <small class="text-muted">${resena.fecha}</small>
-                                </div>
-                                <div class="text-warning mb-2">
-                                    <c:forEach begin="1" end="${resena.calificacion}">★</c:forEach>
-                                    <c:forEach begin="${resena.calificacion + 1}" end="5">☆</c:forEach>
-                                </div>
-                                <p class="mb-0 text-secondary">${resena.comentario}</p>
-                            </div>
-                        </c:forEach>
-
-                        <c:if test="${empty listaResenas}">
-                            <p class="text-muted fst-italic">Aun no hay reseñas en este libro. COMPRALO Y SE EL PRIMERO ;D</p>
-                        </c:if>
-                    </div>
-                </div>
-            </div>
-
         </main>
 
     </div>

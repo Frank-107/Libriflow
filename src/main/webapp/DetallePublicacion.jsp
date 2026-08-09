@@ -109,12 +109,12 @@
                     <div class="d-flex align-items-center gap-2 mt-2 fw-bold fs-5 text-dark">
                        <span class="badge bg-secondary rounded-pill px-3 py-2">
                         <c:choose>
-                             <c:when test="${publicacion.esVenta == 0}">
+                            <c:when test="${publicacion.esVenta == 0}">
                                 Solo renta
-                             </c:when>
-                           <c:otherwise>
+                            </c:when>
+                            <c:otherwise>
                                 Precio base: $${publicacion.precio}
-                           </c:otherwise>
+                            </c:otherwise>
                         </c:choose>
                         </span>
                     </div>
@@ -147,7 +147,7 @@
                         <c:choose>
                             <c:when test="${not empty esAdminPub}">
                                 <div class="d-flex flex-column gap-2 w-100">
-                                    <form action="detalle-publicacion-superad" method="POST" class="w-100">
+                                    <form action="detalle-publicacion" method="POST" class="w-100">
                                         <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacionLf}">
                                         <input type="hidden" name="tipoOperacion" value="venta">
                                         <input type="hidden" name="precioCalculado" value="${publicacion.precio}">
@@ -207,11 +207,11 @@
                     </div>
                     <c:remove var="error" scope="session" />
                 </c:if>
+
                 <!-- FORMULARIO DE RESEÑA -->
                 <div class="card shadow-sm p-4 mb-4 rounded-4">
                     <form action="resena" method="post">
 
-                        <%-- Asegúrate de usar la variable de ID correcta de tu objeto publicacion --%>
                         <input type="hidden" name="idPublicacion" value="${not empty publicacion.idPublicacionLf ? publicacion.idPublicacionLf : publicacion.idPublicacion}">
 
                         <div class="mb-3">
@@ -329,6 +329,5 @@
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Renta.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
-</body>
 </body>
 </html>

@@ -348,3 +348,7 @@ body {
         transform: translateY(0) !important;
     }
 }
+
+.row.g-4 {
+    align-items: start;
+}

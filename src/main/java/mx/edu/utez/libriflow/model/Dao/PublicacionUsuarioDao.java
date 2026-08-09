@@ -40,6 +40,64 @@ public class PublicacionUsuarioDao {
             return -1;
         }
     }
+    public boolean deletePublicacionById(int idPublicacion) {
+
+        String sqlLibro = "SELECT id_libro FROM Publicacion_Us WHERE id_publicacion_us = ?";
+        String sqlImagen = "DELETE FROM Imagen WHERE id_publicacion_us = ?";
+        String sqlPublicacion = "DELETE FROM Publicacion_Us WHERE id_publicacion_us = ?";
+        String sqlLibroDelete = "DELETE FROM Libro WHERE id_libro = ?";
+
+        try (Connection con = SQLconnector.getConnection()) {
+
+            con.setAutoCommit(false);
+
+            int idLibro;
+
+            // Obtener el libro de la publicación
+            try (PreparedStatement ps = con.prepareStatement(sqlLibro)) {
+
+                ps.setInt(1, idPublicacion);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (!rs.next()) {
+                    return false;
+                }
+
+                idLibro = rs.getInt("id_libro");
+            }
+
+            // Eliminar las imágenes
+            try (PreparedStatement ps = con.prepareStatement(sqlImagen)) {
+
+                ps.setInt(1, idPublicacion);
+                ps.executeUpdate();
+            }
+
+            // Eliminar la publicación
+            try (PreparedStatement ps = con.prepareStatement(sqlPublicacion)) {
+
+                ps.setInt(1, idPublicacion);
+                ps.executeUpdate();
+            }
+
+            // Eliminar el libro
+            try (PreparedStatement ps = con.prepareStatement(sqlLibroDelete)) {
+
+                ps.setInt(1, idLibro);
+                ps.executeUpdate();
+            }
+
+            con.commit();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
     public List<PublicacionResumen> getResumenPublicacionesUs(String estado) {

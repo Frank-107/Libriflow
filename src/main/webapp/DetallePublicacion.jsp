@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html lang="es">
@@ -183,8 +185,19 @@
             <div class="mt-4">
                 <c:if test="${not empty esAdminPub}">
 
-                    <h4 class="fw-bold mb-4">
-                        <i class="bi bi-star-fill text-warning me-2"></i> Reseñas
+                    <c:set var="sumaCalificaciones" value="0"/>
+                    <c:forEach var="r" items="${resenas}">
+                        <c:set var="sumaCalificaciones" value="${sumaCalificaciones + r.calificacion}"/>
+                    </c:forEach>
+                    <c:set var="totalResenas" value="${fn:length(resenas)}"/>
+
+                    <h4 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                        <i class="bi bi-star-fill text-warning"></i> Reseñas
+                        <c:if test="${totalResenas > 0}">
+        <span class="fs-6 fw-normal text-muted">
+            (<fmt:formatNumber value="${sumaCalificaciones / totalResenas}" maxFractionDigits="1"/>/5 · ${totalResenas} ${totalResenas == 1 ? 'reseña' : 'reseñas'})
+        </span>
+                        </c:if>
                     </h4>
 
                     <%-- ALERTAS ESTILO LOGIN (LIBRI-TOAST) --%>
@@ -251,7 +264,12 @@
                                 <c:forEach var="r" items="${resenas}">
                                     <div class="card p-3 mb-3 shadow-sm rounded-4 border-0 bg-light">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
-                                            <strong class="text-dark">${not empty r.nombreUsuario ? r.nombreUsuario : 'Usuario'}</strong>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px;">
+                                                    <i class="bi bi-person-fill fs-4 text-dark"></i>
+                                                </div>
+                                                <strong class="text-dark">${not empty r.nombreUsuario ? r.nombreUsuario : 'Usuario'}</strong>
+                                            </div>
                                             <div>
                                                 <c:forEach begin="1" end="${r.calificacion}">
                                                     <i class="bi bi-star-fill text-warning"></i>

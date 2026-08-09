@@ -70,6 +70,8 @@ public class UsuarioDao {
                 usuario.setApellidoPaterno(rs.getString("Apellido_Paterno"));
                 usuario.setApellidoMaterno(rs.getString("Apellido_Materno"));
                 usuario.setCorreo(rs.getString("Correo_Electronico"));
+                usuario.setEstado(rs.getString("Estado_Cuenta"));
+                usuario.setFechaDesbloqueo(rs.getTimestamp("Fecha_Desbloqueo"));
             }
             return usuario;
 
@@ -200,6 +202,29 @@ public class UsuarioDao {
         }
 
         return null;
+    }
+    public boolean activarUsuario(int idUsuario) {
+
+        String sql = """
+            UPDATE USUARIO
+            SET ESTADO_CUENTA = 'ACTIVA',
+                FECHA_DESBLOQUEO = NULL
+            WHERE ID_USUARIO = ?
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.out.println("ERROR AL ACTIVAR USUARIO");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

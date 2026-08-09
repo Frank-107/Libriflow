@@ -98,7 +98,7 @@
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i>
                         Mis publicaciones
                     </a>
-                    <a href="MisRentas.jsp"
+                    <a href="mis-rentas"
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>
                         Mis rentas

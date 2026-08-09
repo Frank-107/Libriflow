@@ -170,7 +170,6 @@ public class ValidarTarjetaSv extends HttpServlet {
         StringBuilder librosComprados = new StringBuilder();
         StringBuilder librosRentados = new StringBuilder();
         String guiaSeguimiento = "";
-        String codigoRenta = "";
 
         int idTransaccion = transaccionDao.create(transaccion);
         if (idTransaccion == -1) {
@@ -238,6 +237,8 @@ public class ValidarTarjetaSv extends HttpServlet {
             }
         }
         if (carritoAdmin != null) {
+            DetalleRentaDao detalleRentaDao = new DetalleRentaDao();
+
             for (ItemCarritoAdmin item : carritoAdmin) {
                 PublicacionAdministradorDao publicacionAdministradorDao = new PublicacionAdministradorDao();
 
@@ -260,19 +261,21 @@ public class ValidarTarjetaSv extends HttpServlet {
                 }
 
                 if (tipoOperacion.equals("RENTA")) {
-                    if (codigoRenta.equals("")) {
-                        codigoRenta = generarCodigoRenta();
-                    }
+//                    if (codigoRenta.equals("")) {
+//                    }
 
-                    DetalleRentaDao detalleRentaDao = new DetalleRentaDao();
                     DetalleRenta renta = new DetalleRenta();
                     renta.setIdDetalle(idDetalleTransaccion);
                     renta.setFechaInicio(item.getFechaInicio());
                     renta.setFechaLimite(item.getFechaFin());
-                    renta.setEstado("ACTIVA");
+                    renta.setEstado("PROGRAMADA");
+                    String codigoRenta = generarCodigoRenta();
+                    renta.setCodigo(codigoRenta);
+
                     int idDetalleRenta = detalleRentaDao.create(renta);
                     librosRentados.append(
                             "<p><strong>Libro:</strong> " + publicacionAdministradorDao.getPublicacionAdminCompleta(item.getIdPublicacion()).getTitulo() + "</p>" +
+                                    "<p><strong>Codigo de renta:</strong> " + codigoRenta + "</p>" +
                                     "<p><strong>Precio:</strong> $" + String.format("%.2f", item.getPrecio()) + "</p>" +
                                     "<p><strong>Fecha de inicio de renta:</strong> " + item.getFechaInicio() + "</p>" +
                                     "<p><strong>Fecha límite de renta:</strong> " + item.getFechaFin() + "</p>" +
@@ -303,9 +306,7 @@ public class ValidarTarjetaSv extends HttpServlet {
                     transaccion.getTotal(),
                     librosComprados.toString(),
                     librosRentados.toString(),
-                    guiaSeguimiento,
-                    //el codigo de renta lo debe de conseguir el admin???
-                    codigoRenta
+                    guiaSeguimiento
             );
             EmailSender.sendMail(
                     usuario.getCorreo(),
@@ -420,7 +421,7 @@ public class ValidarTarjetaSv extends HttpServlet {
         """;
     }
 
-    private String bloqueRenta(String codigoRetiro, String libros) {
+    private String bloqueRenta(String libros) {
         if(libros.equals("")){
             return "";
         }
@@ -441,11 +442,7 @@ public class ValidarTarjetaSv extends HttpServlet {
                 y presenta el siguiente código de retiro.
             </p>
 
-            <p>
-                <strong>Código de retiro:</strong><br>
-                """ + codigoRetiro + """
-            </p>
-
+       
             <p>
                 <strong>Tus libro(s) rentados son:</strong><br><br>
                 """ + libros + """
@@ -563,12 +560,12 @@ public class ValidarTarjetaSv extends HttpServlet {
             """;
     }
 
-    private String getcuerpoResumenCompra(String nombre, double total, String librosComprados, String librosRentados, String codigoSeguimientoCompra, String codigoSeguimientoRenta) {
+    private String getcuerpoResumenCompra(String nombre, double total, String librosComprados, String librosRentados, String codigoSeguimientoCompra) {
         return encabezado() +
                 saludo(nombre) +
                 resumen(total) +
                 bloqueCompra(codigoSeguimientoCompra, librosComprados) +
-                bloqueRenta(codigoSeguimientoRenta, librosRentados) +
+                bloqueRenta(librosRentados) +
                 despedida();
     }
     private String generarCodigoRenta() {

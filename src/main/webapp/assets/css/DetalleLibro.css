@@ -352,3 +352,87 @@ body {
 .row.g-4 {
     align-items: start;
 }
+
+/* ===== Layout fijo para Detalle de Publicación ===== */
+@media (min-width: 768px) {
+
+    html {
+        height: 100%;
+        overflow: hidden;
+    }
+    .detalle-body {
+        height: 100vh;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .detalle-layout {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .detalle-header {
+        flex-shrink: 0;
+    }
+
+    .detalle-content-row {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+        align-items: stretch;
+    }
+
+    .detalle-sidebar {
+        align-self: flex-start;
+    }
+
+    .detalle-main {
+        height: auto;
+    }
+
+    /* Columna izquierda: galería + reseñas, con su propio scroll */
+    /* Columna izquierda: galería + reseñas, con su propio scroll */
+    .detalle-left-scroll {
+        max-height: 80vh;
+        overflow-y: auto;
+        padding-right: 16px;
+        border-right: 2px solid #CBC2B9;
+        scrollbar-width: thin;
+        scrollbar-color: #A39B93 #EFEBE4;
+    }
+
+    /* Columna derecha: info, fija, sin scroll (a menos que su contenido no quepa) */
+    .detalle-right-fixed {
+        height: auto;
+    }
+
+    .detalle-inner-row {
+        align-items: stretch !important;
+    }
+}
+.detalle-left-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-thumb {
+    background-color: #A39B93;
+    border-radius: 4px;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-track {
+    background-color: #EFEBE4;
+    border-radius: 4px;
+}
+
+.detalle-right-fixed::-webkit-scrollbar,
+.detalle-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.detalle-right-fixed::-webkit-scrollbar-thumb,
+.detalle-sidebar::-webkit-scrollbar-thumb {
+    background-color: #A39B93;
+    border-radius: 4px;
+}

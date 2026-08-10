@@ -28,7 +28,7 @@ public class RevisarRentas implements Runnable {
             for (DetalleRenta renta : rentas) {
 
                 // Si ya pasó la fecha límite
-                if (renta.getFechaLimite().before(ahora)) {
+                if (renta.getFechaLimite().before(ahora) && renta.getPenalizacion()<1) {
 
                     // Cambiar estado a "Retrasada"
                     detalleRentaDao.cambiarPenalizacion(

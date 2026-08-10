@@ -38,7 +38,7 @@ public class ResenaSv extends HttpServlet {
 
             if (!resenaDao.usuarioHaCompradoORentado(usuario.getId(), idPublicacion)) {
                 session.setAttribute("error", "Debes comprar o rentar el libro.");
-                resp.sendRedirect("detalle-publicacion?idPublicacion=" + idPublicacion);
+                resp.sendRedirect("detalle-publicacion-superad?idPublicacion=" + idPublicacion);
                 return;
             }
 
@@ -46,7 +46,7 @@ public class ResenaSv extends HttpServlet {
                     || calificacion < 1 || calificacion > 5) {
 
                 session.setAttribute("error", "Datos inválidos.");
-                resp.sendRedirect("detalle-publicacion?idPublicacion=" + idPublicacion);
+                resp.sendRedirect("detalle-publicacion-superad?idPublicacion=" + idPublicacion);
                 return;
             }
             Resena resena = new Resena(
@@ -62,7 +62,7 @@ public class ResenaSv extends HttpServlet {
                 session.setAttribute("error", "Error al guardar.");
             }
 
-            resp.sendRedirect("detalle-publicacion?idPublicacion=" + idPublicacion);
+            resp.sendRedirect("detalle-publicacion-superad?idPublicacion=" + idPublicacion);
 
         } catch (Exception e) {
             e.printStackTrace();

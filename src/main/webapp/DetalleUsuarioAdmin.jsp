@@ -5,12 +5,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios Admin - LibriFlow</title>
+    <title>Detalle de Usuario - LibriFlow</title>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
 </head>
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
@@ -90,56 +89,9 @@
 
 
         <!-- MAIN CONTENT -->
-        <main class="col catalogo-scroll">
-            <section class="mis-publicaciones-container">
-                <div class="mis-publicaciones-header">
-                    <h2>Lista de usuarios (${usuarios.size()})</h2>
-                </div>
 
-                <c:choose>
-                    <c:when test="${empty usuarios}">
-                        <div class="sin-publicaciones">
-                            <i class="bi bi-people fs-1"></i>
-                            <h4>No hay usuarios registrados.</h4>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="table-responsive bg-white rounded-4 p-3 shadow-sm border">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre completo</th>
-                                    <th>Correo electrónico</th>
-                                    <th>Teléfono</th>
-                                    <th>Estado</th>
-                                    <th class="text-center">Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="u" items="${usuarios}">
-                                    <tr>
-                                        <td class="fw-bold">#${u.id}</td>
-                                        <td>${u.nombre} ${u.apellidoPaterno} ${u.apellidoMaterno}</td>
-                                        <td>${u.correo}</td>
-                                        <td>${empty u.telefono ? 'N/A' : u.telefono}</td>
-                                        <td>
-                                            <span class="badge rounded-pill bg-success px-3 py-2">ACTIVA</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="detalle-usuario-admin?idUsuario=${u.id}" class="btn bg-lf-capsule btn-lf-pill text-dark btn-sm px-3 shadow-sm">
-                                                <i class="bi bi-eye me-1"></i> Ver detalles
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-            </section>
-        </main>
+
+
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>

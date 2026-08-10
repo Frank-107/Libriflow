@@ -112,7 +112,20 @@
             </div>
         </aside>
         <main class="col">
-            <section class="mis-publicaciones-container">
+            <section class="mis-publicaciones-container position-relative pt-2">
+                <c:if test="${not empty error}">
+                    <div class="libri-toast libri-toast-error">
+                        <i class="bi bi-exclamation-circle-fill fs-5"></i>
+                        <span><c:out value="${error}" escapeXml="true" /></span>
+                    </div>
+                </c:if>
+                <c:if test="${not empty exito}">
+                    <div class="libri-toast libri-toast-success">
+                        <i class="bi bi-check-circle-fill fs-5"></i>
+                        <span><c:out value="${exito}" escapeXml="true" /></span>
+                    </div>
+                </c:if>
+
                 <div class="mis-publicaciones-header">
                     <h2>
                         Publicaciones totales (${publicaciones.size()})
@@ -131,42 +144,53 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                <div class="publicaciones-lista">
-                    <c:forEach var="publicacion" items="${publicaciones}">
-                        <div class="publicacion-card">
-                            <div class="publicacion-estado">
-            <span class="estado ${publicacion.estado}">
-                    ${publicacion.estado}
-            </span>
-                            </div>
-                            <div class="publicacion-contenido">
-                                <div class="publicacion-portada">
-                                    <img src="${publicacion.imagenPrincipal}" alt="${publicacion.titulo}">
+                        <div class="publicaciones-lista">
+                            <c:forEach var="publicacion" items="${publicaciones}">
+                                <div class="publicacion-card">
+                                    <div class="publicacion-contenido">
+                                        <div class="publicacion-portada">
+                                            <img src="${publicacion.imagenPrincipal}" alt="${publicacion.titulo}">
+                                        </div>
+                                        <div class="publicacion-info">
+                                            <h4>
+                                                    ${publicacion.titulo}
+                                            </h4>
+                                            <p>
+                                                    ${publicacion.autor}
+                                            </p>
+                                            <small>
+                                                    ${publicacion.genero}
+                                            </small>
+                                        </div>
+                                        <div class="d-flex flex-column align-items-end me-3 gap-2">
+                                    <span class="estado ${publicacion.estado}">
+                                            ${publicacion.estado}
+                                    </span>
+                                            <div class="publicacion-precio" style="margin-right: 0;">
+                                                $${publicacion.precio}
+                                            </div>
+                                            <c:if test="${publicacion.estado == 'PENDIENTE'}">
+                                                <form action="mis-publicaciones" method="post" class="m-0">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 shadow-sm d-inline-flex align-items-center gap-1">
+                                                        <i class="bi bi-trash"></i>
+                                                        Cancelar publicación
+                                                    </button>
+                                                </form>
+                                            </c:if>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="publicacion-info">
-                                    <h4>
-                                            ${publicacion.titulo}
-                                    </h4>
-                                    <p>
-                                            ${publicacion.autor}
-                                    </p>
-                                    <small>
-                                            ${publicacion.genero}
-                                    </small>
-                                </div>
-                                <div class="publicacion-precio">
-                                    $${publicacion.precio}
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
-                    </c:forEach>
-                </div>
                     </c:otherwise>
                 </c:choose>
             </section>
         </main>
     </div>
 </div>
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

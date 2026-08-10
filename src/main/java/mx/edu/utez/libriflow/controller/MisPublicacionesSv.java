@@ -16,6 +16,7 @@ import java.util.List;
 @WebServlet (name = "MisPublicacionesSv", value="/mis-publicaciones")
 public class MisPublicacionesSv extends HttpServlet {
     PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession sesion = req.getSession(false);
@@ -29,6 +30,18 @@ public class MisPublicacionesSv extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String action = req.getParameter("action");
+
+        if ("delete".equals(action)) {
+            try {
+                int idPublicacion = Integer.parseInt(req.getParameter("idPublicacion"));
+                publicacionUsuarioDao.deletePublicacionById(idPublicacion);
+                req.setAttribute("exito", "La publicación se canceló correctamente.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                req.setAttribute("error", "No se pudo cancelar la publicación. Inténtalo más tarde.");
+            }
+            doGet(req, resp);
+        }
     }
 }

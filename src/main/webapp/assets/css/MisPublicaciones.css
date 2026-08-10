@@ -4,8 +4,20 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    padding-bottom: 2rem;
+    padding-right: 10px;
 }
 
+.publicaciones-lista::-webkit-scrollbar {
+    width: 6px;
+}
+
+.publicaciones-lista::-webkit-scrollbar-thumb {
+    background-color: #CBC2B9;
+    border-radius: 10px;
+}
 
 /* Tarjeta */
 
@@ -31,30 +43,19 @@
 
 }
 
-
-/* Estado */
-
-.publicacion-estado {
-
-    position: absolute;
-
-    top: 18px;
-    right: 22px;
-
-}
-
-
 /* Estado */
 
 .estado {
 
-    padding: 7px 18px;
-
-    border-radius: 20px;
-
-    font-size: .85rem;
+    font-size: .90rem;
 
     font-weight: 700;
+
+    color: #2D2A26;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
 
 }
 
@@ -244,4 +245,39 @@
 
 .btn-aprobar:hover{
     background:#7A746E;
+}
+
+.libri-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding: 10px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.libri-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.libri-toast-error {
+    background-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.libri-toast-success {
+    background-color: #86efac;
+    color: #15803d;
 }

@@ -356,34 +356,6 @@ body {
 /* ===== Layout fijo para Detalle de Publicación ===== */
 @media (min-width: 768px) {
 
-    html {
-        height: 100%;
-        overflow: hidden;
-    }
-    .detalle-body {
-        height: 100vh;
-        overflow: hidden;
-        box-sizing: border-box;
-    }
-
-    .detalle-layout {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    .detalle-header {
-        flex-shrink: 0;
-    }
-
-    .detalle-content-row {
-        flex: 1 1 auto;
-        min-height: 0;
-        overflow: hidden;
-        align-items: stretch;
-    }
-
     .detalle-sidebar {
         align-self: flex-start;
     }
@@ -392,8 +364,6 @@ body {
         height: auto;
     }
 
-    /* Columna izquierda: galería + reseñas, con su propio scroll */
-    /* Columna izquierda: galería + reseñas, con su propio scroll */
     .detalle-left-scroll {
         max-height: 80vh;
         overflow-y: auto;
@@ -403,7 +373,6 @@ body {
         scrollbar-color: #A39B93 #EFEBE4;
     }
 
-    /* Columna derecha: info, fija, sin scroll (a menos que su contenido no quepa) */
     .detalle-right-fixed {
         height: auto;
     }

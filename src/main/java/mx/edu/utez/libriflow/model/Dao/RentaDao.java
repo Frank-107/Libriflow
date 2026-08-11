@@ -232,4 +232,69 @@ public class RentaDao {
 
         return false;
     }
+    public int contarRentasActivasPorUsuario(int idUsuario) {
+        int total = 0;
+        String sql = """
+            SELECT COUNT(*)
+            FROM DETALLE_RENTA dr
+            JOIN DETALLE_TRANSACCION dt 
+                ON dr.ID_DETALLE_TRANSACCION = dt.ID_DETALLE
+            JOIN TRANSACCION t 
+                ON dt.ID_TRANSACCION = t.ID_TRANSACCION
+            WHERE t.ID_COMPRADOR = ?
+              AND dr.ESTADO = 'ACTIVA'
+              AND (dr.PENALIZACION = 0 OR dr.PENALIZACION IS NULL)
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error en contarRentasActivasPorUsuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
+
+    public int contarRetrasosPorUsuario(int idUsuario) {
+        int total = 0;
+        String sql = """
+            SELECT COUNT(*)
+            FROM DETALLE_RENTA dr
+            JOIN DETALLE_TRANSACCION dt 
+                ON dr.ID_DETALLE_TRANSACCION = dt.ID_DETALLE
+            JOIN TRANSACCION t 
+                ON dt.ID_TRANSACCION = t.ID_TRANSACCION
+            WHERE t.ID_COMPRADOR = ?
+              AND (dr.PENALIZACION = 1 OR dr.ESTADO = 'RETRASADO' OR (dr.ESTADO = 'ACTIVA' AND dr.FECHA_LIMITE < CURRENT_TIMESTAMP))
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error en contarRetrasosPorUsuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return total;
+    }
 }

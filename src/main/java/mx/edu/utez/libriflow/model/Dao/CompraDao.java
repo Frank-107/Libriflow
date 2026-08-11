@@ -17,7 +17,8 @@ public class CompraDao {
         List<CompraResumen> lista = new ArrayList<>();
 
         String sql = """
-            SELECT
+            
+                SELECT
                 dt.id_detalle,
                 dt.id_transaccion,
                 dt.precio,
@@ -85,4 +86,32 @@ public class CompraDao {
 
         return lista;
     }
-}
+
+    public int contarVentasPorUsuario(int idUsuario) {
+        int total = 0;
+        String sql = """
+            SELECT COUNT(*)
+            FROM DETALLE_TRANSACCION
+            WHERE ID_VENDEDOR = ?
+              AND TIPO_OPERACION = 'COMPRA'
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error en contarVentasPorUsuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+    }

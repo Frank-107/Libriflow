@@ -87,7 +87,7 @@
                         <i class="bi bi-pencil-square me-3 fs-5"></i>
                         Publicar
                     </a>
-                    <a href="mis-publicaciones"
+                    <a href="mis-publicaciones-js"
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i>
                         Mis publicaciones

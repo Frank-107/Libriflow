@@ -83,6 +83,7 @@ public class DetalleTransaccionDao {
         String sql = """
         SELECT
             CASE
+                WHEN dt.tipo_operacion = 'RENTA' THEN 'RENTA'
                 WHEN t.id_comprador = ? THEN 'COMPRA'
                 ELSE 'VENTA'
             END AS tipo_movimiento,
@@ -104,6 +105,7 @@ public class DetalleTransaccionDao {
 
         SELECT
             CASE
+                WHEN dt.tipo_operacion = 'RENTA' THEN 'RENTA'
                 WHEN t.id_comprador = ? THEN 'COMPRA'
                 ELSE 'VENTA'
             END AS tipo_movimiento,
@@ -127,10 +129,12 @@ public class DetalleTransaccionDao {
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
+            // Primera consulta
             ps.setInt(1, idUsuario);
             ps.setInt(2, idUsuario);
             ps.setInt(3, idUsuario);
 
+            // Segunda consulta
             ps.setInt(4, idUsuario);
             ps.setInt(5, idUsuario);
             ps.setInt(6, idUsuario);
@@ -165,8 +169,7 @@ public class DetalleTransaccionDao {
             }
 
         } catch (SQLException e) {
-
-            System.err.println("Error al obtener movimientos del usuario:");
+            System.err.println("Error al obtener los movimientos del usuario:");
             e.printStackTrace();
         }
 

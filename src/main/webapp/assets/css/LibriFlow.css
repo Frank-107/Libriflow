@@ -1,6 +1,10 @@
 /* ==========================
    CONFIGURACIÓN GENERAL
 ========================== */
+body, html {
+    overflow: hidden; /* Esto bloquea el scroll de la página */
+    height: 100vh;
+}
 
 body {
     background-color: #F4EFEA;
@@ -91,12 +95,46 @@ aside {
 
 /* Scroll interno del contenido */
 
-main {
-    height: 100%;
-    overflow-y: auto;
-    padding-right: 8px;
+/* ==========================
+   CORRECCIÓN DE LAYOUT Y SCROLL
+========================== */
+
+/* 1. Forzamos a que la fila principal no desborde la pantalla */
+.row.g-4 {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
 }
 
+/* 2. Aplicamos el scroll al elemento principal o a la clase de la vista */
+main, .col-lg-9, .lf-user-details {
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto !important; /* Permite scroll vertical interno */
+    padding-right: 10px;
+}
+
+/* 3. Personalización cosmética de la barra de scroll */
+main::-webkit-scrollbar,
+.lf-user-details::-webkit-scrollbar {
+    width: 8px;
+}
+
+main::-webkit-scrollbar-track,
+.lf-user-details::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+main::-webkit-scrollbar-thumb,
+.lf-user-details::-webkit-scrollbar-thumb {
+    background: #A39B93;
+    border-radius: 10px;
+}
+
+main::-webkit-scrollbar-thumb:hover,
+.lf-user-details::-webkit-scrollbar-thumb:hover {
+    background: #7A746E;
+}
 
 /* ==========================
    DROPDOWN DE USUARIO

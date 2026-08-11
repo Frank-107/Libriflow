@@ -72,6 +72,7 @@ public class UsuarioDao {
                 usuario.setCorreo(rs.getString("Correo_Electronico"));
                 usuario.setEstado(rs.getString("Estado_Cuenta"));
                 usuario.setFechaDesbloqueo(rs.getTimestamp("Fecha_Desbloqueo"));
+                usuario.setFechaCreacion(rs.getTimestamp("Fecha_Creacion"));
             }
             return usuario;
 
@@ -128,7 +129,31 @@ public class UsuarioDao {
     }
 
     public Usuario getById(Integer id) {
-        return null;
+        String sql = "SELECT * FROM Usuario where Id_Usuario=(?)";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            Usuario usuario = new Usuario();
+            if(rs.next()){
+                usuario.setId(rs.getInt("Id_Usuario"));
+                usuario.setNombre(rs.getString("Nombre"));
+                usuario.setTelefono(rs.getString("Telefono"));
+                usuario.setApellidoPaterno(rs.getString("Apellido_Paterno"));
+                usuario.setApellidoMaterno(rs.getString("Apellido_Materno"));
+                usuario.setCorreo(rs.getString("Correo_Electronico"));
+                usuario.setEstado(rs.getString("Estado_Cuenta"));
+                usuario.setFechaDesbloqueo(rs.getTimestamp("Fecha_Desbloqueo"));
+                usuario.setFechaCreacion(rs.getTimestamp("Fecha_Creacion"));
+            }
+            return usuario;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean update(Usuario entidad) {
@@ -222,6 +247,26 @@ public class UsuarioDao {
         } catch (SQLException e) {
             System.out.println("ERROR AL ACTIVAR USUARIO");
             System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean cambiarEstadoUsuario(int idUsuario, String estado) {
+
+        String sql = "UPDATE usuario SET estado_cuenta = ? WHERE id_usuario = ?";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, estado);
+            ps.setInt(2, idUsuario);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al cambiar el estado del usuario:");
             e.printStackTrace();
             return false;
         }

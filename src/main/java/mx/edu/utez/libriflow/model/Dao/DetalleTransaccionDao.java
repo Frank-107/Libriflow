@@ -1,10 +1,14 @@
 package mx.edu.utez.libriflow.model.Dao;
 import mx.edu.utez.libriflow.model.DetalleTransaccion;
+import mx.edu.utez.libriflow.model.Movimiento;
 import mx.edu.utez.libriflow.utils.SQLconnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DetalleTransaccionDao {
 
     public int create(DetalleTransaccion entidad) {
@@ -69,5 +73,103 @@ public class DetalleTransaccionDao {
             e.printStackTrace();
             return -1;
         }
+    }
+
+
+    public List<Movimiento> getMovimientosByIdUsuario(int idUsuario) {
+
+        List<Movimiento> movimientos = new ArrayList<>();
+
+        String sql = """
+        SELECT
+            CASE
+                WHEN t.id_comprador = ? THEN 'COMPRA'
+                ELSE 'VENTA'
+            END AS tipo_movimiento,
+            t.fecha,
+            l.titulo,
+            dt.precio,
+            0 AS es_libriflow
+        FROM detalle_transaccion dt
+        JOIN transaccion t
+            ON dt.id_transaccion = t.id_transaccion
+        JOIN publicacion_us pu
+            ON dt.id_publicacion_us = pu.id_publicacion_us
+        JOIN libro l
+            ON pu.id_libro = l.id_libro
+        WHERE t.id_comprador = ?
+           OR dt.id_vendedor = ?
+
+        UNION ALL
+
+        SELECT
+            CASE
+                WHEN t.id_comprador = ? THEN 'COMPRA'
+                ELSE 'VENTA'
+            END AS tipo_movimiento,
+            t.fecha,
+            l.titulo,
+            dt.precio,
+            1 AS es_libriflow
+        FROM detalle_transaccion dt
+        JOIN transaccion t
+            ON dt.id_transaccion = t.id_transaccion
+        JOIN publicacion_lf pl
+            ON dt.id_publicacion_lf = pl.id_publicacion_lf
+        JOIN libro l
+            ON pl.id_libro = l.id_libro
+        WHERE t.id_comprador = ?
+           OR dt.id_vendedor = ?
+
+        ORDER BY fecha DESC
+        """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+            ps.setInt(2, idUsuario);
+            ps.setInt(3, idUsuario);
+
+            ps.setInt(4, idUsuario);
+            ps.setInt(5, idUsuario);
+            ps.setInt(6, idUsuario);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Movimiento movimiento = new Movimiento();
+
+                movimiento.setTipoMovimiento(
+                        rs.getString("tipo_movimiento")
+                );
+
+                movimiento.setFecha(
+                        rs.getTimestamp("fecha")
+                );
+
+                movimiento.setTitulo(
+                        rs.getString("titulo")
+                );
+
+                movimiento.setPrecio(
+                        rs.getDouble("precio")
+                );
+
+                movimiento.setEsLibriFlow(
+                        rs.getInt("es_libriflow") == 1
+                );
+
+                movimientos.add(movimiento);
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println("Error al obtener movimientos del usuario:");
+            e.printStackTrace();
+        }
+
+        return movimientos;
     }
 }

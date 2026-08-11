@@ -13,6 +13,7 @@ public class Usuario {
     private String contrasenaHash;
     private String estado;
     Timestamp fechaDesbloqueo;
+    Timestamp fechaCreacion;
 
 
     public Usuario(String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono, String contrasena) {
@@ -96,5 +97,13 @@ public class Usuario {
 
     public void setFechaDesbloqueo(Timestamp fechaDesbloqueo) {
         this.fechaDesbloqueo = fechaDesbloqueo;
+    }
+
+    public Timestamp getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Timestamp fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

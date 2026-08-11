@@ -32,12 +32,12 @@ public class RentaDao {
                 COALESCE(ius.imagen, ilf.imagen) AS imagen
             FROM detalle_renta dr
             JOIN detalle_transaccion dt
-                ON dr.id_detalle = dt.id_detalle
+                ON dr.id_detalle_transaccion = dt.id_detalle
             JOIN transaccion t
                 ON dt.id_transaccion = t.id_transaccion
             JOIN usuario uc
                 ON t.id_comprador = uc.id_usuario
-            JOIN usuario uv
+            LEFT JOIN usuario uv
                 ON dt.id_vendedor = uv.id_usuario
             LEFT JOIN publicacion_us pus
                 ON dt.id_publicacion_us = pus.id_publicacion_us
@@ -115,12 +115,12 @@ public class RentaDao {
             COALESCE(ius.imagen, ilf.imagen) AS imagen
         FROM detalle_renta dr
         JOIN detalle_transaccion dt
-            ON dr.id_detalle = dt.id_detalle
+            ON dr.id_detalle_transaccion = dt.id_detalle
         JOIN transaccion t
             ON dt.id_transaccion = t.id_transaccion
         JOIN usuario uc
             ON t.id_comprador = uc.id_usuario
-        JOIN usuario uv
+        LEFT JOIN usuario uv
             ON dt.id_vendedor = uv.id_usuario
         LEFT JOIN publicacion_us pus
             ON dt.id_publicacion_us = pus.id_publicacion_us

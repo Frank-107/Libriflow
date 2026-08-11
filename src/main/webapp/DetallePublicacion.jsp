@@ -260,7 +260,7 @@
                         <c:choose>
                             <c:when test="${not empty esAdminPub}">
                                 <div class="d-flex flex-column gap-2 w-100">
-                                    <form action="detalle-publicacion" method="POST" class="w-100">
+                                    <form action="detalle-publicacion-superad" method="POST" class="w-100">
                                         <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacionLf}">
                                         <input type="hidden" name="tipoOperacion" value="venta">
                                         <input type="hidden" name="precioCalculado" value="${publicacion.precio}">

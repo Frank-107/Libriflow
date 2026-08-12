@@ -371,3 +371,36 @@ body {
     z-index: 100;
     white-space: nowrap;
 }
+
+
+
+
+body {
+    background-color: #F4EFEA;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+.container-fluid.max-width-xl.mx-auto {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-fluid.max-width-xl.mx-auto > .row {
+    flex: 1;
+    min-height: 0;
+}
+
+main, .catalogo-scroll {
+    height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+}
+
+.table-responsive {
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+}

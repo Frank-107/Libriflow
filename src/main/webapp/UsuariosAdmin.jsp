@@ -118,33 +118,32 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="u" items="${usuarios}">
-                                    <tr>
-                                        <td class="fw-bold">#<c:out value="${u.id}" /></td>
-                                        <td><c:out value="${u.nombre}" /> <c:out value="${u.apellidoPaterno}" /> <c:out value="${u.apellidoMaterno}" /></td>
-                                        <td><c:out value="${u.correo}" /></td>
-                                        <td><c:out value="${empty u.telefono ? 'N/A' : u.telefono}" /></td>
 
-
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${u.estado == 'ACTIVA' || u.estado == 'ACTIVO'}">
-                                                    <span class="badge rounded-pill bg-success px-3 py-2">ACTIVA</span>
-                                                </c:when>
-                                                <c:otherwise>
-            <span class="badge rounded-pill bg-danger px-3 py-2">
-                <c:out value="${empty u.estado ? 'BLOQUEADO' : u.estado}" />
-            </span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-
-
-                                        <td class="text-center">
-                                            <a href="detalle-usuario-admin?idUsuario=${u.id}" class="btn bg-lf-capsule btn-lf-pill text-dark btn-sm px-3 shadow-sm">
-                                                <i class="bi bi-eye me-1"></i> Ver detalles
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    <c:if test="${u.correo != 'adminLibri@utez.edu.mx' && u.id != sessionScope.usuario.id}">
+                                        <tr>
+                                            <td class="fw-bold">#<c:out value="${u.id}" /></td>
+                                            <td><c:out value="${u.nombre}" /> <c:out value="${u.apellidoPaterno}" /> <c:out value="${u.apellidoMaterno}" /></td>
+                                            <td><c:out value="${u.correo}" /></td>
+                                            <td><c:out value="${empty u.telefono ? 'N/A' : u.telefono}" /></td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${u.estado == 'ACTIVA' || u.estado == 'ACTIVO'}">
+                                                        <span class="badge rounded-pill bg-success px-3 py-2">ACTIVA</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                        <span class="badge rounded-pill bg-danger px-3 py-2">
+                            <c:out value="${empty u.estado ? 'BLOQUEADO' : u.estado}" />
+                        </span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="detalle-usuario-admin?idUsuario=${u.id}" class="btn bg-lf-capsule btn-lf-pill text-dark btn-sm px-3 shadow-sm">
+                                                    <i class="bi bi-eye me-1"></i> Ver detalles
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:if>
                                 </c:forEach>
                                 </tbody>
                             </table>

@@ -195,7 +195,7 @@
                                 <i class="bi bi-book"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number"><c:out value="${cantidadPublicaciones}" /></span>
+                                <span class="lf-stat-number"><c:out value="${totalPublicaciones}" /></span>
                                 <span class="lf-stat-label">Publicaciones activas</span>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                 <i class="bi bi-bag-check"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number">$<c:out value="${cantidadVentas}" /></span>
+                                <span class="lf-stat-number"><c:out value="${totalVendidos}" /></span>
                                 <span class="lf-stat-label">Libros vendidos</span>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
                                 <i class="bi bi-arrow-repeat"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number"><c:out value="${cantidadRentasActivas}" /></span>
+                                <span class="lf-stat-number"><c:out value="${totalEnRenta}" /></span>
                                 <span class="lf-stat-label">Rentas activas</span>
                             </div>
                         </div>
@@ -228,7 +228,7 @@
                                 <i class="bi bi-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number"><c:out value="${cantidadRetrasos}" /></span>
+                                <span class="lf-stat-number"><c:out value="${totalRetrasos}" /></span>
                                 <span class="lf-stat-label">Retrasos</span>
                             </div>
                         </div>

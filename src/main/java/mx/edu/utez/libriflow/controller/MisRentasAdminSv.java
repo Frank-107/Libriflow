@@ -17,9 +17,6 @@ public class MisRentasAdminSv extends HttpServlet {
 
     RentaDao rentaDao = new RentaDao();
 
-    private static final Set<String> ESTADOS_VALIDOS = Set.of(
-            "ACTIVA", "DEVUELTA", "ATRASADA", "MUY ATRASADA", "CANCELADA"
-    );
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,11 +28,22 @@ public class MisRentasAdminSv extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         int idDetalle = Integer.parseInt(req.getParameter("idDetalle"));
+        String accion = req.getParameter("accion");
 
-        rentaDao.marcarComoDevuelta(idDetalle);
+        boolean actualizado = false;
+
+        if ("ENTREGAR".equals(accion)) {
+
+            actualizado = rentaDao.marcarComoEntregada(idDetalle);
+
+        } else if ("DEVOLVER".equals(accion)) {
+
+            actualizado = rentaDao.marcarComoFinalizada(idDetalle);
+        }
 
         resp.sendRedirect(req.getContextPath() + "/mis-rentas-admin");
     }

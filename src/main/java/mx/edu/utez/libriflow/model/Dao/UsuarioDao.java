@@ -120,6 +120,9 @@ public class UsuarioDao {
                 u.setApellidoMaterno(rs.getString("Apellido_Materno"));
                 u.setCorreo(rs.getString("Correo_Electronico"));
                 u.setTelefono(rs.getString("Telefono"));
+
+                u.setEstado(rs.getString("estado_cuenta"));
+
                 lista.add(u);
             }
         } catch (SQLException e) {

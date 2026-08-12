@@ -183,13 +183,14 @@ public class RentaDao {
         return lista;
     }
 
-    public boolean marcarComoDevuelta(int idDetalle) {
+    public boolean marcarComoEntregada(int idDetalle) {
 
         String sql = """
         UPDATE detalle_renta
-        SET estado = 'DEVUELTA',
-            fecha_devolucion = SYSDATE
+        SET estado = 'ACTIVA'
         WHERE id_detalle = ?
+          AND estado = 'PROGRAMADA'
+          AND fecha_inicio <= SYSDATE
         """;
 
         try (Connection con = SQLconnector.getConnection();
@@ -197,15 +198,35 @@ public class RentaDao {
 
             ps.setInt(1, idDetalle);
 
-            int filasActualizadas = ps.executeUpdate();
-
-            return filasActualizadas > 0;
+            return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+    }
 
-        return false;
+    public boolean marcarComoFinalizada(int idDetalle) {
+
+        String sql = """
+        UPDATE detalle_renta
+        SET estado = 'FINALIZADA',
+            fecha_devolucion = SYSDATE
+        WHERE id_detalle = ?
+          AND estado = 'ACTIVA'
+        """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idDetalle);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean cambiarEstadoRenta(int idDetalle, String estado) {

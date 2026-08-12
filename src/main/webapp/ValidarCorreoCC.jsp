@@ -46,7 +46,7 @@
                     Hemos enviado un código de verificación al correo:
                 </p>
                 <p style="margin-bottom: 12px;">
-                    <strong style="color: #4A4641; font-size: 15px;">${sessionScope.usuarioPendiente.correo}</strong>
+                    <strong style="color: #4A4641; font-size: 15px;"><c:out value="${sessionScope.usuarioPendiente.correo}" /></strong>
                 </p>
                 <p style="margin-bottom: 0;">
                     Ingresa el código que recibiste para activar tu cuenta.

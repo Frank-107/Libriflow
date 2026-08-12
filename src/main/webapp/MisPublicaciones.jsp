@@ -128,7 +128,7 @@
 
                 <div class="mis-publicaciones-header">
                     <h2>
-                        Publicaciones totales (${publicaciones.size()})
+                        Publicaciones totales (<c:out value="${publicaciones.size()}" />)
                     </h2>
                 </div>
                 <c:choose>
@@ -153,21 +153,21 @@
                                         </div>
                                         <div class="publicacion-info">
                                             <h4>
-                                                    ${publicacion.titulo}
+                                                    <c:out value="${publicacion.titulo}" />}
                                             </h4>
                                             <p>
-                                                    ${publicacion.autor}
+                                                    <c:out value="${publicacion.autor}" />}
                                             </p>
                                             <small>
-                                                    ${publicacion.genero}
+                                                    <c:out value="${publicacion.genero}" />}
                                             </small>
                                         </div>
                                         <div class="d-flex flex-column align-items-end me-3 gap-2">
                                     <span class="estado ${publicacion.estado}">
-                                            ${publicacion.estado}
+                                            <c:out value="${publicacion.estado}" />
                                     </span>
                                             <div class="publicacion-precio" style="margin-right: 0;">
-                                                $${publicacion.precio}
+                                                $<c:out value="${publicacion.precio}" />
                                             </div>
                                             <c:if test="${publicacion.estado == 'PENDIENTE'}">
                                                 <form action="mis-publicaciones" method="post" class="m-0">

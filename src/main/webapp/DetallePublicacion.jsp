@@ -32,8 +32,8 @@
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.nombre}</div>
-                <small class="text-white-50" style="font-size: 0.8rem;">${usuario.correo}</small>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;"><c:out value="${usuario.nombre}" /></div>
+                <small class="text-white-50" style="font-size: 0.8rem;"><c:out value="${usuario.correo}" /></small>
             </div>
 
             <div class="dropdown">
@@ -116,7 +116,7 @@
                             Solo renta
                         </c:when>
                         <c:otherwise>
-                            Precio base: $${publicacion.precio}
+                            Precio base: $<c:out value="${publicacion.precio}" />
                         </c:otherwise>
                     </c:choose>
                     </span>
@@ -220,7 +220,7 @@
                                                         </c:forEach>
                                                     </div>
                                                 </div>
-                                                <p class="mb-0 text-secondary">${r.comentario}</p>
+                                                <p class="mb-0 text-secondary"><c:out value="${r.comentario}" /></p>
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -236,24 +236,24 @@
                 <!-- Columna derecha: Info de la publicación (fija) -->
                 <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-fixed">
                     <div class="pill-info-lf shadow-sm">
-                        <span class="fw-bold">Título:</span> ${publicacion.titulo}
+                        <span class="fw-bold">Título:</span> <c:out value="${publicacion.titulo}" />
                     </div>
 
                     <div class="pill-info-lf shadow-sm">
-                        <span class="fw-bold">Autor:</span> ${publicacion.autor}
+                        <span class="fw-bold">Autor:</span> <c:out value="${publicacion.autor}" />
                     </div>
 
                     <div class="pill-info-lf shadow-sm">
-                        <span class="fw-bold">Editorial:</span> ${publicacion.editorial}
+                        <span class="fw-bold">Editorial:</span> <c:out value="${publicacion.editorial}" />
                     </div>
 
                     <div class="pill-info-lf shadow-sm">
-                        <span class="fw-bold">Género:</span> ${publicacion.genero}
+                        <span class="fw-bold">Género:</span> <c:out value="${publicacion.genero}" />
                     </div>
 
                     <div class="box-sinopsis-lf shadow-sm flex-grow-1">
                         <h5 class="fw-bold mb-3">Sinopsis:</h5>
-                        <p class="mb-0 text-muted lh-base">${publicacion.sinopsis}</p>
+                        <p class="mb-0 text-muted lh-base"><c:out value="${publicacion.sinopsis}" /></p>
                     </div>
 
                     <div class="mt-2">

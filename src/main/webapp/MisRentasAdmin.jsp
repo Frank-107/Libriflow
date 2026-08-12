@@ -34,8 +34,8 @@
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold">${sessionScope.usuario.nombre}</div>
-                <small class="text-white-50">${sessionScope.usuario.correo}</small>
+                <div class="fw-bold"><c:out value="${sessionScope.usuario.nombre}" /></div>
+                <small class="text-white-50"><c:out value="${sessionScope.usuario.correo}" /></small>
             </div>
             <div class="dropdown">
                 <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
@@ -88,7 +88,7 @@
         <main class="col catalogo-scroll">
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
-                    <h2>Rentas (${rentas.size()})</h2>
+                    <h2>Rentas (<c:out value="${rentas.size()}" />)</h2>
                 </div>
                 <c:choose>
                     <c:when test="${empty rentas}">
@@ -110,17 +110,17 @@
                             <c:forEach var="renta" items="${rentas}">
                                 <div class="publicacion-card">
                                     <div class="publicacion-estado">
-                                        <span class="estado">${renta.estado}</span>
+                                        <span class="estado"><c:out value="${renta.estado}" /></span>
                                     </div>
                                     <div class="publicacion-contenido">
                                         <div class="publicacion-portada">
                                             <img src="${renta.imagenPrincipal}" alt="${renta.titulo}">
                                         </div>
                                         <div class="publicacion-info">
-                                            <h4>${renta.titulo}</h4>
-                                            <p>${renta.autor}</p>
-                                            <small>Rentado por: ${renta.nombreComprador}</small><br>
-                                            <small>Vendedor: ${renta.nombreVendedor}</small><br>
+                                            <h4><c:out value="${renta.titulo}" /></h4>
+                                            <p><c:out value="${renta.autor}" /></p>
+                                            <small>Rentado por: <c:out value="${renta.nombreComprador}" /></small><br>
+                                            <small>Vendedor: <c:out value="${renta.nombreVendedor}" /></small><br>
                                             <small>
                                                 Del ${renta.fechaInicio} al ${renta.fechaLimite}
                                                 <c:if test="${not empty renta.fechaDevolucion}">

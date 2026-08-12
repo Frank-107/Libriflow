@@ -28,10 +28,10 @@
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
                 <div class="fw-bold mb-0">
-                    ${usuario.nombre}
+                    <c:out value="" /><c:out value="${usuario.nombre}" />
                 </div>
                 <small class="text-white-50">
-                    ${usuario.correo}
+                    <c:out value="${usuario.correo}" />
                 </small>
             </div>
             <div class="dropdown">
@@ -150,18 +150,18 @@
                                         <div class="card-contenido">
                                             <div class="card-info">
                                                 <h3 class="card-titulo">
-                                                        ${publicacion.titulo}
+                                                    <c:out value="" /><c:out value="${publicacion.titulo}" />
                                                 </h3>
                                                 <p class="card-autor">
                                                     Autor:
-                                                        ${publicacion.autor}
+                                                        <c:out value="${publicacion.autor}" />
                                                 </p>
                                                 <p class="card-genero">
                                                     Género:
-                                                        ${publicacion.genero}
+                                                        <c:out value="${publicacion.genero}" />
                                                 </p>
                                                 <p class="card-precio">
-                                                    $${publicacion.precio}
+                                                    $<c:out value="${publicacion.precio}" />
                                                 </p>
                                             </div>
                                             <form action="carrito" method="post">
@@ -183,7 +183,7 @@
                                         <c:choose>
                                             <c:when test="${contieneEnvio}">
                                                 Subtotal:
-                                                $${subtotal}
+                                                $<c:out value="" /><c:out value="${subtotal}" />
                                                 <br>
                                                 Envío:
                                                 $50-$100
@@ -193,7 +193,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 Total:
-                                                $${subtotal}
+                                                $<c:out value="${subtotal}" />
                                             </c:otherwise>
                                         </c:choose>
                                     </h4>

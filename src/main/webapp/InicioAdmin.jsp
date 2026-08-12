@@ -30,8 +30,8 @@
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${sessionScope.usuario.nombre}</div>
-                <small class="text-white-50" style="font-size: 0.8rem;">${sessionScope.usuario.correo}</small>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;">V<c:out value="${sessionScope.usuario.nombre}" /></div>
+                <small class="text-white-50" style="font-size: 0.8rem;"><c:out value="${sessionScope.usuario.correo}" /></small>
             </div>
 
             <div class="dropdown">
@@ -108,19 +108,19 @@
 
                                         <div class="card-info">
                                             <h3 class="card-titulo">
-                                                    ${publicacion.titulo}
+                                                    <c:out value="${publicacion.titulo}" />
                                             </h3>
 
                                             <p class="card-autor">
-                                                Autor: ${publicacion.autor}
+                                                Autor: <c:out value="${publicacion.autor}" />
                                             </p>
 
                                             <p class="card-genero">
-                                                Género: ${publicacion.genero}
+                                                Género: <c:out value="${publicacion.genero}" />
                                             </p>
 
                                             <p class="card-precio">
-                                                $${publicacion.precio}
+                                                $<c:out value="${publicacion.precio}" />
                                             </p>
                                         </div>
 

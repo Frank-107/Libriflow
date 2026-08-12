@@ -34,8 +34,8 @@
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold">${sessionScope.usuario.nombre}</div>
-                <small class="text-white-50">${sessionScope.usuario.correo}</small>
+                <div class="fw-bold"><c:out value="${sessionScope.usuario.nombre}" /></div>
+                <small class="text-white-50"><c:out value="${sessionScope.usuario.correo}" /></small>
             </div>
             <div class="dropdown">
                 <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
@@ -109,7 +109,7 @@
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
                     <h2>
-                        Mis rentas (${rentas.size()})
+                        Mis rentas (<c:out value="${rentas.size()}" />)
                     </h2>
                 </div>
                 <c:choose>
@@ -138,7 +138,7 @@
                                 <div class="publicacion-card">
                                     <div class="publicacion-estado">
                                         <span class="estado">
-                                                ${renta.estado}
+                                            <c:out value="${renta.estado}" />
                                         </span>
                                     </div>
                                     <div class="publicacion-contenido">
@@ -147,23 +147,23 @@
                                         </div>
                                         <div class="publicacion-info">
                                             <h4>
-                                                    ${renta.titulo}
+                                                    <c:out value="${renta.titulo}" />
                                             </h4>
                                             <p>
-                                                    ${renta.autor}
+                                                    <c:out value="${renta.autor}" />
                                             </p>
                                             <small>
-                                                Vendedor: ${renta.nombreVendedor}
+                                                Vendedor: <c:out value="${renta.nombreVendedor}" />
                                             </small><br>
                                             <small>
-                                                Del ${renta.fechaInicio} al ${renta.fechaLimite}
+                                                Del <c:out value="${renta.fechaInicio}" /> al <c:out value="${renta.fechaLimite}" />
                                                 <c:if test="${not empty renta.fechaDevolucion}">
-                                                    (Devuelto: ${renta.fechaDevolucion})
+                                                    (Devuelto: <c:out value="${renta.fechaDevolucion}" />)
                                                 </c:if>
                                             </small>
                                         </div>
                                         <div class="publicacion-precio">
-                                            $${renta.precio}
+                                            $<c:out value="${renta.precio}" />
                                         </div>
                                     </div>
                                 </div>

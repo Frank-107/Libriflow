@@ -35,8 +35,8 @@
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold">${sessionScope.usuario.nombre}</div>
-                <small class="text-white-50">${sessionScope.usuario.correo}</small>
+                <div class="fw-bold"><c:out value="${sessionScope.usuario.nombre}" /></div>
+                <small class="text-white-50"><c:out value="${sessionScope.usuario.correo}" /></small>
             </div>
             <div class="dropdown">
                 <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
@@ -93,7 +93,7 @@
         <main class="col catalogo-scroll">
             <section class="mis-publicaciones-container">
                 <div class="mis-publicaciones-header">
-                    <h2>Lista de usuarios (${usuarios.size()})</h2>
+                    <h2>Lista de usuarios (<c:out value="${usuarios.size()}" />)</h2>
                 </div>
 
                 <c:choose>
@@ -119,10 +119,10 @@
                                 <tbody>
                                 <c:forEach var="u" items="${usuarios}">
                                     <tr>
-                                        <td class="fw-bold">#${u.id}</td>
-                                        <td>${u.nombre} ${u.apellidoPaterno} ${u.apellidoMaterno}</td>
-                                        <td>${u.correo}</td>
-                                        <td>${empty u.telefono ? 'N/A' : u.telefono}</td>
+                                        <td class="fw-bold">#<c:out value="${u.id}" /></td>
+                                        <td><c:out value="${u.nombre}" /> <c:out value="${u.apellidoPaterno}" /> <c:out value="${u.apellidoMaterno}" /></td>
+                                        <td><c:out value="${u.correo}" /></td>
+                                        <td><c:out value="${empty u.telefono ? 'N/A' : u.telefono}" /></td>
                                         <td>
                                             <span class="badge rounded-pill bg-success px-3 py-2">ACTIVA</span>
                                         </td>

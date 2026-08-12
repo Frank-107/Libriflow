@@ -17,9 +17,9 @@ import java.io.IOException;
 
 @WebServlet(name = "PublicarLibroUsuarioSv", value = "/publicar-libro-usuario")
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024, // 1 MB
-        maxFileSize = 1024 * 1024 * 5,   // 5 MB
-        maxRequestSize = 1024 * 1024 * 20 // 20 MB (3 imágenes)
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 20
 )
 public class PublicarLibroUsuarioSv extends HttpServlet {
     private final PublicacionUsuarioDao publicacionDao = new PublicacionUsuarioDao();
@@ -59,8 +59,17 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
             Part imagen2 = req.getPart("imagen2");
             Part imagen3 = req.getPart("imagen3");
 
-            if (sinopsis == null || sinopsis.trim().length() < 100) {
-                throw new Exception("La sinopsis debe contener al menos 100 caracteres.");
+            String[] palabras = (sinopsis != null) ? sinopsis.trim().split(" ") : new String[0];
+            int totalPalabras = 0;
+
+            for (String palabra : palabras) {
+                if (!palabra.trim().isEmpty()) {
+                    totalPalabras++;
+                }
+            }
+
+            if (totalPalabras < 100) {
+                throw new Exception("La sinopsis debe tener al menos 100 palabras. Llevas " + totalPalabras + ".");
             }
 
             if (precio <= 0) {
@@ -77,7 +86,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
             String rutaImagen2 = guardarImagen(imagen2);
             String rutaImagen3 = guardarImagen(imagen3);
 
-            // 1. Crear e insertar Libro
             Libro libro = new Libro(
                     titulo,
                     autor,
@@ -91,7 +99,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
                 throw new Exception("No se pudo guardar el libro.");
             }
 
-            // 2. Crear e insertar Publicación
             Usuario usuario = (Usuario) req.getSession(false).getAttribute("usuario");
             int idUsuario = usuario.getId();
 
@@ -107,7 +114,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
                 throw new Exception("No se pudo guardar la publicación, inténtalo nuevamente.");
             }
 
-            // 3. Guardar registros de Imágenes en BD
             Imagen objetoImagen1 = new Imagen(idPublicacion, rutaImagen1);
             Imagen objetoImagen2 = new Imagen(idPublicacion, rutaImagen2);
             Imagen objetoImagen3 = new Imagen(idPublicacion, rutaImagen3);
@@ -120,19 +126,11 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
                 throw new RuntimeException("No se pudieron guardar las imágenes.");
             }
 
-            System.out.println("========== PUBLICACIÓN EXITOSA ==========");
-            System.out.println("ID Libro: " + idLibro);
-            System.out.println("ID Publicación: " + idPublicacion);
-            System.out.println("Título: " + titulo);
-            System.out.println("Usuario: " + idUsuario);
-            System.out.println("=========================================");
-
             req.getSession(false).setAttribute("mensaje", "Listo, Entrega tu libro en la librería para completar la publicación.");
             resp.sendRedirect("publicar-libro-usuario");
 
         } catch(Exception e){
             e.printStackTrace();
-            System.err.println(e.getMessage());
 
             req.setAttribute(
                     "error",
@@ -156,7 +154,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
                 + "_"
                 + nombreOriginal;
 
-        // Carpeta física donde se guardan
         String uploadPath = getServletContext().getRealPath("")
                 + File.separator
                 + "uploads"

@@ -97,7 +97,7 @@
                         <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}" class="img-fluid rounded-4">
                     </div>
 
-                    <div class="d-flex gap-3 mb-3">
+                    <div class="d-flex gap-3 mb-3 w-100 justify-content-center" style="max-width: 360px;">
                         <div class="miniatura-container shadow-sm">
                             <img src="${publicacion.imagenReverso}" alt="Imagen reverso" class="img-fluid rounded-3">
                         </div>
@@ -106,43 +106,75 @@
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-center gap-2 mt-1 fw-bold fs-4 text-dark">
-                        <span class="badge bg-secondary rounded-pill px-3 py-2">Precio: $${publicacion.precio}</span>
+                    <div class="d-flex align-items-center gap-2 mt-2 fw-bold fs-5 text-dark">
+                       <span class="badge bg-secondary rounded-pill px-3 py-2">
+                        <c:choose>
+                            <c:when test="${publicacion.esVenta == 0}">
+                                Solo renta
+                            </c:when>
+                            <c:otherwise>
+                                Precio base: $${publicacion.precio}
+                            </c:otherwise>
+                        </c:choose>
+                        </span>
                     </div>
                 </div>
 
                 <!-- Info de la publicación -->
-                <div class="col-12 col-lg-6 d-flex flex-column justify-content-between gap-3">
-                    <div class="d-flex flex-column gap-3">
-                        <div class="pill-info-lf shadow-sm">
-                            <span class="fw-bold">Título:</span> ${publicacion.titulo}
-                        </div>
-
-                        <div class="pill-info-lf shadow-sm">
-                            <span class="fw-bold">Autor:</span> ${publicacion.autor}
-                        </div>
-
-                        <div class="pill-info-lf shadow-sm">
-                            <span class="fw-bold">Editorial:</span> ${publicacion.editorial}
-                        </div>
-
-                        <div class="pill-info-lf shadow-sm">
-                            <span class="fw-bold">Género:</span> ${publicacion.genero}
-                        </div>
-
-                        <div class="box-sinopsis-lf shadow-sm">
-                            <h5 class="fw-bold mb-3">Sinopsis:</h5>
-                            <p class="mb-0 text-muted lh-base">${publicacion.sinopsis}</p>
-                        </div>
+                <div class="col-12 col-lg-6 d-flex flex-column gap-3">
+                    <div class="pill-info-lf shadow-sm">
+                        <span class="fw-bold">Título:</span> ${publicacion.titulo}
                     </div>
 
-                    <form action="detalle-publicacion" method="POST" class="w-100">
-                        <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
-                        <button type="submit" class="btn btn-action-lf w-100 py-3 rounded-pill fw-bold shadow-sm">
-                            Agregar al carrito
-                        </button>
+                    <div class="pill-info-lf shadow-sm">
+                        <span class="fw-bold">Autor:</span> ${publicacion.autor}
+                    </div>
 
-                    </form>
+                    <div class="pill-info-lf shadow-sm">
+                        <span class="fw-bold">Editorial:</span> ${publicacion.editorial}
+                    </div>
+
+                    <div class="pill-info-lf shadow-sm">
+                        <span class="fw-bold">Género:</span> ${publicacion.genero}
+                    </div>
+
+                    <div class="box-sinopsis-lf shadow-sm flex-grow-1">
+                        <h5 class="fw-bold mb-3">Sinopsis:</h5>
+                        <p class="mb-0 text-muted lh-base">${publicacion.sinopsis}</p>
+                    </div>
+
+                    <div class="mt-2">
+                        <c:choose>
+                            <c:when test="${not empty esAdminPub}">
+                                <div class="d-flex flex-column gap-2 w-100">
+                                    <form action="detalle-publicacion-superad" method="POST" class="w-100">
+                                        <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacionLf}">
+                                        <input type="hidden" name="tipoOperacion" value="venta">
+                                        <input type="hidden" name="precioCalculado" value="${publicacion.precio}">
+                                        <button type="submit" class="btn btn-action-lf w-100 py-3 rounded-pill fw-bold shadow-sm"
+                                                <c:if test="${publicacion.esVenta == 0}">disabled</c:if>>
+                                            <i class="bi bi-cart-plus me-2"></i> Agregar al carrito
+                                        </button>
+                                    </form>
+
+                                    <button type="button" class="btn btn-secondary-lf w-100 py-3 rounded-pill fw-bold shadow-sm"
+                                            data-bs-toggle="modal" data-bs-target="#modalRenta"
+                                            <c:if test="${publicacion.esRenta == 0}">disabled</c:if>>
+                                        <i class="bi bi-calendar-check me-2"></i> Selecciona la fecha para tu renta
+                                    </button>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <form action="detalle-publicacion" method="POST" class="w-100">
+                                    <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+                                    <button type="submit" class="btn btn-action-lf w-100 py-3 rounded-pill fw-bold shadow-sm">
+                                        <i class="bi bi-cart-plus me-2"></i> Agregar al carrito
+                                    </button>
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+
                 </div>
 
             </div>
@@ -151,5 +183,64 @@
     </div>
 </div>
 
+<c:if test="${not empty esAdminPub}">
+    <div class="modal fade" id="modalRenta" tabindex="-1" aria-labelledby="modalRentaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-lf shadow-lg">
+
+                <div class="modal-header modal-header-lf">
+                    <h5 class="modal-title fw-bold" id="modalRentaLabel">
+                        <i class="bi bi-calendar-event me-2"></i>Seleccionar Período de Renta
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="detalle-publicacion-superad" method="POST">
+                    <div class="modal-body p-4">
+                        <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacionLf}">
+                        <input type="hidden" name="tipoOperacion" value="renta">
+                        <input type="hidden" name="precioCalculado" id="precioRentaInput" value="0.0">
+
+                        <div class="mb-3">
+                            <label for="fechaInicio" class="form-label fw-bold text-dark">
+                                <i class="bi bi-calendar-check me-1"></i>Fecha de inicio:
+                            </label>
+                            <input type="date" class="form-control input-date-lf" id="fechaInicio" name="fechaInicio" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="fechaFin" class="form-label fw-bold text-dark">
+                                <i class="bi bi-calendar-x me-1"></i>Fecha de fin:
+                            </label>
+                            <input type="date" class="form-control input-date-lf" id="fechaFin" name="fechaFin" required>
+                        </div>
+
+                        <div class="box-tarifa-lf text-center shadow-sm">
+                            <small class="d-block text-muted mb-1">
+                                Tarifa: $5/día (días 1-7) | $3/día (día 8 en adelante)
+                            </small>
+                            <span class="fs-4 fw-bold text-dark d-block">
+                                Monto total: $<span id="montoMostrado">0.0</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer modal-footer-lf d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary-lf rounded-pill px-4" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="btn btn-action-lf rounded-pill px-4" id="btnConfirmarRenta" disabled>
+                            <i class="bi bi-cart-plus me-1"></i> Agregar al Carrito
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</c:if>
+
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Renta.js"></script>
 </body>
 </html>

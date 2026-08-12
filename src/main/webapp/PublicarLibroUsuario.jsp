@@ -10,6 +10,7 @@
     <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css" />
 </head>
 <body class="p-3 p-md-4">
 
@@ -40,7 +41,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfil.jsp">
+                        <a class="dropdown-item py-2 dropdown-lf-item" href="actualizar-perfil">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>
@@ -65,7 +66,7 @@
                     <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                     </a>
                     <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -84,7 +85,7 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9">
+        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white">
 
                 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
@@ -103,8 +104,14 @@
                     <c:remove var="mensaje" scope="session"/>
                 </c:if>
 
-                <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data"
-                      onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Enviando...';">
+                <c:if test="${not empty error}">
+                    <div class="alert alert-danger d-flex align-items-center gap-2 mb-4" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                        <div><c:out value="${error}" escapeXml="true" /></div>
+                    </div>
+                </c:if>
+
+                <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data">
 
                     <div class="row">
 
@@ -161,6 +168,7 @@
                                    class="form-control form-control-lf"
                                    placeholder="$"
                                    required>
+                            <small id="mensaje15" class="text-secondary fw-bold d-block mt-1"></small>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">

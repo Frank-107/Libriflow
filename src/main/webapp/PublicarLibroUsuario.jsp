@@ -30,8 +30,8 @@
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;">${usuario.getNombre()}</div>
-                <small class="text-white-50" style="font-size: 0.8rem;">${usuario.getCorreo()}</small>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;"><c:out value="${usuario.getNombre()}" /></div>
+                <small class="text-white-50" style="font-size: 0.8rem;"><c:out value="${usuario.getCorreo()}" /></small>
             </div>
 
             <div class="dropdown">

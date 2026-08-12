@@ -35,8 +35,8 @@
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold">${sessionScope.usuario.nombre}</div>
-                <small class="text-white-50">${sessionScope.usuario.correo}</small>
+                <div class="fw-bold"><c:out value="${sessionScope.usuario.nombre}" /></div>
+                <small class="text-white-50"><c:out value="${sessionScope.usuario.correo}" /></small>
             </div>
             <div class="dropdown">
                 <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
@@ -112,7 +112,7 @@
                             <c:otherwise>
                                 <span class="lf-status lf-status-inactive">
                                     <span class="lf-status-dot"></span>
-                                    ${usuario.estado}
+                                    <c:out value="${usuario.estado}" />
                                 </span>
                             </c:otherwise>
                         </c:choose>
@@ -155,23 +155,23 @@
                         <div class="lf-info-item">
                             <span class="lf-info-label">Nombre completo</span>
                             <span class="lf-info-value">
-                                ${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}
+                                <c:out value="${usuario.nombre} ${usuario.apellidoPaterno} ${usuario.apellidoMaterno}" />
                             </span>
                         </div>
 
                         <div class="lf-info-item">
                             <span class="lf-info-label">Correo electrónico</span>
-                            <span class="lf-info-value">${usuario.correo}</span>
+                            <span class="lf-info-value"><c:out value="${usuario.correo}" /></span>
                         </div>
 
                         <div class="lf-info-item">
                             <span class="lf-info-label">Teléfono</span>
-                            <span class="lf-info-value">${empty usuario.telefono ? 'N/A' : usuario.telefono}</span>
+                            <span class="lf-info-value"><c:out value="${empty usuario.telefono ? 'N/A' : usuario.telefono}" /></span>
                         </div>
 
                         <div class="lf-info-item">
                             <span class="lf-info-label">Cuenta creada</span>
-                            <span class="lf-info-value">${usuario.fechaCreacion}</span>
+                            <span class="lf-info-value"><c:out value="${usuario.fechaCreacion}" /></span>
                         </div>
                     </div>
                 </div>
@@ -195,7 +195,7 @@
                                 <i class="bi bi-book"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number">${cantidadPublicaciones}</span>
+                                <span class="lf-stat-number"><c:out value="${cantidadPublicaciones}" /></span>
                                 <span class="lf-stat-label">Publicaciones activas</span>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                 <i class="bi bi-bag-check"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number">${cantidadVentas}</span>
+                                <span class="lf-stat-number">$<c:out value="${cantidadVentas}" /></span>
                                 <span class="lf-stat-label">Libros vendidos</span>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
                                 <i class="bi bi-arrow-repeat"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number">${cantidadRentasActivas}</span>
+                                <span class="lf-stat-number"><c:out value="${cantidadRentasActivas}" /></span>
                                 <span class="lf-stat-label">Rentas activas</span>
                             </div>
                         </div>
@@ -228,7 +228,7 @@
                                 <i class="bi bi-exclamation-triangle"></i>
                             </div>
                             <div>
-                                <span class="lf-stat-number">${cantidadRetrasos}</span>
+                                <span class="lf-stat-number"><c:out value="${cantidadRetrasos}" /></span>
                                 <span class="lf-stat-label">Retrasos</span>
                             </div>
                         </div>
@@ -247,7 +247,7 @@
                                 <p>Historial de operaciones realizadas por el usuario</p>
                             </div>
                         </div>
-                        <span class="lf-movement-count">${cantidadMovimientos} movimientos</span>
+                        <span class="lf-movement-count"><c:out value="${cantidadMovimientos}" /> movimientos</span>
                     </div>
 
                     <!-- Tabla con scroll -->
@@ -286,24 +286,24 @@
                                                             </span>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <span class="lf-movement-type">${mov.tipoMovimiento}</span>
+                                                        <span class="lf-movement-type"><c:out value="${mov.tipoMovimiento}" /></span>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
 
                                             <!-- Fecha -->
                                             <td>
-                                                <span class="lf-table-date">${mov.fecha}</span>
+                                                <span class="lf-table-date"><c:out value="${mov.fecha}" /></span>
                                             </td>
 
                                             <!-- Libro -->
                                             <td>
-                                                <span class="lf-book-title">${mov.titulo}</span>
+                                                <span class="lf-book-title"><c:out value="${mov.titulo}" /></span>
                                             </td>
 
                                             <!-- Precio -->
                                             <td>
-                                                <span class="lf-price">$${mov.precio}</span>
+                                                <span class="lf-price">$<c:out value="${mov.precio}" /></span>
                                             </td>
 
                                             <!-- Origen -->

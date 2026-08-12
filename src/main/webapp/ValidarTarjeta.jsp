@@ -55,7 +55,7 @@
 
             <div class="resumen-item">
                 <span>Total a pagar</span>
-                <strong>$${total}</strong>
+                <strong>$<c:out value="${total}" /></strong>
             </div>
 
         </div>

@@ -37,10 +37,10 @@
     <div class="d-flex align-items-center gap-3">
       <div class="text-end d-none d-md-block">
         <div class="fw-bold">
-          ${sessionScope.usuario.nombre}
+          <c:out value="${sessionScope.usuario.nombre}" />
         </div>
         <small class="text-white-50">
-          ${sessionScope.usuario.correo}
+          <c:out value="${sessionScope.usuario.correo}" />
         </small>
       </div>
       <div class="dropdown">
@@ -118,7 +118,7 @@
 
         <div class="mis-publicaciones-header">
           <h2>
-            Publicaciones totales (<span id="total-publicaciones">${publicaciones.size()}</span>)
+            Publicaciones totales (<span id="total-publicaciones"><c:out value="${publicaciones.size()}" /></span>)
           </h2>
         </div>
         <c:choose>
@@ -143,21 +143,21 @@
                     </div>
                     <div class="publicacion-info">
                       <h4>
-                          ${publicacion.titulo}
+                          <c:out value="${publicacion.titulo}" />
                       </h4>
                       <p>
-                          ${publicacion.autor}
+                          <c:out value="${publicacion.autor}" />
                       </p>
                       <small>
-                          ${publicacion.genero}
+                          <c:out value="${publicacion.genero}" />
                       </small>
                     </div>
                     <div class="d-flex flex-column align-items-end me-3 gap-2">
                                     <span class="estado ${publicacion.estado}">
-                                        ${publicacion.estado}
+                                        <c:out value="${publicacion.estado}" />
                                     </span>
                       <div class="publicacion-precio" style="margin-right: 0;">
-                        $${publicacion.precio}
+                        $<c:out value="${publicacion.precio}" />
                       </div>
                       <c:if test="${publicacion.estado == 'PENDIENTE'}">
                         <button type="button"

@@ -32,12 +32,12 @@ public class RentaDao {
                 COALESCE(ius.imagen, ilf.imagen) AS imagen
             FROM detalle_renta dr
             JOIN detalle_transaccion dt
-                ON dr.id_detalle = dt.id_detalle
+                ON dr.id_detalle_transaccion = dt.id_detalle
             JOIN transaccion t
                 ON dt.id_transaccion = t.id_transaccion
             JOIN usuario uc
                 ON t.id_comprador = uc.id_usuario
-            JOIN usuario uv
+            LEFT JOIN usuario uv
                 ON dt.id_vendedor = uv.id_usuario
             LEFT JOIN publicacion_us pus
                 ON dt.id_publicacion_us = pus.id_publicacion_us
@@ -115,12 +115,12 @@ public class RentaDao {
             COALESCE(ius.imagen, ilf.imagen) AS imagen
         FROM detalle_renta dr
         JOIN detalle_transaccion dt
-            ON dr.id_detalle = dt.id_detalle
+            ON dr.id_detalle_transaccion = dt.id_detalle
         JOIN transaccion t
             ON dt.id_transaccion = t.id_transaccion
         JOIN usuario uc
             ON t.id_comprador = uc.id_usuario
-        JOIN usuario uv
+        LEFT JOIN usuario uv
             ON dt.id_vendedor = uv.id_usuario
         LEFT JOIN publicacion_us pus
             ON dt.id_publicacion_us = pus.id_publicacion_us
@@ -183,13 +183,14 @@ public class RentaDao {
         return lista;
     }
 
-    public boolean marcarComoDevuelta(int idDetalle) {
+    public boolean marcarComoEntregada(int idDetalle) {
 
         String sql = """
         UPDATE detalle_renta
-        SET estado = 'DEVUELTA',
-            fecha_devolucion = SYSDATE
+        SET estado = 'ACTIVA'
         WHERE id_detalle = ?
+          AND estado = 'PROGRAMADA'
+          AND fecha_inicio <= SYSDATE
         """;
 
         try (Connection con = SQLconnector.getConnection();
@@ -197,15 +198,35 @@ public class RentaDao {
 
             ps.setInt(1, idDetalle);
 
-            int filasActualizadas = ps.executeUpdate();
-
-            return filasActualizadas > 0;
+            return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+    }
 
-        return false;
+    public boolean marcarComoFinalizada(int idDetalle) {
+
+        String sql = """
+        UPDATE detalle_renta
+        SET estado = 'FINALIZADA',
+            fecha_devolucion = SYSDATE
+        WHERE id_detalle = ?
+          AND estado = 'ACTIVA'
+        """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idDetalle);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean cambiarEstadoRenta(int idDetalle, String estado) {

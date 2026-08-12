@@ -34,8 +34,8 @@
         </div>
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold">${sessionScope.usuario.nombre}</div>
-                <small class="text-white-50">${sessionScope.usuario.correo}</small>
+                <div class="fw-bold"><c:out value="${sessionScope.usuario.nombre}" /></div>
+                <small class="text-white-50"><c:out value="${sessionScope.usuario.correo}" /></small>
             </div>
             <div class="dropdown">
                 <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
@@ -137,7 +137,7 @@
                                 <div class="publicacion-card">
                                     <div class="publicacion-estado">
                                         <span class="estado">
-                                                ${compra.estadoTransaccion}
+                                               <c:out value="${compra.estadoTransaccion}" />
                                         </span>
                                     </div>
                                     <div class="publicacion-contenido">
@@ -146,20 +146,20 @@
                                         </div>
                                         <div class="publicacion-info">
                                             <h4>
-                                                    ${compra.titulo}
+                                                    <c:out value="${compra.titulo}" />
                                             </h4>
                                             <p>
-                                                    ${compra.autor}
+                                                    <c:out value="${compra.autor}" />
                                             </p>
                                             <small>
-                                                Vendedor: ${compra.nombreVendedor}
+                                                Vendedor: <c:out value="${compra.nombreVendedor}" />
                                             </small><br>
                                             <small>
-                                                    ${compra.fechaFormateada}
+                                                    <c:out value="${compra.fechaFormateada}" />
                                             </small>
                                         </div>
                                         <div class="publicacion-precio">
-                                            $${compra.precio}
+                                            $<c:out value="${compra.precio}" />
                                         </div>
                                     </div>
                                 </div>

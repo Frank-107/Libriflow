@@ -1,6 +1,8 @@
 package mx.edu.utez.libriflow.model;
 
 import java.time.LocalDate;
+import java.time.LocalDate;
+
 
 public class RentaResumen {
 
@@ -52,4 +54,8 @@ public class RentaResumen {
 
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
+
+    public boolean isPuedeEntregar() {
+        return fechaInicio != null && !LocalDate.now().isBefore(fechaInicio);
+    }
 }

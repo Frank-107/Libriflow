@@ -11,6 +11,7 @@ public class DetalleRenta {
     private String estado;
     private String codigo;
     private int penalizacion;
+    private int idDetalleTransaccion;
 
     public DetalleRenta() {
     }
@@ -78,5 +79,13 @@ public class DetalleRenta {
 
     public void setPenalizacion(int penalizacion) {
         this.penalizacion = penalizacion;
+    }
+
+    public int getIdDetalleTransaccion() {
+        return idDetalleTransaccion;
+    }
+
+    public void setIdDetalleTransaccion(int idDetalleTransaccion) {
+        this.idDetalleTransaccion = idDetalleTransaccion;
     }
 }

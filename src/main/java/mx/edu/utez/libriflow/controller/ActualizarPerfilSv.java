@@ -14,12 +14,17 @@ import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import mx.edu.utez.libriflow.model.Dao.CompraDao;
+import mx.edu.utez.libriflow.model.Dao.RentaDao;
 
 @WebServlet(name = "ActualizarPerfilSv", value = "/actualizar-perfil")
 public class ActualizarPerfilSv extends HttpServlet {
 
     // -
     private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
+
+    private final CompraDao compraDao = new CompraDao();
+    private final RentaDao rentaDao = new RentaDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,8 +33,7 @@ public class ActualizarPerfilSv extends HttpServlet {
 
         if (session != null && session.getAttribute("usuario") != null) {
             Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
-            int totalPublicaciones = publicacionUsuarioDao.contarPublicacionesPorUsuario(usuarioSesion.getId());
-            req.setAttribute("totalPublicaciones", totalPublicaciones);
+            cargarContadores(req, usuarioSesion.getId());
         }
 
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
@@ -105,9 +109,21 @@ public class ActualizarPerfilSv extends HttpServlet {
         }
 
         if (usuarioSesion != null) {
-            req.setAttribute("totalPublicaciones", publicacionUsuarioDao.contarPublicacionesPorUsuario(usuarioSesion.getId()));
+            cargarContadores(req, usuarioSesion.getId());
         }
 
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
+    }
+
+    private void cargarContadores(HttpServletRequest req, int idUsuario) {
+        int totalPublicaciones = publicacionUsuarioDao.contarPublicacionesPorUsuario(idUsuario);
+        int totalVendidos = compraDao.contarVentasPorUsuario(idUsuario);
+        int totalEnRenta = rentaDao.contarRentasActivasPorUsuario(idUsuario);
+        int totalRetrasos = rentaDao.contarRetrasosPorUsuario(idUsuario);
+
+        req.setAttribute("totalPublicaciones", totalPublicaciones);
+        req.setAttribute("totalVendidos", totalVendidos);
+        req.setAttribute("totalEnRenta", totalEnRenta);
+        req.setAttribute("totalRetrasos", totalRetrasos);
     }
 }

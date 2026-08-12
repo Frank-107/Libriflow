@@ -1,0 +1,573 @@
+/* =========================================
+   DETALLES DEL USUARIO - LIBRIFLOW
+   ========================================= */
+
+.lf-user-details {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0 30px;
+}
+
+
+/* =========================================
+   ENCABEZADO
+   ========================================= */
+
+.lf-user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.lf-section-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    color: #8d847c;
+    margin-bottom: 5px;
+}
+
+.lf-user-header h2 {
+    margin: 0;
+    color: #2d2a26;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.lf-user-header p {
+    margin: 5px 0 0;
+    color: #817a73;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   ESTADO
+   ========================================= */
+
+.lf-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.lf-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.lf-status-active {
+    color: #3e704e;
+    background-color: #e3f0e6;
+}
+
+.lf-status-active .lf-status-dot {
+    background-color: #4f8b61;
+}
+
+.lf-status-inactive {
+    color: #8a4a43;
+    background-color: #f5e3e0;
+}
+
+.lf-status-inactive .lf-status-dot {
+    background-color: #b45d54;
+}
+
+
+/* =========================================
+   TARJETAS
+   ========================================= */
+
+.lf-user-info-card {
+    background-color: #ffffff;
+    border: 1px solid #e4ded8;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 12px rgba(45, 42, 38, 0.05);
+}
+
+.lf-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.lf-card-title h3 {
+    margin: 0;
+    color: #3b3733;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.lf-card-title p {
+    margin: 3px 0 0;
+    color: #8b837c;
+    font-size: 12px;
+}
+
+.lf-card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background-color: #eee9e4;
+    color: #5c554e;
+    font-size: 18px;
+}
+
+
+/* =========================================
+   INFORMACIÓN PERSONAL
+   ========================================= */
+
+.lf-user-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.lf-info-item {
+    background-color: #f8f5f2;
+    border-radius: 11px;
+    padding: 14px 16px;
+}
+
+.lf-info-label {
+    display: block;
+    color: #8b837c;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.lf-info-value {
+    display: block;
+    color: #332f2b;
+    font-size: 14px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+
+/* =========================================
+   ESTADÍSTICAS
+   ========================================= */
+
+.lf-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+}
+
+.lf-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    background-color: #f8f5f2;
+    border: 1px solid #ebe5df;
+}
+
+.lf-stat-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #e7e1dc;
+    color: #5d564f;
+    font-size: 17px;
+}
+
+.lf-stat-number {
+    display: block;
+    color: #302c28;
+    font-size: 21px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.lf-stat-label {
+    display: block;
+    margin-top: 5px;
+    color: #8a827b;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.lf-stat-danger {
+    background-color: #faf0ee;
+    border-color: #f0dcd8;
+}
+
+.lf-stat-danger .lf-stat-icon {
+    background-color: #f3dfdb;
+    color: #9b5149;
+}
+
+
+/* =========================================
+   MOVIMIENTOS
+   ========================================= */
+
+.lf-movements-card {
+    padding-bottom: 15px;
+}
+
+.lf-movements-header {
+    justify-content: space-between;
+}
+
+.lf-card-title-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lf-movement-count {
+    padding: 6px 11px;
+    border-radius: 20px;
+    background-color: #eee9e4;
+    color: #706860;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   TABLA
+   ========================================= */
+
+.lf-table-wrapper {
+    width: 100%;
+    max-height: 330px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #e6e0da;
+    border-radius: 12px;
+}
+
+.lf-movements-table {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+.lf-movements-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #f3efeb;
+}
+
+.lf-movements-table th {
+    padding: 13px 15px;
+    text-align: left;
+    color: #716961;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid #dfd8d2;
+    white-space: nowrap;
+}
+
+.lf-movements-table td {
+    padding: 13px 15px;
+    border-bottom: 1px solid #eee9e4;
+    color: #4c4742;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.lf-movements-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.lf-movements-table tbody tr:hover {
+    background-color: #faf8f6;
+}
+
+
+/* =========================================
+   TIPOS DE MOVIMIENTO
+   ========================================= */
+
+.lf-movement-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.lf-movement-buy {
+    color: #596b79;
+    background-color: #e8eef2;
+}
+
+.lf-movement-sale {
+    color: #52715b;
+    background-color: #e5eee7;
+}
+
+.lf-movement-rent {
+    color: #77654d;
+    background-color: #f1eadf;
+}
+
+
+/* =========================================
+   DATOS DE LA TABLA
+   ========================================= */
+
+.lf-table-date {
+    color: #777069;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.lf-book-title {
+    display: block;
+    max-width: 230px;
+    color: #38332f;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lf-price {
+    color: #3d3833;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   ORIGEN
+   ========================================= */
+
+.lf-origin {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 18px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.lf-origin-libriflow {
+    color: #655c53;
+    background-color: #e9e4df;
+}
+
+.lf-origin-user {
+    color: #777069;
+    background-color: #f1eeeb;
+}
+
+
+/* =========================================
+   SIN MOVIMIENTOS
+   ========================================= */
+
+.lf-empty-movements {
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    color: #918981;
+    text-align: center;
+}
+
+.lf-empty-movements i {
+    margin-bottom: 5px;
+    font-size: 30px;
+    color: #b2aaa3;
+}
+
+.lf-empty-movements strong {
+    color: #655e57;
+    font-size: 14px;
+}
+
+.lf-empty-movements span {
+    font-size: 12px;
+}
+
+
+/* =========================================
+   SCROLLBAR DE MOVIMIENTOS
+   ========================================= */
+
+.lf-table-wrapper::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.lf-table-wrapper::-webkit-scrollbar-track {
+    background: #f3efeb;
+    border-radius: 10px;
+}
+
+.lf-table-wrapper::-webkit-scrollbar-thumb {
+    background: #c5bdb6;
+    border-radius: 10px;
+}
+
+.lf-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #a9a098;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .lf-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lf-user-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .lf-user-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .lf-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lf-user-info-card {
+        padding: 16px;
+    }
+
+    .lf-movements-header {
+        align-items: flex-start;
+    }
+
+}
+
+/* =========================================
+   ACCIONES DEL USUARIO
+   ========================================= */
+
+.lf-user-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.lf-user-action-form {
+    margin: 0;
+}
+
+.lf-user-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 8px 14px;
+
+    border: none;
+    border-radius: 9px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            transform 0.15s ease,
+            box-shadow 0.2s ease;
+}
+
+.lf-user-action-btn:hover {
+    transform: translateY(-1px);
+}
+
+.lf-user-action-btn:active {
+    transform: translateY(0);
+}
+
+
+/* Bloquear */
+
+.lf-block-btn {
+    background-color: #f1dfdc;
+    color: #8c4c45;
+}
+
+.lf-block-btn:hover {
+    background-color: #e9d1cd;
+    box-shadow: 0 3px 8px rgba(140, 76, 69, 0.12);
+}
+
+
+/* Desbloquear */
+
+.lf-unblock-btn {
+    background-color: #e2eee5;
+    color: #477153;
+}
+
+.lf-unblock-btn:hover {
+    background-color: #d5e7d9;
+    box-shadow: 0 3px 8px rgba(71, 113, 83, 0.12);
+}
+
+
+/* =========================================
+   RESPONSIVE DEL ENCABEZADO
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .lf-user-header-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .lf-user-action-btn {
+        padding: 8px 12px;
+    }
+}

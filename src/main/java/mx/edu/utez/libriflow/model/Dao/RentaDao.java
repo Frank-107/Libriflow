@@ -32,12 +32,12 @@ public class RentaDao {
                 COALESCE(ius.imagen, ilf.imagen) AS imagen
             FROM detalle_renta dr
             JOIN detalle_transaccion dt
-                ON dr.id_detalle = dt.id_detalle
+                ON dr.id_detalle_transaccion = dt.id_detalle
             JOIN transaccion t
                 ON dt.id_transaccion = t.id_transaccion
             JOIN usuario uc
                 ON t.id_comprador = uc.id_usuario
-            JOIN usuario uv
+            LEFT JOIN usuario uv
                 ON dt.id_vendedor = uv.id_usuario
             LEFT JOIN publicacion_us pus
                 ON dt.id_publicacion_us = pus.id_publicacion_us
@@ -115,12 +115,12 @@ public class RentaDao {
             COALESCE(ius.imagen, ilf.imagen) AS imagen
         FROM detalle_renta dr
         JOIN detalle_transaccion dt
-            ON dr.id_detalle = dt.id_detalle
+            ON dr.id_detalle_transaccion = dt.id_detalle
         JOIN transaccion t
             ON dt.id_transaccion = t.id_transaccion
         JOIN usuario uc
             ON t.id_comprador = uc.id_usuario
-        JOIN usuario uv
+        LEFT JOIN usuario uv
             ON dt.id_vendedor = uv.id_usuario
         LEFT JOIN publicacion_us pus
             ON dt.id_publicacion_us = pus.id_publicacion_us
@@ -231,5 +231,70 @@ public class RentaDao {
         }
 
         return false;
+    }
+    public int contarRentasActivasPorUsuario(int idUsuario) {
+        int total = 0;
+        String sql = """
+            SELECT COUNT(*)
+            FROM DETALLE_RENTA dr
+            JOIN DETALLE_TRANSACCION dt 
+                ON dr.ID_DETALLE_TRANSACCION = dt.ID_DETALLE
+            JOIN TRANSACCION t 
+                ON dt.ID_TRANSACCION = t.ID_TRANSACCION
+            WHERE t.ID_COMPRADOR = ?
+              AND dr.ESTADO = 'ACTIVA'
+              AND (dr.PENALIZACION = 0 OR dr.PENALIZACION IS NULL)
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error en contarRentasActivasPorUsuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return total;
+    }
+
+
+    public int contarRetrasosPorUsuario(int idUsuario) {
+        int total = 0;
+        String sql = """
+            SELECT COUNT(*)
+            FROM DETALLE_RENTA dr
+            JOIN DETALLE_TRANSACCION dt 
+                ON dr.ID_DETALLE_TRANSACCION = dt.ID_DETALLE
+            JOIN TRANSACCION t 
+                ON dt.ID_TRANSACCION = t.ID_TRANSACCION
+            WHERE t.ID_COMPRADOR = ?
+              AND (dr.PENALIZACION = 1 OR dr.ESTADO = 'RETRASADO' OR (dr.ESTADO = 'ACTIVA' AND dr.FECHA_LIMITE < CURRENT_TIMESTAMP))
+            """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idUsuario);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error en contarRetrasosPorUsuario: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return total;
     }
 }

@@ -93,12 +93,12 @@
                         <i class="bi bi-pencil-square me-3 fs-5"></i>
                         Publicar
                     </a>
-                    <a href="mis-publicaciones"
+                    <a href="mis-publicaciones-js"
                        class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i>
                         Mis publicaciones
                     </a>
-                    <a href="MisRentas.jsp"
+                    <a href="mis-rentas"
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>
                         Mis rentas
@@ -112,7 +112,20 @@
             </div>
         </aside>
         <main class="col">
-            <section class="mis-publicaciones-container">
+            <section class="mis-publicaciones-container position-relative pt-2">
+                <c:if test="${not empty error}">
+                    <div class="libri-toast libri-toast-error">
+                        <i class="bi bi-exclamation-circle-fill fs-5"></i>
+                        <span><c:out value="${error}" escapeXml="true" /></span>
+                    </div>
+                </c:if>
+                <c:if test="${not empty exito}">
+                    <div class="libri-toast libri-toast-success">
+                        <i class="bi bi-check-circle-fill fs-5"></i>
+                        <span><c:out value="${exito}" escapeXml="true" /></span>
+                    </div>
+                </c:if>
+
                 <div class="mis-publicaciones-header">
                     <h2>
                         Publicaciones totales (${publicaciones.size()})
@@ -134,11 +147,6 @@
                         <div class="publicaciones-lista">
                             <c:forEach var="publicacion" items="${publicaciones}">
                                 <div class="publicacion-card">
-                                    <div class="publicacion-estado">
-            <span class="estado ${publicacion.estado}">
-                    ${publicacion.estado}
-            </span>
-                                    </div>
                                     <div class="publicacion-contenido">
                                         <div class="publicacion-portada">
                                             <img src="${publicacion.imagenPrincipal}" alt="${publicacion.titulo}">
@@ -154,8 +162,23 @@
                                                     ${publicacion.genero}
                                             </small>
                                         </div>
-                                        <div class="publicacion-precio">
-                                            $${publicacion.precio}
+                                        <div class="d-flex flex-column align-items-end me-3 gap-2">
+                                    <span class="estado ${publicacion.estado}">
+                                            ${publicacion.estado}
+                                    </span>
+                                            <div class="publicacion-precio" style="margin-right: 0;">
+                                                $${publicacion.precio}
+                                            </div>
+                                            <c:if test="${publicacion.estado == 'PENDIENTE'}">
+                                                <form action="mis-publicaciones" method="post" class="m-0">
+                                                    <input type="hidden" name="action" value="delete">
+                                                    <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacion}">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 py-1 shadow-sm d-inline-flex align-items-center gap-1">
+                                                        <i class="bi bi-trash"></i>
+                                                        Cancelar publicación
+                                                    </button>
+                                                </form>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
@@ -167,6 +190,7 @@
         </main>
     </div>
 </div>
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

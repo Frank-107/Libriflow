@@ -66,7 +66,7 @@
           <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
           </a>
-          <a href="mis-publicaciones" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="mis-publicaciones-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
           </a>
           <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -108,23 +108,23 @@
           </div>
 
           <div class="d-flex justify-content-evenly align-items-center mb-4 py-3 rounded-4 bg-white shadow-sm border border-light mx-auto" style="max-width: 550px;">
-              <div class="text-center px-2">
-                  <span class="d-block fs-5 fw-bold text-dark">${totalPublicaciones != null ? totalPublicaciones : 0}</span>
-                  <span class="text-muted" style="font-size: 0.8rem;">Publicaciones</span>
-              </div>
+            <div class="text-center px-2">
+              <span class="d-block fs-5 fw-bold text-dark">${totalPublicaciones != null ? totalPublicaciones : 0}</span>
+              <span class="text-muted" style="font-size: 0.8rem;">Publicaciones</span>
+            </div>
             <div class="vr bg-secondary opacity-25"></div>
             <div class="text-center px-2">
-              <span class="d-block fs-5 fw-bold text-dark">0</span>
+              <span class="d-block fs-5 fw-bold text-dark">${totalVendidos != null ? totalVendidos : 0}</span>
               <span class="text-muted" style="font-size: 0.8rem;">Vendidos</span>
             </div>
             <div class="vr bg-secondary opacity-25"></div>
             <div class="text-center px-2">
-              <span class="d-block fs-5 fw-bold text-dark">0</span>
+              <span class="d-block fs-5 fw-bold text-dark">${totalEnRenta != null ? totalEnRenta : 0}</span>
               <span class="text-muted" style="font-size: 0.8rem;">En Renta</span>
             </div>
             <div class="vr bg-secondary opacity-25"></div>
             <div class="text-center px-2">
-              <span class="d-block fs-5 fw-bold text-danger">0</span>
+              <span class="d-block fs-5 fw-bold text-danger">${totalRetrasos != null ? totalRetrasos : 0}</span>
               <span class="text-muted" style="font-size: 0.8rem;">Retrasos</span>
             </div>
           </div>

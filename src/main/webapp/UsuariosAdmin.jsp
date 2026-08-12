@@ -127,8 +127,7 @@
                                             <span class="badge rounded-pill bg-success px-3 py-2">ACTIVA</span>
                                         </td>
                                         <td class="text-center">
-                                            <!-- Botón sin funcionalidad activa como solicitaron -->
-                                            <a href="#" class="btn bg-lf-capsule btn-lf-pill text-dark btn-sm px-3 shadow-sm">
+                                            <a href="detalle-usuario-admin?idUsuario=${u.id}" class="btn bg-lf-capsule btn-lf-pill text-dark btn-sm px-3 shadow-sm">
                                                 <i class="bi bi-eye me-1"></i> Ver detalles
                                             </a>
                                         </td>

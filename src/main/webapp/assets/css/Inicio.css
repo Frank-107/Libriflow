@@ -263,7 +263,12 @@ body {
 .btn-detalles:hover {
     background-color: #D1CDC4;
 }
-
+@media (min-width: 768px) {
+    aside {
+        position: sticky;
+        top: 20px;
+    }
+}
 .catalogo-scroll {
     height: calc(100vh - 180px);
     overflow-y: auto;
@@ -275,8 +280,9 @@ body {
     }
 
     .catalogo-scroll {
-        height: auto;
-        overflow-y: visible;
+        height: calc(100vh - 180px);
+        overflow-y: auto;
+        padding-right: 8px;
     }
 
     .card-libro {

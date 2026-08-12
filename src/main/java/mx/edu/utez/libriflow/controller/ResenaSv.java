@@ -1,27 +1,29 @@
 package mx.edu.utez.libriflow.controller;
 
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+
 import mx.edu.utez.libriflow.model.Dao.ResenaDao;
 import mx.edu.utez.libriflow.model.Resena;
 import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
 
-@WebServlet(name = "ResenaSv", value = "/publicar-resena")
+@WebServlet(name = "ResenaSv", value = "/resena")
 public class ResenaSv extends HttpServlet {
 
     private final ResenaDao resenaDao = new ResenaDao();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        Usuario usuario = (session != null) ? (Usuario) session.getAttribute("usuario") : null;
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-        String idPubStr = req.getParameter("idPublicacion");
-        String comentario = req.getParameter("comentario");
-        String calificacionStr = req.getParameter("calificacion");
+        HttpSession session = req.getSession(false);
+        Usuario usuario = (session != null)
+                ? (Usuario) session.getAttribute("usuario")
+                : null;
+
 
         if (usuario == null) {
             resp.sendRedirect("iniciar-sesion");
@@ -29,31 +31,38 @@ public class ResenaSv extends HttpServlet {
         }
 
         try {
-            int idPublicacion = Integer.parseInt(idPubStr);
-            int calificacion = Integer.parseInt(calificacionStr);
+
+            int idPublicacion = Integer.parseInt(req.getParameter("idPublicacion"));
+            String comentario = req.getParameter("comentario");
+            int calificacion = Integer.parseInt(req.getParameter("calificacion"));
 
             if (!resenaDao.usuarioHaCompradoORentado(usuario.getId(), idPublicacion)) {
-                req.getSession().setAttribute("error", "Solo puedes reseñar libros que hayas comprado o rentado.");
-                resp.sendRedirect("detalle-publicacion?id=" + idPublicacion);
+                session.setAttribute("error", "Debes comprar o rentar el libro.");
+                resp.sendRedirect("detalle-publicacion-superad?idPublicacion=" + idPublicacion);
                 return;
             }
 
-            if (comentario == null || comentario.trim().isEmpty() || calificacion < 1 || calificacion > 5) {
-                req.getSession().setAttribute("error", "Por favor ingresa un comentario y una calificación válida.");
-                resp.sendRedirect("detalle-publicacion?id=" + idPublicacion);
+            if (comentario == null || comentario.trim().isEmpty()
+                    || calificacion < 1 || calificacion > 5) {
+
+                session.setAttribute("error", "Datos inválidos.");
+                resp.sendRedirect("detalle-publicacion-superad?idPublicacion=" + idPublicacion);
                 return;
             }
+            Resena resena = new Resena(
+                    usuario.getId(),
+                    idPublicacion,
+                    comentario.trim(),
+                    calificacion
+            );
 
-            Resena resena = new Resena(usuario.getId(), idPublicacion, comentario.trim(), calificacion);
-            boolean creada = resenaDao.create(resena);
-
-            if (creada) {
-                req.getSession().setAttribute("mensaje", "¡Reseña publicada con éxito!");
+            if (resenaDao.create(resena)) {
+                session.setAttribute("mensaje", "¡Reseña publicada!");
             } else {
-                req.getSession().setAttribute("error", "No se pudo guardar tu reseña.");
+                session.setAttribute("error", "Error al guardar.");
             }
 
-            resp.sendRedirect("detalle-publicacion?id=" + idPublicacion);
+            resp.sendRedirect("detalle-publicacion-superad?idPublicacion=" + idPublicacion);
 
         } catch (Exception e) {
             e.printStackTrace();

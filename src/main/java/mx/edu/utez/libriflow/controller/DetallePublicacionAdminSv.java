@@ -7,8 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.PublicacionAdministradorDao;
+import mx.edu.utez.libriflow.model.Dao.ResenaDao;
 import mx.edu.utez.libriflow.model.ItemCarritoAdmin;
 import mx.edu.utez.libriflow.model.PublicacionAdminCompleta;
+import mx.edu.utez.libriflow.model.Resena;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -21,11 +23,15 @@ import java.util.List;
 public class DetallePublicacionAdminSv extends HttpServlet {
 
     private final PublicacionAdministradorDao publicacionAdminDao = new PublicacionAdministradorDao();
+    private final ResenaDao resenaDao = new ResenaDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idPublicacion = Integer.parseInt(req.getParameter("idPublicacion"));
         PublicacionAdminCompleta publicacionAdminCompleta = publicacionAdminDao.getPublicacionAdminCompleta(idPublicacion);
+
+        List<Resena> resenas = resenaDao.getResenasByPublicacion(idPublicacion);
+        req.setAttribute("resenas", resenas);
 
         req.setAttribute("publicacion", publicacionAdminCompleta);
         req.setAttribute("esAdminPub", true);

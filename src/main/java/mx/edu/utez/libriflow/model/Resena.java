@@ -3,13 +3,13 @@ package mx.edu.utez.libriflow.model;
 import java.time.LocalDateTime;
 
 public class Resena {
+
     private int idResena;
     private int idUsuario;
     private int idPublicacionLf;
     private String comentario;
     private int calificacion;
     private LocalDateTime fecha;
-
     private String nombreUsuario;
 
     public Resena() {}

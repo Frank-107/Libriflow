@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const toast = document.querySelector('.libri-toast');
+document.addEventListener("DOMContentLoaded", function () {
+    const toasts = document.querySelectorAll('.libri-toast');
 
-    if (toast) {
+    toasts.forEach((toast) => {
         setTimeout(() => {
             toast.classList.add('show');
         }, 100);
@@ -12,5 +12,5 @@ document.addEventListener("DOMContentLoaded", function() {
                 toast.remove();
             }, 400);
         }, 3500);
-    }
+    });
 });

@@ -1,0 +1,189 @@
+/* ==========================================
+   ESTILOS PARA: MIS COMPRAS (Libriflow)
+   ========================================== */
+
+/* Layout y contenedor principal */
+.catalogo-scroll {
+    overflow-y: visible !important;
+    max-height: none !important;
+}
+
+/* Lista contenedora de tarjetas (Sin doble scroll) */
+.publicaciones-lista {
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-bottom: 3rem; /* Espacio extra para que no se corte el último elemento */
+}
+
+/* Tarjeta individual de compra */
+.publicacion-card {
+    position: relative;
+    background-color: #CBC2B9;
+    border-radius: 30px;
+    padding: 18px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.publicacion-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .15);
+}
+
+/* Badge de Estado */
+.estado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #2D2A26;
+}
+
+.estado.PENDIENTE {
+    background-color: #FFF1C9;
+    color: #8A6200;
+}
+
+/* Contenido de la tarjeta */
+.publicacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.publicacion-portada {
+    background-color: #FFFFFF;
+    padding: 8px;
+    border-radius: 18px;
+}
+
+.publicacion-portada img {
+    width: 90px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.publicacion-info {
+    flex: 1;
+}
+
+.publicacion-info h4 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2D2A26;
+}
+
+.publicacion-info p {
+    margin: 0 0 5px;
+    color: #4A4641;
+}
+
+.publicacion-info small {
+    color: #7A746E;
+}
+
+.publicacion-precio {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #4A4641;
+    margin-right: 15px;
+}
+
+
+/* ==========================================
+   SCROLLBAR CAFÉ MINIMALISTA
+   ========================================== */
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4A4641;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #36332F;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4A4641 transparent;
+}
+
+/* ==========================================
+   NUEVO CONTENEDOR CON SCROLL INDEPENDIENTE
+   ========================================== */
+
+/* Desactivar cualquier scroll previo en el main o contenedores padres */
+main,
+.catalogo-scroll,
+.mis-publicaciones-container {
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+/* Envoltorio específico donde vive el scroll */
+.compras-scroll-wrapper {
+    max-height: calc(100vh - 220px); /* Ajusta el alto disponible descontando header y título */
+    overflow-y: auto !important;
+    padding-right: 8px;
+    padding-bottom: 2rem; /* Evita que la última card se corte al final */
+}
+
+/* Estilos de la lista interna */
+.publicaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ==========================================
+   SCROLLBAR CAFÉ PERSONALIZADO
+   ========================================== */
+
+.compras-scroll-wrapper::-webkit-scrollbar {
+    width: 7px;
+}
+
+.compras-scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.compras-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #4A4641;
+    border-radius: 10px;
+}
+
+.compras-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #36332F;
+}
+
+/* Compatibilidad para Firefox */
+.compras-scroll-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #4A4641 transparent;
+}
+
+/* Ajuste para dispositivos móviles */
+@media (max-width: 768px) {
+    .compras-scroll-wrapper {
+        max-height: none;
+        overflow-y: visible !important;
+    }
+}

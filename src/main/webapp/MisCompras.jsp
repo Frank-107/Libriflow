@@ -9,8 +9,8 @@
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisCompras.css"/>
 </head>
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
@@ -105,9 +105,9 @@
                 </div>
             </div>
         </aside>
-        <main class="col catalogo-scroll">
-            <section class="mis-publicaciones-container">
-                <div class="mis-publicaciones-header">
+        <main class="col d-flex flex-column h-100 min-vh-0">
+            <section class="mis-publicaciones-container d-flex flex-column h-100">
+                <div class="mis-publicaciones-header flex-shrink-0">
                     <h2>
                         Mis compras (${compras.size()})
                     </h2>
@@ -132,38 +132,41 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="publicaciones-lista">
-                            <c:forEach var="compra" items="${compras}">
-                                <div class="publicacion-card">
-                                    <div class="publicacion-estado">
-                                        <span class="estado">
-                                               <c:out value="${compra.estadoTransaccion}" />
-                                        </span>
-                                    </div>
-                                    <div class="publicacion-contenido">
-                                        <div class="publicacion-portada">
-                                            <img src="${compra.imagenPrincipal}" alt="${compra.titulo}">
+                        <!-- NUEVO WRAPPER CON SCROLL ÚNICO PARA LAS CARDS -->
+                        <div class="compras-scroll-wrapper">
+                            <div class="publicaciones-lista">
+                                <c:forEach var="compra" items="${compras}">
+                                    <div class="publicacion-card">
+                                        <div class="publicacion-estado">
+                                            <span class="estado">
+                                                   <c:out value="${compra.estadoTransaccion}" />
+                                            </span>
                                         </div>
-                                        <div class="publicacion-info">
-                                            <h4>
+                                        <div class="publicacion-contenido">
+                                            <div class="publicacion-portada">
+                                                <img src="${compra.imagenPrincipal}" alt="${compra.titulo}">
+                                            </div>
+                                            <div class="publicacion-info">
+                                                <h4>
                                                     <c:out value="${compra.titulo}" />
-                                            </h4>
-                                            <p>
+                                                </h4>
+                                                <p>
                                                     <c:out value="${compra.autor}" />
-                                            </p>
-                                            <small>
-                                                Vendedor: <c:out value="${compra.nombreVendedor}" />
-                                            </small><br>
-                                            <small>
+                                                </p>
+                                                <small>
+                                                    Vendedor: <c:out value="${compra.nombreVendedor}" />
+                                                </small><br>
+                                                <small>
                                                     <c:out value="${compra.fechaFormateada}" />
-                                            </small>
-                                        </div>
-                                        <div class="publicacion-precio">
-                                            $<c:out value="${compra.precio}" />
+                                                </small>
+                                            </div>
+                                            <div class="publicacion-precio">
+                                                $<c:out value="${compra.precio}" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </c:forEach>
+                                </c:forEach>
+                            </div>
                         </div>
                     </c:otherwise>
                 </c:choose>

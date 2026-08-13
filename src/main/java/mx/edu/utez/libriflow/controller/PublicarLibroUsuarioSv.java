@@ -27,12 +27,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
     private final LibroDao libroDao = new LibroDao();
     private final ImagenDao imagenDao = new ImagenDao();
 
-
-
-
-
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

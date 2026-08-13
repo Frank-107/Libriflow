@@ -152,9 +152,7 @@
                                             <p>
                                                     <c:out value="${renta.autor}" />
                                             </p>
-                                            <small>
-                                                Vendedor: <c:out value="${renta.nombreVendedor}" />
-                                            </small><br>
+
                                             <small>
                                                 Del <c:out value="${renta.fechaInicio}" /> al <c:out value="${renta.fechaLimite}" />
                                                 <c:if test="${not empty renta.fechaDevolucion}">

@@ -14,8 +14,17 @@ public class PublicacionResumen {
     private boolean esLibriFlow;
     private boolean esRentaSeleccionada;
     private Double precioRentaCalculado;
+    private int cantidad;
 
     public PublicacionResumen() {
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public int getIdPropietario() {

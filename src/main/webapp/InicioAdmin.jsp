@@ -16,7 +16,7 @@
 <div class="container-fluid max-width-xl mx-auto">
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center">
-            <button class="btn text-white d-md-none me-2 p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
+            <button class="btn text-white d-md-none me-2 p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuLateral" aria-expanded="false" aria-controls="menuLateral">
                 <i class="bi bi-list" style="font-size: 2rem;"></i>
             </button>
 
@@ -81,15 +81,61 @@
             </div>
         </aside>
 
-
         <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
+            <div class="d-flex gap-3 mb-4 align-items-center">
+                <form action="inicio-admin" method="GET" class="position-relative flex-grow-1 m-0">
+                    <i class="bi bi-search search-icon-inside"></i>
+                    <c:if test="${not empty paramGenero}">
+                        <input type="hidden" name="genero" value="${paramGenero}">
+                    </c:if>
+                    <input type="text"
+                           name="q"
+                           value="${paramBusqueda != null ? paramBusqueda : ''}"
+                           class="form-control search-bar-lf shadow-sm"
+                           placeholder="Buscar libros, autores...">
+                </form>
+                <div class="dropdown">
+                    <button class="btn bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
+                            type="button"
+                            id="filtroGenerosDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            style="width: 46px; height: 46px; transition: all 0.2s; color: #4A4641;">
+                        <i class="bi bi-sliders fs-5"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 dropdown-menu-filter" aria-labelledby="filtroGenerosDropdown">
+                        <li class="dropdown-header fw-bold text-secondary border-bottom pb-2 mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">FILTRAR POR GÉNERO</li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=TODOS">Todos</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Novela">Novela</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Fantasía">Fantasía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia ficción">Ciencia ficción</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Terror">Terror</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Romance">Romance</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Misterio">Misterio</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Suspenso">Suspenso</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Drama">Drama</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Aventura">Aventura</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Historia">Historia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Biografía">Biografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Autobiografía">Autobiografía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia">Ciencia</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Tecnología">Tecnología</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Educación">Educación</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Infantil">Infantil</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Poesía">Poesía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Filosofía">Filosofía</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Religión">Religión</a></li>
+                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Cómic">Cómic</a></li>
+                    </ul>
+                </div>
 
+            </div>
             <c:choose>
                 <c:when test="${empty publicaciones}">
                     <div class="row g-4">
                         <div class="col-12">
                             <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
-                                <h4 class="fw-bold text-dark">No hay ninguna publicación...</h4>
+                                <h4 class="fw-bold text-dark">No hay ninguna publicacion...</h4>
                             </div>
                         </div>
                     </div>
@@ -97,46 +143,75 @@
                 <c:otherwise>
                     <div class="row g-3">
                         <c:forEach var="publicacion" items="${publicaciones}">
-                            <div class="col-12 col-md-6">
-                                <article class="card-libro">
+                            <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
+                                <div class="col-12 col-md-6">
+                                    <article class="card-libro" style="position: relative;">
+                                        <c:if test="${publicacion.esLibriFlow}">
+                                            <div style="position: absolute; top: 12px; right: 12px; background-color: #F1ECE5; color: #5B564F; font-size: 0.65rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 10;">
+                                                Catálogo LibriFlow
+                                            </div>
+                                        </c:if>
 
-                                    <div class="card-portada">
-                                        <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
-                                    </div>
-
-                                    <div class="card-contenido">
-
-                                        <div class="card-info">
-                                            <h3 class="card-titulo">
-                                                    <c:out value="${publicacion.titulo}" />
-                                            </h3>
-
-                                            <p class="card-autor">
-                                                Autor: <c:out value="${publicacion.autor}" />
-                                            </p>
-
-                                            <p class="card-genero">
-                                                Género: <c:out value="${publicacion.genero}" />
-                                            </p>
-
-                                            <p class="card-precio">
-                                                $<c:out value="${publicacion.precio}" />
-                                            </p>
+                                        <div class="card-portada">
+                                            <img src="${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
                                         </div>
 
-                                        <button type="button" class="btn-detalles">
-                                            Ver detalles
-                                        </button>
+                                        <div class="card-contenido">
 
-                                    </div>
+                                            <div class="card-info">
+                                                <h3 class="card-titulo">
+                                                    <c:out value="${publicacion.titulo}" />
+                                                </h3>
 
-                                </article>
-                            </div>
+                                                <p class="card-autor">
+                                                    Autor: <c:out value="${publicacion.autor}" />
+                                                </p>
+
+                                                <p class="card-genero">
+                                                    Género: <c:out value="${publicacion.genero}" />
+                                                </p>
+
+                                                <c:if test="${publicacion.esLibriFlow}">
+                                                    <p class="card-stock" style="margin-bottom: 0.5rem; font-size: 0.85rem; color: #5B564F;">
+                                                        Stock disponible: <c:out value="${publicacion.cantidad}" />
+                                                    </p>
+                                                </c:if>
+
+                                                <p class="card-precio">
+                                                    <c:choose>
+                                                        <c:when test="${publicacion.precio == 0.0}">
+                                                            <span class="texto-solo-renta">Solo renta</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            $<c:out value="${publicacion.precio}" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </p>
+                                            </div>
+                                            <c:choose>
+                                                <c:when test="${publicacion.esLibriFlow}">
+                                                    <a href="detalle-publicacion-admin?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="detalle-publicacion-us-admin?idPublicacion=${publicacion.idPublicacion}"
+                                                       class="btn-detalles">
+                                                        Ver detalles
+                                                    </a>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </div>
+
+                                    </article>
+                                </div>
+                            </c:if>
                         </c:forEach>
                     </div>
                 </c:otherwise>
             </c:choose>
-
         </main>
 
     </div>

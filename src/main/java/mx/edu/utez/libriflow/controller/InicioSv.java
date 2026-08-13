@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import mx.edu.utez.libriflow.model.Dao.PublicacionAdministradorDao;
 import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 import mx.edu.utez.libriflow.model.PublicacionResumen;
@@ -16,65 +17,100 @@ import java.util.List;
 
 @WebServlet(name = "InicioSv", value = "/inicio")
 public class InicioSv extends HttpServlet {
+
     private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
     private final PublicacionAdministradorDao publicacionAdministradorDao = new PublicacionAdministradorDao();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+
+        // 1. Validar sesión
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("usuario") == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
+
         String busqueda = req.getParameter("q");
         String genero = req.getParameter("genero");
 
-        List<PublicacionResumen> publicacionesUs = publicacionUsuarioDao.buscarYFiltrarPublicacionesUs("ACTIVO", busqueda, genero);
+        String qClean = (busqueda != null) ? busqueda.trim() : "";
+        String generoClean = (genero != null) ? genero.trim() : "";
 
-        List<PublicacionResumen> publicacionesAdmin = publicacionAdministradorDao.getResumenCatalogo();
+        // Validaciones previas
+        if (qClean.length() > 100) {
+            req.setAttribute("error", "El término de búsqueda es demasiado largo (máximo 100 caracteres).");
+            req.setAttribute("publicaciones", new ArrayList<PublicacionResumen>());
+            req.setAttribute("paramBusqueda", "");
+            req.setAttribute("paramGenero", generoClean);
+            req.getRequestDispatcher("Inicio.jsp").forward(req, resp);
+            return;
+        }
+
+        if (generoClean.length() > 50 || qClean.contains("<") || qClean.contains(">")) {
+            req.setAttribute("error", "Búsqueda o filtro no válido.");
+            req.setAttribute("publicaciones", new ArrayList<PublicacionResumen>());
+            req.setAttribute("paramBusqueda", "");
+            req.setAttribute("paramGenero", "");
+            req.getRequestDispatcher("Inicio.jsp").forward(req, resp);
+            return;
+        }
 
         List<PublicacionResumen> catalogo = new ArrayList<>();
 
-        if (publicacionesAdmin != null) {
-            for (PublicacionResumen adminPub : publicacionesAdmin) {
-                boolean cumpleBusqueda = true;
-                boolean cumpleGenero = true;
+        try {
+            List<PublicacionResumen> publicacionesUs = publicacionUsuarioDao.buscarYFiltrarPublicacionesUs("ACTIVO", qClean, generoClean);
+            List<PublicacionResumen> publicacionesAdmin = publicacionAdministradorDao.getResumenCatalogo();
 
-                if (busqueda != null && !busqueda.trim().isEmpty()) {
-                    String q = busqueda.trim().toLowerCase();
-                    String titulo = adminPub.getTitulo() != null ? adminPub.getTitulo().toLowerCase() : "";
-                    String autor = adminPub.getAutor() != null ? adminPub.getAutor().toLowerCase() : "";
-                    cumpleBusqueda = titulo.contains(q) || autor.contains(q);
-                }
+            if (publicacionesAdmin != null) {
+                for (PublicacionResumen adminPub : publicacionesAdmin) {
+                    if (adminPub == null) continue;
 
-                if (genero != null && !genero.trim().isEmpty() && !genero.equalsIgnoreCase("TODOS")) {
-                    String g = adminPub.getGenero() != null ? adminPub.getGenero().toLowerCase() : "";
-                    cumpleGenero = g.equalsIgnoreCase(genero.trim());
-                }if (cumpleBusqueda && cumpleGenero) {
-                    catalogo.add(adminPub);
+                    boolean cumpleBusqueda = true;
+                    boolean cumpleGenero = true;
+
+                    if (!qClean.isEmpty()) {
+                        String qLower = qClean.toLowerCase();
+                        String titulo = adminPub.getTitulo() != null ? adminPub.getTitulo().toLowerCase() : "";
+                        String autor = adminPub.getAutor() != null ? adminPub.getAutor().toLowerCase() : "";
+                        cumpleBusqueda = titulo.contains(qLower) || autor.contains(qLower);
+                    }
+
+                    if (!generoClean.isEmpty() && !generoClean.equalsIgnoreCase("TODOS")) {
+                        String gLower = adminPub.getGenero() != null ? adminPub.getGenero().toLowerCase() : "";
+                        cumpleGenero = gLower.equalsIgnoreCase(generoClean);
+                    }
+
+                    if (cumpleBusqueda && cumpleGenero) {
+                        catalogo.add(adminPub);
+                    }
                 }
             }
+
+            if (publicacionesUs != null) {
+                catalogo.addAll(publicacionesUs);
+            }
+
+            if (qClean.isEmpty() && (generoClean.isEmpty() || generoClean.equalsIgnoreCase("TODOS"))) {
+                Collections.shuffle(catalogo);
+            }
+
+        } catch (Exception e) {
+            req.setAttribute("error", "Ocurrió un error al cargar el catálogo de publicaciones.");
+            System.err.println("Error en InicioSv: " + e.getMessage());
         }
-        if (publicacionesUs != null) {
-            catalogo.addAll(publicacionesUs);
-        }
-        if ((busqueda == null || busqueda.trim().isEmpty()) && (genero == null || genero.trim().isEmpty())) {
-            Collections.shuffle(catalogo);
-        }
+
         req.setAttribute("publicaciones", catalogo);
-        req.setAttribute("paramBusqueda", busqueda);
-        req.setAttribute("paramGenero", genero);
+        req.setAttribute("paramBusqueda", qClean);
+        req.setAttribute("paramGenero", generoClean);
 
         req.getRequestDispatcher("Inicio.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        doGet(req, resp);
     }
 }

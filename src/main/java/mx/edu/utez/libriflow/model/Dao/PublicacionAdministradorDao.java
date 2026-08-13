@@ -49,6 +49,7 @@ public class PublicacionAdministradorDao {
         String sql = "SELECT \n" +
                 "    plf.id_publicacion_lf,\n" +
                 "    plf.precio,\n" +
+                "    plf.cantidad,\n" +
                 "    l.titulo,\n" +
                 "    l.autor,\n" +
                 "    l.genero,\n" +
@@ -78,6 +79,7 @@ public class PublicacionAdministradorDao {
                 resumen.setPrecio(rs.getDouble("precio"));
                 resumen.setImagenPrincipal(rs.getString("imagen"));
                 resumen.setEsLibriFlow(true);
+                resumen.setCantidad(rs.getInt("cantidad"));
 
                 lista.add(resumen);
             }

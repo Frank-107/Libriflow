@@ -1,20 +1,13 @@
-/* ==========================
-   CONFIGURACIÓN GENERAL
-========================== */
-body, html {
-    overflow: hidden; /* Esto bloquea el scroll de la página */
-    height: 100vh;
+html,
+body {
+    height: 100%;
 }
 
 body {
     background-color: #F4EFEA;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
 }
-
-
-/* ==========================
-   COLORES PRINCIPALES
-========================== */
 
 .bg-lf-dark {
     background-color: #4A4641;
@@ -27,18 +20,10 @@ body {
     font-weight: 500;
 }
 
-
-/* Botón seleccionado del sidebar */
-
 .sidebar-active {
     background-color: #7A746E !important;
     color: #FFFFFF !important;
 }
-
-
-/* ==========================
-   LAYOUT FIJO (header y sidebar no se mueven)
-========================== */
 
 .container-fluid.max-width-xl.mx-auto {
     height: 100vh;
@@ -87,34 +72,19 @@ aside {
     color: white !important;
 }
 
-/* tamaño uniforme de botones */
-
 .sidebar-lf .btn {
     min-height: 48px;
 }
 
-/* Scroll interno del contenido */
-
-/* ==========================
-   CORRECCIÓN DE LAYOUT Y SCROLL
-========================== */
-
-/* 1. Forzamos a que la fila principal no desborde la pantalla */
-.row.g-4 {
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-}
-
-/* 2. Aplicamos el scroll al elemento principal o a la clase de la vista */
-main, .col-lg-9, .lf-user-details {
+main,
+.col-lg-9,
+.lf-user-details {
     height: 100%;
     max-height: 100%;
-    overflow-y: auto !important; /* Permite scroll vertical interno */
+    overflow-y: auto;
     padding-right: 10px;
 }
 
-/* 3. Personalización cosmética de la barra de scroll */
 main::-webkit-scrollbar,
 .lf-user-details::-webkit-scrollbar {
     width: 8px;
@@ -136,17 +106,13 @@ main::-webkit-scrollbar-thumb:hover,
     background: #7A746E;
 }
 
-/* ==========================
-   DROPDOWN DE USUARIO
-========================== */
-
 .dropdown {
     position: relative;
 }
 
 .dropdown:hover .dropdown-menu {
     display: block;
-    animation: aparecerDropdown 0.3s ease;
+    animation: aparecerDropdown .3s ease;
 }
 
 @keyframes aparecerDropdown {
@@ -209,10 +175,6 @@ main::-webkit-scrollbar-thumb:hover,
     color: #c5221f !important;
 }
 
-/* ==========================
-   CONTENEDORES GENERALES
-========================== */
-
 .lf-container {
     background: white;
     border-radius: 40px;
@@ -220,18 +182,11 @@ main::-webkit-scrollbar-thumb:hover,
     padding: 35px;
 }
 
-/* títulos de sección */
-
 .lf-title {
     color: #4A4641;
     font-weight: 700;
     margin-bottom: 25px;
 }
-
-
-/* ==========================
-   TARJETAS GENERALES
-========================== */
 
 .lf-card {
     background: #CBC2B9;
@@ -239,14 +194,6 @@ main::-webkit-scrollbar-thumb:hover,
     padding: 20px;
     box-shadow: 0 5px 15px rgba(0,0,0,.08);
 }
-
-
-/* ==========================
-   SCROLL DE CATÁLOGOS
-========================== */
-
-/* La altura y el overflow ya los controla la regla "main" de arriba.
-   Aquí solo dejamos el estilo cosmético de la barra de scroll. */
 
 .catalogo-scroll::-webkit-scrollbar {
     width: 8px;
@@ -257,12 +204,45 @@ main::-webkit-scrollbar-thumb:hover,
     border-radius: 10px;
 }
 
+.libri-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding: 10px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity .4s ease, transform .4s ease;
+}
 
-/* ==========================
-   RESPONSIVE
-========================== */
+.libri-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.libri-toast-error {
+    background-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.libri-toast-success {
+    background-color: #86efac;
+    color: #15803d;
+}
 
 @media (max-width: 768px) {
+    body {
+        overflow: auto;
+    }
 
     .row.g-4 {
         overflow: visible;
@@ -279,11 +259,11 @@ main::-webkit-scrollbar-thumb:hover,
 
     main {
         height: auto;
+        max-height: none;
         overflow-y: visible;
     }
 
     .lf-container {
         padding: 20px;
     }
-
 }

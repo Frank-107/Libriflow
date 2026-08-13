@@ -404,3 +404,20 @@ main, .catalogo-scroll {
     max-height: calc(100vh - 180px);
     overflow-y: auto;
 }
+
+/* 1. Asegurar que el contenedor del catálogo tenga espacio interno en la base */
+main.col.catalogo-scroll {
+    max-height: calc(100vh - 130px); /* Ajusta la altura visible */
+    overflow-y: auto !important;
+    padding-bottom: 3rem !important; /* <--- MARGEN INFERIOR PARA QUE NO TOQUE EL BORDE */
+}
+
+/* 2. Darle espacio extra a la última tarjeta dentro del scroll */
+.mis-publicaciones-container {
+    padding-bottom: 2rem;
+}
+
+/* 3. Margen inferior en la grilla para separar del final del scroll */
+.mis-publicaciones-container .row.g-3 {
+    margin-bottom: 2rem !important;
+}

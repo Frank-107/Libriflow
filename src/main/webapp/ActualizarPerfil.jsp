@@ -133,15 +133,15 @@
           <div class="row g-3 mb-4">
             <div class="col-12" style="grid-column: span 2;">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Nombre(s)</label>
-              <input type="text" name="nombre" value="${usuario.getNombre() != null ? usuario.getNombre() : ''}" class="form-control form-control-lf" required>
+              <input type="text" name="nombre" value="${usuario.getNombre() != null ? usuario.getNombre() : ''}" class="form-control form-control-lf" maxlength="50" required>
             </div>
             <div class="col-12 col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Apellido Paterno</label>
-              <input type="text" name="apellidoPaterno" value="${usuario.getApellidoPaterno() != null ? usuario.getApellidoPaterno() : ''}" class="form-control form-control-lf" required>
+              <input type="text" name="apellidoPaterno" value="${usuario.getApellidoPaterno() != null ? usuario.getApellidoPaterno() : ''}" class="form-control form-control-lf" maxlength="50" required>
             </div>
             <div class="col-12 col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Apellido Materno</label>
-              <input type="text" name="apellidoMaterno" value="${usuario.getApellidoMaterno() != null ? usuario.getApellidoMaterno() : ''}" class="form-control form-control-lf">
+              <input type="text" name="apellidoMaterno" value="${usuario.getApellidoMaterno() != null ? usuario.getApellidoMaterno() : ''}" class="form-control form-control-lf" maxlength="50">
             </div>
           </div>
 
@@ -155,7 +155,7 @@
             </div>
             <div class="col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Teléfono</label>
-              <input type="number" name="telefono" value="${usuario.getTelefono() != null ? usuario.getTelefono() : ''}" class="form-control form-control-lf">
+              <input type="number" name="telefono" value="${usuario.getTelefono() != null ? usuario.getTelefono() : ''}" class="form-control form-control-lf" oninput="if(this.value.length > 10) this.value = this.value.slice(0, 10);">
             </div>
           </div>
 
@@ -165,11 +165,11 @@
           <div class="row g-3 mb-4">
             <div class="col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Nueva contraseña</label>
-              <input type="password" name="nueva_contrasena" class="form-control form-control-lf" placeholder="Dejar en blanco para conservar actual">
+              <input type="password" name="nueva_contrasena" class="form-control form-control-lf" maxlength="100" placeholder="Dejar en blanco para conservar actual">
             </div>
             <div class="col-md-6">
               <label class="form-label-lf text-muted" style="font-size: 0.85rem;">Confirmar contraseña</label>
-              <input type="password" name="confirmar_contrasena" class="form-control form-control-lf" placeholder="Repite la nueva contraseña">
+              <input type="password" name="confirmar_contrasena" class="form-control form-control-lf" maxlength="100" placeholder="Repite la nueva contraseña">
             </div>
           </div>
 

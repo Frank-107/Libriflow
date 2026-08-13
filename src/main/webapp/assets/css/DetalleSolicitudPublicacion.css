@@ -1,0 +1,271 @@
+/* ================================
+   SCROLL Y LAYOUT ADMIN
+   ================================ */
+
+html,
+body {
+    min-height: 100%;
+    height: auto !important;
+}
+
+body.detalle-body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+.detalle-layout {
+    height: auto !important;
+    min-height: 100vh;
+    overflow: visible !important;
+}
+
+.detalle-content-row {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+}
+
+.detalle-main {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.detalle-inner-row {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+}
+
+.detalle-left-scroll {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.detalle-right-fixed {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+/* ================================
+   MINIATURAS
+   ================================ */
+
+.miniatura-admin {
+    flex: 1;
+    max-width: 170px;
+    text-align: center;
+}
+
+.miniatura-admin > span {
+    display: block;
+    margin-bottom: 7px;
+    color: #6f6862;
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+/* ================================
+   ESTADO
+   ================================ */
+
+.estado-pendiente-admin {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 8px 16px !important;
+    background-color: #fff1c9 !important;
+    color: #8a6200 !important;
+    border: none;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+/* ================================
+   DECISIÓN ADMIN
+   ================================ */
+
+.revision-admin-box {
+    width: 100%;
+    margin-top: 5px;
+    padding: 18px 20px;
+    background-color: #f5f1ed;
+    border: 1px solid #d8d0c8;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+
+.revision-admin-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.revision-admin-label > i {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cbc2b9;
+    color: #4a4641;
+    border-radius: 50%;
+    font-size: 1.15rem;
+}
+
+.revision-admin-label strong {
+    display: block;
+    color: #2d2a26;
+    font-size: .95rem;
+}
+
+.revision-admin-label small {
+    display: block;
+    margin-top: 2px;
+    color: #7a746e;
+    font-size: .78rem;
+}
+
+/* ================================
+   BOTONES PRINCIPALES
+   ================================ */
+
+.revision-admin-botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+.btn-rechazar-admin,
+.btn-aprobar-admin {
+    width: 100%;
+    min-height: 50px;
+    padding: 11px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px !important;
+    font-size: .92rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.btn-rechazar-admin {
+    background-color: transparent !important;
+    color: #a74444 !important;
+    border: 1.5px solid #b75353 !important;
+}
+
+.btn-rechazar-admin:hover {
+    background-color: #a74444 !important;
+    color: #fff !important;
+}
+
+.btn-aprobar-admin {
+    background-color: #4a4641 !important;
+    color: #fff !important;
+    border: 1.5px solid #4a4641 !important;
+}
+
+.btn-aprobar-admin:hover {
+    background-color: #2d2a26 !important;
+    border-color: #2d2a26 !important;
+    color: #fff !important;
+}
+
+/* ================================
+   MODALES
+   ================================ */
+
+.modal-decision-admin {
+    border: none !important;
+    border-radius: 28px !important;
+    overflow: hidden;
+}
+
+.modal-icono-admin {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+.modal-icono-admin.aprobar {
+    background-color: #dcebdc;
+    color: #3b693f;
+}
+
+.modal-icono-admin.rechazar {
+    background-color: #f8dfdf;
+    color: #a74444;
+}
+
+.btn-confirmar-aprobar-admin,
+.btn-confirmar-rechazar-admin {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+.btn-confirmar-aprobar-admin {
+    background-color: #4a4641;
+}
+
+.btn-confirmar-aprobar-admin:hover {
+    background-color: #2d2a26;
+}
+
+.btn-confirmar-rechazar-admin {
+    background-color: #b74444;
+}
+
+.btn-confirmar-rechazar-admin:hover {
+    background-color: #963535;
+}
+
+/* ================================
+   SIDEBAR
+   ================================ */
+
+.detalle-sidebar .rounded-lf-sidebar {
+    position: sticky;
+    top: 105px;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 992px) {
+    .detalle-sidebar .rounded-lf-sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .revision-admin-botones {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-rechazar-admin,
+    .btn-aprobar-admin {
+        width: 100%;
+    }
+}

@@ -24,16 +24,37 @@ public class MisPublicacionesSvJS extends HttpServlet {
     private final Gson gson = new Gson();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession sesion = req.getSession(false);
-        if (sesion != null && sesion.getAttribute("usuario") != null) {
-            Usuario usuario = (Usuario) sesion.getAttribute("usuario");
-            int id = usuario.getId();
-            List<PublicacionResumen> lista = publicacionUsuarioDao.getResumenPublicacionesPorUsuario(id);
-            req.setAttribute("publicaciones", lista);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-            req.getRequestDispatcher("MisPublicacionesJS.jsp").forward(req, resp);
+        HttpSession sesion = req.getSession(false);
+
+        if (sesion != null && sesion.getAttribute("usuario") != null) {
+
+            Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+
+            int id = usuario.getId();
+
+            String orden = req.getParameter("orden");
+
+            if (orden == null ||
+                    (!orden.equalsIgnoreCase("recientes")
+                            && !orden.equalsIgnoreCase("antiguas"))) {
+
+                orden = "recientes";
+            }
+
+            List<PublicacionResumen> lista =
+                    publicacionUsuarioDao.getResumenPublicacionesPorUsuario(id, orden);
+
+            req.setAttribute("publicaciones", lista);
+            req.setAttribute("ordenActual", orden);
+
+            req.getRequestDispatcher("MisPublicacionesJS.jsp")
+                    .forward(req, resp);
+
         } else {
+
             resp.sendRedirect("login.jsp");
         }
     }

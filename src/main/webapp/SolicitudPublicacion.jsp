@@ -5,50 +5,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - LibriFlow</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
-</head>
-<body class="p-3 p-md-4">
+    <title>Solicitudes de publicación - LibriFlow</title>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
 
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
+
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/SolicitudPublicacion.css"/>
+</head>
+
+<body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
 
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center">
-            <button class="btn text-white d-md-none me-2 p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
-                <i class="bi bi-list" style="font-size: 2rem;"></i>
+            <button class="btn text-white d-md-none me-2 p-0 border-0"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#menuLateral"
+                    aria-expanded="false"
+                    aria-controls="menuLateral">
+                <i class="bi bi-list" style="font-size:2rem;"></i>
             </button>
 
-            <a href="InicioAdmin.jsp" class="d-flex align-items-center text-decoration-none">
-                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 40px; width: auto;" class="me-2">
+            <a href="${pageContext.request.contextPath}/inicio-admin"
+               class="d-flex align-items-center text-decoration-none">
+                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+                     alt="Logo LibriFlow"
+                     style="height:40px;width:auto;"
+                     class="me-2">
+
                 <div class="text-start d-none d-sm-block">
                     <div class="fw-bold tracking-widest fs-5 text-white">LIBRIFLOW</div>
-                    <small style="font-size: 0.65rem; letter-spacing: 1px; color: #CBC2B9; display: block;">TU BIBLIOTECA DIGITAL</small>
+                    <small style="font-size:.65rem;letter-spacing:1px;color:#CBC2B9;display:block;">
+                        TU BIBLIOTECA DIGITAL
+                    </small>
                 </div>
             </a>
         </div>
+
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;"><c:out value="${sessionScope.usuario.nombre}" /></div>
-                <small class="text-white-50" style="font-size: 0.8rem;"><c:out value="${sessionScope.usuario.correo}" /></small>
+                <div class="fw-bold mb-0" style="font-size:.95rem;">
+                    <c:out value="${sessionScope.usuario.nombre}"/>
+                </div>
+                <small class="text-white-50" style="font-size:.8rem;">
+                    <c:out value="${sessionScope.usuario.correo}"/>
+                </small>
             </div>
 
             <div class="dropdown">
-                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px; cursor: pointer;" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                     style="width:45px;height:45px;cursor:pointer;"
+                     data-bs-toggle="dropdown"
+                     aria-expanded="false">
                     <i class="bi bi-person-fill fs-4 text-dark"></i>
                 </div>
 
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-item" href="ActualizarPerfilAdmin.jsp">
+                        <a class="dropdown-item py-2 dropdown-lf-item"
+                           href="${pageContext.request.contextPath}/ActualizarPerfilAdmin.jsp">
                             <i class="bi bi-person me-2"></i>Ver perfil
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item py-2 dropdown-lf-logout" href="cerrar-sesion">
+                        <a class="dropdown-item py-2 dropdown-lf-logout"
+                           href="${pageContext.request.contextPath}/cerrar-sesion">
                             <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
                         </a>
                     </li>
@@ -62,126 +90,120 @@
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="menuLateral">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-                    <a href="inicio-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-house me-3 fs-5"></i> Inicio
+                    <a href="${pageContext.request.contextPath}/inicio-admin"
+                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-house me-3 fs-5"></i>Inicio
                     </a>
-                    <a href="solicitud-publicacion-admin" class="btn bg-lf-capsule sidebar-active btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-file-earmark-text me-3 fs-5"></i> Solicitud de publicación
+                    <a href="${pageContext.request.contextPath}/solicitud-publicacion-admin"
+                       class="btn bg-lf-capsule sidebar-active btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-file-earmark-text me-3 fs-5"></i>Solicitud de publicación
                     </a>
-                    <a href="publicar-libro-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-file-earmark-text me-3 fs-5"></i> Publicar
+                    <a href="${pageContext.request.contextPath}/publicar-libro-admin"
+                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-pencil-square me-3 fs-5"></i>Publicar
                     </a>
-                    <a href="mis-rentas-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-book-half me-3 fs-5"></i> Rentas activas
+                    <a href="${pageContext.request.contextPath}/mis-rentas-admin"
+                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-book-half me-3 fs-5"></i>Rentas activas
                     </a>
-                    <a href="usuarios-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-people-fill me-3 fs-5"></i> Usuarios
+                    <a href="${pageContext.request.contextPath}/usuarios-admin"
+                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-people-fill me-3 fs-5"></i>Usuarios
                     </a>
-                    <a href="ingresos-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-cash-stack me-3 fs-5"></i> Ingresos
+                    <a href="${pageContext.request.contextPath}/ingresos-admin"
+                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                        <i class="bi bi-cash-stack me-3 fs-5"></i>Ingresos
                     </a>
                 </div>
             </div>
         </aside>
+        <c:if test="${not empty sessionScope.mensaje}">
+            <div id="successToast" class="libri-toast libri-toast-success">
+                <i class="bi bi-check-circle-fill fs-5"></i>
+                <span><c:out value="${sessionScope.mensaje}" escapeXml="true"/></span>
+            </div>
+            <c:remove var="mensaje" scope="session"/>
+        </c:if>
 
-
+        <c:if test="${not empty sessionScope.error}">
+            <div id="errorToast" class="libri-toast libri-toast-error">
+                <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                <span><c:out value="${sessionScope.error}" escapeXml="true"/></span>
+            </div>
+            <c:remove var="error" scope="session"/>
+        </c:if>
         <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3 class="fw-bold mb-1">Solicitudes de publicación</h3>
+                    <p class="text-muted mb-0">
+                        Revisa cada publicación antes de aprobarla.
+                    </p>
+                </div>
+                <span class="badge bg-secondary rounded-pill px-3 py-2">
+                    <c:out value="${publicaciones.size()}"/> pendientes
+                </span>
+            </div>
             <c:choose>
                 <c:when test="${empty publicaciones}">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
-                                <h4 class="fw-bold text-dark">No hay solicitudes de publicación...</h4>
-                            </div>
-                        </div>
+                    <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2">
+                        <i class="bi bi-check2-circle fs-1 d-block mb-3"></i>
+                        <h4 class="fw-bold text-dark">No hay solicitudes pendientes</h4>
+                        <p class="mb-0">Las nuevas solicitudes aparecerán aquí.</p>
                     </div>
                 </c:when>
-
                 <c:otherwise>
-
                     <div class="solicitudes-grid">
-
                         <c:forEach var="publicacion" items="${publicaciones}">
-
                             <article class="solicitud-card">
-
                                 <div class="solicitud-portada">
                                     <img src="${publicacion.imagenPrincipal}"
-                                         alt="${publicacion.titulo}">
+                                         alt="Portada de ${publicacion.titulo}">
                                 </div>
-
-
                                 <div class="solicitud-info">
-
                                     <h3>
-                                            <c:out value="${publicacion.titulo}" />
+                                        <c:out value="${publicacion.titulo}"/>
                                     </h3>
-
                                     <p>
-                                        <i class="bi bi-person"></i>
+                                        <i class="bi bi-person me-1"></i>
                                         Publicado por:
-                                        <strong><c:out value="${publicacion.nombrePropietario}" /></strong>
+                                        <strong>
+                                            <c:out value="${publicacion.nombrePropietario}"/>
+                                        </strong>
                                     </p>
-
                                     <p>
-                                        <i class="bi bi-pen"></i>
-                                        <c:out value="${publicacion.autor}" />
+                                        <i class="bi bi-pen me-1"></i>
+                                        <c:out value="${publicacion.autor}"/>
                                     </p>
-
                                     <p>
-                                        <i class="bi bi-bookmark"></i>
-                                        <c:out value="${publicacion.genero}" />
+                                        <i class="bi bi-bookmark me-1"></i>
+                                        <c:out value="${publicacion.genero}"/>
                                     </p>
-
-
                                     <div class="solicitud-extra">
-
-                        <span class="precio">
-                            $<c:out value="${publicacion.precio}" />
-                        </span>
-
-                                        <span class="estado ${publicacion.estado}">
-                                                <c:out value="${publicacion.estado}" />
+                                        <span class="precio">
+                                            $<c:out value="${publicacion.precio}"/>
                                         </span>
-
+                                        <span class="estado PENDIENTE">
+                                            PENDIENTE
+                                        </span>
                                     </div>
-
-
-                                    <form action="solicitud-publicacion-admin" method="post">
-
-                                        <input type="hidden"
-                                               name="idPublicacion"
-                                               value="${publicacion.idPublicacion}">
-
-                                        <input type="hidden"
-                                               name="action"
-                                               value="aprobar">
-
-                                        <button class="btn-aprobar"
-                                                type="submit">
-
-                                            <i class="bi bi-check-circle"></i>
-                                            Aprobar publicación
-
-                                        </button>
-
-                                    </form>
-
-
+                                    <a href="${pageContext.request.contextPath}/detalle-solicitud-publicacion-admin?idPublicacion=${publicacion.idPublicacion}"
+                                       class="btn-ver-solicitud">
+                                        <i class="bi bi-eye me-2"></i>
+                                        Ver detalles
+                                    </a>
                                 </div>
-
                             </article>
-
                         </c:forEach>
-
                     </div>
-
                 </c:otherwise>
             </c:choose>
         </main>
-
     </div>
 </div>
-<script src="assets/js/bootstrap.js"></script>
+
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

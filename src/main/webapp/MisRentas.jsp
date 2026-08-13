@@ -164,6 +164,7 @@
                                                 <p class="card-autor mb-3">
                                                     <i class="bi bi-person me-1 text-muted"></i>
                                                     <c:out value="${renta.autor}" />
+<<<<<<< HEAD
                                                 </p>
 
                                                 <!-- DETALLE SUTIL DE FECHAS Y DÍAS -->
@@ -215,6 +216,19 @@
                                                     <span class="fs-6 fw-normal text-muted">Costo:</span> $<c:out value="${renta.precio}" />
                                                 </div>
                                             </div>
+=======
+                                            </p>
+
+                                            <small>
+                                                Del <c:out value="${renta.fechaInicio}" /> al <c:out value="${renta.fechaLimite}" />
+                                                <c:if test="${not empty renta.fechaDevolucion}">
+                                                    (Devuelto: <c:out value="${renta.fechaDevolucion}" />)
+                                                </c:if>
+                                            </small>
+                                        </div>
+                                        <div class="publicacion-precio">
+                                            $<c:out value="${renta.precio}" />
+>>>>>>> andrew
                                         </div>
 
                                     </div>

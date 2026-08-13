@@ -15,7 +15,7 @@
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
-        <!-- Titulo de la pagina -->
+
         <div class="d-flex align-items-center">
             <button class="btn text-white d-md-none p-0 border-0 me-1"
                     type="button"
@@ -33,7 +33,7 @@
             Mis publicaciones
         </span>
         </div>
-        <!-- Usuario -->
+
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
                 <div class="fw-bold">

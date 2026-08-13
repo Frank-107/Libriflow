@@ -117,45 +117,45 @@
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Nombre del libro</label>
-                            <input type="text" name="titulo" class="form-control form-control-lf" required>
+                            <input type="text" name="titulo" value="${param.titulo}" class="form-control form-control-lf" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Autor</label>
-                            <input type="text" name="autor" class="form-control form-control-lf" required>
+                            <input type="text" name="autor" value="${param.autor}" class="form-control form-control-lf" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Editorial</label>
-                            <input type="text" name="editorial" class="form-control form-control-lf" required>
+                            <input type="text" name="editorial" value="${param.editorial}" class="form-control form-control-lf" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Género</label>
 
                             <select name="genero" class="form-control form-control-lf" required>
-                                <option value="" disabled selected>Selecciona un género</option>
-                                <option value="Novela">Novela</option>
-                                <option value="Fantasía">Fantasía</option>
-                                <option value="Ciencia ficción">Ciencia ficción</option>
-                                <option value="Terror">Terror</option>
-                                <option value="Romance">Romance</option>
-                                <option value="Misterio">Misterio</option>
-                                <option value="Suspenso">Suspenso</option>
-                                <option value="Drama">Drama</option>
-                                <option value="Aventura">Aventura</option>
-                                <option value="Historia">Historia</option>
-                                <option value="Biografía">Biografía</option>
-                                <option value="Autobiografía">Autobiografía</option>
-                                <option value="Ciencia">Ciencia</option>
-                                <option value="Tecnología">Tecnología</option>
-                                <option value="Educación">Educación</option>
-                                <option value="Infantil">Infantil</option>
-                                <option value="Poesía">Poesía</option>
-                                <option value="Filosofía">Filosofía</option>
-                                <option value="Religión">Religión</option>
-                                <option value="Cómic">Cómic</option>
-                                <option value="Otro">Otro</option>
+                                <option value="" disabled ${empty param.genero ? 'selected' : ''}>Selecciona un género</option>
+                                <option value="Novela" ${param.genero == 'Novela' ? 'selected' : ''}>Novela</option>
+                                <option value="Fantasía" ${param.genero == 'Fantasía' ? 'selected' : ''}>Fantasía</option>
+                                <option value="Ciencia ficción" ${param.genero == 'Ciencia ficción' ? 'selected' : ''}>Ciencia ficción</option>
+                                <option value="Terror" ${param.genero == 'Terror' ? 'selected' : ''}>Terror</option>
+                                <option value="Romance" ${param.genero == 'Romance' ? 'selected' : ''}>Romance</option>
+                                <option value="Misterio" ${param.genero == 'Misterio' ? 'selected' : ''}>Misterio</option>
+                                <option value="Suspenso" ${param.genero == 'Suspenso' ? 'selected' : ''}>Suspenso</option>
+                                <option value="Drama" ${param.genero == 'Drama' ? 'selected' : ''}>Drama</option>
+                                <option value="Aventura" ${param.genero == 'Aventura' ? 'selected' : ''}>Aventura</option>
+                                <option value="Historia" ${param.genero == 'Historia' ? 'selected' : ''}>Historia</option>
+                                <option value="Biografía" ${param.genero == 'Biografía' ? 'selected' : ''}>Biografía</option>
+                                <option value="Autobiografía" ${param.genero == 'Autobiografía' ? 'selected' : ''}>Autobiografía</option>
+                                <option value="Ciencia" ${param.genero == 'Ciencia' ? 'selected' : ''}>Ciencia</option>
+                                <option value="Tecnología" ${param.genero == 'Tecnología' ? 'selected' : ''}>Tecnología</option>
+                                <option value="Educación" ${param.genero == 'Educación' ? 'selected' : ''}>Educación</option>
+                                <option value="Infantil" ${param.genero == 'Infantil' ? 'selected' : ''}>Infantil</option>
+                                <option value="Poesía" ${param.genero == 'Poesía' ? 'selected' : ''}>Poesía</option>
+                                <option value="Filosofía" ${param.genero == 'Filosofía' ? 'selected' : ''}>Filosofía</option>
+                                <option value="Religión" ${param.genero == 'Religión' ? 'selected' : ''}>Religión</option>
+                                <option value="Cómic" ${param.genero == 'Cómic' ? 'selected' : ''}>Cómic</option>
+                                <option value="Otro" ${param.genero == 'Otro' ? 'selected' : ''}>Otro</option>
                             </select>
                         </div>
 
@@ -164,10 +164,15 @@
 
                             <input type="number"
                                    step="0.01"
+                                   min="0.01"
+                                   id="precio"
                                    name="precio"
+                                   value="${param.precio}"
                                    class="form-control form-control-lf"
                                    placeholder="$"
+                                   oninput="actualizarPrecioUI()"
                                    required>
+
                             <small id="mensaje15" class="text-secondary fw-bold d-block mt-1"></small>
                         </div>
 
@@ -184,15 +189,19 @@
                             </button>
                         </div>
 
+                        <!-- MODIFICACION SINOPSIS INICIO: Se dejó una sola Sinopsis limpia sin etiquetas de texto abajo -->
                         <div class="col-12 mb-4">
-                            <label class="form-label-lf">Sipnosis</label>
+                            <label class="form-label-lf">Sinopsis</label>
 
                             <textarea name="sinopsis"
+                                      id="sinopsis"
                                       class="form-control form-control-lf"
                                       rows="5"
                                       style="resize:none;"
-                                      required></textarea>
+                                      oninput="validarSinopsis()"
+                                      required>${param.sinopsis}</textarea>
                         </div>
+                        <!-- MODIFICACION SINOPSIS FIN -->
 
                     </div>
 
@@ -257,5 +266,77 @@
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/Publicar.js"></script>
 <script src="assets/js/Notificacion.js"></script>
+
+<!-- MODIFICACION SCRIPT INICIO: Lógica de validaciones nativas para precio y sinopsis -->
+<script>
+    function contarPalabras(texto) {
+        if (!texto) return 0;
+        const palabras = texto.trim().split(/\s+/);
+        return palabras.filter(p => p.length > 0).length;
+    }
+
+    function validarSinopsis() {
+        const inputSinopsis = document.getElementById('sinopsis');
+        if (!inputSinopsis) return;
+
+        const numPalabras = contarPalabras(inputSinopsis.value);
+
+        if (numPalabras < 100) {
+            const faltantes = 100 - numPalabras;
+            inputSinopsis.setCustomValidity("La sinopsis debe tener al menos 100 palabras.");
+        } else {
+            inputSinopsis.setCustomValidity("");
+        }
+    }
+
+    function actualizarPrecioUI() {
+        const inputPrecio = document.getElementById('precio');
+        const mensaje15 = document.getElementById('mensaje15');
+        if (!inputPrecio) return;
+
+        const valor = parseFloat(inputPrecio.value);
+
+        inputPrecio.setCustomValidity("");
+
+        if (!isNaN(valor) && valor > 0) {
+            const comision = (valor * 0.15).toFixed(2);
+            const ganancia = (valor * 0.85).toFixed(2);
+            if (mensaje15) {
+                mensaje15.textContent = "Se aplicará el 15% de comisión ($" + comision + "). Recibirás: $" + ganancia + " MXN";
+            }
+        } else {
+            if (mensaje15) mensaje15.textContent = "";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById('formPublicar');
+        const inputPrecio = document.getElementById('precio');
+
+        actualizarPrecioUI();
+        validarSinopsis();
+
+        if (form) {
+            form.addEventListener('submit', function (e) {
+                const valorPrecio = parseFloat(inputPrecio.value);
+
+                if (isNaN(valorPrecio) || valorPrecio <= 0) {
+                    inputPrecio.setCustomValidity("El precio debe ser mayor a $0 MXN.");
+                } else {
+                    inputPrecio.setCustomValidity("");
+                }
+
+                validarSinopsis();
+
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    form.reportValidity();
+                }
+            });
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -55,6 +55,12 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
                 precio = 0;
             }
 
+            if (precio <= 0) {
+                throw new Exception("El precio del libro debe ser mayor a $0 MXN.");
+            }
+
+            double gananciaUsuario = Math.round((precio * 0.85) * 100.0) / 100.0;
+
             Part imagen1 = req.getPart("imagen1");
             Part imagen2 = req.getPart("imagen2");
             Part imagen3 = req.getPart("imagen3");
@@ -70,10 +76,6 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
 
             if (totalPalabras < 100) {
                 throw new Exception("La sinopsis debe tener al menos 100 palabras. Llevas " + totalPalabras + ".");
-            }
-
-            if (precio <= 0) {
-                throw new Exception("El precio del libro debe ser mayor a $0 MXN.");
             }
 
             if (imagen1 == null || imagen1.getSize() == 0 ||

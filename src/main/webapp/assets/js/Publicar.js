@@ -1,8 +1,11 @@
 window.onload = function() {
-    var inputPrecio = document.querySelector('input[name="precio"]');
+    var inputPrecio = document.getElementById('precio') || document.querySelector('input[name="precio"]');
 
     if (inputPrecio) {
         inputPrecio.oninput = function() {
+            // Limpia la restriccion nativa al teclear para que acepte cualquier numero nuevo
+            inputPrecio.setCustomValidity("");
+
             var precio = parseFloat(inputPrecio.value);
             var mensaje15 = document.getElementById("mensaje15");
 

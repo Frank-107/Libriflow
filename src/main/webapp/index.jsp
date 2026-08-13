@@ -61,10 +61,6 @@
           <div class="img-contenedor">
             <img src="./assets/img/El_Conde_de_Montecristo.png" alt="El Conde de Montecristo" class="portada-img" />
           </div>
-          <div class="tarjeta-pie">
-            <span class="estrellas">★★★★☆</span>
-            <span class="resenas">(25 reseñas)</span>
-          </div>
         </div>
       </div>
 
@@ -72,10 +68,6 @@
         <div class="tarjeta-libro">
           <div class="img-contenedor">
             <img src="./assets/img/Twilight.png" alt="Twilight" class="portada-img" />
-          </div>
-          <div class="tarjeta-pie">
-            <span class="estrellas">★★★☆☆</span>
-            <span class="resenas">(33 reseñas)</span>
           </div>
         </div>
       </div>
@@ -85,10 +77,6 @@
           <div class="img-contenedor">
             <img src="./assets/img/It.png" alt="IT - Stephen King" class="portada-img" />
           </div>
-          <div class="tarjeta-pie">
-            <span class="estrellas">★★★★☆</span>
-            <span class="resenas">(22 reseñas)</span>
-          </div>
         </div>
       </div>
 
@@ -96,10 +84,6 @@
         <div class="tarjeta-libro">
           <div class="img-contenedor">
             <img src="./assets/img/Jardin_de_las_Mariposas.png" alt="El Jardín de las Mariposas" class="portada-img" />
-          </div>
-          <div class="tarjeta-pie">
-            <span class="estrellas">★★★★☆</span>
-            <span class="resenas">(42 reseñas)</span>
           </div>
         </div>
       </div>

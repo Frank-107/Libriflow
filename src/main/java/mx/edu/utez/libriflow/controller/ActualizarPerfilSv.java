@@ -6,35 +6,40 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import mx.edu.utez.libriflow.model.Dao.CompraDao;
 import mx.edu.utez.libriflow.model.Dao.CredencialDao;
+import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
+import mx.edu.utez.libriflow.model.Dao.RentaDao;
 import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 import mx.edu.utez.libriflow.model.Usuario;
-import mx.edu.utez.libriflow.model.Dao.PublicacionUsuarioDao;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import mx.edu.utez.libriflow.model.Dao.CompraDao;
-import mx.edu.utez.libriflow.model.Dao.RentaDao;
 
 @WebServlet(name = "ActualizarPerfilSv", value = "/actualizar-perfil")
 public class ActualizarPerfilSv extends HttpServlet {
 
-    // -
     private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
-
     private final CompraDao compraDao = new CompraDao();
     private final RentaDao rentaDao = new RentaDao();
 
+    // Límites de seguridad para evitar desbordamientos de datos en MySQL
+    private static final int MAX_TEXTO_CORTO = 50; // Para Nombre y Apellidos
+    private static final int MAX_PASSWORD = 100;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         HttpSession session = req.getSession(false);
 
-        if (session != null && session.getAttribute("usuario") != null) {
-            Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
-            cargarContadores(req, usuarioSesion.getId());
+        // 1. Redirección si la sesión no existe o expiró
+        if (session == null || session.getAttribute("usuario") == null) {
+            resp.sendRedirect("login.jsp");
+            return;
         }
+
+        Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
+        cargarContadores(req, usuarioSesion.getId());
 
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
     }
@@ -43,6 +48,12 @@ public class ActualizarPerfilSv extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         HttpSession session = req.getSession(false);
+
+        // 1. Validar existencia de sesión activa
+        if (session == null || session.getAttribute("usuario") == null) {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
 
         Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
 
@@ -54,64 +65,116 @@ public class ActualizarPerfilSv extends HttpServlet {
         String nuevaContrasena = req.getParameter("nueva_contrasena");
         String confirmarContrasena = req.getParameter("confirmar_contrasena");
 
+        // 2. Validar campos de texto obligatorios
+        if (nombre == null || nombre.trim().isEmpty() ||
+                apellidoPaterno == null || apellidoPaterno.trim().isEmpty() ||
+                apellidoMaterno == null || apellidoMaterno.trim().isEmpty()) {
 
-        if (!telefono.matches("\\d{10}")) {
-            req.setAttribute("error", "Formato de teléfono inválido.");
+            req.setAttribute("error", "Todos los campos de texto personales son obligatorios.");
+            cargarContadores(req, usuarioSesion.getId());
             req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
             return;
         }
 
+        // 3. VALIDACIÓN DE LONGITUD MÁXIMA (Protección contra textos gigantes)
+        if (nombre.trim().length() > MAX_TEXTO_CORTO ||
+                apellidoPaterno.trim().length() > MAX_TEXTO_CORTO ||
+                apellidoMaterno.trim().length() > MAX_TEXTO_CORTO) {
+
+            req.setAttribute("error", "Los nombres y apellidos no pueden exceder los " + MAX_TEXTO_CORTO + " caracteres.");
+            cargarContadores(req, usuarioSesion.getId());
+            req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
+            return;
+        }
+
+        // 4. Validar teléfono (exactamente 10 dígitos)
+        if (telefono == null || !telefono.trim().matches("\\d{10}")) {
+            req.setAttribute("error", "Formato de teléfono inválido (deben ser 10 dígitos numéricos).");
+            cargarContadores(req, usuarioSesion.getId());
+            req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
+            return;
+        }
+
+        boolean cambioPasswordExitoso = false;
+        String nuevoHashPassword = null;
+
+        // 5. Validar y procesar cambio de contraseña
         if (nuevaContrasena != null && !nuevaContrasena.trim().isEmpty()) {
+
             if (!nuevaContrasena.equals(confirmarContrasena)) {
                 req.setAttribute("error", "Las contraseñas no coinciden.");
+                cargarContadores(req, usuarioSesion.getId());
                 req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                 return;
             }
-            if (nuevaContrasena.length() < 8) {
-                req.setAttribute("error", "La contraseña debe tener al menos 8 caracteres.");
+
+            // Validar rango de caracteres de la contraseña
+            if (nuevaContrasena.trim().length() < 8 || nuevaContrasena.trim().length() > MAX_PASSWORD) {
+                req.setAttribute("error", "La contraseña debe tener entre 8 y " + MAX_PASSWORD + " caracteres.");
+                cargarContadores(req, usuarioSesion.getId());
                 req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                 return;
             }
+
             try {
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
-                byte[] hash = md.digest(nuevaContrasena.getBytes(StandardCharsets.UTF_8));
+                byte[] hash = md.digest(nuevaContrasena.trim().getBytes(StandardCharsets.UTF_8));
                 StringBuilder sb = new StringBuilder();
                 for (byte b : hash) {
                     sb.append(String.format("%02X", b));
                 }
-                usuarioSesion.setContrasenaHash(sb.toString());
+
+                nuevoHashPassword = sb.toString();
+
+                Usuario usuarioTempPass = new Usuario();
+                usuarioTempPass.setId(usuarioSesion.getId());
+                usuarioTempPass.setContrasenaHash(nuevoHashPassword);
+
                 CredencialDao credencialDao = new CredencialDao();
-                boolean passActualizada = credencialDao.updateCredencial(usuarioSesion);
-                if (!passActualizada) {
-                    req.setAttribute("error", "Ocurrió un problema al guardar tu nueva contraseña. Intentalo más tarde.");
+                if (!credencialDao.updateCredencial(usuarioTempPass)) {
+                    req.setAttribute("error", "Ocurrió un problema al guardar tu nueva contraseña. Inténtalo más tarde.");
+                    cargarContadores(req, usuarioSesion.getId());
                     req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                     return;
                 }
+                cambioPasswordExitoso = true;
+
             } catch (Exception e) {
-                req.setAttribute("error", "Error al actualizar perfil.");
+                req.setAttribute("error", "Error interno al procesar la contraseña.");
+                cargarContadores(req, usuarioSesion.getId());
                 req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
                 return;
             }
         }
-        usuarioSesion.setNombre(nombre);
-        usuarioSesion.setApellidoPaterno(apellidoPaterno);
-        usuarioSesion.setApellidoMaterno(apellidoMaterno);
-        usuarioSesion.setTelefono(telefono);
+
+        // 6. Actualizar datos personales en BD
+        Usuario usuarioAActualizar = new Usuario();
+        usuarioAActualizar.setId(usuarioSesion.getId());
+        usuarioAActualizar.setNombre(nombre.trim());
+        usuarioAActualizar.setApellidoPaterno(apellidoPaterno.trim());
+        usuarioAActualizar.setApellidoMaterno(apellidoMaterno.trim());
+        usuarioAActualizar.setTelefono(telefono.trim());
 
         UsuarioDao usuarioDao = new UsuarioDao();
-        boolean datosActualizados = usuarioDao.update(usuarioSesion);
+        boolean datosActualizados = usuarioDao.update(usuarioAActualizar);
 
         if (datosActualizados) {
+            usuarioSesion.setNombre(nombre.trim());
+            usuarioSesion.setApellidoPaterno(apellidoPaterno.trim());
+            usuarioSesion.setApellidoMaterno(apellidoMaterno.trim());
+            usuarioSesion.setTelefono(telefono.trim());
+
+            if (cambioPasswordExitoso) {
+                usuarioSesion.setContrasenaHash(nuevoHashPassword);
+            }
+
             session.setAttribute("usuario", usuarioSesion);
             req.setAttribute("exito", "¡Tu perfil se ha actualizado con éxito!");
         } else {
             req.setAttribute("error", "Ocurrió un error inesperado al actualizar tus datos personales.");
         }
 
-        if (usuarioSesion != null) {
-            cargarContadores(req, usuarioSesion.getId());
-        }
-
+        cargarContadores(req, usuarioSesion.getId());
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
     }
 

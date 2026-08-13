@@ -19,8 +19,6 @@ public class RevisarRentas implements Runnable {
 
             System.out.println("REVISANDO RENTAS");
 
-            //esto es una prueba. BORRAR
-            EmailSender.sendMail("20253ds107@utez.edu.mx","Revisión de rentas iniciada", "Se ha iniciado la revisión de rentas activas en el sistema.");
 
             Timestamp ahora = Timestamp.valueOf(LocalDateTime.now());
 

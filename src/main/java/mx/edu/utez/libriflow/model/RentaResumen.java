@@ -18,6 +18,7 @@ public class RentaResumen {
     private LocalDate fechaLimite;
     private LocalDate fechaDevolucion;
     private String estado;
+    private int diasRestantes;
 
     public int getIdDetalle() { return idDetalle; }
     public void setIdDetalle(int idDetalle) { this.idDetalle = idDetalle; }
@@ -54,6 +55,14 @@ public class RentaResumen {
 
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
+
+    public int getDiasRestantes() {
+        return diasRestantes;
+    }
+
+    public void setDiasRestantes(int diasRestantes) {
+        this.diasRestantes = diasRestantes;
+    }
 
     public boolean isPuedeEntregar() {
         return fechaInicio != null && !LocalDate.now().isBefore(fechaInicio);

@@ -281,3 +281,98 @@
     background-color: #86efac;
     color: #15803d;
 }
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS PARA LAS CARDS DE RENTAS
+   ========================================== */
+
+/* Badge superior derecho adaptado para el estado */
+.publicacion-card .lf-badge,
+.card-libro .lf-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    z-index: 5;
+}
+
+/* Ajustes de tarjeta en grillas grandes */
+.card-libro {
+    min-height: 200px;
+}
+
+/* Efecto hover suave al pasar el cursor sobre las rentas */
+.card-libro:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Badges con fondo translúcido y bordes suaves */
+.bg-success-subtle {
+    background-color: #d1e7dd !important;
+}
+
+.bg-secondary-subtle {
+    background-color: #e2e3e5 !important;
+}
+
+.bg-warning-subtle {
+    background-color: #fff3cd !important;
+}
+/* Forzar a que la tarjeta ocupe el 100% del contenedor lineal */
+.card-libro {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+/* Permitir que el contenedor principal fluya sin cortar elementos */
+.catalogo-scroll {
+    overflow-y: visible !important; /* Desactiva el corte forzado */
+    max-height: none !important;
+}
+
+/* Alineación pareja entre Sidebar y Contenido */
+.row.g-4 {
+    align-items: stretch;
+}
+
+aside#sidebarMenu,
+aside .bg-lf-dark {
+    height: 100%; /* La barra lateral se estira según el largo del contenido */
+}
+/* ==========================================
+   SCROLLBAR PERSONALIZADO LIBRIFLOW (CAFÉ)
+   ========================================== */
+
+/* Ancho y estilo general de la barra */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Fondo del canal por donde corre el scroll */
+::-webkit-scrollbar-track {
+    background: #EAE6DF; /* Tono arena claro */
+    border-radius: 10px;
+}
+
+/* El indicador/barra deslizable */
+::-webkit-scrollbar-thumb {
+    background: #4A4641; /* Café oscuro de la paleta LibriFlow */
+    border-radius: 10px;
+    border: 2px solid #EAE6DF; /* Margen interno para verse fino */
+}
+
+/* Estado Hover al pasar el mouse por el scroll */
+::-webkit-scrollbar-thumb:hover {
+    background: #36332F; /* Café más profundo */
+}
+
+/* Compatibilidad con Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4A4641 #EAE6DF;
+}

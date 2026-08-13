@@ -19,6 +19,7 @@ public class RevisarRentas implements Runnable {
 
             System.out.println("REVISANDO RENTAS");
 
+
             Timestamp ahora = Timestamp.valueOf(LocalDateTime.now());
 
             // Obtener todas las rentas activas

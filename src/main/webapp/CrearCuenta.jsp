@@ -39,8 +39,7 @@
             </div>
         </c:if>
 
-        <form method="post" action="crear-cuenta-usuario"
-              onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Registrando...';">
+        <form method="post" action="crear-cuenta-usuario" onsubmit="return validarRegistro(this);">
 
             <div class="form-section-title">
                 <i class="bi bi-person-vcard me-2"></i> Datos Personales
@@ -48,15 +47,21 @@
             <div class="form-grid">
                 <div class="form-group" style="grid-column: span 2;">
                     <label for="nombre">Nombre(s)</label>
-                    <input type="text" id="nombre" name="nombre" value="${param.nombre}" required>
+                    <input type="text" id="nombre" name="nombre" value="${param.nombre}"
+                           maxlength="40" pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$"
+                           title="Ingresa solo letras (máx. 40 caracteres)" required>
                 </div>
                 <div class="form-group">
                     <label for="apellidoPaterno">Apellido Paterno</label>
-                    <input type="text" id="apellidoPaterno" name="apellidoPaterno" value="${param.apellidoPaterno}" required>
+                    <input type="text" id="apellidoPaterno" name="apellidoPaterno" value="${param.apellidoPaterno}"
+                           maxlength="40" pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$"
+                           title="Ingresa solo letras (máx. 40 caracteres)" required>
                 </div>
                 <div class="form-group">
                     <label for="apellidoMaterno">Apellido Materno</label>
-                    <input type="text" id="apellidoMaterno" name="apellidoMaterno" value="${param.apellidoMaterno}" required>
+                    <input type="text" id="apellidoMaterno" name="apellidoMaterno" value="${param.apellidoMaterno}"
+                           maxlength="40" pattern="^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]*$"
+                           title="Ingresa solo letras (máx. 40 caracteres)">
                 </div>
             </div>
 
@@ -66,11 +71,15 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label for="telefono">Número telefónico</label>
-                    <input type="number" id="telefono" name="telefono" value="${param.telefono}" required>
+                    <input type="tel" id="telefono" name="telefono" value="${param.telefono}"
+                           maxlength="10" minlength="10" pattern="\d{10}"
+                           placeholder="7771234567" title="Debe contener 10 dígitos numéricos" required>
                 </div>
                 <div class="form-group">
                     <label for="correo">Correo electrónico</label>
-                    <input type="email" id="correo" name="correo" value="${param.correo}" required>
+                    <input type="email" id="correo" name="correo" value="${param.correo}"
+                           maxlength="80" pattern="^[a-zA-Z0-9._%+-]+@utez\.edu\.mx$"
+                           placeholder="usuario@utez.edu.mx" title="Ingresa tu correo institucional @utez.edu.mx" required>
                 </div>
             </div>
 
@@ -80,11 +89,13 @@
             <div class="form-grid">
                 <div class="form-group">
                     <label for="contrasena">Contraseña</label>
-                    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required>
+                    <input type="password" id="contrasena" name="contrasena"
+                           minlength="8" maxlength="64" title="De 8 a 64 caracteres" required>
                 </div>
                 <div class="form-group">
                     <label for="contrasena2">Confirmar contraseña</label>
-                    <input type="password" id="contrasena2" name="contrasena2" value="${param.contrasena2}" required>
+                    <input type="password" id="contrasena2" name="contrasena2"
+                           minlength="8" maxlength="64" title="De 8 a 64 caracteres" required>
                 </div>
             </div>
 
@@ -95,7 +106,23 @@
     </div>
 
 </div>
+
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
+
+<script>
+    // Limpia caracteres no numéricos al escribir en el teléfono
+    document.getElementById('telefono').addEventListener('input', function () {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    // Validación extra antes del envío
+    function validarRegistro(form) {
+        let btn = form.querySelector('.btn-submit');
+        btn.disabled = true;
+        btn.innerHTML = 'Registrando...';
+        return true;
+    }
+</script>
 </body>
 </html>

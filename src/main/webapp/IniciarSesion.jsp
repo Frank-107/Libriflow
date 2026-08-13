@@ -32,10 +32,10 @@
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
 
     <label for="correo" class="login-label-email">Correo:</label>
-    <input type="email" id="correo" name="correo" value="${param.correo}" required class="login-input login-correo" placeholder="Ej: 20263ds117@utez.edu.mx">
+    <input type="email" id="correo" name="correo" value="${correo}" required class="login-input login-correo" placeholder="Ej: 20253ds107@utez.edu.mx" maxlength="100">
 
     <label for="contrasena" class="login-label-pass">Contraseña:</label>
-    <input type="password" id="contrasena" name="contrasena" value="${param.contrasena}" required class="login-input login-contrasena" placeholder="Ej: 12345678">
+    <input type="password" id="contrasena" name="contrasena" value="" required class="login-input login-contrasena" placeholder="Ej: 12345678" maxlength="100">
 
     <button type="submit" class="btn btn-action-lf shadow-sm btn-submit">Iniciar sesión </button>
     <br class="login-br">

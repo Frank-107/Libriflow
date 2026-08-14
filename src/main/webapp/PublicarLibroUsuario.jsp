@@ -10,12 +10,10 @@
     <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css?v=1.1" />
-
 </head>
 <body class="p-3 p-md-4">
 
 <div class="container-fluid max-width-xl mx-auto">
-
     <c:if test="${not empty mensaje}">
         <div id="toastExito" class="libri-toast-fixed">
             <i class="bi bi-check-circle-fill"></i>
@@ -78,16 +76,16 @@
                     <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                     </a>
                     <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
                     </a>
-                    <a href="mis-publicaciones" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-publicaciones-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
                     </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -97,8 +95,7 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9">
-
+        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
             <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white">
 
                 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
@@ -269,8 +266,10 @@
 
     </div>
 </div>
+
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/Publicar.js"></script>
+<script src="assets/js/Notificacion.js"></script>
 
 <script>
     function contarPalabras(texto) {
@@ -299,7 +298,6 @@
         if (!inputPrecio || !mensaje15) return;
 
         const valor = parseFloat(inputPrecio.value);
-
         inputPrecio.setCustomValidity("");
 
         if (!isNaN(valor) && valor > 0) {
@@ -400,6 +398,10 @@
         }
     });
 </script>
+
+<c:if test="${param.exito == 'true'}">
+    <jsp:include page="ConfirmacionPublicacion.jsp" />
+</c:if>
 
 </body>
 </html>

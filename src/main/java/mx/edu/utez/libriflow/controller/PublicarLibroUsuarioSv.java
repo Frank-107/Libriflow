@@ -129,7 +129,7 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
             }
 
             req.getSession(false).setAttribute("mensaje", "Listo, Entrega tu libro en la librería para completar la publicación.");
-            resp.sendRedirect("publicar-libro-usuario");
+            resp.sendRedirect("publicar-libro-usuario?exito=true");
 
         } catch(Exception e){
             e.printStackTrace();

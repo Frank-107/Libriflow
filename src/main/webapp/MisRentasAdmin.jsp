@@ -17,135 +17,12 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
+    <!-- Solo LibriFlow y el nuevo CSS exclusivo de esta pantalla -->
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
+          href="${pageContext.request.contextPath}/assets/css/LibriFlow.css"/>
 
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
-
-    <style>
-        .renta-card {
-            background: #CBC2B9;
-            border-radius: 22px;
-            padding: 18px 22px;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-            transition: box-shadow 0.2s ease, transform 0.2s ease;
-        }
-
-        .renta-card:hover {
-            box-shadow: 0 8px 22px rgba(0,0,0,0.10);
-            transform: translateY(-2px);
-        }
-
-        .renta-card .publicacion-contenido {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .renta-card .publicacion-portada img {
-            width: 64px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-        }
-
-        .renta-card .publicacion-info h4 {
-            font-weight: 700;
-            color: #4A4641;
-            margin-bottom: 2px;
-            font-size: 1.05rem;
-        }
-
-        .renta-card .publicacion-info p {
-            margin-bottom: 4px;
-            color: #7A746E;
-            font-size: 0.9rem;
-        }
-
-        .renta-card .codigo-renta {
-            font-size: 0.75rem;
-            color: #A39B93;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .renta-card .fechas-renta {
-            font-size: 0.82rem;
-            color: #7A746E;
-        }
-
-        .renta-card .publicacion-precio {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #4A4641;
-            white-space: nowrap;
-        }
-
-        .badge-estado {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            padding: 5px 14px;
-            border-radius: 20px;
-            text-transform: uppercase;
-        }
-
-        .badge-programada {
-            background-color: #E9E4DD;
-            color: #7A746E;
-        }
-
-        .badge-activa {
-            background-color: #DCEFE1;
-            color: #2E7D4F;
-        }
-
-        .badge-atrasada {
-            background-color: #FCE8CC;
-            color: #B4700A;
-        }
-
-        .badge-muy-atrasada {
-            background-color: #FADBD8;
-            color: #C0392B;
-        }
-
-        .btn-entregar-disabled {
-            background-color: #E4DED5 !important;
-            color: #A39B93 !important;
-            border: none;
-            border-radius: 20px;
-            cursor: not-allowed;
-            padding: 8px 18px;
-        }
-
-        .btn-accion-renta {
-            background-color: #4A4641;
-            color: #ffffff;
-            border: none;
-            border-radius: 20px;
-            padding: 8px 18px;
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-accion-renta:hover {
-            background-color: #7A746E;
-            color: #ffffff;
-        }
-
-        .disponible-desde {
-            font-size: 0.75rem;
-            color: #A39B93;
-            margin-top: 4px;
-        }
-    </style>
-
+          href="${pageContext.request.contextPath}/assets/css/MisRentasAdmin.css"/>
 </head>
 
 <body class="p-3 p-md-4">
@@ -239,7 +116,6 @@
 
     </header>
 
-
     <div class="row g-4">
 
         <aside class="col-12 col-md-4 col-lg-3">
@@ -309,19 +185,17 @@
 
         </aside>
 
+        <main class="col d-flex flex-column h-100 min-vh-0">
 
-        <main class="col catalogo-scroll">
+            <section class="rentas-container d-flex flex-column h-100">
 
-            <section class="mis-publicaciones-container">
-
-                <div class="mis-publicaciones-header">
+                <div class="rentas-header flex-shrink-0">
 
                     <h2>
                         Rentas (${rentas.size()})
                     </h2>
 
                 </div>
-
 
                 <c:choose>
 
@@ -355,165 +229,167 @@
 
                     <c:otherwise>
 
-                        <div class="publicaciones-lista">
+                        <!-- NUEVO WRAPPER CON SCROLL ÚNICO PARA LAS TARJETAS DE RENTA -->
+                        <div class="rentas-scroll-wrapper">
 
-                            <c:forEach var="renta" items="${rentas}">
+                            <div class="rentas-lista">
 
-                                <c:if test="${renta.estado != 'FINALIZADA'}">
+                                <c:forEach var="renta" items="${rentas}">
 
-                                    <div class="renta-card">
+                                    <c:if test="${renta.estado != 'FINALIZADA'}">
 
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div class="renta-card">
 
-                                        <span class="codigo-renta">
-                                            Código #${renta.idDetalle}
-                                        </span>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
 
-                                            <span class="badge-estado
-                                            ${renta.estado == 'PROGRAMADA' ? 'badge-programada' : ''}
-                                            ${renta.estado == 'ACTIVA' ? 'badge-activa' : ''}
-                                            ${renta.estado == 'ATRASADA' ? 'badge-atrasada' : ''}
-                                            ${renta.estado == 'MUY ATRASADA' ? 'badge-muy-atrasada' : ''}">
-                                                    ${renta.estado}
-                                            </span>
+                                                <span class="codigo-renta">
+                                                    Código #${renta.idDetalle}
+                                                </span>
 
-                                        </div>
-
-                                        <div class="publicacion-contenido">
-
-                                            <div class="publicacion-portada">
-
-                                                <img src="${renta.imagenPrincipal}"
-                                                     alt="${renta.titulo}">
+                                                <span class="badge-estado
+                                                ${renta.estado == 'PROGRAMADA' ? 'badge-programada' : ''}
+                                                ${renta.estado == 'ACTIVA' ? 'badge-activa' : ''}
+                                                ${renta.estado == 'ATRASADA' ? 'badge-atrasada' : ''}
+                                                ${renta.estado == 'MUY ATRASADA' ? 'badge-muy-atrasada' : ''}">
+                                                        ${renta.estado}
+                                                </span>
 
                                             </div>
 
+                                            <div class="publicacion-contenido">
 
-                                            <div class="publicacion-info flex-grow-1">
+                                                <div class="publicacion-portada">
 
-                                                <h4>
-                                                        ${renta.titulo}
-                                                </h4>
+                                                    <img src="${renta.imagenPrincipal}"
+                                                         alt="${renta.titulo}">
 
-                                                <p class="mb-1">
-                                                        ${renta.autor}
-                                                </p>
+                                                </div>
 
-                                                <p class="mb-1">
-                                                    Rentado por:
-                                                    <strong>${renta.nombreComprador}</strong>
-                                                </p>
+                                                <div class="publicacion-info flex-grow-1">
 
-                                                <div class="fechas-renta">
+                                                    <h4>
+                                                            ${renta.titulo}
+                                                    </h4>
 
-                                                    Del ${renta.fechaInicio}
-                                                    al ${renta.fechaLimite}
+                                                    <p class="mb-1">
+                                                            ${renta.autor}
+                                                    </p>
 
-                                                    <c:if test="${not empty renta.fechaDevolucion}">
-                                                        <br>
-                                                        Devuelto: ${renta.fechaDevolucion}
-                                                    </c:if>
+                                                    <p class="mb-1">
+                                                        Rentado por:
+                                                        <strong>${renta.nombreComprador}</strong>
+                                                    </p>
+
+                                                    <div class="fechas-renta">
+
+                                                        Del ${renta.fechaInicio}
+                                                        al ${renta.fechaLimite}
+
+                                                        <c:if test="${not empty renta.fechaDevolucion}">
+                                                            <br>
+                                                            Devuelto: ${renta.fechaDevolucion}
+                                                        </c:if>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="publicacion-precio">
+                                                    $${renta.precio}
+                                                </div>
+
+                                                <div class="publicacion-acciones">
+
+                                                    <c:choose>
+
+                                                        <c:when test="${renta.estado == 'PROGRAMADA'}">
+
+                                                            <c:choose>
+
+                                                                <c:when test="${renta.puedeEntregar}">
+
+                                                                    <form action="${pageContext.request.contextPath}/mis-rentas-admin"
+                                                                          method="post">
+
+                                                                        <input type="hidden"
+                                                                               name="idDetalle"
+                                                                               value="${renta.idDetalle}">
+
+                                                                        <input type="hidden"
+                                                                               name="accion"
+                                                                               value="ENTREGAR">
+
+                                                                        <button type="submit"
+                                                                                class="btn btn-accion-renta">
+
+                                                                            <i class="bi bi-box-arrow-in-right me-1"></i>
+                                                                            Marcar como entregado
+
+                                                                        </button>
+
+                                                                    </form>
+
+                                                                </c:when>
+
+                                                                <c:otherwise>
+
+                                                                    <button type="button"
+                                                                            class="btn btn-entregar-disabled"
+                                                                            disabled>
+
+                                                                        <i class="bi bi-lock me-1"></i>
+                                                                        Marcar como entregado
+
+                                                                    </button>
+
+                                                                    <div class="disponible-desde">
+                                                                        Disponible a partir del ${renta.fechaInicio}
+                                                                    </div>
+
+                                                                </c:otherwise>
+
+                                                            </c:choose>
+
+                                                        </c:when>
+
+                                                        <c:when test="${renta.estado == 'ACTIVA' || renta.estado == 'ATRASADA' || renta.estado == 'MUY ATRASADA'}">
+
+                                                            <form action="${pageContext.request.contextPath}/mis-rentas-admin"
+                                                                  method="post">
+
+                                                                <input type="hidden"
+                                                                       name="idDetalle"
+                                                                       value="${renta.idDetalle}">
+
+                                                                <input type="hidden"
+                                                                       name="accion"
+                                                                       value="DEVOLVER">
+
+                                                                <button type="submit"
+                                                                        class="btn btn-accion-renta">
+
+                                                                    <i class="bi bi-check-circle me-1"></i>
+                                                                    Marcar devolución
+
+                                                                </button>
+
+                                                            </form>
+
+                                                        </c:when>
+
+                                                    </c:choose>
 
                                                 </div>
 
                                             </div>
 
-
-                                            <div class="publicacion-precio">
-                                                $${renta.precio}
-                                            </div>
-
-
-                                            <div class="publicacion-acciones">
-
-                                                <c:choose>
-
-                                                    <c:when test="${renta.estado == 'PROGRAMADA'}">
-
-                                                        <c:choose>
-
-                                                            <c:when test="${renta.puedeEntregar}">
-
-                                                                <form action="${pageContext.request.contextPath}/mis-rentas-admin"
-                                                                      method="post">
-
-                                                                    <input type="hidden"
-                                                                           name="idDetalle"
-                                                                           value="${renta.idDetalle}">
-
-                                                                    <input type="hidden"
-                                                                           name="accion"
-                                                                           value="ENTREGAR">
-
-                                                                    <button type="submit"
-                                                                            class="btn btn-accion-renta">
-
-                                                                        <i class="bi bi-box-arrow-in-right me-1"></i>
-                                                                        Marcar como entregado
-
-                                                                    </button>
-
-                                                                </form>
-
-                                                            </c:when>
-
-                                                            <c:otherwise>
-
-                                                                <button type="button"
-                                                                        class="btn btn-entregar-disabled"
-                                                                        disabled>
-
-                                                                    <i class="bi bi-lock me-1"></i>
-                                                                    Marcar como entregado
-
-                                                                </button>
-
-                                                                <div class="disponible-desde">
-                                                                    Disponible a partir del ${renta.fechaInicio}
-                                                                </div>
-
-                                                            </c:otherwise>
-
-                                                        </c:choose>
-
-                                                    </c:when>
-
-                                                    <c:when test="${renta.estado == 'ACTIVA' || renta.estado == 'ATRASADA' || renta.estado == 'MUY ATRASADA'}">
-
-                                                        <form action="${pageContext.request.contextPath}/mis-rentas-admin"
-                                                              method="post">
-
-                                                            <input type="hidden"
-                                                                   name="idDetalle"
-                                                                   value="${renta.idDetalle}">
-
-                                                            <input type="hidden"
-                                                                   name="accion"
-                                                                   value="DEVOLVER">
-
-                                                            <button type="submit"
-                                                                    class="btn btn-accion-renta">
-
-                                                                <i class="bi bi-check-circle me-1"></i>
-                                                                Marcar devolución
-
-                                                            </button>
-
-                                                        </form>
-
-                                                    </c:when>
-
-                                                </c:choose>
-
-                                            </div>
-
                                         </div>
 
-                                    </div>
+                                    </c:if>
 
-                                </c:if>
+                                </c:forEach>
 
-                            </c:forEach>
+                            </div>
 
                         </div>
 

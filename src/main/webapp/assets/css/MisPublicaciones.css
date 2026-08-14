@@ -1,3 +1,114 @@
+/* ==========================================
+   LISTA Y TARJETAS DE PUBLICACIONES
+   ========================================== */
+
+.publicaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    padding-bottom: 2rem;
+    padding-right: 10px;
+}
+
+.publicaciones-lista::-webkit-scrollbar {
+    width: 6px;
+}
+
+.publicaciones-lista::-webkit-scrollbar-thumb {
+    background-color: #CBC2B9;
+    border-radius: 10px;
+}
+
+.publicacion-card {
+    position: relative;
+    background-color: #CBC2B9;
+    border-radius: 30px;
+    padding: 22px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.publicacion-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, .15);
+}
+
+.publicacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.publicacion-portada {
+    background-color: white;
+    padding: 8px;
+    border-radius: 18px;
+}
+
+.publicacion-portada img {
+    width: 90px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.publicacion-info {
+    flex: 1;
+}
+
+.publicacion-info h4 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2D2A26;
+}
+
+.publicacion-info p {
+    margin: 0 0 5px;
+    color: #4A4641;
+}
+
+.publicacion-info small {
+    color: #7A746E;
+}
+
+.publicacion-precio {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #4A4641;
+    margin-right: 15px;
+}
+
+
+/* ==========================================
+   ESTADOS Y BADGES GENERALES
+   ========================================== */
+
+.estado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #2D2A26;
+}
+
+.estado.PENDIENTE {
+    background-color: #FFF1C9;
+    color: #8A6200;
+}
+
+
+/* ==========================================
+   GRILLA Y TARJETAS DE SOLICITUDES (MEJORADO V2)
+   ========================================== */
+
 .solicitudes-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -82,20 +193,21 @@
     font-weight: 800;
 }
 
-.estado {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.4px;
+/* Botones de acción en solicitudes */
+
+.btn-aprobar {
+    width: 100%;
+    background: #4A4641;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: background 0.2s ease;
 }
 
-.estado.PENDIENTE {
-    background-color: #FFF1C9;
-    color: #8A6200;
+.btn-aprobar:hover {
+    background: #7A746E;
 }
 
 .btn-ver-solicitud {
@@ -113,9 +225,7 @@
     font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;
-    transition: background-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-ver-solicitud:hover {
@@ -124,6 +234,106 @@
     transform: translateY(-1px);
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
 }
+
+
+/* ==========================================
+   NOTIFICACIONES (LIBRI-TOAST)
+   ========================================== */
+
+.libri-toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -10px);
+    padding: 10px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 9999;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.libri-toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.libri-toast-error {
+    background-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.libri-toast-success {
+    background-color: #86efac;
+    color: #15803d;
+}
+
+
+/* ==========================================
+   ESTILOS ESPECÍFICOS PARA TARJETAS DE RENTAS
+   ========================================== */
+
+.publicacion-card .lf-badge,
+.card-libro .lf-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    z-index: 5;
+}
+
+.card-libro {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 200px;
+    box-sizing: border-box;
+}
+
+.card-libro:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-success-subtle {
+    background-color: #d1e7dd !important;
+}
+
+.bg-secondary-subtle {
+    background-color: #e2e3e5 !important;
+}
+
+.bg-warning-subtle {
+    background-color: #fff3cd !important;
+}
+
+.catalogo-scroll {
+    overflow-y: visible !important;
+    max-height: none !important;
+}
+
+.row.g-4 {
+    align-items: stretch;
+}
+
+aside#sidebarMenu,
+aside .bg-lf-dark {
+    height: 100%;
+}
+
+
+/* ==========================================
+   MEDIA QUERIES (RESPONSIVE)
+   ========================================== */
 
 @media (max-width: 1200px) {
     .solicitudes-grid {
@@ -146,4 +356,34 @@
     .solicitud-info {
         width: 100%;
     }
+}
+
+
+/* ==========================================
+   SCROLLBAR PERSONALIZADO LIBRIFLOW (CAFÉ)
+   ========================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #EAE6DF;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4A4641;
+    border-radius: 10px;
+    border: 2px solid #EAE6DF;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #36332F;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #4A4641 #EAE6DF;
 }

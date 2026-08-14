@@ -184,7 +184,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div class="row g-3">
+                    <div class="row g-3 publicaciones-lista">
                         <c:forEach var="publicacion" items="${publicaciones}">
                             <%-- Solo mostrar publicaciones de otros usuarios o administradores --%>
                             <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">

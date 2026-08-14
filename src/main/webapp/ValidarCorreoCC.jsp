@@ -56,7 +56,7 @@
             <div class="form-grid">
                 <div class="form-group" style="grid-column: span 2;">
                     <label for="codigo">Código de verificación:</label>
-                    <input type="text" id="codigo" name="codigo" placeholder="Código de verificación" required style="text-align: center;">
+                    <input type="text" id="codigo" name="codigo" placeholder="Código de verificación" required style="text-align: center;" maxlength="10">
                 </div>
             </div>
 

@@ -1,0 +1,226 @@
+/* ==========================================
+   CONTENEDOR DE RENTAS Y TITULAR
+   ========================================== */
+
+.rentas-container {
+    width: 100%;
+}
+
+.rentas-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #4A4641;
+    margin-bottom: 1.5rem;
+}
+
+/* ==========================================
+   SCROLLBAR Y WRAPPER DE TARJETAS
+   ========================================== */
+
+/* Asegura que los contenedores superiores no generen scrolls dobles */
+main,
+.rentas-container {
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+/* Envoltorio específico donde vive el scroll */
+.rentas-scroll-wrapper {
+    max-height: calc(100vh - 220px);
+    overflow-y: auto !important;
+    padding-right: 8px;
+    padding-bottom: 2rem;
+}
+
+.rentas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ==========================================
+   ESTILOS DE LA TARJETA DE RENTA
+   ========================================== */
+
+.renta-card {
+    background: #CBC2B9;
+    border-radius: 22px;
+    padding: 18px 22px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.renta-card:hover {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.10);
+    transform: translateY(-2px);
+}
+
+.renta-card .publicacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.renta-card .publicacion-portada img {
+    width: 64px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.renta-card .publicacion-info h4 {
+    font-weight: 700;
+    color: #4A4641;
+    margin-bottom: 2px;
+    font-size: 1.05rem;
+}
+
+.renta-card .publicacion-info p {
+    margin-bottom: 4px;
+    color: #7A746E;
+    font-size: 0.9rem;
+}
+
+.renta-card .codigo-renta {
+    font-size: 0.75rem;
+    color: #4A4641;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.renta-card .fechas-renta {
+    font-size: 0.82rem;
+    color: #7A746E;
+}
+
+.renta-card .publicacion-precio {
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: #4A4641;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+/* ==========================================
+   BADGES DE ESTADO
+   ========================================== */
+
+.badge-estado {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.badge-programada {
+    background-color: #E9E4DD;
+    color: #7A746E;
+}
+
+.badge-activa {
+    background-color: #DCEFE1;
+    color: #2E7D4F;
+}
+
+.badge-atrasada {
+    background-color: #FCE8CC;
+    color: #B4700A;
+}
+
+.badge-muy-atrasada {
+    background-color: #FADBD8;
+    color: #C0392B;
+}
+
+/* ==========================================
+   BOTONES DE ACCIÓN
+   ========================================== */
+
+.btn-accion-renta {
+    background-color: #4A4641;
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.btn-accion-renta:hover {
+    background-color: #2D2A26;
+    color: #ffffff;
+}
+
+.btn-entregar-disabled {
+    background-color: #E4DED5 !important;
+    color: #A39B93 !important;
+    border: none;
+    border-radius: 20px;
+    cursor: not-allowed;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+}
+
+.disponible-desde {
+    font-size: 0.75rem;
+    color: #7A746E;
+    margin-top: 4px;
+    text-align: center;
+}
+
+/* ==========================================
+   SCROLLBAR CAFÉ PERSONALIZADO LIBRIFLOW
+   ========================================== */
+
+.rentas-scroll-wrapper::-webkit-scrollbar {
+    width: 7px;
+}
+
+.rentas-scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.rentas-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #4A4641;
+    border-radius: 10px;
+}
+
+.rentas-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #36332F;
+}
+
+.rentas-scroll-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #4A4641 transparent;
+}
+
+/* ==========================================
+   ADAPTATIVO (RESPONSIVE)
+   ========================================== */
+
+@media (max-width: 768px) {
+    .rentas-scroll-wrapper {
+        max-height: none;
+        overflow-y: visible !important;
+    }
+
+    .renta-card .publicacion-contenido {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .publicacion-acciones {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .btn-accion-renta,
+    .btn-entregar-disabled {
+        width: 100%;
+    }
+}

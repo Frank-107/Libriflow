@@ -82,18 +82,37 @@
         </aside>
 
         <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
-            <div class="d-flex gap-3 mb-4 align-items-center">
+
+            <!-- ALERTAS DE SISTEMA (Manejadas por el Servlet) -->
+            <c:if test="${not empty error}">
+                <div id="alertaError" class="alert alert-danger alert-dismissible fade show mb-4 rounded-3 shadow-sm libri-toast" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> <c:out value="${error}" />
+                    <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('alertaError').remove();"></button>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty mensaje}">
+                <div class="alert alert-info alert-dismissible fade show mb-4 rounded-3 shadow-sm" role="alert">
+                    <i class="bi bi-info-circle-fill me-2"></i> <c:out value="${mensaje}" />
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </c:if>
+
+            <!-- BARRA DE BÚSQUEDA Y FILTRO POR GÉNERO -->
+            <div class="d-flex gap-3 mb-3 align-items-center">
                 <form action="inicio-admin" method="GET" class="position-relative flex-grow-1 m-0">
                     <i class="bi bi-search search-icon-inside"></i>
-                    <c:if test="${not empty paramGenero}">
-                        <input type="hidden" name="genero" value="${paramGenero}">
+                    <c:if test="${not empty paramGenero && paramGenero != 'TODOS'}">
+                        <input type="hidden" name="genero" value="<c:out value='${paramGenero}' />">
                     </c:if>
                     <input type="text"
                            name="q"
-                           value="${paramBusqueda != null ? paramBusqueda : ''}"
+                           value="<c:out value='${paramBusqueda}' />"
                            class="form-control search-bar-lf shadow-sm"
-                           placeholder="Buscar libros, autores...">
+                           placeholder="Buscar libros, autores..."
+                           maxlength="100">
                 </form>
+
                 <div class="dropdown">
                     <button class="btn bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
                             type="button"
@@ -105,43 +124,61 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 dropdown-menu-filter" aria-labelledby="filtroGenerosDropdown">
                         <li class="dropdown-header fw-bold text-secondary border-bottom pb-2 mb-1" style="font-size: 0.75rem; letter-spacing: 1px;">FILTRAR POR GÉNERO</li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=TODOS">Todos</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Novela">Novela</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Fantasía">Fantasía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia ficción">Ciencia ficción</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Terror">Terror</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Romance">Romance</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Misterio">Misterio</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Suspenso">Suspenso</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Drama">Drama</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Aventura">Aventura</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Historia">Historia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Biografía">Biografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Autobiografía">Autobiografía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Ciencia">Ciencia</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Tecnología">Tecnología</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Educación">Educación</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Infantil">Infantil</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Poesía">Poesía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Filosofía">Filosofía</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Religión">Religión</a></li>
-                        <li><a class="dropdown-item py-2 rounded-3 filter-item-lf" href="inicio-admin?q=${paramBusqueda != null ? paramBusqueda : ''}&genero=Cómic">Cómic</a></li>
+
+                        <c:set var="listaGeneros" value="TODOS,Novela,Fantasía,Ciencia ficción,Terror,Romance,Misterio,Suspenso,Drama,Aventura,Historia,Biografía,Autobiografía,Ciencia,Tecnología,Educación,Infantil,Poesía,Filosofía,Religión,Cómic" />
+                        <c:forEach var="genItem" items="${listaGeneros}">
+                            <c:url var="filtroUrl" value="inicio-admin">
+                                <c:param name="q" value="${paramBusqueda}" />
+                                <c:param name="genero" value="${genItem}" />
+                            </c:url>
+                            <li>
+                                <a class="dropdown-item py-2 rounded-3 filter-item-lf ${paramGenero == genItem ? 'fw-bold active' : ''}" href="${filtroUrl}">
+                                    <c:out value="${genItem == 'TODOS' ? 'Todos' : genItem}" />
+                                </a>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
-
             </div>
+
+            <!-- CHIPS / BADGES DE FILTROS ACTIVOS -->
+            <c:if test="${not empty paramBusqueda || (not empty paramGenero && paramGenero != 'TODOS')}">
+                <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
+                    <small class="text-secondary fw-semibold">Filtros aplicados:</small>
+                    <c:if test="${not empty paramBusqueda}">
+                        <span class="badge bg-secondary-subtle text-dark border px-3 py-2 rounded-pill">
+                            Búsqueda: "<c:out value='${paramBusqueda}' />"
+                        </span>
+                    </c:if>
+                    <c:if test="${not empty paramGenero && paramGenero != 'TODOS'}">
+                        <span class="badge bg-secondary-subtle text-dark border px-3 py-2 rounded-pill">
+                            Género: <c:out value='${paramGenero}' />
+                        </span>
+                    </c:if>
+                    <a href="inicio-admin" class="btn btn-sm btn-link text-danger text-decoration-none p-0 ms-2 fw-bold">
+                        <i class="bi bi-x-circle-fill me-1"></i> Limpiar filtros
+                    </a>
+                </div>
+            </c:if>
+
+            <!-- TARJETAS DEL CATÁLOGO -->
             <c:choose>
                 <c:when test="${empty publicaciones}">
                     <div class="row g-4">
                         <div class="col-12">
                             <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
-                                <h4 class="fw-bold text-dark">No hay ninguna publicacion...</h4>
+                                <i class="bi bi-journal-x display-3 text-muted mb-3 d-block"></i>
+                                <h4 class="fw-bold text-dark mb-2">No se encontraron publicaciones</h4>
+                                <p class="text-muted mb-3">Intenta buscar con otras palabras o selecciona un género diferente.</p>
+                                <a href="inicio-admin" class="btn btn-outline-dark rounded-pill px-4">
+                                    Ver todo el catálogo
+                                </a>
                             </div>
                         </div>
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <div class="row g-3">
+                    <div class="row g-3 publicaciones-lista">
                         <c:forEach var="publicacion" items="${publicaciones}">
                             <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
                                 <div class="col-12 col-md-6">

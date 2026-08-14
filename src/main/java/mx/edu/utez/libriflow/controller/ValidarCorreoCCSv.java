@@ -20,6 +20,13 @@ public class ValidarCorreoCCSv extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        HttpSession session = req.getSession(false);
+        if (session == null ||
+                session.getAttribute("usuarioPendiente") == null){
+            resp.sendRedirect("index");
+            return;
+        }
         req.getRequestDispatcher("ValidarCorreoCC.jsp").forward(req, resp);
         }
 

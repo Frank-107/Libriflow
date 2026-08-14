@@ -1,0 +1,128 @@
+/* ==========================================
+   ESTILOS GENERALES DE USUARIOS ADMIN
+   ========================================== */
+
+.usuarios-container {
+    width: 100%;
+}
+
+.usuarios-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #4A4641;
+    margin-bottom: 1.5rem;
+}
+
+/* ==========================================
+   SCROLLBAR Y CONTENEDOR DE TABLA
+   ========================================== */
+
+/* Previene que los padres tengan scrolls colisionantes */
+main,
+.usuarios-container {
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+/* Envoltorio específico donde vive el scroll */
+.usuarios-scroll-wrapper {
+    max-height: calc(100vh - 220px);
+    overflow-y: auto !important;
+    padding-right: 6px;
+    padding-bottom: 2rem;
+}
+
+/* Scrollbar café personalizado acorde a LibriFlow */
+.usuarios-scroll-wrapper::-webkit-scrollbar {
+    width: 7px;
+}
+
+.usuarios-scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.usuarios-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #4A4641;
+    border-radius: 10px;
+}
+
+.usuarios-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #36332F;
+}
+
+.usuarios-scroll-wrapper {
+    scrollbar-width: thin;
+    scrollbar-color: #4A4641 transparent;
+}
+
+/* ==========================================
+   TABLA DE USUARIOS
+   ========================================== */
+
+.tabla-usuarios thead th {
+    background-color: #F8F6F3;
+    color: #4A4641;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #E4DED5;
+    padding: 14px 16px;
+}
+
+.tabla-usuarios tbody td {
+    padding: 14px 16px;
+    color: #4A4641;
+    font-size: 0.92rem;
+}
+
+.tabla-usuarios tbody tr:hover {
+    background-color: #F8F6F3;
+}
+
+/* ==========================================
+   BADGES DE ESTADO DE USUARIOS
+   ========================================== */
+
+.badge-usuario {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.badge-activa {
+    background-color: #DCEFE1;
+    color: #2E7D4F;
+}
+
+.badge-bloqueado {
+    background-color: #FADBD8;
+    color: #C0392B;
+}
+
+/* ==========================================
+   BOTONES
+   ========================================== */
+
+.btn-ver-detalles {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-ver-detalles:hover {
+    transform: translateY(-1px);
+    background-color: #CBC2B9 !important;
+}
+
+/* ==========================================
+   ADAPTATIVO (RESPONSIVE)
+   ========================================== */
+
+@media (max-width: 768px) {
+    .usuarios-scroll-wrapper {
+        max-height: none;
+        overflow-y: visible !important;
+    }
+}

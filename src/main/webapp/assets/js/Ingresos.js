@@ -1,0 +1,111 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const rows = Array.from(document.querySelectorAll('.lf-ingreso-row'));
+    if (rows.length === 0) return;
+
+    // Tiempos de referencia (Hoy, Semana, Mes)
+    const now = new Date();
+
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+
+    const currentDayOfWeek = now.getDay() === 0 ? 6 : now.getDay() - 1; // Lunes = 0
+    const startOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - currentDayOfWeek).getTime();
+
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+    let totals = {
+        hoy: { ganancia: 0, count: 0 },
+        semana: { ganancia: 0, count: 0 },
+        mes: { ganancia: 0, count: 0 },
+        total: { ganancia: 0, count: 0 }
+    };
+
+    // Recorrer filas y sumar
+    rows.forEach(row => {
+        const timeMs = parseInt(row.getAttribute('data-time'), 10);
+        const ganancia = parseFloat(row.getAttribute('data-ganancia')) || 0;
+
+        // Total
+        totals.total.ganancia += ganancia;
+        totals.total.count++;
+
+        // Mes
+        if (timeMs >= startOfMonth) {
+            totals.mes.ganancia += ganancia;
+            totals.mes.count++;
+        }
+
+        // Semana
+        if (timeMs >= startOfWeek) {
+            totals.semana.ganancia += ganancia;
+            totals.semana.count++;
+        }
+
+        // Hoy
+        if (timeMs >= startOfToday) {
+            totals.hoy.ganancia += ganancia;
+            totals.hoy.count++;
+        }
+    });
+
+    // Formateador de Moneda
+    const fmt = (val) => '$' + val.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    // Actualizar KPIs superiores
+    document.getElementById('kpi-hoy').textContent = fmt(totals.hoy.ganancia);
+    document.getElementById('count-hoy').textContent = `${totals.hoy.count} transacciones`;
+
+    document.getElementById('kpi-semana').textContent = fmt(totals.semana.ganancia);
+    document.getElementById('count-semana').textContent = `${totals.semana.count} transacciones`;
+
+    document.getElementById('kpi-mes').textContent = fmt(totals.mes.ganancia);
+    document.getElementById('count-mes').textContent = `${totals.mes.count} transacciones`;
+
+    document.getElementById('kpi-total').textContent = fmt(totals.total.ganancia);
+    document.getElementById('count-total').textContent = `${totals.total.count} transacciones`;
+
+    // Manejo de pestañas
+    const tabs = document.querySelectorAll('.lf-tab-btn');
+    const emptyFilterRow = document.getElementById('row-empty-filter');
+    const tabSumDisplay = document.getElementById('tab-sum-display');
+
+    function filterPeriod(period) {
+        let visibleCount = 0;
+        let sumPeriod = 0;
+
+        rows.forEach(row => {
+            const timeMs = parseInt(row.getAttribute('data-time'), 10);
+            const ganancia = parseFloat(row.getAttribute('data-ganancia')) || 0;
+            let show = false;
+
+            if (period === 'total') show = true;
+            else if (period === 'mes' && timeMs >= startOfMonth) show = true;
+            else if (period === 'semana' && timeMs >= startOfWeek) show = true;
+            else if (period === 'hoy' && timeMs >= startOfToday) show = true;
+
+            if (show) {
+                row.style.display = '';
+                visibleCount++;
+                sumPeriod += ganancia;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        if (emptyFilterRow) {
+            emptyFilterRow.style.display = visibleCount === 0 ? '' : 'none';
+        }
+
+        tabSumDisplay.textContent = fmt(sumPeriod);
+    }
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            filterPeriod(tab.getAttribute('data-period'));
+        });
+    });
+
+    // Filtro inicial por defecto
+    filterPeriod('total');
+});

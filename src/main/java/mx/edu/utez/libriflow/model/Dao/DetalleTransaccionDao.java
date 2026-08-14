@@ -328,4 +328,99 @@ public class DetalleTransaccionDao {
 
         return movimientos;
     }
+
+    public List<Movimiento> getAllMovimientosIngresos() {
+
+        List<Movimiento> movimientos = new ArrayList<>();
+
+        String sql = """
+        SELECT
+            u.nombre AS comprador,
+            t.fecha,
+            l.titulo AS titulo,
+            dt.precio AS total,
+            dt.ganancia_libriflow AS ganancia_libriflow,
+            0 AS es_libriflow
+        FROM detalle_transaccion dt
+        JOIN transaccion t
+            ON dt.id_transaccion = t.id_transaccion
+        JOIN usuario u
+            ON t.id_comprador = u.id_usuario
+        JOIN publicacion_us pu
+            ON dt.id_publicacion_us = pu.id_publicacion_us
+        JOIN libro l
+            ON pu.id_libro = l.id_libro
+        WHERE dt.id_publicacion_us IS NOT NULL
+
+        UNION ALL
+
+        -- 2. PUBLICACIONES DE LIBRIFLOW (publicacion_lf)
+        SELECT
+            u.nombre AS comprador,
+            t.fecha,
+            l.titulo AS titulo,
+            dt.precio AS total,
+            dt.precio AS ganancia_libriflow,
+            1 AS es_libriflow
+        FROM detalle_transaccion dt
+        JOIN transaccion t
+            ON dt.id_transaccion = t.id_transaccion
+        JOIN usuario u
+            ON t.id_comprador = u.id_usuario
+        JOIN publicacion_lf pl
+            ON dt.id_publicacion_lf = pl.id_publicacion_lf
+        JOIN libro l
+            ON pl.id_libro = l.id_libro
+        WHERE dt.id_publicacion_lf IS NOT NULL
+
+        ORDER BY fecha DESC
+        """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                Movimiento movimiento = new Movimiento();
+
+                movimiento.setComprador(
+                        rs.getString("comprador")
+                );
+
+                movimiento.setFecha(
+                        rs.getTimestamp("fecha")
+                );
+
+                movimiento.setTitulo(
+                        rs.getString("titulo")
+                );
+
+                movimiento.setPrecio(
+                        rs.getDouble("total")
+                );
+
+                movimiento.setGanaciaLibriflow(
+                        rs.getDouble("ganancia_libriflow")
+                );
+
+                // Convierte el 1 a true y el 0 a false
+                movimiento.setEsLibriFlow(
+                        rs.getInt("es_libriflow") == 1
+                );
+
+                movimientos.add(movimiento);
+            }
+
+        } catch (SQLException e) {
+
+            System.err.println(
+                    "Error al obtener los ingresos globales:"
+            );
+
+            e.printStackTrace();
+        }
+
+        return movimientos;
+    }
 }

@@ -96,6 +96,7 @@
     padding: 22px;
     margin-bottom: 18px;
     box-shadow: 0 3px 12px rgba(45, 42, 38, 0.05);
+    padding-bottom: 3px;
 }
 
 .lf-card-title {

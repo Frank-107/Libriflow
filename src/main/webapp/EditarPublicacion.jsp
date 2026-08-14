@@ -455,137 +455,67 @@
                     </div>
                 </form>
 
-                <div class="zona-eliminar">
-
-                    <div class="zona-eliminar-texto">
-
-                        <div class="zona-eliminar-icono">
-                            <i class="bi bi-trash3"></i>
-                        </div>
-
-                        <div>
-                            <strong>Eliminar publicación</strong>
-
-                            <p>
-                                El libro y toda la información de esta publicación serán eliminados permanentemente.
-                            </p>
-                        </div>
-                    </div>
-
-                    <button type="button"
-                            class="btn-eliminar-publicacion"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalEliminarPublicacion">
-
-                        Eliminar publicación
-                    </button>
-                </div>
             </div>
         </main>
     </div>
 </div>
 
 <div class="modal fade"
-     id="modalEliminarPublicacion"
+     id="modalConfirmarActualizacion"
      tabindex="-1"
-     aria-labelledby="modalEliminarPublicacionLabel"
-     aria-hidden="true">
+     aria-labelledby="modalConfirmarActualizacionLabel"
+     aria-hidden="true"
+     data-bs-backdrop="static">
 
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content modal-eliminar">
-            <div class="modal-body p-4 p-md-5 text-center">
-                <div class="modal-eliminar-icono">
-                    <i class="bi bi-exclamation-triangle"></i>
-                </div>
-                <h4 class="fw-bold mt-3"
-                    id="modalEliminarPublicacionLabel">
-                    ¿Eliminar publicación?
-                </h4>
+        <div class="modal-content shadow-lg"
+             style="border-radius:40px;background-color:#e3ded7;color:#4A4641;border:none;">
 
-                <p class="text-muted">
-                    Estás a punto de eliminar
-                    <strong>
-                        <c:out value="${publicacion.titulo}"/>
-                    </strong>.
-                    Esta acción no se puede deshacer.
+            <div class="modal-header border-0 pb-0 position-relative">
+                <h5 class="modal-title fw-bold w-100 text-center"
+                    id="modalConfirmarActualizacionLabel"
+                    style="color:#4A4641;">
+                    <i class="bi bi-question-circle me-2"
+                       style="color:#7A746E;"></i>
+                    Confirmar cambios
+                </h5>
+
+                <button type="button"
+                        class="btn-close position-absolute end-0 me-4 mt-2"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body py-4 text-center">
+                <p class="mb-0 fs-6 fw-medium"
+                   style="color:#6e6762;">
+                    ¿Estás seguro de que deseas actualizar los datos de esta publicación?
                 </p>
+            </div>
 
-                <div class="d-flex gap-2 mt-4">
+            <div class="modal-footer border-0 pt-0 d-flex justify-content-center gap-3">
+                <button type="button"
+                        class="btn bg-lf-capsule btn-lf-pill"
+                        data-bs-dismiss="modal"
+                        style="font-weight:600;padding:12px 30px;border-radius:25px;">
+                    Cancelar
+                </button>
 
-                    <button type="button"
-                            class="btn btn-cancelar-eliminar flex-grow-1"
-                            data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-
-                    <form action="${pageContext.request.contextPath}/editar-publicacion"
-                          method="POST"
-                          class="flex-grow-1">
-
-                        <input type="hidden"
-                               name="accion"
-                               value="eliminar">
-
-                        <input type="hidden"
-                               name="idPublicacion"
-                               value="${publicacion.idPublicacion}">
-
-                        <button type="submit"
-                                class="btn btn-confirmar-eliminar w-100">
-
-                            <i class="bi bi-trash3 me-1"></i>
-                            Sí, eliminar
-                        </button>
-                    </form>
-                </div>
+                <button type="button"
+                        class="btn btn-action-lf"
+                        id="btnConfirmarActualizacion"
+                        style="font-weight:600;padding:12px 30px;border-radius:25px;margin:0;">
+                    <i class="bi bi-check2-circle me-2"></i>
+                    Sí, actualizar
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/EditarPublicacion.js"></script>
 
-<script>
-    function mostrarPreview(input, idPreview) {
-        if (!input.files || !input.files[0]) {
-            return;
-        }
-
-        const archivo = input.files[0];
-
-        const permitidos = [
-            "image/jpeg",
-            "image/png",
-            "image/webp"
-        ];
-
-        if (!permitidos.includes(archivo.type)) {
-            alert("Selecciona una imagen JPG, PNG o WEBP.");
-            input.value = "";
-            return;
-        }
-
-        if (archivo.size > 5 * 1024 * 1024) {
-            alert("La imagen no puede superar los 5 MB.");
-            input.value = "";
-            return;
-        }
-
-        const reader = new FileReader();
-
-        reader.onload = function(e) {
-            document.getElementById(idPreview).src = e.target.result;
-        };
-
-        reader.readAsDataURL(archivo);
-    }
-    document.getElementById("formEditar").addEventListener("submit", function() {
-        const boton = this.querySelector(".btn-submit-editar");
-
-        boton.disabled = true;
-        boton.innerHTML =
-            '<span class="spinner-border spinner-border-sm me-2"></span>Guardando...';
-    });
-</script>
 </body>
 </html>

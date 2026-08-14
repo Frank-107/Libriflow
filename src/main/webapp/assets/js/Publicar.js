@@ -1,23 +1,23 @@
-const formulario = document.getElementById("formPublicar");
+window.onload = function() {
+    var inputPrecio = document.getElementById('precio') || document.querySelector('input[name="precio"]');
 
-formulario.addEventListener("submit",validarImagenes);
+    if (inputPrecio) {
+        inputPrecio.oninput = function() {
+            // Limpia la restriccion nativa al teclear para que acepte cualquier numero nuevo
+            inputPrecio.setCustomValidity("");
 
-    function validarImagenes(e){
+            var precio = parseFloat(inputPrecio.value);
+            var mensaje15 = document.getElementById("mensaje15");
 
-        const imagen1 = document.getElementById("imagen1");
-        const imagen2 = document.getElementById("imagen2");
-        const imagen3 = document.getElementById("imagen3");
-
-        if(
-            imagen1.files.length === 0 ||
-            imagen2.files.length === 0 ||
-            imagen3.files.length === 0
-        ){
-
-            e.preventDefault();
-
-            alert("Debes subir las 3 imágenes.");
-
-        }
-
+            if (mensaje15) {
+                if (precio > 0) {
+                    var comision = (precio * 0.15).toFixed(2);
+                    var ganancia = (precio * 0.85).toFixed(2);
+                    mensaje15.innerHTML = "Se aplicará el 15% de comisión ($" + comision + "). Recibirás: $" + ganancia + " MXN";
+                } else {
+                    mensaje15.innerHTML = "";
+                }
+            }
+        };
     }
+};

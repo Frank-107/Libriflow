@@ -67,7 +67,7 @@
                         <i class="bi bi-cart3 me-3 fs-5"></i>
                         Carrito
                     </a>
-                    <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
+                    <a href="MisCompras.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i>
                         Compras
                     </a>
@@ -79,7 +79,7 @@
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i>
                         Mis publicaciones
                     </a>
-                    <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>
                         Mis rentas
                     </a>

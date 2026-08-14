@@ -1,0 +1,125 @@
+/* Overlay de fondo con efecto de desenfoque (Blur) */
+.overlay-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(74, 70, 65, 0.45); /* Mismo tono #4A4641 translúcido */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    animation: fadeInOverlay 0.4s ease forwards;
+}
+
+/* Tarjeta principal tipo Popover / Panfleto */
+.pamphlet-card {
+    background-color: #FAF6F2;
+    border: 3px solid #CBC2B9;
+    border-radius: 30px;
+    max-width: 500px;
+    width: 100%;
+    padding: 32px 28px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    position: relative;
+    transform: translateY(30px) scale(0.95);
+    animation: popUpCard 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+}
+
+/* Botón flotante para cerrar en la esquina superior */
+.btn-close-pamphlet {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background: #A39B93;
+    color: #2D2A26;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-close-pamphlet:hover {
+    background-color: #7A746E;
+    color: #FFFFFF;
+    transform: scale(1.05);
+}
+
+/* Badge circular para el icono de éxito */
+.icon-badge-success {
+    background-color: #6EE7B7;
+    color: #064E3B;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+}
+
+/* Caja contenedora de las instrucciones (Panfleto interno) */
+.pamphlet-instructions {
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    border: 1px solid #CBC2B9;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Círculo con el número del paso */
+.step-number {
+    background-color: #7A746E;
+    color: #FFFFFF;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* Separador horizontal interno */
+.pamphlet-divider {
+    border: 0;
+    border-top: 1px solid #CBC2B9;
+    opacity: 0.4;
+    margin: 14px 0;
+}
+
+/* Keyframes de animaciones */
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popUpCard {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

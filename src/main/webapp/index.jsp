@@ -7,7 +7,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LibriFlow - Tu Biblioteca Digital</title>
-  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoInicio.jpeg" type="image/png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/css/bootstrap.css" />
   <link rel="stylesheet" href="assets/css/index.css?v=3" />
@@ -17,7 +17,7 @@
 
 <nav class="bg-lf-dark rounded-lf-header navbar-outer shadow-sm d-flex align-items-center px-4 px-md-5">
   <div class="nav-links">
-    <a href="#" class="btn-nav">Nuestras Redes</a>
+    <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn-nav">Nuestras Redes</a>
   </div>
 </nav>
 
@@ -143,7 +143,7 @@
     </p>
 
     <div class="social-links">
-      <a href="#" aria-label="Instagram">
+      <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" aria-label="Instagram">
         <img src="assets/css/bi/instagram.svg" alt="Instagram" width="20" height="20">
       </a>
       <a href="#" aria-label="X">

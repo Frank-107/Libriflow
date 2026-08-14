@@ -10,41 +10,46 @@ import mx.edu.utez.libriflow.model.RentaResumen;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 @WebServlet(name = "MisRentasAdminSv", value = "/mis-rentas-admin")
 public class MisRentasAdminSv extends HttpServlet {
 
-    RentaDao rentaDao = new RentaDao();
-
+    private final RentaDao rentaDao = new RentaDao();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-        List<RentaResumen> lista = rentaDao.getResumenTodasLasRentas();
+        List<RentaResumen> lista =
+                rentaDao.getResumenTodasLasRentas();
+
         req.setAttribute("rentas", lista);
 
-        req.getRequestDispatcher("MisRentasAdmin.jsp").forward(req, resp);
+        req.getRequestDispatcher("MisRentasAdmin.jsp")
+                .forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        int idDetalle = Integer.parseInt(req.getParameter("idDetalle"));
-        String accion = req.getParameter("accion");
+        int idDetalle =
+                Integer.parseInt(req.getParameter("idDetalle"));
 
-        boolean actualizado = false;
+        String accion =
+                req.getParameter("accion");
 
         if ("ENTREGAR".equals(accion)) {
 
-            actualizado = rentaDao.marcarComoEntregada(idDetalle);
+            rentaDao.marcarComoEntregada(idDetalle);
 
         } else if ("DEVOLVER".equals(accion)) {
 
-            actualizado = rentaDao.marcarComoFinalizada(idDetalle);
+            rentaDao.marcarComoFinalizada(idDetalle);
         }
 
-        resp.sendRedirect(req.getContextPath() + "/mis-rentas-admin");
+        resp.sendRedirect(
+                req.getContextPath() + "/mis-rentas-admin"
+        );
     }
 }

@@ -9,12 +9,20 @@
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css?v=1.1" />
+
 </head>
 <body class="p-3 p-md-4">
 
 <div class="container-fluid max-width-xl mx-auto">
+
+    <c:if test="${not empty mensaje}">
+        <div id="toastExito" class="libri-toast-fixed">
+            <i class="bi bi-check-circle-fill"></i>
+            <span><c:out value="${mensaje}" escapeXml="true" /></span>
+        </div>
+        <c:remove var="mensaje" scope="session"/>
+    </c:if>
 
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center gap-2 gap-md-3">
@@ -30,8 +38,12 @@
 
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
-                <div class="fw-bold mb-0" style="font-size: 0.95rem;"><c:out value="${usuario.getNombre()}" /></div>
-                <small class="text-white-50" style="font-size: 0.8rem;"><c:out value="${usuario.getCorreo()}" /></small>
+                <div class="fw-bold mb-0" style="font-size: 0.95rem;">
+                    <c:out value="${usuario.nombre}" default="" escapeXml="true" />
+                </div>
+                <small class="text-white-50" style="font-size: 0.8rem;">
+                    <c:out value="${usuario.correo}" default="" escapeXml="true" />
+                </small>
             </div>
 
             <div class="dropdown">
@@ -66,13 +78,13 @@
                     <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
                     </a>
-                    <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-bag-check me-3 fs-5"></i> Compras
                     </a>
                     <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
                     </a>
-                    <a href="mis-publicaciones-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="mis-publicaciones" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
                     </a>
                     <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -85,7 +97,8 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
+        <main class="col-12 col-md-8 col-lg-9">
+
             <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white">
 
                 <div class="d-flex justify-content-between align-items-start mb-4 flex-wrap gap-3">
@@ -96,13 +109,6 @@
                         <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" style="height: 35px; width: auto;">
                     </div>
                 </div>
-                <c:if test="${not empty mensaje}">
-                    <div class="libri-toast libri-toast-success">
-                        <i class="bi bi-check-circle-fill fs-5"></i>
-                        <span><c:out value="${mensaje}" escapeXml="true" /></span>
-                    </div>
-                    <c:remove var="mensaje" scope="session"/>
-                </c:if>
 
                 <c:if test="${not empty error}">
                     <div class="alert alert-danger d-flex align-items-center gap-2 mb-4" role="alert">
@@ -117,17 +123,17 @@
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Nombre del libro</label>
-                            <input type="text" name="titulo" value="${param.titulo}" class="form-control form-control-lf" required>
+                            <input type="text" name="titulo" value="<c:out value='${param.titulo}' escapeXml='true'/>" class="form-control form-control-lf" maxlength="150" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Autor</label>
-                            <input type="text" name="autor" value="${param.autor}" class="form-control form-control-lf" required>
+                            <input type="text" name="autor" value="<c:out value='${param.autor}' escapeXml='true'/>" class="form-control form-control-lf" maxlength="100" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Editorial</label>
-                            <input type="text" name="editorial" value="${param.editorial}" class="form-control form-control-lf" required>
+                            <input type="text" name="editorial" value="<c:out value='${param.editorial}' escapeXml='true'/>" class="form-control form-control-lf" maxlength="100" required>
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
@@ -165,9 +171,10 @@
                             <input type="number"
                                    step="0.01"
                                    min="0.01"
+                                   max="99999.99"
                                    id="precio"
                                    name="precio"
-                                   value="${param.precio}"
+                                   value="<c:out value='${param.precio}' escapeXml='true'/>"
                                    class="form-control form-control-lf"
                                    placeholder="$"
                                    oninput="actualizarPrecioUI()"
@@ -189,7 +196,6 @@
                             </button>
                         </div>
 
-                        <!-- MODIFICACION SINOPSIS INICIO: Se dejó una sola Sinopsis limpia sin etiquetas de texto abajo -->
                         <div class="col-12 mb-4">
                             <label class="form-label-lf">Sinopsis</label>
 
@@ -197,11 +203,11 @@
                                       id="sinopsis"
                                       class="form-control form-control-lf"
                                       rows="5"
+                                      maxlength="5000"
                                       style="resize:none;"
                                       oninput="validarSinopsis()"
-                                      required>${param.sinopsis}</textarea>
+                                      required><c:out value='${param.sinopsis}' escapeXml='true'/></textarea>
                         </div>
-                        <!-- MODIFICACION SINOPSIS FIN -->
 
                     </div>
 
@@ -228,21 +234,21 @@
                                             <label class="form-label-lf small fw-bold mb-2">
                                                 1. Portada (Principal)
                                             </label>
-                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5">
+                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5" accept="image/*">
                                         </div>
 
                                         <div class="col-12 mb-4">
                                             <label class="form-label-lf small fw-bold mb-2">
                                                 2. Reverso / Contraportada
                                             </label>
-                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5">
+                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5" accept="image/*">
                                         </div>
 
                                         <div class="col-12 mb-2">
                                             <label class="form-label-lf small fw-bold mb-2">
                                                 3. Estado general / Páginas
                                             </label>
-                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5">
+                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5" accept="image/*">
                                         </div>
 
                                     </div>
@@ -265,9 +271,7 @@
 </div>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/Publicar.js"></script>
-<script src="assets/js/Notificacion.js"></script>
 
-<!-- MODIFICACION SCRIPT INICIO: Lógica de validaciones nativas para precio y sinopsis -->
 <script>
     function contarPalabras(texto) {
         if (!texto) return 0;
@@ -283,7 +287,7 @@
 
         if (numPalabras < 100) {
             const faltantes = 100 - numPalabras;
-            inputSinopsis.setCustomValidity("La sinopsis debe tener al menos 100 palabras.");
+            inputSinopsis.setCustomValidity("La sinopsis debe tener al menos 100 palabras. Llevas " + numPalabras + " (faltan " + faltantes + ").");
         } else {
             inputSinopsis.setCustomValidity("");
         }
@@ -292,7 +296,7 @@
     function actualizarPrecioUI() {
         const inputPrecio = document.getElementById('precio');
         const mensaje15 = document.getElementById('mensaje15');
-        if (!inputPrecio) return;
+        if (!inputPrecio || !mensaje15) return;
 
         const valor = parseFloat(inputPrecio.value);
 
@@ -301,25 +305,60 @@
         if (!isNaN(valor) && valor > 0) {
             const comision = (valor * 0.15).toFixed(2);
             const ganancia = (valor * 0.85).toFixed(2);
-            if (mensaje15) {
-                mensaje15.textContent = "Se aplicará el 15% de comisión ($" + comision + "). Recibirás: $" + ganancia + " MXN";
-            }
+            mensaje15.textContent = "Se aplicará el 15% de comisión ($" + comision + "). Recibirás: $" + ganancia + " MXN";
         } else {
-            if (mensaje15) mensaje15.textContent = "";
+            mensaje15.textContent = "";
         }
     }
 
+    function validarImagenesNativo() {
+        const img1 = document.getElementById("imagen1");
+        const img2 = document.getElementById("imagen2");
+        const img3 = document.getElementById("imagen3");
+
+        [img1, img2, img3].forEach(img => { if (img) img.setCustomValidity(""); });
+
+        if (!img1 || !img2 || !img3 || img1.files.length === 0 || img2.files.length === 0 || img3.files.length === 0) {
+            if (img1.files.length === 0) img1.setCustomValidity("Debes subir las 3 imágenes requeridas.");
+            else if (img2.files.length === 0) img2.setCustomValidity("Debes subir las 3 imágenes requeridas.");
+            else if (img3.files.length === 0) img3.setCustomValidity("Debes subir las 3 imágenes requeridas.");
+
+            return false;
+        }
+        return true;
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
+        const toast = document.getElementById('toastExito');
+        if (toast) {
+            setTimeout(function() {
+                toast.classList.add('mostrar-toast');
+            }, 150);
+
+            setTimeout(function() {
+                toast.classList.remove('mostrar-toast');
+                setTimeout(function() { toast.remove(); }, 500);
+            }, 4500);
+        }
+
         const form = document.getElementById('formPublicar');
-        const inputPrecio = document.getElementById('precio');
 
         actualizarPrecioUI();
         validarSinopsis();
 
+        ['imagen1', 'imagen2', 'imagen3'].forEach(id => {
+            const elem = document.getElementById(id);
+            if (elem) {
+                elem.addEventListener('change', function () {
+                    this.setCustomValidity('');
+                });
+            }
+        });
+
         if (form) {
             form.addEventListener('submit', function (e) {
+                const inputPrecio = document.getElementById('precio');
                 const valorPrecio = parseFloat(inputPrecio.value);
-
                 if (isNaN(valorPrecio) || valorPrecio <= 0) {
                     inputPrecio.setCustomValidity("El precio debe ser mayor a $0 MXN.");
                 } else {
@@ -328,10 +367,34 @@
 
                 validarSinopsis();
 
+                const imagenesValidas = validarImagenesNativo();
+
+                if (!imagenesValidas) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const modalElement = document.getElementById('modalSubirImagenes');
+                    const bsModal = bootstrap.Modal.getOrCreateInstance(modalElement);
+                    bsModal.show();
+
+                    modalElement.addEventListener('shown.bs.modal', function handler() {
+                        form.reportValidity();
+                        modalElement.removeEventListener('shown.bs.modal', handler);
+                    });
+                    return;
+                }
+
                 if (!form.checkValidity()) {
                     e.preventDefault();
                     e.stopPropagation();
                     form.reportValidity();
+                    return;
+                }
+
+                const btn = form.querySelector('.btn-submit');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = 'Enviando...';
                 }
             });
         }

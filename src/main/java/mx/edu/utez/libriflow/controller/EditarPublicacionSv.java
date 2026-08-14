@@ -55,8 +55,9 @@ public class EditarPublicacionSv extends HttpServlet {
                     );
 
             PublicacionUsuarioCompleta publicacion =
-                    publicacionDao
-                            .getPublicacionUsuarioCompleta(idPublicacion);
+                    publicacionDao.getPublicacionUsuarioCompleta(
+                            idPublicacion
+                    );
 
             if (publicacion == null) {
                 resp.sendRedirect(
@@ -72,6 +73,22 @@ public class EditarPublicacionSv extends HttpServlet {
                 resp.sendError(
                         HttpServletResponse.SC_FORBIDDEN,
                         "No tienes permiso para editar esta publicación."
+                );
+
+                return;
+            }
+
+            if (!puedeModificar(publicacion.getEstado())) {
+
+                session.setAttribute(
+                        "error",
+                        "Esta publicación ya no puede modificarse."
+                );
+
+                resp.sendRedirect(
+                        req.getContextPath()
+                                + "/detalle-publicacion?idPublicacion="
+                                + idPublicacion
                 );
 
                 return;
@@ -122,8 +139,9 @@ public class EditarPublicacionSv extends HttpServlet {
                     );
 
             PublicacionUsuarioCompleta publicacion =
-                    publicacionDao
-                            .getPublicacionUsuarioCompleta(idPublicacion);
+                    publicacionDao.getPublicacionUsuarioCompleta(
+                            idPublicacion
+                    );
 
             if (publicacion == null) {
                 resp.sendRedirect(
@@ -138,6 +156,22 @@ public class EditarPublicacionSv extends HttpServlet {
 
                 resp.sendError(
                         HttpServletResponse.SC_FORBIDDEN
+                );
+
+                return;
+            }
+
+            if (!puedeModificar(publicacion.getEstado())) {
+
+                session.setAttribute(
+                        "error",
+                        "Esta publicación ya no puede editarse ni eliminarse."
+                );
+
+                resp.sendRedirect(
+                        req.getContextPath()
+                                + "/detalle-publicacion?idPublicacion="
+                                + idPublicacion
                 );
 
                 return;
@@ -282,17 +316,16 @@ public class EditarPublicacionSv extends HttpServlet {
         }
 
         boolean actualizado =
-                publicacionDao
-                        .actualizarPublicacionCompleta(
-                                idPublicacion,
-                                idUsuario,
-                                titulo.trim(),
-                                autor.trim(),
-                                editorial.trim(),
-                                genero.trim(),
-                                sinopsis.trim(),
-                                precio
-                        );
+                publicacionDao.actualizarPublicacionCompleta(
+                        idPublicacion,
+                        idUsuario,
+                        titulo.trim(),
+                        autor.trim(),
+                        editorial.trim(),
+                        genero.trim(),
+                        sinopsis.trim(),
+                        precio
+                );
 
         if (!actualizado) {
 
@@ -392,11 +425,10 @@ public class EditarPublicacionSv extends HttpServlet {
     ) throws IOException {
 
         boolean eliminada =
-                publicacionDao
-                        .eliminarPublicacionPropietario(
-                                idPublicacion,
-                                idUsuario
-                        );
+                publicacionDao.eliminarPublicacionPropietario(
+                        idPublicacion,
+                        idUsuario
+                );
 
         if (eliminada) {
 
@@ -414,20 +446,19 @@ public class EditarPublicacionSv extends HttpServlet {
 
             session.setAttribute(
                     "error",
-                    "No se pudo eliminar la publicación."
+                    "La publicación no puede eliminarse."
             );
 
-            regresarEdicion(
-                    req,
-                    resp,
-                    idPublicacion
+            resp.sendRedirect(
+                    req.getContextPath()
+                            + "/detalle-publicacion?idPublicacion="
+                            + idPublicacion
             );
         }
     }
 
-    private String guardarImagen(
-            Part imagen
-    ) throws IOException {
+    private String guardarImagen(Part imagen)
+            throws IOException {
 
         String nombreOriginal =
                 new File(
@@ -463,10 +494,13 @@ public class EditarPublicacionSv extends HttpServlet {
                 + nombreUnico;
     }
 
-    private boolean estaVacio(
-            String texto
-    ) {
+    private boolean puedeModificar(String estado) {
 
+        return "PENDIENTE".equalsIgnoreCase(estado)
+                || "RECHAZADO".equalsIgnoreCase(estado);
+    }
+
+    private boolean estaVacio(String texto) {
         return texto == null
                 || texto.trim().isEmpty();
     }

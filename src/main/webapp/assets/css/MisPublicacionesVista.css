@@ -1,0 +1,375 @@
+/* =====================================================
+SOLO PARA LA VISTA MIS PUBLICACIONES
+No modifica estilos globales de otras pantallas
+===================================================== */
+
+.mis-publicaciones-container {
+    width: 100%;
+}
+
+.mis-publicaciones-header {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.mis-publicaciones-header h2 {
+    margin: 0;
+    color: #292725;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* =========================
+FILTRO DE ORDENAMIENTO
+========================= */
+
+.form-orden {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.orden-label {
+    margin: 0;
+    color: #292725;
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.orden-select {
+    width: auto !important;
+    min-width: 210px;
+    height: 46px;
+    padding: 0 42px 0 20px;
+    border: 1px solid #AAA39D;
+    border-radius: 999px !important;
+    background-color: #F7F3EF;
+    color: #302E2C;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none !important;
+    transition:
+            background-color .2s ease,
+            border-color .2s ease,
+            box-shadow .2s ease;
+}
+
+.orden-select:hover {
+    background-color: #FFF;
+    border-color: #817A74;
+}
+
+.orden-select:focus {
+    background-color: #FFF;
+    border-color: #69635E;
+    box-shadow: 0 0 0 4px rgba(105, 99, 94, .12) !important;
+}
+
+/* =========================
+TARJETAS
+========================= */
+
+.mis-publicaciones-container .publicaciones-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-height: calc(100vh - 190px);
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-bottom: 2rem;
+}
+
+.mis-publicaciones-container .publicacion-card {
+    width: 100%;
+    position: relative;
+    padding: 22px 26px;
+    background-color: #CBC2B9;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .08);
+    transition:
+            transform .25s ease,
+            box-shadow .25s ease;
+}
+
+.mis-publicaciones-container .publicacion-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .12);
+}
+
+.mis-publicaciones-container .publicacion-contenido {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.mis-publicaciones-container .publicacion-portada {
+    width: 120px;
+    height: 170px;
+    flex-shrink: 0;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFF;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.mis-publicaciones-container .publicacion-portada img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+.mis-publicaciones-container .publicacion-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.mis-publicaciones-container .publicacion-info h4 {
+    margin: 0 0 8px;
+    color: #2D2A26;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.mis-publicaciones-container .publicacion-info p {
+    margin: 0 0 5px;
+    color: #4A4641;
+    font-size: 1rem;
+}
+
+.mis-publicaciones-container .publicacion-info small {
+    color: #7A746E;
+    font-size: .95rem;
+}
+
+/* =========================
+ACCIONES DERECHA
+========================= */
+
+.mis-publicaciones-container .publicacion-acciones {
+    min-width: 205px;
+    flex-shrink: 0;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mis-publicaciones-container .publicacion-precio {
+    margin: 0;
+    color: #3D3936;
+    font-size: 1.45rem;
+    font-weight: 800;
+}
+
+/* =========================
+ESTADOS
+========================= */
+
+.mis-publicaciones-container .estado {
+    min-width: 100px;
+    padding: 7px 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+.mis-publicaciones-container .estado.PENDIENTE {
+    background-color: #FFF1C9;
+    color: #8A6200;
+}
+
+.mis-publicaciones-container .estado.RECHAZADO {
+    background-color: #F8DDDD;
+    color: #A44444;
+}
+
+.mis-publicaciones-container .estado.ACTIVO {
+    background-color: #DCEBDC;
+    color: #356338;
+}
+
+.mis-publicaciones-container .estado.VENDIDO {
+    background-color: rgba(70, 67, 63, .12);
+    color: #403D3A;
+}
+
+/* =========================
+BOTÓN VER DETALLES
+========================= */
+
+.mis-publicaciones-container .btn-ver-detalles {
+    min-width: 160px;
+    padding: 10px 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F2EFEB;
+    color: #45413E;
+    border: none;
+    border-radius: 999px;
+    font-size: .9rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+            background-color .2s ease,
+            transform .2s ease,
+            box-shadow .2s ease;
+}
+
+.mis-publicaciones-container .btn-ver-detalles:hover {
+    background-color: #FFF;
+    color: #292725;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, .08);
+}
+
+/* =========================
+BOTÓN CANCELAR
+========================= */
+
+.mis-publicaciones-container .btn-cancelar-publicacion {
+    min-width: 160px;
+    padding: 9px 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background-color: transparent;
+    color: #A44444;
+    border: 1.5px solid #B75353;
+    border-radius: 999px;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+            background-color .2s ease,
+            color .2s ease,
+            transform .2s ease;
+}
+
+.mis-publicaciones-container .btn-cancelar-publicacion:hover {
+    background-color: #A44444;
+    color: #FFF;
+    transform: translateY(-1px);
+}
+
+/* =========================
+SIN PUBLICACIONES
+========================= */
+
+.mis-publicaciones-container .sin-publicaciones {
+    padding: 60px 25px;
+    text-align: center;
+    background-color: #FFF;
+    border: 2px dashed #CBC2B9;
+    border-radius: 30px;
+    color: #7A746E;
+}
+
+.mis-publicaciones-container .sin-publicaciones i {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 3rem;
+}
+
+.mis-publicaciones-container .sin-publicaciones h4 {
+    color: #2D2A26;
+    font-weight: 700;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media (max-width: 992px) {
+    .mis-publicaciones-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .form-orden {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .mis-publicaciones-container .publicacion-contenido {
+        align-items: flex-start;
+    }
+
+    .mis-publicaciones-container .publicacion-acciones {
+        min-width: 170px;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-orden {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .orden-select {
+        width: 100% !important;
+        min-width: 0;
+    }
+
+    .mis-publicaciones-container .publicacion-contenido {
+        flex-direction: column;
+    }
+
+    .mis-publicaciones-container .publicacion-portada {
+        width: 135px;
+        height: 195px;
+        margin: 0 auto;
+    }
+
+    .mis-publicaciones-container .publicacion-info {
+        width: 100%;
+        text-align: center;
+    }
+
+    .mis-publicaciones-container .publicacion-acciones {
+        width: 100%;
+        min-width: 0;
+        align-items: stretch;
+    }
+
+    .mis-publicaciones-container .estado {
+        align-self: center;
+    }
+
+    .mis-publicaciones-container .publicacion-precio {
+        text-align: center;
+    }
+
+    .mis-publicaciones-container .btn-ver-detalles,
+    .mis-publicaciones-container .btn-cancelar-publicacion {
+        width: 100%;
+    }
+}

@@ -222,26 +222,37 @@
 
                                 <div class="modal-body p-4 bg-light">
                                     <div class="row">
+
                                         <div class="col-12 mb-4">
                                             <label class="form-label-lf small fw-bold mb-2">
                                                 1. Portada (Principal)
                                             </label>
-                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5">
+                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5" accept="image/png, image/jpeg">
+                                            <div class="d-flex justify-content-center mt-2">
+                                                <img  width="333px" height="500px" id="vistapreviaImg1" class="vista-previa-img" style="display: none;" />
+                                            </div>
                                         </div>
 
                                         <div class="col-12 mb-4">
                                             <label class="form-label-lf small fw-bold mb-2">
                                                 2. Reverso / Contraportada
                                             </label>
-                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5">
+                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5" accept="image/png, image/jpeg">
+                                            <div class="d-flex justify-content-center mt-2">
+                                                <img width="333px" height="500px" id="vistapreviaImg2" class="vista-previa-img" style="display: none;" />
+                                            </div>
                                         </div>
 
                                         <div class="col-12 mb-2">
                                             <label class="form-label-lf small fw-bold mb-2">
                                                 3. Estado general / Páginas
                                             </label>
-                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5">
+                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5" accept="image/png, image/jpeg">
+                                            <div class="d-flex justify-content-center mt-2">
+                                                <img width="333px" height="500px" id="vistapreviaImg3" class="vista-previa-img" style="display: none;" />
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
 
@@ -260,6 +271,7 @@
 
     </div>
 </div>
+<script src="assets/js/VistaPreviaImg.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/PublicarAdmin.js"></script>
 <script src="assets/js/Notificacion.js"></script>

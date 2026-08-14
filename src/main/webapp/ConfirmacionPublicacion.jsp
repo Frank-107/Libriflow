@@ -28,7 +28,7 @@
         </div>
 
         <h4 class="fw-bold text-dark mb-1">Tu libro ha sido registrado crrectamente</h4>
-        <p class="text-muted small mb-4">Ahor sigue estos pasos para completar la entrega de tu libro:</p>
+        <p class="text-muted small mb-4">Ahora sigue estos pasos para completar la entrega de tu libro:</p>
 
         <div class="pamphlet-instructions text-start">
 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css?v=1.1" />
 </head>
 <body class="p-3 p-md-4">
+<div id="contenedor-notificaciones"></div>
 
 <div class="container-fluid max-width-xl mx-auto">
     <c:if test="${not empty mensaje}">
@@ -219,7 +220,7 @@
                             <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
                                 <div class="modal-header bg-lf-dark text-white p-3">
                                     <h5 class="modal-title fw-bold" id="modalImagenesLabel">
-                                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas
+                                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas (Maximo 2MB)
                                     </h5>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>

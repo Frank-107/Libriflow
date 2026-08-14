@@ -463,3 +463,60 @@ main.col.catalogo-scroll {
     scrollbar-width: thin;
     scrollbar-color: #6B4F3A transparent;
 }
+.card-libro .acciones-carrito {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.card-libro .acciones-carrito form {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.card-libro .acciones-carrito .btn-detalles,
+.card-libro .acciones-carrito .btn-eliminar-carrito {
+    height: 42px;
+    min-width: 140px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 0 18px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.card-libro .acciones-carrito .btn-detalles {
+    margin: 0;
+    background-color: #E2DFD8;
+    color: #333333;
+    border: 1px solid transparent;
+}
+
+.card-libro .acciones-carrito .btn-detalles:hover {
+    background-color: #D1CDC4;
+    color: #2D2A26;
+    text-decoration: none;
+}
+
+.card-libro .acciones-carrito .btn-eliminar-carrito {
+    margin: 0;
+    background-color: transparent;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.card-libro .acciones-carrito .btn-eliminar-carrito:hover {
+    background-color: #dc3545;
+    color: #FFFFFF;
+}

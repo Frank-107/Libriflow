@@ -160,8 +160,20 @@
                                                     <c:out value="${compra.fechaFormateada}" />
                                                 </small>
                                             </div>
-                                            <div class="publicacion-precio">
-                                                $<c:out value="${compra.precio}" />
+                                            <div class="d-flex flex-column align-items-end gap-2">
+
+                                                <div class="publicacion-precio">
+                                                    $<c:out value="${compra.precio}" />
+                                                </div>
+
+                                                <a href="${pageContext.request.contextPath}/detalle-informativo?idPublicacion=${compra.idPublicacion}&tipo=${compra.esLibriFlow ? 'libriflow' : 'usuario'}&origen=compras"
+                                                   class="btn-detalles">
+
+                                                    <i class="bi bi-eye me-1"></i>
+                                                    Ver detalles
+
+                                                </a>
+
                                             </div>
                                         </div>
                                     </div>

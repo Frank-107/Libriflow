@@ -214,3 +214,52 @@ body {
     color: #064E3B !important;
     font-size: 1.2rem !important;
 }
+
+/* =========================================================
+   CONTENEDOR Y ESTILOS DE ALERTAS DINÁMICAS (TOASTS)
+   ========================================================= */
+#contenedor-notificaciones {
+    position: fixed !important;
+    top: 25px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 1060 !important; /* Supera al modal de Bootstrap */
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.libri-toast {
+    position: relative;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.libri-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Color para alerta de éxito */
+.libri-toast-success {
+    background-color: #6EE7B7 !important;
+    color: #064E3B !important;
+}
+
+/* Color para alerta de error */
+.libri-toast-error {
+    background-color: #FCA5A5 !important;
+    color: #7F1D1D !important;
+}

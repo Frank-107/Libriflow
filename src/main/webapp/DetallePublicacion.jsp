@@ -156,7 +156,6 @@
         </aside>
 
         <main class="col-12 col-md-8 col-lg-9 detalle-main">
-
             <div class="row g-4 h-100 detalle-inner-row">
 
                 <div class="col-12 col-lg-6 detalle-left-scroll">
@@ -171,6 +170,7 @@
 
                         <div class="d-flex gap-3 mb-3 w-100 justify-content-center"
                              style="max-width:360px;">
+
                             <div class="miniatura-container shadow-sm">
                                 <img src="${publicacion.imagenReverso}"
                                      alt="Imagen reverso"
@@ -182,6 +182,7 @@
                                      alt="Imagen interior"
                                      class="img-fluid rounded-3">
                             </div>
+
                         </div>
 
                         <div class="d-flex align-items-center gap-2 mt-2 fw-bold fs-5 text-dark">
@@ -224,8 +225,9 @@
 
                                 <c:if test="${totalResenas > 0}">
                                     <span class="fs-6 fw-normal text-muted">
-                                        (<fmt:formatNumber value="${sumaCalificaciones / totalResenas}"
-                                                           maxFractionDigits="1"/>/5 ·
+                                        (<fmt:formatNumber
+                                            value="${sumaCalificaciones / totalResenas}"
+                                            maxFractionDigits="1"/>/5 ·
                                         ${totalResenas}
                                         ${totalResenas == 1 ? 'reseña' : 'reseñas'})
                                     </span>
@@ -288,7 +290,6 @@
 
                                 <c:otherwise>
                                     <div class="pe-2">
-
                                         <c:forEach var="r" items="${resenas}">
 
                                             <div class="card p-3 mb-3 shadow-sm rounded-4 border-0 bg-light">
@@ -296,7 +297,6 @@
                                                 <div class="d-flex justify-content-between align-items-center mb-1">
 
                                                     <div class="d-flex align-items-center gap-3">
-
                                                         <div class="bg-lf-capsule rounded-circle d-flex align-items-center justify-content-center shadow-sm"
                                                              style="width:45px;height:45px;">
                                                             <i class="bi bi-person-fill fs-4 text-dark"></i>
@@ -308,13 +308,11 @@
                                                     </div>
 
                                                     <div>
-                                                        <c:forEach begin="1"
-                                                                   end="${r.calificacion}">
+                                                        <c:forEach begin="1" end="${r.calificacion}">
                                                             <i class="bi bi-star-fill text-warning"></i>
                                                         </c:forEach>
 
-                                                        <c:forEach begin="${r.calificacion + 1}"
-                                                                   end="5">
+                                                        <c:forEach begin="${r.calificacion + 1}" end="5">
                                                             <i class="bi bi-star text-muted"></i>
                                                         </c:forEach>
                                                     </div>
@@ -328,13 +326,13 @@
                                             </div>
 
                                         </c:forEach>
-
                                     </div>
                                 </c:otherwise>
                             </c:choose>
 
                         </c:if>
                     </div>
+
                 </div>
 
                 <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-fixed">
@@ -375,22 +373,120 @@
                                 </p>
                             </div>
 
-                            <div class="d-flex gap-2 mt-2">
+                            <c:choose>
 
-                                <a href="${pageContext.request.contextPath}/editar-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                                   class="btn btn-action-lf flex-grow-1 py-3 rounded-pill fw-bold shadow-sm">
-                                    <i class="bi bi-pencil-square me-2"></i>
-                                    Editar publicación
-                                </a>
+                                <c:when test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
 
-                                <button type="button"
-                                        class="btn btn-outline-danger rounded-pill px-4"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalEliminarPublicacion">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                    <div class="d-flex gap-2 mt-2">
 
-                            </div>
+                                        <a href="${pageContext.request.contextPath}/editar-publicacion?idPublicacion=${publicacion.idPublicacion}"
+                                           class="btn btn-action-lf flex-grow-1 py-3 rounded-pill fw-bold shadow-sm">
+                                            <i class="bi bi-pencil-square me-2"></i>
+                                            Editar publicación
+                                        </a>
+
+                                        <button type="button"
+                                                class="btn btn-outline-danger rounded-pill px-4"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalEliminarPublicacion">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <c:if test="${publicacion.estado == 'PENDIENTE'}">
+                                        <div class="alert alert-warning border-0 rounded-4 mb-0 mt-1 shadow-sm">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <i class="bi bi-clock-history fs-4"></i>
+                                                <div>
+                                                    <strong class="d-block">Pendiente de revisión</strong>
+                                                    <small>
+                                                        Puedes modificar o eliminar la publicación mientras el administrador no la haya aprobado.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+
+                                    <c:if test="${publicacion.estado == 'RECHAZADO'}">
+                                        <div class="alert alert-danger border-0 rounded-4 mb-0 mt-1 shadow-sm">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <i class="bi bi-x-circle fs-4"></i>
+                                                <div>
+                                                    <strong class="d-block">Publicación rechazada</strong>
+                                                    <small>
+                                                        Puedes corregir la información y volver a enviarla para revisión.
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+
+                                </c:when>
+
+                                <c:when test="${publicacion.estado == 'ACTIVO'}">
+
+                                    <div class="alert alert-success border-0 rounded-4 mb-0 mt-2 shadow-sm">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="bi bi-check-circle-fill fs-3"></i>
+
+                                            <div>
+                                                <strong class="d-block">
+                                                    Publicación aprobada
+                                                </strong>
+
+                                                <small>
+                                                    El libro ya fue aprobado y se encuentra disponible para compra.
+                                                    Ya no puede modificarse ni eliminarse.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </c:when>
+
+                                <c:when test="${publicacion.estado == 'VENDIDO'}">
+
+                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 mt-2 shadow-sm">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="bi bi-bag-check-fill fs-3"></i>
+
+                                            <div>
+                                                <strong class="d-block">
+                                                    Libro vendido
+                                                </strong>
+
+                                                <small>
+                                                    Esta publicación forma parte del historial de venta.
+                                                    Ya no puede modificarse ni eliminarse.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </c:when>
+
+                                <c:otherwise>
+
+                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 mt-2 shadow-sm">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="bi bi-lock-fill fs-3"></i>
+
+                                            <div>
+                                                <strong class="d-block">
+                                                    Publicación bloqueada
+                                                </strong>
+
+                                                <small>
+                                                    Esta publicación no puede modificarse en su estado actual.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </c:otherwise>
+
+                            </c:choose>
 
                         </c:when>
 
@@ -424,7 +520,6 @@
                             </div>
 
                             <div class="mt-2">
-
                                 <div class="d-flex flex-column gap-2 w-100">
 
                                     <form action="${pageContext.request.contextPath}/detalle-publicacion-superad"
@@ -462,7 +557,6 @@
                                     </button>
 
                                 </div>
-
                             </div>
 
                         </c:when>
@@ -496,56 +590,95 @@
                                 </p>
                             </div>
 
-                            <form action="${pageContext.request.contextPath}/detalle-publicacion"
-                                  method="POST"
-                                  class="w-100">
+                            <c:choose>
 
-                                <input type="hidden"
-                                       name="idPublicacion"
-                                       value="${publicacion.idPublicacion}">
+                                <c:when test="${publicacion.estado == 'ACTIVO'}">
 
-                                <input type="hidden"
-                                       name="tipoOperacion"
-                                       value="venta">
+                                    <form action="${pageContext.request.contextPath}/detalle-publicacion"
+                                          method="POST"
+                                          class="w-100">
 
-                                <input type="hidden"
-                                       name="precioCalculado"
-                                       value="${publicacion.precio}">
+                                        <input type="hidden"
+                                               name="idPublicacion"
+                                               value="${publicacion.idPublicacion}">
 
-                                <button type="submit"
-                                        class="btn btn-action-lf w-100 py-3 rounded-pill fw-bold shadow-sm">
-                                    <i class="bi bi-cart-plus me-2"></i>
-                                    Agregar al carrito
-                                </button>
+                                        <input type="hidden"
+                                               name="tipoOperacion"
+                                               value="venta">
 
-                            </form>
+                                        <input type="hidden"
+                                               name="precioCalculado"
+                                               value="${publicacion.precio}">
+
+                                        <button type="submit"
+                                                class="btn btn-action-lf w-100 py-3 rounded-pill fw-bold shadow-sm">
+                                            <i class="bi bi-cart-plus me-2"></i>
+                                            Agregar al carrito
+                                        </button>
+
+                                    </form>
+
+                                </c:when>
+
+                                <c:when test="${publicacion.estado == 'VENDIDO'}">
+                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 shadow-sm">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="bi bi-bag-check-fill fs-3"></i>
+                                            <div>
+                                                <strong class="d-block">
+                                                    Libro vendido
+                                                </strong>
+
+                                                <small>
+                                                    Esta publicación ya no se encuentra disponible para compra.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </c:when>
+
+                                <c:otherwise>
+
+                                    <div class="alert alert-warning border-0 rounded-4 mb-0 shadow-sm">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <i class="bi bi-clock-history fs-3"></i>
+                                            <div>
+                                                <strong class="d-block">
+                                                    Publicación no disponible
+                                                </strong>
+
+                                                <small>
+                                                    Este libro todavía no se encuentra disponible para compra.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+
+                            </c:choose>
 
                         </c:otherwise>
 
                     </c:choose>
-
                 </div>
-
             </div>
-
         </main>
-
     </div>
 </div>
 
-<c:if test="${esPropietario}">
+<c:if test="${esPropietario &&
+              (publicacion.estado == 'PENDIENTE' ||
+               publicacion.estado == 'RECHAZADO')}">
+
     <div class="modal fade"
          id="modalEliminarPublicacion"
          tabindex="-1"
          aria-labelledby="modalEliminarLabel"
          aria-hidden="true">
-
         <div class="modal-dialog modal-dialog-centered">
-
             <div class="modal-content border-0 rounded-4 shadow-lg">
-
                 <div class="modal-body p-4 text-center">
-
                     <div class="mb-3">
                         <i class="bi bi-exclamation-triangle text-danger"
                            style="font-size:3rem;"></i>
@@ -557,18 +690,17 @@
 
                     <p class="text-muted mt-2">
                         Estás a punto de eliminar
-                        <strong><c:out value="${publicacion.titulo}"/></strong>.
+                        <strong>
+                            <c:out value="${publicacion.titulo}"/>
+                        </strong>.
                         Esta acción no se puede deshacer.
                     </p>
-
                     <div class="d-flex gap-2 mt-4">
-
                         <button type="button"
                                 class="btn btn-secondary rounded-pill flex-grow-1"
                                 data-bs-dismiss="modal">
                             Cancelar
                         </button>
-
                         <form action="${pageContext.request.contextPath}/editar-publicacion"
                               method="post"
                               class="flex-grow-1">
@@ -586,119 +718,90 @@
                                 <i class="bi bi-trash me-1"></i>
                                 Eliminar publicación
                             </button>
-
                         </form>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
+
 </c:if>
 
 <c:if test="${not empty esAdminPub}">
+
     <div class="modal fade"
          id="modalRenta"
          tabindex="-1"
          aria-labelledby="modalRentaLabel"
          aria-hidden="true">
-
         <div class="modal-dialog modal-dialog-centered">
-
             <div class="modal-content modal-content-lf shadow-lg">
-
                 <div class="modal-header modal-header-lf">
 
-                    <h5 class="modal-title fw-bold" id="modalRentaLabel">
+                    <h5 class="modal-title fw-bold"
+                        id="modalRentaLabel">
                         <i class="bi bi-calendar-event me-2"></i>
                         Seleccionar Período de Renta
                     </h5>
-
                     <button type="button"
                             class="btn-close btn-close-white"
                             data-bs-dismiss="modal"
                             aria-label="Close">
                     </button>
-
                 </div>
-
                 <form action="${pageContext.request.contextPath}/detalle-publicacion-superad"
                       method="POST">
-
                     <div class="modal-body p-4">
-
                         <input type="hidden"
                                name="idPublicacion"
                                value="${publicacion.idPublicacionLf}">
-
                         <input type="hidden"
                                name="tipoOperacion"
                                value="renta">
-
                         <input type="hidden"
                                name="precioCalculado"
                                id="precioRentaInput"
                                value="0.0">
-
                         <div class="mb-3">
-
                             <label for="fechaInicio"
                                    class="form-label fw-bold text-dark">
                                 <i class="bi bi-calendar-check me-1"></i>
                                 Fecha de inicio:
                             </label>
-
                             <input type="date"
                                    class="form-control input-date-lf"
                                    id="fechaInicio"
                                    name="fechaInicio"
                                    required>
-
                         </div>
-
                         <div class="mb-4">
-
                             <label for="fechaFin"
                                    class="form-label fw-bold text-dark">
                                 <i class="bi bi-calendar-x me-1"></i>
                                 Fecha de fin:
                             </label>
-
                             <input type="date"
                                    class="form-control input-date-lf"
                                    id="fechaFin"
                                    name="fechaFin"
                                    required>
-
                         </div>
-
                         <div class="box-tarifa-lf text-center shadow-sm">
-
                             <small class="d-block text-muted mb-1">
                                 Tarifa: $5/día (días 1-7) | $3/día (día 8 en adelante)
                             </small>
-
                             <span class="fs-4 fw-bold text-dark d-block">
                                 Monto total:
                                 $<span id="montoMostrado">0.0</span>
                             </span>
-
                         </div>
-
                     </div>
-
                     <div class="modal-footer modal-footer-lf d-flex justify-content-end gap-2">
-
                         <button type="button"
                                 class="btn btn-secondary-lf rounded-pill px-4"
                                 data-bs-dismiss="modal">
                             Cancelar
                         </button>
-
                         <button type="submit"
                                 class="btn btn-action-lf rounded-pill px-4"
                                 id="btnConfirmarRenta"
@@ -706,15 +809,10 @@
                             <i class="bi bi-cart-plus me-1"></i>
                             Agregar al Carrito
                         </button>
-
                     </div>
-
                 </form>
-
             </div>
-
         </div>
-
     </div>
 </c:if>
 

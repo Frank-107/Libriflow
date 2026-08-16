@@ -26,7 +26,7 @@
 
   <div class="hero">
     <div class="logo-contenedor">
-      <img src="assets/img/LogoLibriflowF.png" alt="LibriFlow Tu Biblioteca Digital" class="logo-img" />
+      <img src="assets/img/LogoLibriflow.png" alt="LibriFlow Tu Biblioteca Digital" class="logo-img" />
     </div>
 
     <c:if test="${not empty sessionScope.mensaje}">

@@ -29,7 +29,7 @@
     </c:if>
 
     <!-- Imagen .jpg agregada en la parte superior del contenedor -->
-    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="Logo Libriflow" class="login-logo">
+    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
 
     <label for="correo" class="login-label-email">Correo:</label>
     <input type="email" id="correo" name="correo" value="${correo}" required class="login-input login-correo" placeholder="Ej: 20253ds107@utez.edu.mx" maxlength="100">

@@ -8,7 +8,7 @@
     <title>Editar publicación - LibriFlow</title>
 
     <link rel="icon"
-          href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+          href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
           type="image/png">
 
     <link rel="stylesheet"
@@ -156,7 +156,7 @@
                         </p>
                     </div>
 
-                    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+                    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
                          alt="LibriFlow"
                          class="logo-editar">
                 </div>

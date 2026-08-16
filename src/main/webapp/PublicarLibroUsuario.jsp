@@ -8,7 +8,7 @@
     <title>Publicar Libro - LibriFlow</title>
 
     <link rel="icon"
-          href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+          href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
           type="image/png">
 
     <link rel="stylesheet"
@@ -133,7 +133,7 @@
                         <p class="text-muted mb-0">Completa los datos para poner tu libro disponible en la plataforma.</p>
                     </div>
 
-                    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+                    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
                          alt="LibriFlow"
                          class="logo-editar"
                          style="max-height: 45px;">

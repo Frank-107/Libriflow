@@ -35,7 +35,7 @@
 
             <a href="${pageContext.request.contextPath}/inicio-admin"
                class="d-flex align-items-center text-decoration-none">
-                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
                      alt="Logo LibriFlow"
                      style="height:40px;width:auto;"
                      class="me-2">

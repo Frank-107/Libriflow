@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - LibriFlow</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
@@ -23,7 +23,7 @@
             </button>
 
             <a href="inicio" class="d-flex align-items-center text-decoration-none">
-                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 40px; width: auto;" class="me-2">
+                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="Logo LibriFlow" style="height: 40px; width: auto;" class="me-2">
                 <div class="text-start d-none d-sm-block">
                     <div class="fw-bold tracking-widest fs-5 text-white">LIBRIFLOW</div>
                     <small style="font-size: 0.65rem; letter-spacing: 1px; color: #CBC2B9; display: block;">TU BIBLIOTECA DIGITAL</small>

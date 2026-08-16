@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Libriflow</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css">
@@ -29,7 +29,7 @@
     </c:if>
 
     <!-- Imagen .jpg agregada en la parte superior del contenedor -->
-    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo Libriflow" class="login-logo">
+    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="Logo Libriflow" class="login-logo">
 
     <label for="correo" class="login-label-email">Correo:</label>
     <input type="email" id="correo" name="correo" value="${correo}" required class="login-input login-correo" placeholder="Ej: 20253ds107@utez.edu.mx" maxlength="100">

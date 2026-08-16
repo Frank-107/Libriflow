@@ -14,7 +14,7 @@
     <title>Detalles - LibriFlow</title>
 
     <link rel="icon"
-          href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+          href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
           type="image/png">
 
     <link rel="stylesheet"

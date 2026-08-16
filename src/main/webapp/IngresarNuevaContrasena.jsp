@@ -18,7 +18,7 @@
 
 <main class="login-card">
 
-    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" class="login-logo">
+    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="LibriFlow" class="login-logo">
 
     <h2 class="login-card-title">NUEVA CONTRASEÑA</h2>
     <p class="login-card-subtitle">Ingresa tu nueva contraseña para actualizar tu cuenta</p>

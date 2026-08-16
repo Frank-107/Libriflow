@@ -174,4 +174,21 @@ public class PublicacionAdministradorDao {
             return false;
         }
     }
+
+    public boolean darDeBajaPublicacionAdmin(int idPublicacionLf) {
+        String sql = "UPDATE publicacion_lf SET estado = 'INACTIVO' WHERE id_publicacion_lf = ?";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idPublicacionLf);
+
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

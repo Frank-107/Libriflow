@@ -1,4 +1,6 @@
-body {
+html, body {
+    height: 100vh;
+    overflow: hidden;
     background-color: #F4EFEA;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -48,12 +50,6 @@ body {
     border-radius: 40px;
 }
 
-@media (min-width: 768px) {
-    .rounded-lf-sidebar {
-        min-height: 80vh;
-    }
-}
-
 .btn-lf-pill {
     border-radius: 20px;
     transition: all 0.2s ease;
@@ -94,10 +90,27 @@ body {
     color: #1A1816;
 }
 
+.btn-delete-lf {
+    background-color: transparent;
+    color: #B23B3B;
+    border: 1px solid #B23B3B;
+    border-radius: 25px;
+    font-weight: 700;
+    padding: 12px 40px;
+    transition: all 0.2s ease;
+}
+
+.btn-delete-lf:hover:not(:disabled) {
+    background-color: #B23B3B;
+    color: #FFF;
+}
+
 .btn-action-lf:disabled,
 .btn-secondary-lf:disabled,
+.btn-delete-lf:disabled,
 .btn-action-lf[disabled],
-.btn-secondary-lf[disabled] {
+.btn-secondary-lf[disabled],
+.btn-delete-lf[disabled] {
     background-color: #CBC2B9 !important;
     color: #8C847C !important;
     cursor: not-allowed;
@@ -225,6 +238,7 @@ body {
     flex-direction: column;
     overflow-wrap: break-word;
     word-break: break-word;
+    flex-grow: 1;
 }
 
 .modal-content-lf {
@@ -276,4 +290,128 @@ body {
     border-radius: 22px;
     padding: 18px 20px;
     color: #2D2A26;
+}
+
+.detalle-admin-left {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 20px;
+}
+
+.detalle-admin-right {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    padding-right: 5px;
+}
+
+.detalle-admin-left::-webkit-scrollbar,
+.detalle-admin-right::-webkit-scrollbar {
+    width: 6px;
+}
+
+.detalle-admin-left::-webkit-scrollbar-track,
+.detalle-admin-right::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.detalle-admin-left::-webkit-scrollbar-thumb,
+.detalle-admin-right::-webkit-scrollbar-thumb {
+    background: #7A746E;
+    border-radius: 10px;
+}
+
+.detalle-admin-left::-webkit-scrollbar-thumb:hover,
+.detalle-admin-right::-webkit-scrollbar-thumb:hover {
+    background: #4A4641;
+}
+
+.detalle-admin-left::-webkit-scrollbar-button:single-button:vertical:decrement,
+.detalle-admin-right::-webkit-scrollbar-button:single-button:vertical:decrement {
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='4' viewBox='0 0 6 4'%3E%3Cpolygon points='3,0 6,4 0,4' fill='%237A746E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.detalle-admin-left::-webkit-scrollbar-button:single-button:vertical:increment,
+.detalle-admin-right::-webkit-scrollbar-button:single-button:vertical:increment {
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='4' viewBox='0 0 6 4'%3E%3Cpolygon points='0,0 6,0 3,4' fill='%237A746E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.detalle-libro-superior {
+    width: 100%;
+}
+
+.resenas-admin-section {
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.resenas-admin-scroll {
+    display: flex;
+    flex-direction: column;
+}
+
+.resena-admin-card {
+    background-color: #F8F7F5 !important;
+}
+
+.resena-admin-avatar {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+}
+
+.resena-admin-estrellas {
+    white-space: nowrap;
+}
+
+.resena-admin-card p {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+@media (min-width: 992px) {
+    .detalle-admin-left {
+        border-right: 2px solid #CBC2B9;
+        padding-right: 20px;
+    }
+
+    .detalle-admin-right {
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    html, body {
+        height: auto;
+        overflow: auto;
+    }
+
+    .detalle-admin-left,
+    .detalle-admin-right {
+        border-right: none;
+        overflow-y: visible;
+        height: auto !important;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .resena-admin-card .d-flex.justify-content-between {
+        align-items: flex-start !important;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .resena-admin-estrellas {
+        padding-left: 58px;
+    }
 }

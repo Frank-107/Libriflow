@@ -28,6 +28,29 @@
                 </div>
             </a>
         </div>
+
+        <!-- ALERTAS DE SISTEMA (Manejadas por el Servlet) -->
+        <c:if test="${not empty param.exito}">
+            <div class="libri-toast libri-toast-success">
+                <i class="bi bi-check-circle-fill fs-5"></i>
+                <span>La publicación se dio de baja exitosamente.</span>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty error}">
+            <div class="libri-toast libri-toast-error">
+                <i class="bi bi-exclamation-circle-fill fs-5"></i>
+                <span><c:out value="${error}" /></span>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty mensaje}">
+            <div class="libri-toast">
+                <i class="bi bi-info-circle-fill fs-5"></i>
+                <span><c:out value="${mensaje}" /></span>
+            </div>
+        </c:if>
+
         <div class="d-flex align-items-center gap-3">
             <div class="text-end d-none d-md-block">
                 <div class="fw-bold mb-0" style="font-size: 0.95rem;"><c:out value="${sessionScope.usuario.nombre}" /></div>
@@ -82,21 +105,6 @@
         </aside>
 
         <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
-
-            <!-- ALERTAS DE SISTEMA (Manejadas por el Servlet) -->
-            <c:if test="${not empty error}">
-                <div id="alertaError" class="alert alert-danger alert-dismissible fade show mb-4 rounded-3 shadow-sm libri-toast" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i> <c:out value="${error}" />
-                    <button type="button" class="btn-close" aria-label="Close" onclick="document.getElementById('alertaError').remove();"></button>
-                </div>
-            </c:if>
-
-            <c:if test="${not empty mensaje}">
-                <div class="alert alert-info alert-dismissible fade show mb-4 rounded-3 shadow-sm" role="alert">
-                    <i class="bi bi-info-circle-fill me-2"></i> <c:out value="${mensaje}" />
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </c:if>
 
             <!-- BARRA DE BÚSQUEDA Y FILTRO POR GÉNERO -->
             <div class="d-flex gap-3 mb-3 align-items-center">
@@ -254,6 +262,7 @@
     </div>
 </div>
 
-<script src="assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

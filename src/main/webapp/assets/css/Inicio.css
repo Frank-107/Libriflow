@@ -520,3 +520,57 @@ main.col.catalogo-scroll {
     background-color: #dc3545;
     color: #FFFFFF;
 }
+
+@keyframes toastEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.libri-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 auto;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    white-space: nowrap;
+    z-index: 9999;
+
+    /* Animación de entrada suave igual a tu style */
+    animation: toastEntrada 0.4s ease forwards;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.libri-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Colores originales de tu hoja de estilos */
+.libri-toast-error {
+    background-color: #fca5a5;
+    color: #b91c1c;
+}
+
+.libri-toast-success {
+    background-color: #86efac;
+    color: #15803d;
+}
+
+@media (max-width: 400px) {
+    .libri-toast {
+        white-space: normal;
+        text-align: center;
+        width: 90%;
+    }
+}

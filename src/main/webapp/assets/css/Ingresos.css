@@ -304,3 +304,11 @@
     font-size: 0.88rem;
     margin-top: 0.25rem;
 }
+
+.pb-6 {
+    padding-bottom: 4rem !important; /* pb-5 equivale a 3rem */
+}
+
+.pb-7 {
+    padding-bottom: 5rem !important;
+}

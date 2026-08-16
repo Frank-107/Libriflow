@@ -90,7 +90,7 @@
         </aside>
 
         <!-- CONTENIDO PRINCIPAL -->
-        <main class="col-12 col-md-8 col-lg-9">
+        <main class="col-12 col-md-8 col-lg-9 pb-7">
             <div class="lf-ingresos-wrapper">
 
                 <!-- Encabezado de Sección -->

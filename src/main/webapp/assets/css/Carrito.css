@@ -1,0 +1,27 @@
+.card-renta-periodo {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 0.78rem;
+    color: #495057;
+    margin: 4px 0 6px 0;
+}
+
+.card-renta-periodo .renta-label {
+    font-weight: 600;
+    margin-right: 4px;
+    color: #6c757d;
+}
+
+.card-renta-periodo .renta-fecha {
+    font-weight: 600;
+    color: #212529;
+}
+
+.card-renta-periodo .renta-separador {
+    margin: 0 4px;
+    color: #adb5bd;
+}

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
 <html lang="es">
 <head>
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Carrito.css"/>
 </head>
 <body class="p-3 p-md-4 vh-100 overflow-hidden">
 <div class="container-fluid max-width-xl mx-auto">
@@ -139,6 +141,21 @@
                                                 <p class="card-genero">
                                                     Género: <c:out value="${publicacion.genero}"/>
                                                 </p>
+
+                                                <c:if test="${publicacion.esRentaSeleccionada}">
+                                                    <div class="card-renta-periodo">
+                                                        <i class="bi bi-calendar3 me-1"></i>
+                                                        <span class="renta-label">Periodo:</span>
+                                                        <span class="renta-fecha">
+                                            <fmt:formatDate value="${publicacion.fechaInicio}" pattern="dd/MM/yyyy"/>
+                                        </span>
+                                                        <span class="renta-separador">&rarr;</span>
+                                                        <span class="renta-fecha">
+                                            <fmt:formatDate value="${publicacion.fechaFin}" pattern="dd/MM/yyyy"/>
+                                        </span>
+                                                    </div>
+                                                </c:if>
+
                                                 <p class="card-precio">
                                                     $<c:out value="${publicacion.precio}"/>
                                                 </p>

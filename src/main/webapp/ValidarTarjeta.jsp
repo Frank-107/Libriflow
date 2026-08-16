@@ -67,6 +67,7 @@
     </form>
 
 </div>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="assets/js/Notificacion.js"></script>
 </body>
 </html>

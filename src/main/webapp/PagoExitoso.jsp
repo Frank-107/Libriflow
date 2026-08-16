@@ -45,5 +45,6 @@
         <i class="bi bi-house-door-fill" style="margin-right: 8px;"></i>Volver al Inicio</a>
 
 </div>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>
 </html>

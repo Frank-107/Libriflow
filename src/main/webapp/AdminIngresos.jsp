@@ -290,7 +290,7 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Ingresos.js"></script>
 
 </body>

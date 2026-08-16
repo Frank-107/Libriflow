@@ -58,6 +58,6 @@
 
     </div>
 </div>
-
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>
 </html>

@@ -878,7 +878,7 @@ public class PublicacionUsuarioDao {
      */
 
     public boolean darDeBajaPublicacionUsuario(int idPublicacionUs) {
-        String sql = "UPDATE publicacion_us SET estado = 'INACTIVO' WHERE id_publicacion_us = ?";
+        String sql = "UPDATE publicacion_us SET estado = 'RECHAZADO' WHERE id_publicacion_us = ?";
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {

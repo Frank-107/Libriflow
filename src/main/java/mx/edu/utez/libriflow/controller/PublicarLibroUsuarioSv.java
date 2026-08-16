@@ -127,8 +127,8 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
             ){
                 throw new RuntimeException("No se pudieron guardar las imágenes.");
             }
-
-            req.getSession(false).setAttribute("mensaje", "Listo, Entrega tu libro en la librería para completar la publicación.");
+            //ya no la mandamos por el nuevo mensaje de js
+            //req.getSession(false).setAttribute("mensaje", "Listo, Entrega tu libro en la librería para completar la publicación.");
             resp.sendRedirect("publicar-libro-usuario?exito=true");
 
         } catch(Exception e){

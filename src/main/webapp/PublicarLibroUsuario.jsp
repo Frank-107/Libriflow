@@ -248,7 +248,7 @@
                                 <!-- Modal Header -->
                                 <div class="modal-header bg-lf-dark text-white px-4 py-3 border-0">
                                     <div class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-images fs-4 text-warning"></i>
+                                        <i class="bi bi-images fs-4 text-white"></i>
                                         <div>
                                             <h5 class="modal-title fw-bold mb-0" id="modalImagenesLabel">Cargar Fotografías del Libro</h5>
                                             <small class="text-white-50" style="font-size: 0.8rem;">Adjunta 3 fotografías claras (Máximo 2MB cada una - JPG/PNG/WEBP)</small>

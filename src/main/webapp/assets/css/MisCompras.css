@@ -187,3 +187,37 @@ main,
         overflow-y: visible !important;
     }
 }
+.btn-detalles {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    text-decoration: none;
+    background-color: #E2DFD8;
+    color: #333333;
+
+    border: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.btn-detalles:hover {
+    background-color: #D1CDC4;
+    color: #2D2A26;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.btn-detalles i {
+    font-size: 0.95rem;
+}

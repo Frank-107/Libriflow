@@ -29,7 +29,7 @@ public class CarritoSv extends HttpServlet {
         HttpSession session = req.getSession();
         List<PublicacionResumen> publicaciones = new ArrayList<>();
 
-
+        // 1. Procesar publicaciones de usuarios (Carrito tradicional)
         List<Integer> idsPublicaciones = (List<Integer>) session.getAttribute("carrito");
 
         if (idsPublicaciones != null && !idsPublicaciones.isEmpty()) {
@@ -39,13 +39,12 @@ public class CarritoSv extends HttpServlet {
             }
         }
 
-
+        // 2. Procesar publicaciones de administración (Carrito Admin)
         List<ItemCarritoAdmin> carritoAdmin = (List<ItemCarritoAdmin>) session.getAttribute("carritoAdmin");
 
         if (carritoAdmin != null && !carritoAdmin.isEmpty()) {
             for (ItemCarritoAdmin item : carritoAdmin) {
                 PublicacionAdminCompleta adminPub = adminDao.getPublicacionAdminCompleta(item.getIdPublicacion());
-
 
                 if (adminPub != null) {
                     PublicacionResumen resumenAdmin = new PublicacionResumen();
@@ -56,9 +55,14 @@ public class CarritoSv extends HttpServlet {
                     resumenAdmin.setImagenPrincipal(adminPub.getImagenPrincipal());
                     resumenAdmin.setEsLibriFlow(true);
 
-                    if ("renta".equals(item.getTipoOperacion())) {
+                    // Asignar precio y fechas según el tipo de operación
+                    if ("renta".equalsIgnoreCase(item.getTipoOperacion())) {
                         resumenAdmin.setPrecio(item.getPrecio());
                         resumenAdmin.setEsRentaSeleccionada(true);
+
+                        // Asignación de timestamps provenientes del ItemCarritoAdmin
+                        resumenAdmin.setFechaInicio(item.getFechaInicio());
+                        resumenAdmin.setFechaFin(item.getFechaFin());
                     } else {
                         resumenAdmin.setPrecio(adminPub.getPrecio());
                         resumenAdmin.setEsRentaSeleccionada(false);
@@ -69,7 +73,10 @@ public class CarritoSv extends HttpServlet {
             }
         }
 
+        // Guardar la lista construida en el request para enviarla a la vista JSP
         req.setAttribute("publicaciones", publicaciones);
+
+        // Redirigir a la vista del carrito (ajusta la ruta según tu estructura)
         req.getRequestDispatcher("Carrito.jsp").forward(req, resp);
     }
 

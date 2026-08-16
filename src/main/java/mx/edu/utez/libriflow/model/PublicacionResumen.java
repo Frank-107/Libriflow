@@ -1,5 +1,7 @@
 package mx.edu.utez.libriflow.model;
 
+import java.sql.Timestamp;
+
 public class PublicacionResumen {
 
     private int idPublicacion;
@@ -15,6 +17,8 @@ public class PublicacionResumen {
     private boolean esRentaSeleccionada;
     private Double precioRentaCalculado;
     private int cantidad;
+    private Timestamp fechaInicio;
+    private Timestamp fechaFin;
 
     public PublicacionResumen() {
     }
@@ -121,5 +125,21 @@ public class PublicacionResumen {
 
     public void setPrecioRentaCalculado(Double precioRentaCalculado) {
         this.precioRentaCalculado = precioRentaCalculado;
+    }
+
+    public Timestamp getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Timestamp fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Timestamp getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Timestamp fechaFin) {
+        this.fechaFin = fechaFin;
     }
 }

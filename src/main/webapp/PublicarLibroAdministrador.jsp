@@ -9,7 +9,7 @@
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
     <link class="icon" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css?v=1.1" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css" />
 </head>
 <body class="p-3 p-md-4">
 <div id="contenedor-notificaciones"></div>
@@ -70,7 +70,7 @@
     <div class="row g-4">
 
         <aside class="col-12 col-md-4 col-lg-3">
-            <div class="collapse d-md-block" id="menuLateral">
+            <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
                     <a href="inicio-admin" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-house me-3 fs-5"></i> Inicio
@@ -202,13 +202,13 @@
                         </div>
 
                         <div class="col-12 col-md-6 mb-4">
-                            <label class="form-label-lf">Imágenes del libro</label>
+                            <label class="form-label-lf">Fotografías del libro</label>
                             <button type="button"
                                     class="btn btn-action-lf shadow-sm w-100"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalSubirImagenes">
                                 <i class="bi bi-images me-2"></i>
-                                Subir 3 imágenes
+                                Adjuntar imágenes (3)
                             </button>
                         </div>
 
@@ -232,57 +232,130 @@
                         </button>
                     </div>
 
+                    <!-- MODAL DE ADJUNCIÓN DE IMÁGENES MODERNIZADO -->
                     <div class="modal fade" id="modalSubirImagenes" tabindex="-1" aria-labelledby="modalImagenesLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg">
-                            <div class="modal-content" style="border-radius: 15px; overflow: hidden;">
-                                <div class="modal-header bg-lf-dark text-white p-3">
-                                    <h5 class="modal-title fw-bold" id="modalImagenesLabel">
-                                        <i class="bi bi-cloud-arrow-up-fill me-2"></i> Cargar Imágenes Requeridas(Maximo 2MB)
-                                    </h5>
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content border-0 shadow-lg" style="border-radius: 1.25rem; overflow: hidden;">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header bg-lf-dark text-white px-4 py-3 border-0">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="bi bi-images fs-4 text-white"></i>
+                                        <div>
+                                            <h5 class="modal-title fw-bold mb-0" id="modalImagenesLabel">Cargar Fotografías del Libro</h5>
+                                            <small class="text-white-50" style="font-size: 0.8rem;">Adjunta 3 fotografías claras (Máximo 2MB cada una - JPG/PNG/WEBP)</small>
+                                        </div>
+                                    </div>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
+                                <!-- Modal Body -->
                                 <div class="modal-body p-4 bg-light">
-                                    <div class="row">
+                                    <div class="row g-3">
 
-                                        <div class="col-12 mb-4">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                1. Portada (Principal)
-                                            </label>
-                                            <input type="file" id="imagen1" name="imagen1" class="form-control form-control-lf p-2.5" accept="image/png, image/jpeg">
-                                            <div class="d-flex justify-content-center mt-2">
-                                                <img width="333px" height="500px" id="vistapreviaImg1" class="vista-previa-img" style="display: none;" />
+                                        <!-- Tarjeta 1: Portada -->
+                                        <div class="col-12 col-md-4">
+                                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 text-center d-flex flex-column justify-content-between bg-white position-relative">
+                                                <div>
+                                                    <span class="badge bg-lf-dark text-white position-absolute top-0 start-0 m-3 rounded-pill px-3 py-2 fw-semibold">
+                                                        1. Portada
+                                                    </span>
+                                                    <div class="mt-4 mb-2">
+                                                        <div class="preview-box border border-2 border-dashed rounded-3 d-flex align-items-center justify-content-center bg-light overflow-hidden position-relative" style="height: 220px; border-color: #dee2e6 !important;">
+                                                            <img id="vistapreviaImg1" class="w-100 h-100" style="object-fit: cover; display: none;" alt="Vista previa 1" />
+                                                            <div id="placeholderImg1" class="text-muted p-3">
+                                                                <i class="bi bi-journal-album fs-1 d-block mb-1 text-secondary"></i>
+                                                                <span class="small fw-semibold d-block">Imagen Principal</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <label for="imagen1" class="btn btn-outline-dark btn-sm w-100 rounded-pill fw-semibold py-2">
+                                                        <i class="bi bi-upload me-1"></i> Seleccionar
+                                                    </label>
+                                                    <input type="file"
+                                                           id="imagen1"
+                                                           name="imagen1"
+                                                           class="d-none"
+                                                           accept="image/jpeg,image/png,image/webp">
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-12 mb-4">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                2. Reverso / Contraportada
-                                            </label>
-                                            <input type="file" id="imagen2" name="imagen2" class="form-control form-control-lf p-2.5" accept="image/png, image/jpeg">
-                                            <div class="d-flex justify-content-center mt-2">
-                                                <img width="333px" height="500px" id="vistapreviaImg2" class="vista-previa-img" style="display: none;" />
+                                        <!-- Tarjeta 2: Contraportada -->
+                                        <div class="col-12 col-md-4">
+                                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 text-center d-flex flex-column justify-content-between bg-white position-relative">
+                                                <div>
+                                                    <span class="badge bg-lf-dark text-white position-absolute top-0 start-0 m-3 rounded-pill px-3 py-2 fw-semibold">
+                                                        2. Contraportada
+                                                    </span>
+                                                    <div class="mt-4 mb-2">
+                                                        <div class="preview-box border border-2 border-dashed rounded-3 d-flex align-items-center justify-content-center bg-light overflow-hidden position-relative" style="height: 220px; border-color: #dee2e6 !important;">
+                                                            <img id="vistapreviaImg2" class="w-100 h-100" style="object-fit: cover; display: none;" alt="Vista previa 2" />
+                                                            <div id="placeholderImg2" class="text-muted p-3">
+                                                                <i class="bi bi-book-half fs-1 d-block mb-1 text-secondary"></i>
+                                                                <span class="small fw-semibold d-block">Reverso o Lomo</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <label for="imagen2" class="btn btn-outline-dark btn-sm w-100 rounded-pill fw-semibold py-2">
+                                                        <i class="bi bi-upload me-1"></i> Seleccionar
+                                                    </label>
+                                                    <input type="file"
+                                                           id="imagen2"
+                                                           name="imagen2"
+                                                           class="d-none"
+                                                           accept="image/jpeg,image/png,image/webp">
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-12 mb-2">
-                                            <label class="form-label-lf small fw-bold mb-2">
-                                                3. Estado general / Páginas
-                                            </label>
-                                            <input type="file" id="imagen3" name="imagen3" class="form-control form-control-lf p-2.5" accept="image/png, image/jpeg">
-                                            <div class="d-flex justify-content-center mt-2">
-                                                <img width="333px" height="500px" id="vistapreviaImg3" class="vista-previa-img" style="display: none;" />
+                                        <!-- Tarjeta 3: Páginas / Estado -->
+                                        <div class="col-12 col-md-4">
+                                            <div class="card h-100 border-0 shadow-sm rounded-4 p-3 text-center d-flex flex-column justify-content-between bg-white position-relative">
+                                                <div>
+                                                    <span class="badge bg-lf-dark text-white position-absolute top-0 start-0 m-3 rounded-pill px-3 py-2 fw-semibold">
+                                                        3. Estado General
+                                                    </span>
+                                                    <div class="mt-4 mb-2">
+                                                        <div class="preview-box border border-2 border-dashed rounded-3 d-flex align-items-center justify-content-center bg-light overflow-hidden position-relative" style="height: 220px; border-color: #dee2e6 !important;">
+                                                            <img id="vistapreviaImg3" class="w-100 h-100" style="object-fit: cover; display: none;" alt="Vista previa 3" />
+                                                            <div id="placeholderImg3" class="text-muted p-3">
+                                                                <i class="bi bi-file-earmark-text fs-1 d-block mb-1 text-secondary"></i>
+                                                                <span class="small fw-semibold d-block">Páginas o detalles</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <label for="imagen3" class="btn btn-outline-dark btn-sm w-100 rounded-pill fw-semibold py-2">
+                                                        <i class="bi bi-upload me-1"></i> Seleccionar
+                                                    </label>
+                                                    <input type="file"
+                                                           id="imagen3"
+                                                           name="imagen3"
+                                                           class="d-none"
+                                                           accept="image/jpeg,image/png,image/webp">
+                                                </div>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
 
-                                <div class="modal-footer bg-white p-2">
-                                    <button type="button" class="btn btn-action-lf shadow-sm px-4" data-bs-dismiss="modal">
-                                        Listo
+                                <!-- Modal Footer -->
+                                <div class="modal-footer bg-white border-0 px-4 py-3 justify-content-between">
+                                    <small class="text-muted">
+                                        <i class="bi bi-info-circle me-1"></i> Las 3 imágenes son requeridas para publicar.
+                                    </small>
+                                    <button type="button" class="btn btn-modal-guardar rounded-pill px-4 py-2 fw-semibold shadow-sm" data-bs-dismiss="modal">
+                                        <i class="bi bi-check2 me-1"></i> Guardar y Continuar
                                     </button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -298,146 +371,7 @@
 <script src="assets/js/bootstrap.js"></script>
 <script src="assets/js/PublicarAdmin.js"></script>
 <script src="assets/js/Notificacion.js"></script>
-
-<script>
-    function contarPalabras(texto) {
-        if (!texto) return 0;
-        const palabras = texto.trim().split(/\s+/);
-        return palabras.filter(p => p.length > 0).length;
-    }
-
-    function validarSinopsis() {
-        const inputSinopsis = document.getElementById('sinopsis');
-        if (!inputSinopsis) return;
-
-        const numPalabras = contarPalabras(inputSinopsis.value);
-
-        if (numPalabras < 100) {
-            const faltantes = 100 - numPalabras;
-            inputSinopsis.setCustomValidity("La sinopsis debe tener al menos 100 palabras. Llevas " + numPalabras + " (faltan " + faltantes + ").");
-        } else {
-            inputSinopsis.setCustomValidity("");
-        }
-    }
-
-    function validarTipoPublicacion() {
-        const checkVenta = document.getElementById('checkVenta');
-        const checkRenta = document.getElementById('checkRenta');
-
-        if (!checkVenta || !checkRenta) return true;
-
-        if (!checkVenta.checked && !checkRenta.checked) {
-            checkVenta.setCustomValidity("Debes seleccionar al menos un tipo de publicación (Venta o Renta).");
-            return false;
-        } else {
-            checkVenta.setCustomValidity("");
-            checkRenta.setCustomValidity("");
-            return true;
-        }
-    }
-
-    function validarImagenesModal() {
-        const img1 = document.getElementById("imagen1");
-        const img2 = document.getElementById("imagen2");
-        const img3 = document.getElementById("imagen3");
-
-        [img1, img2, img3].forEach(img => { if (img) img.setCustomValidity(""); });
-
-        if (!img1 || img1.files.length === 0) {
-            if (img1) img1.setCustomValidity("Debes subir las 3 imagenes requeridas.");
-            return false;
-        }
-        if (!img2 || img2.files.length === 0) {
-            if (img2) img2.setCustomValidity("Debes subir las 3 imagenes requeridas.");
-            return false;
-        }
-        if (!img3 || img3.files.length === 0) {
-            if (img3) img3.setCustomValidity("Debes subir las 3 imagenes requeridas.");
-            return false;
-        }
-
-        return true;
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const toast = document.getElementById('toastExito');
-        if (toast) {
-            setTimeout(function() {
-                toast.classList.add('mostrar-toast');
-            }, 150);
-
-            setTimeout(function() {
-                toast.classList.remove('mostrar-toast');
-                setTimeout(function() { toast.remove(); }, 500);
-            }, 4500);
-        }
-
-        const form = document.getElementById('formPublicar');
-        const checkVenta = document.getElementById('checkVenta');
-        const checkRenta = document.getElementById('checkRenta');
-
-        if (checkVenta && checkRenta) {
-            checkVenta.addEventListener('change', validarTipoPublicacion);
-            checkRenta.addEventListener('change', validarTipoPublicacion);
-        }
-
-        ['imagen1', 'imagen2', 'imagen3'].forEach(id => {
-            const elem = document.getElementById(id);
-            if (elem) {
-                elem.addEventListener('change', function () {
-                    this.setCustomValidity('');
-                });
-            }
-        });
-
-        validarSinopsis();
-
-        if (form) {
-            form.addEventListener('submit', function (e) {
-                const inputPrecio = document.getElementById('precio');
-                const valorPrecio = parseFloat(inputPrecio.value);
-                if (isNaN(valorPrecio) || valorPrecio <= 0) {
-                    inputPrecio.setCustomValidity("El precio debe ser mayor a $0 MXN.");
-                } else {
-                    inputPrecio.setCustomValidity("");
-                }
-
-                validarTipoPublicacion();
-                validarSinopsis();
-
-                const imagenesCompletas = validarImagenesModal();
-
-                if (!imagenesCompletas) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    const modalElement = document.getElementById('modalSubirImagenes');
-                    const bsModal = bootstrap.Modal.getOrCreateInstance(modalElement);
-                    bsModal.show();
-
-                    modalElement.addEventListener('shown.bs.modal', function handler() {
-                        form.reportValidity();
-                        modalElement.removeEventListener('shown.bs.modal', handler);
-                    });
-                    return;
-                }
-
-                if (!form.checkValidity()) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    form.reportValidity();
-                    return;
-                }
-
-                const btn = form.querySelector('.btn-submit');
-                if (btn) {
-                    btn.disabled = true;
-                    btn.innerHTML = 'Enviando...';
-                }
-            });
-        }
-    });
-</script>
+<script src="assets/js/PublicarLibroAdmin.js"></script>
 
 <c:if test="${param.exito == 'true'}">
     <jsp:include page="ConfirmacionPublicacion.jsp" />

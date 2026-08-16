@@ -390,6 +390,7 @@
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalEliminarPublicacion">
                                             <i class="bi bi-trash"></i>
+                                            Eliminar publicación
                                         </button>
 
                                     </div>
@@ -675,52 +676,73 @@
          id="modalEliminarPublicacion"
          tabindex="-1"
          aria-labelledby="modalEliminarLabel"
-         aria-hidden="true">
+         aria-hidden="true"
+         data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 rounded-4 shadow-lg">
-                <div class="modal-body p-4 text-center">
-                    <div class="mb-3">
-                        <i class="bi bi-exclamation-triangle text-danger"
-                           style="font-size:3rem;"></i>
-                    </div>
+            <div class="modal-content shadow-lg"
+                 style="border-radius:40px;background-color:#e3ded7;color:#4A4641;border:none;">
 
-                    <h4 class="fw-bold" id="modalEliminarLabel">
-                        ¿Eliminar publicación?
-                    </h4>
+                <div class="modal-header border-0 pb-0 position-relative">
+                    <h5 class="modal-title fw-bold w-100 text-center"
+                        id="modalEliminarLabel"
+                        style="color:#4A4641;">
+                        <i class="bi bi-exclamation-triangle-fill me-2"
+                           style="color:#b91c1c;"></i>
+                        Eliminar publicación
+                    </h5>
 
-                    <p class="text-muted mt-2">
-                        Estás a punto de eliminar
-                        <strong>
+                    <button type="button"
+                            class="btn-close position-absolute end-0 me-4 mt-2"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body py-4 text-center">
+                    <p class="mb-2 fs-6 fw-medium"
+                       style="color:#6e6762;">
+                        ¿Estás seguro de que deseas eliminar esta publicación?
+                    </p>
+
+                    <p class="mb-0"
+                       style="color:#7A746E;font-size:.9rem;">
+                        <strong style="color:#4A4641;">
                             <c:out value="${publicacion.titulo}"/>
-                        </strong>.
+                        </strong>
+                        se eliminará permanentemente.
                         Esta acción no se puede deshacer.
                     </p>
-                    <div class="d-flex gap-2 mt-4">
-                        <button type="button"
-                                class="btn btn-secondary rounded-pill flex-grow-1"
-                                data-bs-dismiss="modal">
-                            Cancelar
-                        </button>
-                        <form action="${pageContext.request.contextPath}/editar-publicacion"
-                              method="post"
-                              class="flex-grow-1">
-
-                            <input type="hidden"
-                                   name="accion"
-                                   value="eliminar">
-
-                            <input type="hidden"
-                                   name="idPublicacion"
-                                   value="${publicacion.idPublicacion}">
-
-                            <button type="submit"
-                                    class="btn btn-danger rounded-pill w-100">
-                                <i class="bi bi-trash me-1"></i>
-                                Eliminar publicación
-                            </button>
-                        </form>
-                    </div>
                 </div>
+
+                <div class="modal-footer border-0 pt-0 d-flex justify-content-center gap-3">
+                    <button type="button"
+                            class="btn bg-lf-capsule btn-lf-pill"
+                            data-bs-dismiss="modal"
+                            style="font-weight:600;padding:12px 30px;border-radius:25px;">
+                        Cancelar
+                    </button>
+
+                    <form action="${pageContext.request.contextPath}/editar-publicacion"
+                          method="post"
+                          class="m-0">
+
+                        <input type="hidden"
+                               name="accion"
+                               value="eliminar">
+
+                        <input type="hidden"
+                               name="idPublicacion"
+                               value="${publicacion.idPublicacion}">
+
+                        <button type="submit"
+                                class="btn shadow-sm"
+                                style="background-color:#b91c1c;color:#fff;font-weight:600;padding:12px 30px;border-radius:25px;border:none;margin:0;">
+                            <i class="bi bi-trash3 me-2"></i>
+                            Sí, eliminar
+                        </button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

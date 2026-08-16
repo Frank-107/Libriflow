@@ -876,6 +876,25 @@ public class PublicacionUsuarioDao {
      *
      * ACTIVO y VENDIDO quedan bloqueados.
      */
+
+    public boolean darDeBajaPublicacionUsuario(int idPublicacionUs) {
+        String sql = "UPDATE publicacion_us SET estado = 'RECHAZADO' WHERE id_publicacion_us = ?";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idPublicacionUs);
+
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al dar de baja la publicación del usuario: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean actualizarPublicacionCompleta(
             int idPublicacion,
             int idUsuario,

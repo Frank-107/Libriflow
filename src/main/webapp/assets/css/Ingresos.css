@@ -1,0 +1,314 @@
+/* ==========================================================================
+   ESTILOS GENERALES Y ESTRUCTURA (COMPATIBLE CON LIBRIFLOW DESIGN SYSTEM)
+   ========================================================================== */
+
+.lf-ingresos-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.lf-ingresos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 0.5rem;
+}
+
+.lf-section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+.lf-ingresos-header h2 {
+    font-weight: 800;
+    color: #1a1d20;
+    margin: 0.2rem 0;
+    font-size: 1.75rem;
+}
+
+.lf-ingresos-header p {
+    color: #6c757d;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   CARDS DE RESUMEN (KPI GRID)
+   ========================================================================== */
+
+.lf-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.lf-kpi-card {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lf-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.lf-kpi-card-total {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1.5px solid rgba(25, 135, 84, 0.2);
+}
+
+.lf-kpi-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.bg-hoy {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+}
+
+.bg-semana {
+    background-color: #e0fbf6;
+    color: #0ca678;
+}
+
+.bg-mes {
+    background-color: #f3f0ff;
+    color: #748ffc;
+}
+
+.bg-total {
+    background-color: #d1e7dd;
+    color: #198754;
+}
+
+.lf-kpi-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.lf-kpi-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+}
+
+.lf-kpi-value {
+    font-size: 1.45rem;
+    font-weight: 800;
+    margin: 0.1rem 0;
+    color: #212529;
+}
+
+.lf-kpi-sub {
+    font-size: 0.78rem;
+    color: #adb5bd;
+}
+
+/* ==========================================================================
+   NAVEGACIÓN POR PESTAÑAS (TABS DE PERIODOS)
+   ========================================================================== */
+
+.lf-period-tabs-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f1f3f5;
+    background-color: #fafafa;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+}
+
+.lf-period-tabs {
+    display: flex;
+    background-color: #e9ecef;
+    padding: 0.25rem;
+    border-radius: 50rem;
+    gap: 0.25rem;
+}
+
+.lf-tab-btn {
+    border: none;
+    background: transparent;
+    padding: 0.4rem 1.1rem;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #495057;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.lf-tab-btn:hover {
+    color: #212529;
+}
+
+.lf-tab-btn.active {
+    background-color: #ffffff;
+    color: #0d6efd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+}
+
+/* ==========================================================================
+   TABLA DE MOVIMIENTOS E INGRESOS
+   ========================================================================== */
+
+.lf-movements-card {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.lf-table-wrapper {
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+.lf-movements-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.lf-movements-table th {
+    background-color: #ffffff;
+    color: #6c757d;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 1rem 1.25rem;
+    border-bottom: 2px solid #f1f3f5;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.lf-movements-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid #f8f9fa;
+    vertical-align: middle;
+}
+
+.lf-movements-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Avatar / Icono Comprador */
+.lf-avatar-sm {
+    width: 32px;
+    height: 32px;
+    background-color: #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+/* Fechas y Títulos */
+.lf-table-date {
+    color: #6c757d;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.lf-book-title {
+    font-weight: 600;
+    color: #212529;
+}
+
+.lf-price-total {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Badges de Ganancia */
+.lf-gain-badge {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: 700;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    display: inline-block;
+}
+
+/* Origen Badge */
+.lf-origin {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.3rem 0.65rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.lf-origin-libriflow {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+}
+
+.lf-origin-user {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #e9ecef;
+}
+
+/* Estado Vacío */
+.lf-empty-movements {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5rem 1rem;
+    color: #adb5bd;
+    text-align: center;
+}
+
+.lf-empty-movements i {
+    font-size: 2.8rem;
+    margin-bottom: 0.75rem;
+}
+
+.lf-empty-movements strong {
+    color: #495057;
+    font-size: 1.1rem;
+}
+
+.lf-empty-movements span {
+    font-size: 0.88rem;
+    margin-top: 0.25rem;
+}
+
+.pb-6 {
+    padding-bottom: 4rem !important; /* pb-5 equivale a 3rem */
+}
+
+.pb-7 {
+    padding-bottom: 5rem !important;
+}

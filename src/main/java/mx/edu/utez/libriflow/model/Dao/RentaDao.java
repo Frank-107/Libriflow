@@ -19,6 +19,8 @@ public class RentaDao {
         String sql = """
             SELECT
                 dr.id_detalle,
+                dr.codigo,
+                NVL(dr.penalizacion, 0) AS penalizacion,
                 dr.fecha_inicio,
                 dr.fecha_limite,
                 dr.fecha_devolucion,
@@ -65,6 +67,8 @@ public class RentaDao {
                 RentaResumen renta = new RentaResumen();
 
                 renta.setIdDetalle(rs.getInt("id_detalle"));
+                renta.setCodigo(rs.getString("codigo"));
+                renta.setPenalizacion(rs.getInt("penalizacion"));
                 renta.setIdTransaccion(rs.getInt("id_transaccion"));
                 renta.setTitulo(rs.getString("titulo"));
                 renta.setAutor(rs.getString("autor"));
@@ -74,13 +78,21 @@ public class RentaDao {
                 renta.setNombreVendedor(rs.getString("nombre_vendedor"));
 
                 if (rs.getDate("fecha_inicio") != null) {
-                    renta.setFechaInicio(rs.getDate("fecha_inicio").toLocalDate());
+                    renta.setFechaInicio(
+                            rs.getDate("fecha_inicio").toLocalDate()
+                    );
                 }
+
                 if (rs.getDate("fecha_limite") != null) {
-                    renta.setFechaLimite(rs.getDate("fecha_limite").toLocalDate());
+                    renta.setFechaLimite(
+                            rs.getDate("fecha_limite").toLocalDate()
+                    );
                 }
+
                 if (rs.getDate("fecha_devolucion") != null) {
-                    renta.setFechaDevolucion(rs.getDate("fecha_devolucion").toLocalDate());
+                    renta.setFechaDevolucion(
+                            rs.getDate("fecha_devolucion").toLocalDate()
+                    );
                 }
 
                 renta.setEstado(rs.getString("estado"));
@@ -100,45 +112,47 @@ public class RentaDao {
         List<RentaResumen> lista = new ArrayList<>();
 
         String sql = """
-        SELECT
-            dr.id_detalle,
-            dr.fecha_inicio,
-            dr.fecha_limite,
-            dr.fecha_devolucion,
-            dr.estado,
-            dt.id_transaccion,
-            dt.precio,
-            uc.nombre AS nombre_comprador,
-            uv.nombre AS nombre_vendedor,
-            COALESCE(lus.titulo, llf.titulo) AS titulo,
-            COALESCE(lus.autor, llf.autor) AS autor,
-            COALESCE(ius.imagen, ilf.imagen) AS imagen
-        FROM detalle_renta dr
-        JOIN detalle_transaccion dt
-            ON dr.id_detalle_transaccion = dt.id_detalle
-        JOIN transaccion t
-            ON dt.id_transaccion = t.id_transaccion
-        JOIN usuario uc
-            ON t.id_comprador = uc.id_usuario
-        LEFT JOIN usuario uv
-            ON dt.id_vendedor = uv.id_usuario
-        LEFT JOIN publicacion_us pus
-            ON dt.id_publicacion_us = pus.id_publicacion_us
-        LEFT JOIN libro lus
-            ON pus.id_libro = lus.id_libro
-        LEFT JOIN imagen ius
-            ON ius.id_publicacion_us = pus.id_publicacion_us
-            AND ius.tipo = 1
-        LEFT JOIN publicacion_lf plf
-            ON dt.id_publicacion_lf = plf.id_publicacion_lf
-        LEFT JOIN libro llf
-            ON plf.id_libro = llf.id_libro
-        LEFT JOIN imagen ilf
-            ON ilf.id_publicacion_lf = plf.id_publicacion_lf
-            AND ilf.tipo = 1
-        WHERE t.id_comprador = ?
-        ORDER BY dr.fecha_inicio DESC
-        """;
+            SELECT
+                dr.id_detalle,
+                dr.codigo,
+                NVL(dr.penalizacion, 0) AS penalizacion,
+                dr.fecha_inicio,
+                dr.fecha_limite,
+                dr.fecha_devolucion,
+                dr.estado,
+                dt.id_transaccion,
+                dt.precio,
+                uc.nombre AS nombre_comprador,
+                uv.nombre AS nombre_vendedor,
+                COALESCE(lus.titulo, llf.titulo) AS titulo,
+                COALESCE(lus.autor, llf.autor) AS autor,
+                COALESCE(ius.imagen, ilf.imagen) AS imagen
+            FROM detalle_renta dr
+            JOIN detalle_transaccion dt
+                ON dr.id_detalle_transaccion = dt.id_detalle
+            JOIN transaccion t
+                ON dt.id_transaccion = t.id_transaccion
+            JOIN usuario uc
+                ON t.id_comprador = uc.id_usuario
+            LEFT JOIN usuario uv
+                ON dt.id_vendedor = uv.id_usuario
+            LEFT JOIN publicacion_us pus
+                ON dt.id_publicacion_us = pus.id_publicacion_us
+            LEFT JOIN libro lus
+                ON pus.id_libro = lus.id_libro
+            LEFT JOIN imagen ius
+                ON ius.id_publicacion_us = pus.id_publicacion_us
+                AND ius.tipo = 1
+            LEFT JOIN publicacion_lf plf
+                ON dt.id_publicacion_lf = plf.id_publicacion_lf
+            LEFT JOIN libro llf
+                ON plf.id_libro = llf.id_libro
+            LEFT JOIN imagen ilf
+                ON ilf.id_publicacion_lf = plf.id_publicacion_lf
+                AND ilf.tipo = 1
+            WHERE t.id_comprador = ?
+            ORDER BY dr.fecha_inicio DESC
+            """;
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -152,6 +166,8 @@ public class RentaDao {
                     RentaResumen renta = new RentaResumen();
 
                     renta.setIdDetalle(rs.getInt("id_detalle"));
+                    renta.setCodigo(rs.getString("codigo"));
+                    renta.setPenalizacion(rs.getInt("penalizacion"));
                     renta.setIdTransaccion(rs.getInt("id_transaccion"));
                     renta.setTitulo(rs.getString("titulo"));
                     renta.setAutor(rs.getString("autor"));
@@ -161,13 +177,21 @@ public class RentaDao {
                     renta.setNombreVendedor(rs.getString("nombre_vendedor"));
 
                     if (rs.getDate("fecha_inicio") != null) {
-                        renta.setFechaInicio(rs.getDate("fecha_inicio").toLocalDate());
+                        renta.setFechaInicio(
+                                rs.getDate("fecha_inicio").toLocalDate()
+                        );
                     }
+
                     if (rs.getDate("fecha_limite") != null) {
-                        renta.setFechaLimite(rs.getDate("fecha_limite").toLocalDate());
+                        renta.setFechaLimite(
+                                rs.getDate("fecha_limite").toLocalDate()
+                        );
                     }
+
                     if (rs.getDate("fecha_devolucion") != null) {
-                        renta.setFechaDevolucion(rs.getDate("fecha_devolucion").toLocalDate());
+                        renta.setFechaDevolucion(
+                                rs.getDate("fecha_devolucion").toLocalDate()
+                        );
                     }
 
                     renta.setEstado(rs.getString("estado"));
@@ -186,12 +210,12 @@ public class RentaDao {
     public boolean marcarComoEntregada(int idDetalle) {
 
         String sql = """
-        UPDATE detalle_renta
-        SET estado = 'ACTIVA'
-        WHERE id_detalle = ?
-          AND estado = 'PROGRAMADA'
-          AND fecha_inicio <= SYSDATE
-        """;
+            UPDATE detalle_renta
+            SET estado = 'ACTIVA'
+            WHERE id_detalle = ?
+              AND estado = 'PROGRAMADA'
+              AND fecha_inicio <= SYSDATE
+            """;
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -209,12 +233,12 @@ public class RentaDao {
     public boolean marcarComoFinalizada(int idDetalle) {
 
         String sql = """
-        UPDATE detalle_renta
-        SET estado = 'FINALIZADA',
-            fecha_devolucion = SYSDATE
-        WHERE id_detalle = ?
-          AND estado = 'ACTIVA'
-        """;
+            UPDATE detalle_renta
+            SET estado = 'FINALIZADA',
+                fecha_devolucion = SYSDATE
+            WHERE id_detalle = ?
+              AND estado = 'ACTIVA'
+            """;
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -243,28 +267,28 @@ public class RentaDao {
             ps.setString(1, estado);
             ps.setInt(2, idDetalle);
 
-            int filasActualizadas = ps.executeUpdate();
-
-            return filasActualizadas > 0;
+            return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-
-        return false;
     }
+
     public int contarRentasActivasPorUsuario(int idUsuario) {
+
         int total = 0;
+
         String sql = """
             SELECT COUNT(*)
-            FROM DETALLE_RENTA dr
-            JOIN DETALLE_TRANSACCION dt 
-                ON dr.ID_DETALLE_TRANSACCION = dt.ID_DETALLE
-            JOIN TRANSACCION t 
-                ON dt.ID_TRANSACCION = t.ID_TRANSACCION
-            WHERE t.ID_COMPRADOR = ?
-              AND dr.ESTADO = 'ACTIVA'
-              AND (dr.PENALIZACION = 0 OR dr.PENALIZACION IS NULL)
+            FROM detalle_renta dr
+            JOIN detalle_transaccion dt
+                ON dr.id_detalle_transaccion = dt.id_detalle
+            JOIN transaccion t
+                ON dt.id_transaccion = t.id_transaccion
+            WHERE t.id_comprador = ?
+              AND dr.estado = 'ACTIVA'
+              AND (dr.penalizacion = 0 OR dr.penalizacion IS NULL)
             """;
 
         try (Connection con = SQLconnector.getConnection();
@@ -273,31 +297,37 @@ public class RentaDao {
             ps.setInt(1, idUsuario);
 
             try (ResultSet rs = ps.executeQuery()) {
+
                 if (rs.next()) {
                     total = rs.getInt(1);
                 }
             }
 
         } catch (SQLException e) {
-            System.out.println("Error en contarRentasActivasPorUsuario: " + e.getMessage());
+            System.out.println(
+                    "Error en contarRentasActivasPorUsuario: "
+                            + e.getMessage()
+            );
             e.printStackTrace();
         }
 
         return total;
     }
 
-
     public int contarRetrasosPorUsuario(int idUsuario) {
+
         int total = 0;
+
         String sql = """
             SELECT COUNT(*)
-            FROM DETALLE_RENTA dr
-            JOIN DETALLE_TRANSACCION dt 
-                ON dr.ID_DETALLE_TRANSACCION = dt.ID_DETALLE
-            JOIN TRANSACCION t 
-                ON dt.ID_TRANSACCION = t.ID_TRANSACCION
-            WHERE t.ID_COMPRADOR = ?
-              AND (dr.PENALIZACION = 1 OR dr.ESTADO = 'RETRASADO' OR (dr.ESTADO = 'ACTIVA' AND dr.FECHA_LIMITE < CURRENT_TIMESTAMP))
+            FROM detalle_renta dr
+            JOIN detalle_transaccion dt
+                ON dr.id_detalle_transaccion = dt.id_detalle
+            JOIN transaccion t
+                ON dt.id_transaccion = t.id_transaccion
+            WHERE t.id_comprador = ?
+              AND dr.estado = 'ACTIVA'
+              AND dr.penalizacion IN (1, 2)
             """;
 
         try (Connection con = SQLconnector.getConnection();
@@ -306,13 +336,17 @@ public class RentaDao {
             ps.setInt(1, idUsuario);
 
             try (ResultSet rs = ps.executeQuery()) {
+
                 if (rs.next()) {
                     total = rs.getInt(1);
                 }
             }
 
         } catch (SQLException e) {
-            System.out.println("Error en contarRetrasosPorUsuario: " + e.getMessage());
+            System.out.println(
+                    "Error en contarRetrasosPorUsuario: "
+                            + e.getMessage()
+            );
             e.printStackTrace();
         }
 

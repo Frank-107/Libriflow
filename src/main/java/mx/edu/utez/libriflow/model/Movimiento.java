@@ -3,12 +3,13 @@ package mx.edu.utez.libriflow.model;
 import java.sql.Timestamp;
 
 public class Movimiento {
-
+    private String comprador;
     private String tipoMovimiento;
     private Timestamp fecha;
     private String titulo;
     private double precio;
     private boolean esLibriFlow;
+    private double ganaciaLibriflow;
 
     public Movimiento() {
     }
@@ -60,5 +61,21 @@ public class Movimiento {
 
     public void setEsLibriFlow(boolean esLibriFlow) {
         this.esLibriFlow = esLibriFlow;
+    }
+
+    public double getGanaciaLibriflow() {
+        return ganaciaLibriflow;
+    }
+
+    public void setGanaciaLibriflow(double ganaciaLibriflow) {
+        this.ganaciaLibriflow = ganaciaLibriflow;
+    }
+
+    public String getComprador() {
+        return comprador;
+    }
+
+    public void setComprador(String comprador) {
+        this.comprador = comprador;
     }
 }

@@ -372,9 +372,6 @@ body {
     white-space: nowrap;
 }
 
-
-
-
 body {
     background-color: #F4EFEA;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -405,60 +402,46 @@ main, .catalogo-scroll {
     overflow-y: auto;
 }
 
-/* 1. Asegurar que el contenedor del catálogo tenga espacio interno en la base */
 main.col.catalogo-scroll {
-    max-height: calc(100vh - 130px); /* Ajusta la altura visible */
+    max-height: calc(100vh - 130px);
     overflow-y: auto !important;
-    padding-bottom: 3rem !important; /* <--- MARGEN INFERIOR PARA QUE NO TOQUE EL BORDE */
+    padding-bottom: 3rem !important;
 }
 
-/* 2. Darle espacio extra a la última tarjeta dentro del scroll */
 .mis-publicaciones-container {
     padding-bottom: 2rem;
 }
 
-/* 3. Margen inferior en la grilla para separar del final del scroll */
 .mis-publicaciones-container .row.g-3 {
     margin-bottom: 2rem !important;
 }
 
 .publicaciones-lista {
-    /* ... tus otros estilos ... */
-    max-height: calc(100vh - 180px); /* O la altura que tenga tu contenedor */
+    max-height: calc(100vh - 180px);
     overflow-y: auto;
 
-    padding-bottom: 2rem; /* Puedes usar 2rem, 3rem o 40px/50px según qué tanto espacio quieras */
+    padding-bottom: 2rem;
 }
 
-
-/* ==========================================
-   SCROLLBAR MINIMALISTA Y ELEGANTE (CAFÉ)
-   ========================================== */
-
-/* 1. Ancho y alto fino para la barra */
 ::-webkit-scrollbar {
-    width: 6px;  /* Súper delgado para que sea elegante */
-    height: 6px; /* Para scroll horizontal si existiera */
+    width: 6px;
+    height: 6px;
 }
 
-/* 2. Canal transparente o sutil */
 ::-webkit-scrollbar-track {
-    background: transparent; /* O puedes usar #F6F1E9 si quieres un fondo crema muy claro */
+    background: transparent;
     border-radius: 10px;
 }
 
-/* 3. La barra deslizante (thumb) */
 ::-webkit-scrollbar-thumb {
-    background: #6B4F3A; /* Café elegante LibriFlow */
+    background: #6B4F3A;
     border-radius: 10px;
 }
 
-/* 4. Efecto sutil al pasar el mouse */
 ::-webkit-scrollbar-thumb:hover {
-    background: #4A3B31; /* Un tono café un poco más oscuro */
+    background: #4A3B31;
 }
 
-/* 5. Compatibilidad para Firefox */
 * {
     scrollbar-width: thin;
     scrollbar-color: #6B4F3A transparent;
@@ -545,8 +528,6 @@ main.col.catalogo-scroll {
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     white-space: nowrap;
     z-index: 9999;
-
-    /* Animación de entrada suave igual a tu style */
     animation: toastEntrada 0.4s ease forwards;
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
@@ -556,7 +537,6 @@ main.col.catalogo-scroll {
     transform: translateY(0);
 }
 
-/* Colores originales de tu hoja de estilos */
 .libri-toast-error {
     background-color: #fca5a5;
     color: #b91c1c;
@@ -572,5 +552,23 @@ main.col.catalogo-scroll {
         white-space: normal;
         text-align: center;
         width: 90%;
+    }
+}
+
+.card-libro.tiene-badge .card-titulo {
+    padding-right: 135px;
+}
+
+@media (max-width: 767.98px) {
+    .card-libro.tiene-badge .card-titulo {
+        padding-right: 0;
+        margin-top: 24px;
+    }
+
+    .lf-badge {
+        top: 8px;
+        right: 8px;
+        padding: 4px 10px;
+        font-size: 0.65rem;
     }
 }

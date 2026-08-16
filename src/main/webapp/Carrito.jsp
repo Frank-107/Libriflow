@@ -75,14 +75,11 @@
                     <a href="${pageContext.request.contextPath}/mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>Mis rentas
                     </a>
-<<<<<<< HEAD
+
                     <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i>
                         Nuestras redes
-=======
-                    <a href="${pageContext.request.contextPath}/NuestrasRedes.jsp" class="btn bg-lf-capsule btn-lf-pill w-100 text-start d-flex align-items-center px-4">
-                        <i class="bi bi-globe me-3 fs-5"></i>Nuestras redes
->>>>>>> b28ea3d2f908298c436d28e8624a7d3e183345df
+
                     </a>
                 </div>
             </div>

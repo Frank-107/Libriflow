@@ -93,7 +93,7 @@
             <i class="bi bi-journal-bookmark me-3 fs-5"></i>Mis rentas
           </a>
 
-          <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+          <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-globe me-3 fs-5"></i>Nuestras redes
           </a>
 
@@ -112,18 +112,27 @@
             (<span id="total-publicaciones"><c:out value="${publicaciones.size()}"/></span>)
           </h2>
 
-          <form method="get" action="${pageContext.request.contextPath}/mis-publicaciones-js" class="form-orden">
-            <label for="orden" class="orden-label">Ordenar por:</label>
+          <div class="form-orden">
+            <span class="orden-label">Ordenar por:</span>
 
-            <select name="orden" id="orden" class="form-select orden-select" onchange="this.form.submit()">
-              <option value="recientes" ${ordenActual == 'recientes' ? 'selected' : ''}>
-                Más recientes
-              </option>
-              <option value="antiguas" ${ordenActual == 'antiguas' ? 'selected' : ''}>
-                Más antiguas
-              </option>
-            </select>
-          </form>
+            <div class="dropdown">
+              <button class="btn orden-select dropdown-toggle d-flex justify-content-between align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ${ordenActual == 'antiguas' ? 'Más antiguas' : 'Más recientes'}
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-orden border-0">
+                <li>
+                  <a class="dropdown-item ${ordenActual != 'antiguas' ? 'active-orden' : ''}" href="${pageContext.request.contextPath}/mis-publicaciones-js?orden=recientes">
+                    Más recientes
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item ${ordenActual == 'antiguas' ? 'active-orden' : ''}" href="${pageContext.request.contextPath}/mis-publicaciones-js?orden=antiguas">
+                    Más antiguas
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <c:choose>
@@ -161,19 +170,21 @@
                         $<c:out value="${publicacion.precio}"/>
                       </div>
 
-                      <a href="${pageContext.request.contextPath}/detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                         class="btn-ver-detalles">
-                        Ver detalles
-                      </a>
+                      <div class="botones-accion">
+                        <a href="${pageContext.request.contextPath}/detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
+                           class="btn-ver-detalles">
+                          <i class="bi bi-eye"></i> Ver detalles
+                        </a>
 
-                      <c:if test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
-                        <button type="button"
-                                onclick="cancelarPublicacion(${publicacion.idPublicacion}, this)"
-                                class="btn-cancelar-publicacion">
-                          <i class="bi bi-trash"></i>
-                          Cancelar publicación
-                        </button>
-                      </c:if>
+                        <c:if test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
+                          <button type="button"
+                                  onclick="cancelarPublicacion(${publicacion.idPublicacion}, this)"
+                                  class="btn-cancelar-publicacion">
+                            <i class="bi bi-trash"></i>
+                            Cancelar publicación
+                          </button>
+                        </c:if>
+                      </div>
                     </div>
 
                   </div>

@@ -40,21 +40,21 @@ FILTRO DE ORDENAMIENTO
 .orden-label {
     margin: 0;
     color: #292725;
-    font-size: 17px;
+    font-size: 15px; /* Ligeramente más pequeño para no competir con el título */
     font-weight: 600;
     white-space: nowrap;
 }
 
 .orden-select {
     width: auto !important;
-    min-width: 210px;
-    height: 46px;
-    padding: 0 42px 0 20px;
+    min-width: 160px; /* Reducido de 210px */
+    height: 38px; /* Reducido de 46px para ser más esbelto */
+    padding: 0 16px; /* Ajuste del padding */
     border: 1px solid #AAA39D;
     border-radius: 999px !important;
     background-color: #F7F3EF;
     color: #302E2C;
-    font-size: 16px;
+    font-size: 14.5px; /* Letra un poco más pequeña */
     font-weight: 500;
     cursor: pointer;
     outline: none;
@@ -70,10 +70,38 @@ FILTRO DE ORDENAMIENTO
     border-color: #817A74;
 }
 
-.orden-select:focus {
+.orden-select:focus, .orden-select[aria-expanded="true"] {
     background-color: #FFF;
     border-color: #69635E;
     box-shadow: 0 0 0 4px rgba(105, 99, 94, .12) !important;
+}
+
+.dropdown-menu-orden {
+    background-color: #F7F3EF;
+    border-radius: 20px !important;
+    padding: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12) !important;
+    min-width: 160px;
+}
+
+.dropdown-menu-orden .dropdown-item {
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #4A4641;
+    transition: background-color .2s ease, color .2s ease;
+}
+
+.dropdown-menu-orden .dropdown-item:hover, .dropdown-menu-orden .dropdown-item:focus {
+    background-color: #E2DFD8;
+    color: #292725;
+}
+
+.dropdown-menu-orden .dropdown-item.active-orden {
+    background-color: #CBC2B9;
+    color: #292725;
+    font-weight: 600;
 }
 
 /* =========================
@@ -186,13 +214,16 @@ ESTADOS
 ========================= */
 
 .mis-publicaciones-container .estado {
-    min-width: 100px;
-    padding: 7px 15px;
+    position: absolute;
+    top: 22px;
+    right: 26px;
+    min-width: 80px;
+    padding: 5px 12px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    font-size: .75rem;
+    font-size: .65rem;
     font-weight: 700;
     letter-spacing: .5px;
     text-transform: uppercase;
@@ -219,18 +250,32 @@ ESTADOS
 }
 
 /* =========================
+CONTENEDOR DE BOTONES
+========================= */
+
+.mis-publicaciones-container .botones-accion {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
+    justify-content: flex-end;
+}
+
+/* =========================
 BOTÓN VER DETALLES
 ========================= */
 
 .mis-publicaciones-container .btn-ver-detalles {
-    min-width: 160px;
+    flex: 1;
     padding: 10px 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #F2EFEB;
-    color: #45413E;
-    border: none;
+    gap: 7px;
+    background-color: #E2DFD8;
+    color: #333333;
+    border: 1px solid transparent;
     border-radius: 999px;
     font-size: .9rem;
     font-weight: 600;
@@ -243,8 +288,9 @@ BOTÓN VER DETALLES
 }
 
 .mis-publicaciones-container .btn-ver-detalles:hover {
-    background-color: #FFF;
-    color: #292725;
+    background-color: #D1CDC4;
+    color: #2D2A26;
+    text-decoration: none;
     transform: translateY(-1px);
     box-shadow: 0 5px 12px rgba(0, 0, 0, .08);
 }
@@ -254,8 +300,8 @@ BOTÓN CANCELAR
 ========================= */
 
 .mis-publicaciones-container .btn-cancelar-publicacion {
-    min-width: 160px;
-    padding: 9px 18px;
+    flex: 1;
+    padding: 10px 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -264,7 +310,7 @@ BOTÓN CANCELAR
     color: #A44444;
     border: 1.5px solid #B75353;
     border-radius: 999px;
-    font-size: .82rem;
+    font-size: .9rem;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
@@ -361,11 +407,16 @@ RESPONSIVE
     }
 
     .mis-publicaciones-container .estado {
+        position: static;
         align-self: center;
     }
 
     .mis-publicaciones-container .publicacion-precio {
         text-align: center;
+    }
+
+    .mis-publicaciones-container .botones-accion {
+        flex-direction: column;
     }
 
     .mis-publicaciones-container .btn-ver-detalles,

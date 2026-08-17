@@ -467,3 +467,243 @@ RESPONSIVE
         font-size: 0.8rem;
     }
 }
+/* ==========================================
+   ACCIONES DE MIS PUBLICACIONES
+   ========================================== */
+
+.publicacion-acciones {
+    width: 190px;
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
+    gap: 12px;
+}
+
+
+/* ==========================================
+   PRECIO
+   ========================================== */
+
+.publicacion-acciones .publicacion-precio {
+    margin: 0;
+
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #4A4641;
+
+    text-align: right;
+}
+
+
+/* ==========================================
+   CONTENEDOR DE BOTONES
+   ========================================== */
+
+.botones-accion {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 10px;
+}
+
+
+/* ==========================================
+   BOTÓN VER DETALLES
+   MISMA ESTÉTICA QUE MIS COMPRAS
+   ========================================== */
+
+.btn-ver-detalles {
+    width: 100%;
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 8px 18px;
+
+    background-color: #E2DFD8;
+    color: #333333;
+
+    border: none;
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.btn-ver-detalles:hover {
+    background-color: #D1CDC4;
+    color: #2D2A26;
+
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.btn-ver-detalles i {
+    font-size: 0.95rem;
+}
+
+
+/* ==========================================
+   BOTÓN CANCELAR PUBLICACIÓN
+   ========================================== */
+
+.btn-cancelar-publicacion {
+    width: 100%;
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 8px 18px;
+
+    background-color: transparent;
+    color: #B45353;
+
+    border: 1px solid #B45353;
+    border-radius: 20px;
+
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.btn-cancelar-publicacion:hover {
+    background-color: #B45353;
+    color: #FFFFFF;
+
+    transform: translateY(-1px);
+}
+
+.btn-cancelar-publicacion i {
+    font-size: 0.95rem;
+}
+
+
+/* ==========================================
+   BADGE DE ESTADO
+   ========================================== */
+
+.publicacion-acciones .estado {
+    min-width: 95px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 14px;
+
+    border-radius: 999px;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    margin: 0;
+}
+
+
+/* ==========================================
+   ESTADOS
+   ========================================== */
+
+.publicacion-acciones .estado.PENDIENTE {
+    background-color: #FFF1C9;
+    color: #8A6200;
+}
+
+.publicacion-acciones .estado.ACTIVO {
+    background-color: #DDEED9;
+    color: #497345;
+}
+
+.publicacion-acciones .estado.INACTIVO {
+    background-color: #E2E3E5;
+    color: #5E6265;
+}
+
+.publicacion-acciones .estado.RECHAZADO {
+    background-color: #F5DADA;
+    color: #A94442;
+}
+
+
+/* ==========================================
+   AJUSTE DE LA TARJETA
+   ========================================== */
+
+.publicacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+}
+
+.publicacion-info {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .publicacion-contenido {
+        flex-wrap: wrap;
+    }
+
+    .publicacion-acciones {
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .publicacion-acciones .publicacion-precio {
+        text-align: left;
+    }
+
+    .publicacion-acciones .estado {
+        align-self: flex-start;
+    }
+
+    .botones-accion {
+        width: 100%;
+    }
+
+    .btn-ver-detalles,
+    .btn-cancelar-publicacion {
+        width: 100%;
+    }
+}

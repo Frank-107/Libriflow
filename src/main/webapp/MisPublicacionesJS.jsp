@@ -162,18 +162,20 @@
                     </div>
 
                     <div class="publicacion-acciones">
-                      <span class="estado ${publicacion.estado}">
-                        <c:out value="${publicacion.estado}"/>
-                      </span>
 
-                      <div class="publicacion-precio">
+                       <span class="estado ${publicacion.estado}">
+                         <c:out value="${publicacion.estado}"/>
+                        </span>
+                        <div class="publicacion-precio">
                         $<c:out value="${publicacion.precio}"/>
-                      </div>
+                        </div>
 
                       <div class="botones-accion">
+
                         <a href="${pageContext.request.contextPath}/detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
                            class="btn-ver-detalles">
-                          <i class="bi bi-eye"></i> Ver detalles
+                          <i class="bi bi-eye"></i>
+                          Ver detalles
                         </a>
 
                         <c:if test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
@@ -184,7 +186,9 @@
                             Cancelar publicación
                           </button>
                         </c:if>
+
                       </div>
+
                     </div>
 
                   </div>

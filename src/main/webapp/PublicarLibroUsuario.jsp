@@ -142,10 +142,7 @@
                 </div>
 
                 <c:if test="${not empty error}">
-                    <div class="alert alert-danger d-flex align-items-center gap-2 mb-4" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
-                        <div><c:out value="${error}" escapeXml="true" /></div>
-                    </div>
+                    <div id="errorServidor" data-mensaje="<c:out value='${error}' escapeXml='true'/>" style="display:none;"></div>
                 </c:if>
 
                 <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data">
@@ -227,7 +224,7 @@
                                       id="sinopsis"
                                       class="form-control form-control-lf"
                                       rows="5"
-                                      maxlength="5000"
+                                      maxlength="1500"
                                       style="resize:none;"
                                       oninput="validarSinopsis()"
                                       required><c:out value='${param.sinopsis}' escapeXml='true'/></textarea>

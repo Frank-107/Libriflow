@@ -4,15 +4,24 @@ function contarPalabras(texto) {
     return palabras.filter(p => p.length > 0).length;
 }
 
+function contarBytesUTF8(texto) {
+    return new TextEncoder().encode(texto).length;
+}
+
+const SINOPSIS_MAX_BYTES = 2900;
+
 function validarSinopsis() {
     const inputSinopsis = document.getElementById('sinopsis');
     if (!inputSinopsis) return;
 
     const numPalabras = contarPalabras(inputSinopsis.value);
+    const numBytes = contarBytesUTF8(inputSinopsis.value);
 
     if (numPalabras < 100) {
         const faltantes = 100 - numPalabras;
         inputSinopsis.setCustomValidity("La sinopsis debe tener al menos 100 palabras. Llevas " + numPalabras + " (faltan " + faltantes + ").");
+    } else if (numBytes > SINOPSIS_MAX_BYTES) {
+        inputSinopsis.setCustomValidity("La sinopsis es demasiado larga (" + numBytes + "/" + SINOPSIS_MAX_BYTES + " bytes). Reduce el texto.");
     } else {
         inputSinopsis.setCustomValidity("");
     }
@@ -91,6 +100,15 @@ document.addEventListener("DOMContentLoaded", function () {
             toast.classList.remove('mostrar-toast');
             setTimeout(function() { toast.remove(); }, 500);
         }, 4500);
+
+
+        const errorServidor = document.getElementById('errorServidor');
+        if (errorServidor) {
+            const mensaje = errorServidor.getAttribute('data-mensaje');
+            if (mensaje) {
+                mostrarNotificacionDinamica('error', mensaje);
+            }
+        }
     }
 
     const form = document.getElementById('formPublicar');

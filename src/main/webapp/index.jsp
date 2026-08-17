@@ -7,7 +7,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LibriFlow - Tu Biblioteca Digital</title>
-  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoInicio.jpeg" type="image/png">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/css/bootstrap.css" />
   <link rel="stylesheet" href="assets/css/index.css?v=3" />
@@ -26,7 +26,7 @@
 
   <div class="hero">
     <div class="logo-contenedor">
-      <img src="assets/img/LogoLibriflowF.png" alt="LibriFlow Tu Biblioteca Digital" class="logo-img" />
+      <img src="assets/img/LogoLibriflow.png" alt="LibriFlow Tu Biblioteca Digital" class="logo-img" />
     </div>
 
     <c:if test="${not empty sessionScope.mensaje}">

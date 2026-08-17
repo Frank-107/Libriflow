@@ -51,10 +51,10 @@
 </c:if>
 
 
-<div class="container-fluid max-width-xl mx-auto detalle-layout">
+<div class="container-fluid max-width-xl mx-auto h-100 d-flex flex-column pb-2 detalle-layout">
 
 
-    <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 detalle-header">
+    <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 detalle-header flex-shrink-0">
 
 
         <div class="d-flex align-items-center gap-2 gap-md-3">
@@ -165,17 +165,17 @@
     </header>
 
 
-    <div class="row g-4 detalle-content-row">
+    <div class="row gx-4 gy-4 gy-md-0 flex-grow-1 overflow-hidden detalle-content-row">
 
 
-        <aside class="col-12 col-md-4 col-lg-3 detalle-sidebar">
+        <aside class="col-12 col-md-4 col-lg-3 h-100 detalle-sidebar">
 
 
-            <div class="collapse d-md-block"
+            <div class="collapse d-md-block h-100"
                  id="sidebarMenu">
 
 
-                <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
+                <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0 h-100">
 
 
                     <a href="${pageContext.request.contextPath}/inicio"
@@ -250,13 +250,13 @@
         </aside>
 
 
-        <main class="col-12 col-md-8 col-lg-9 detalle-main">
+        <main class="col-12 col-md-8 col-lg-9 h-100 overflow-hidden d-flex flex-column position-relative detalle-main">
 
 
-            <div class="row g-4 h-100 detalle-inner-row">
+            <div class="row gx-4 gy-4 gy-lg-0 flex-grow-1 h-100 detalle-inner-row">
 
 
-                <div class="col-12 col-lg-6 detalle-left-scroll">
+                <div class="col-12 col-lg-6 detalle-left-scroll h-100">
 
 
                     <div class="d-flex flex-column align-items-center">
@@ -340,10 +340,10 @@
                 </div>
 
 
-                <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-fixed">
+                <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-scroll h-100">
 
 
-                    <div class="pill-info-lf shadow-sm">
+                    <div class="pill-info-lf shadow-sm flex-shrink-0">
 
 
                         <span class="fw-bold">
@@ -357,7 +357,7 @@
                     </div>
 
 
-                    <div class="pill-info-lf shadow-sm">
+                    <div class="pill-info-lf shadow-sm flex-shrink-0">
 
 
                         <span class="fw-bold">
@@ -371,7 +371,7 @@
                     </div>
 
 
-                    <div class="pill-info-lf shadow-sm">
+                    <div class="pill-info-lf shadow-sm flex-shrink-0">
 
 
                         <span class="fw-bold">
@@ -385,7 +385,7 @@
                     </div>
 
 
-                    <div class="pill-info-lf shadow-sm">
+                    <div class="pill-info-lf shadow-sm flex-shrink-0">
 
 
                         <span class="fw-bold">
@@ -399,7 +399,7 @@
                     </div>
 
 
-                    <div class="pill-info-lf shadow-sm">
+                    <div class="pill-info-lf shadow-sm flex-shrink-0">
 
 
                         <span class="fw-bold">
@@ -413,7 +413,7 @@
                     </div>
 
 
-                    <div class="box-sinopsis-lf shadow-sm flex-grow-1">
+                    <div class="box-sinopsis-lf shadow-sm flex-grow-1 flex-shrink-0 pe-2">
 
 
                         <h5 class="fw-bold mb-3">

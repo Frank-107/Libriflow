@@ -218,7 +218,7 @@
                                       id="sinopsis"
                                       class="form-control form-control-lf"
                                       rows="5"
-                                      maxlength="5000"
+                                      maxlength="2900"
                                       style="resize:none;"
                                       oninput="validarSinopsis()"
                                       required><c:out value='${param.sinopsis}' escapeXml='true'/></textarea>

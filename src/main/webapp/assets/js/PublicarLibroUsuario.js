@@ -90,6 +90,7 @@ function previewImagenConValidacion(input, imgId, placeholderId) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    // 1. Animación para publicación exitosa
     const toast = document.getElementById('toastExito');
     if (toast) {
         setTimeout(function() {
@@ -100,19 +101,19 @@ document.addEventListener("DOMContentLoaded", function () {
             toast.classList.remove('mostrar-toast');
             setTimeout(function() { toast.remove(); }, 500);
         }, 4500);
+    }
 
-
-        const errorServidor = document.getElementById('errorServidor');
-        if (errorServidor) {
-            const mensaje = errorServidor.getAttribute('data-mensaje');
-            if (mensaje) {
-                mostrarNotificacionDinamica('error', mensaje);
-            }
+    // 2. Notificación de errores del servidor (Fuera del bloque toast)
+    const errorServidor = document.getElementById('errorServidor');
+    if (errorServidor) {
+        const mensaje = errorServidor.getAttribute('data-mensaje');
+        if (mensaje && typeof mostrarNotificacionDinamica === 'function') {
+            mostrarNotificacionDinamica('error', mensaje);
         }
     }
 
+    // 3. Inicialización de formulario
     const form = document.getElementById('formPublicar');
-
     actualizarPrecioUI();
     validarSinopsis();
 

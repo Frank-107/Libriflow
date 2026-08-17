@@ -375,9 +375,9 @@
     </div>
 </div>
 
-<script src="assets/js/bootstrap.js"></script>
-<script src="assets/js/Notificacion.js"></script>
-<script src="assets/js/PublicarLibroUsuario.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/PublicarLibroUsuario.js"></script>
 <c:if test="${param.exito == 'true'}">
     <jsp:include page="ConfirmacionPublicacion.jsp" />
 </c:if>

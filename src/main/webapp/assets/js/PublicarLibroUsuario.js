@@ -70,7 +70,8 @@ function previewImagenConValidacion(input, imgId, placeholderId) {
         const maximoBytes = 2 * 1024 * 1024; // 2 MB
 
         if (archivo.size > maximoBytes) {
-            alert("La imagen excede el límite permitido de 2MB. Por favor, selecciona una más ligera.");
+            // Se reemplazó el alert() nativo por la notificación dinámica
+            mostrarNotificacionDinamica('error', 'La imagen excede el límite permitido de 2MB. Por favor, selecciona una más ligera.');
 
             input.value = "";
             imgElement.src = "";
@@ -170,3 +171,39 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+// =========================================================
+//  FUNCIÓN DE ALERTAS AÑADIDA AL FINAL
+// =========================================================
+function mostrarNotificacionDinamica(tipo, mensaje) {
+    const contenedor = document.getElementById('contenedor-notificaciones');
+
+    // Respaldo por si falta el div en el HTML
+    if (!contenedor) {
+        alert(mensaje);
+        return;
+    }
+
+    const toast = document.createElement('div');
+    toast.className = tipo === 'success'
+        ? 'libri-toast libri-toast-success'
+        : 'libri-toast libri-toast-error';
+
+    const icono = tipo === 'success'
+        ? '<i class="bi bi-check-circle-fill fs-5"></i>'
+        : '<i class="bi bi-exclamation-circle-fill fs-5"></i>';
+
+    toast.innerHTML = `${icono}<span>${mensaje}</span>`;
+    contenedor.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 400);
+    }, 3500);
+}

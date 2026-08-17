@@ -7,22 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar Libro - LibriFlow</title>
 
-    <link rel="icon"
-          href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
-          type="image/png">
-
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/Publicar.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css">
 </head>
 
 <body class="p-3 p-md-4">
-
+<div id="contenedor-notificaciones"></div>
 <div class="container-fluid max-width-xl mx-auto">
 
     <!-- HEADER -->

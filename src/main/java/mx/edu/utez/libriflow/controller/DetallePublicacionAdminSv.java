@@ -11,6 +11,7 @@ import mx.edu.utez.libriflow.model.Dao.ResenaDao;
 import mx.edu.utez.libriflow.model.ItemCarritoAdmin;
 import mx.edu.utez.libriflow.model.PublicacionAdminCompleta;
 import mx.edu.utez.libriflow.model.Resena;
+import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -32,6 +33,14 @@ public class DetallePublicacionAdminSv extends HttpServlet {
 
         List<Resena> resenas = resenaDao.getResenasByPublicacion(idPublicacion);
         req.setAttribute("resenas", resenas);
+
+        HttpSession session = req.getSession(false);
+        boolean haCompradoORentado = false;
+        if (session != null && session.getAttribute("usuario") != null) {
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            haCompradoORentado = resenaDao.usuarioHaCompradoORentado(usuario.getId(), idPublicacion);
+        }
+        req.setAttribute("haCompradoORentado", haCompradoORentado);
 
         req.setAttribute("publicacion", publicacionAdminCompleta);
         req.setAttribute("esAdminPub", true);
@@ -96,14 +105,6 @@ public class DetallePublicacionAdminSv extends HttpServlet {
         }
 
         session.setAttribute("carritoAdmin", carritoAdmin);
-//          sout para ver los objetos añadidos al carrito
-//        for(ItemCarritoAdmin item : carritoAdmin){
-//            System.out.println("ID Publicación: " + item.getIdPublicacion() + ", Tipo de Operación: " + item.getTipoOperacion() + ", Precio: " + item.getPrecio());
-//            if(tipoOperacion.equals("renta")){
-//                System.out.println("Fecha de Inicio: " + item.getFechaInicio());
-//                System.out.println("Fecha de Fin: " + item.getFechaFin());
-//            }
-//        }
 
         resp.sendRedirect("carrito");
     }

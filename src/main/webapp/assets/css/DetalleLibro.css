@@ -1,4 +1,6 @@
-body {
+html, body {
+    height: 100vh;
+    overflow: hidden;
     background-color: #F4EFEA;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -46,12 +48,6 @@ body {
 
 .rounded-lf-sidebar {
     border-radius: 40px;
-}
-
-@media (min-width: 768px) {
-    .rounded-lf-sidebar {
-        min-height: 80vh;
-    }
 }
 
 .btn-lf-pill {
@@ -228,6 +224,29 @@ body {
     flex-direction: column;
     overflow-wrap: break-word;
     word-break: break-word;
+    overflow-y: auto;
+}
+
+.alerta-resena-lf {
+    background-color: #E2DFD8;
+    border: 2px solid #CBC2B9;
+    color: #4A4641;
+    border-radius: 18px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.alerta-resena-lf i,
+.alerta-resena-lf svg {
+    font-size: 1rem;
+    width: 16px;
+    height: 16px;
+    color: #4A4641;
+    flex-shrink: 0;
 }
 
 .modal-content-lf {
@@ -354,57 +373,85 @@ body {
 }
 
 /* ===== Layout fijo para Detalle de Publicación ===== */
-@media (min-width: 768px) {
-
-    .detalle-sidebar {
-        align-self: flex-start;
-    }
-
-    .detalle-main {
-        height: auto;
-    }
-
-    .detalle-left-scroll {
-        max-height: 80vh;
-        overflow-y: auto;
-        padding-right: 16px;
-        border-right: 2px solid #CBC2B9;
-        scrollbar-width: thin;
-        scrollbar-color: #A39B93 #EFEBE4;
-    }
-
-    .detalle-right-fixed {
-        height: auto;
-    }
-
-    .detalle-inner-row {
-        align-items: stretch !important;
-    }
-}
-.detalle-left-scroll::-webkit-scrollbar {
-    width: 8px;
+.detalle-left-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 20px;
 }
 
-.detalle-left-scroll::-webkit-scrollbar-thumb {
-    background-color: #A39B93;
-    border-radius: 4px;
+.detalle-right-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    padding-right: 5px;
 }
 
-.detalle-left-scroll::-webkit-scrollbar-track {
-    background-color: #EFEBE4;
-    border-radius: 4px;
-}
-
-.detalle-right-fixed::-webkit-scrollbar,
-.detalle-sidebar::-webkit-scrollbar {
+.detalle-left-scroll::-webkit-scrollbar,
+.detalle-right-scroll::-webkit-scrollbar {
     width: 6px;
 }
 
-.detalle-right-fixed::-webkit-scrollbar-thumb,
-.detalle-sidebar::-webkit-scrollbar-thumb {
-    background-color: #A39B93;
-    border-radius: 4px;
+.detalle-left-scroll::-webkit-scrollbar-track,
+.detalle-right-scroll::-webkit-scrollbar-track {
+    background: transparent;
 }
+
+.detalle-left-scroll::-webkit-scrollbar-thumb,
+.detalle-right-scroll::-webkit-scrollbar-thumb {
+    background: #7A746E;
+    border-radius: 10px;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-thumb:hover,
+.detalle-right-scroll::-webkit-scrollbar-thumb:hover {
+    background: #4A4641;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-button:single-button:vertical:decrement,
+.detalle-right-scroll::-webkit-scrollbar-button:single-button:vertical:decrement {
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='4' viewBox='0 0 6 4'%3E%3Cpolygon points='3,0 6,4 0,4' fill='%237A746E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-button:single-button:vertical:increment,
+.detalle-right-scroll::-webkit-scrollbar-button:single-button:vertical:increment {
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='4' viewBox='0 0 6 4'%3E%3Cpolygon points='0,0 6,0 3,4' fill='%237A746E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media (min-width: 992px) {
+    .detalle-left-scroll {
+        border-right: 2px solid #CBC2B9;
+        padding-right: 20px;
+    }
+
+    .detalle-right-scroll {
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    html, body {
+        height: auto;
+        overflow: auto;
+    }
+
+    .detalle-left-scroll,
+    .detalle-right-scroll {
+        border-right: none;
+        overflow-y: visible;
+        height: auto !important;
+        padding-bottom: 0;
+    }
+}
+
 .editar-imagen-card {
     height: 100%;
     padding: 15px;

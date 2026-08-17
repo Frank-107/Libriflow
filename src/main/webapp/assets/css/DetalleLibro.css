@@ -1,8 +1,20 @@
-body {
+/* ==========================================================================
+   1. BASE & ESTRUCTURA GENERAL
+   ========================================================================== */
+html, body {
+    height: 100vh;
+    overflow: hidden;
     background-color: #F4EFEA;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.row.g-4 {
+    align-items: start;
+}
+
+/* ==========================================================================
+   2. COMPONENTES DE NAVEGACIÓN Y SIDEBAR
+   ========================================================================== */
 .bg-lf-dark {
     background-color: #4A4641;
 }
@@ -54,6 +66,9 @@ body {
     }
 }
 
+/* ==========================================================================
+   3. BOTONES Y ACCIONES
+   ========================================================================== */
 .btn-lf-pill {
     border-radius: 20px;
     transition: all 0.2s ease;
@@ -105,7 +120,9 @@ body {
     box-shadow: none !important;
 }
 
-/* Menu Dropdown de perfil */
+/* ==========================================================================
+   4. MENÚ DROPDOWN PERFIL
+   ========================================================================== */
 .dropdown {
     position: relative;
 }
@@ -172,7 +189,9 @@ body {
     color: #c5221f !important;
 }
 
-/* Estilos de la vista Detalle del Libro */
+/* ==========================================================================
+   5. DETALLE DEL LIBRO & FICHAS
+   ========================================================================== */
 .portada-principal-container {
     background-color: #EFEBE4;
     border: 2px solid #CBC2B9;
@@ -228,8 +247,34 @@ body {
     flex-direction: column;
     overflow-wrap: break-word;
     word-break: break-word;
+    overflow-y: auto;
 }
 
+.alerta-resena-lf {
+    background-color: #E2DFD8;
+    border: 2px solid #CBC2B9;
+    color: #4A4641;
+    border-radius: 18px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.alerta-resena-lf i,
+.alerta-resena-lf svg {
+    font-size: 1rem;
+    width: 16px;
+    height: 16px;
+    color: #4A4641;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   6. MODALES E INPUTS
+   ========================================================================== */
 .modal-content-lf {
     background-color: #F4EFEA;
     border: 2px solid #CBC2B9;
@@ -281,7 +326,9 @@ body {
     color: #2D2A26;
 }
 
-/* Toast base */
+/* ==========================================================================
+   7. TOAST NOTIFICACIONES
+   ========================================================================== */
 .libri-toast {
     position: fixed !important;
     top: 20px !important;
@@ -303,8 +350,7 @@ body {
 
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity 0.35s ease;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
 
     max-width: 90vw;
 }
@@ -324,17 +370,14 @@ body {
     word-break: break-word;
 }
 
-/* Variante éxito */
 .libri-toast-success {
     background-color: #3C8A5C;
 }
 
-/* Variante error */
 .libri-toast-error {
     background-color: #C5221F;
 }
 
-/* Responsive: en móvil que no toque los bordes */
 @media (max-width: 480px) {
     .libri-toast {
         left: 16px !important;
@@ -349,13 +392,10 @@ body {
     }
 }
 
-.row.g-4 {
-    align-items: start;
-}
-
-/* ===== Layout fijo para Detalle de Publicación ===== */
+/* ==========================================================================
+   8. LAYOUT FIJO Y PANELES DE SCROLL (DETALLE PUBLICACIÓN)
+   ========================================================================== */
 @media (min-width: 768px) {
-
     .detalle-content-row {
         height: calc(100vh - 125px);
         min-height: 0;
@@ -389,71 +429,96 @@ body {
         align-items: stretch !important;
         overflow: hidden;
     }
+}
 
+.detalle-left-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: #7A746E transparent;
+}
+
+.detalle-right-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 20px;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #7A746E transparent;
+}
+
+@media (min-width: 992px) {
     .detalle-left-scroll {
-        height: 100%;
-        min-height: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding-right: 16px;
-        padding-bottom: 30px;
         border-right: 2px solid #CBC2B9;
-        scrollbar-width: thin;
-        scrollbar-color: #A39B93 transparent;
+        padding-right: 20px;
     }
 
-    .detalle-right-fixed {
-        height: 100%;
-        min-height: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding-right: 10px;
-        padding-bottom: 30px;
-        scrollbar-width: thin;
-        scrollbar-color: #A39B93 transparent;
+    .detalle-right-scroll {
+        padding-left: 20px;
     }
 }
+
+@media (max-width: 991.98px) {
+    html, body {
+        height: auto;
+        overflow: auto;
+    }
+
+    .detalle-left-scroll,
+    .detalle-right-scroll {
+        border-right: none;
+        overflow-y: visible;
+        height: auto !important;
+        padding-bottom: 0;
+    }
+}
+
+/* Custom Webkit Scrollbars */
 .detalle-left-scroll::-webkit-scrollbar,
-.detalle-right-fixed::-webkit-scrollbar {
-    width: 7px;
+.detalle-right-scroll::-webkit-scrollbar {
+    width: 6px;
 }
 
 .detalle-left-scroll::-webkit-scrollbar-track,
-.detalle-right-fixed::-webkit-scrollbar-track {
+.detalle-right-scroll::-webkit-scrollbar-track {
     background: transparent;
 }
 
 .detalle-left-scroll::-webkit-scrollbar-thumb,
-.detalle-right-fixed::-webkit-scrollbar-thumb {
-    background-color: #4A4641;
+.detalle-right-scroll::-webkit-scrollbar-thumb {
+    background: #7A746E;
     border-radius: 10px;
 }
 
 .detalle-left-scroll::-webkit-scrollbar-thumb:hover,
-.detalle-right-fixed::-webkit-scrollbar-thumb:hover {
-    background-color: #36332F;
-}
-.editar-imagen-card {
-    height: 100%;
-    padding: 15px;
-    background: #f4efea;
-    border: 1px solid #d4ccc4;
-    border-radius: 22px;
-    text-align: center;
+.detalle-right-scroll::-webkit-scrollbar-thumb:hover {
+    background: #4A4641;
 }
 
-.editar-imagen-preview {
-    width: 100%;
-    height: 145px;
-    object-fit: cover;
-    border-radius: 16px;
-    background: white;
+.detalle-left-scroll::-webkit-scrollbar-button:single-button:vertical:decrement,
+.detalle-right-scroll::-webkit-scrollbar-button:single-button:vertical:decrement {
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='4' viewBox='0 0 6 4'%3E%3Cpolygon points='3,0 6,4 0,4' fill='%237A746E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.editar-imagen-card .form-control {
-    border-radius: 18px;
-    font-size: 13px;
+.detalle-left-scroll::-webkit-scrollbar-button:single-button:vertical:increment,
+.detalle-right-scroll::-webkit-scrollbar-button:single-button:vertical:increment {
+    height: 12px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='4' viewBox='0 0 6 4'%3E%3Cpolygon points='0,0 6,0 3,4' fill='%237A746E'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
 }
+
+/* ==========================================================================
+   9. FORMULARIO EDITAR PUBLICACIÓN
+   ========================================================================== */
 .editar-publicacion-form {
     display: flex;
     flex-direction: column;
@@ -579,6 +644,12 @@ body {
     border-radius: 20px;
     background-color: #f8f5f2;
     text-align: center;
+    height: 100%;
+}
+
+.editar-imagen-card .form-control {
+    border-radius: 18px;
+    font-size: 13px;
 }
 
 .editar-imagen-tipo {

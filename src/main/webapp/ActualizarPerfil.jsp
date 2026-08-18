@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
-<html lang="es">
+<html lang="es" class="h-100">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
 </head>
-<body class="p-3 p-md-4">
+<body class="p-3 p-md-4 vh-100 overflow-hidden d-flex flex-column">
 
-<div class="container-fluid max-width-xl mx-auto">
+<div class="container-fluid max-width-xl mx-auto h-100 d-flex flex-column">
 
-  <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
+  <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 flex-shrink-0">
     <div class="d-flex align-items-center gap-3">
       <button class="btn text-white p-0 d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuLateral" aria-expanded="false" aria-controls="menuLateral">
         <i class="bi bi-list fs-1"></i>
@@ -49,12 +49,11 @@
     </div>
   </header>
 
-  <div class="row g-4">
+    <div class="row g-4 flex-grow-1 overflow-hidden">
 
-    <aside class="col-12 col-md-4 col-lg-3">
-      <div class="collapse d-md-block" id="menuLateral">
-        <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-          <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+        <aside class="col-12 col-md-4 col-lg-3">
+            <div class="collapse d-md-block" id="menuLateral">
+                <div class="bg-lf-dark p-3 rounded-lf-sidebar d-flex flex-column gap-2 shadow-sm mb-3 mb-md-0">  <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-house me-3 fs-5"></i> Inicio
           </a>
           <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -79,9 +78,8 @@
       </div>
     </aside>
 
-    <main class="col-12 col-md-8 col-lg-9 d-flex justify-content-center align-items-start">
-
-      <div class="perfil-card-container mt-2">
+        <main class="col-12 col-md-8 col-lg-9 h-100 overflow-y-auto pe-2 d-flex justify-content-center align-items-start">
+            <div class="perfil-card-container mt-2 w-100 pb-5">
 
         <c:if test="${not empty error}">
           <div class="libri-toast libri-toast-error">

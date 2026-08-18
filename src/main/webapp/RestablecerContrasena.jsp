@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restablecer Contraseña - LibriFlow</title>
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
 </head>
 <body class="login-body">
@@ -18,7 +19,7 @@
 
 <main class="login-card">
 
-    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
+    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
          alt="Logo LibriFlow"
          class="login-logo">
 

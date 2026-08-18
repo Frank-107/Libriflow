@@ -96,7 +96,7 @@
                 </a>
                 <a href="${pageContext.request.contextPath}/publicar-libro-admin"
                    class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-                    <i class="bi bi-pencil-square me-3 fs-5"></i>Publicar
+                    <i class="bi bi-file-earmark-text me-3 fs-5"></i>Publicar
                 </a>
                 <a href="${pageContext.request.contextPath}/mis-rentas-admin"
                    class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">

@@ -24,7 +24,7 @@
     <div class="card-container">
 
         <div class="logo-area">
-            <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="Logotipo LibriFlow" class="logo-img-completo">
+            <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logotipo LibriFlow" class="logo-img-completo">
         </div>
 
         <h3 class="card-title">Crea tu cuenta</h3>

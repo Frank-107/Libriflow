@@ -19,7 +19,7 @@
 
 <main class="login-card">
 
-    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
+    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
          alt="Logo LibriFlow"
          class="login-logo">
 

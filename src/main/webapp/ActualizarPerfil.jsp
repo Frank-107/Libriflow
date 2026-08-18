@@ -49,37 +49,38 @@
     </div>
   </header>
 
-    <div class="row g-4 flex-grow-1 overflow-hidden">
+  <div class="row g-4 flex-grow-1 overflow-hidden">
 
-        <aside class="col-12 col-md-4 col-lg-3">
-            <div class="collapse d-md-block" id="menuLateral">
-                <div class="bg-lf-dark p-3 rounded-lf-sidebar d-flex flex-column gap-2 shadow-sm mb-3 mb-md-0">  <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-house me-3 fs-5"></i> Inicio
+    <aside class="col-12 col-md-4 col-lg-3">
+      <div class="collapse d-md-block" id="menuLateral">
+        <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
+          <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-house me-3 fs-5"></i>Inicio
           </a>
           <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
+            <i class="bi bi-cart3 me-3 fs-5"></i>Carrito
           </a>
           <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-bag-check me-3 fs-5"></i> Compras
+            <i class="bi bi-bag-check me-3 fs-5"></i>Compras
           </a>
           <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
+            <i class="bi bi-pencil-square me-3 fs-5"></i>Publicar
           </a>
           <a href="mis-publicaciones-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
+            <i class="bi bi-grid-3x3-gap me-3 fs-5"></i>Mis publicaciones
           </a>
           <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-book me-3 fs-5"></i> Mis rentas
+            <i class="bi bi-book me-3 fs-5"></i>Mis rentas
           </a>
           <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
+            <i class="bi bi-globe me-3 fs-5"></i>Nuestras redes
           </a>
         </div>
       </div>
     </aside>
 
-        <main class="col-12 col-md-8 col-lg-9 h-100 overflow-y-auto pe-2 d-flex justify-content-center align-items-start">
-            <div class="perfil-card-container mt-2 w-100 pb-5">
+    <main class="col-12 col-md-8 col-lg-9 h-100 overflow-y-auto pe-2 d-flex justify-content-center align-items-start">
+      <div class="perfil-card-container mt-2 w-100 pb-5">
 
         <c:if test="${not empty error}">
           <div class="libri-toast libri-toast-error">
@@ -212,6 +213,6 @@
 
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/ActualizarPerfil.js"></script>
-<script src="assets/js/Notificacion.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

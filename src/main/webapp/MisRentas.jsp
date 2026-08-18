@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis rentas - LibriFlow</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
@@ -86,7 +86,7 @@
                     <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill sidebar-active w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
                     </a>
-                    <a href="#" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
                     </a>
                 </div>
@@ -228,6 +228,6 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>
 </html>

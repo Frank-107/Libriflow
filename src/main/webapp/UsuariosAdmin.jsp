@@ -8,7 +8,7 @@
     <title>Usuarios Admin - LibriFlow</title>
 
     <link rel="icon"
-          href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+          href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
           type="image/png">
 
     <link rel="stylesheet"
@@ -347,7 +347,7 @@
 
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 
 </body>
 </html>

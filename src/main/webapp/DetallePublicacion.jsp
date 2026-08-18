@@ -8,17 +8,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Publicación - LibriFlow</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/DetalleLibro.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css"/>
 </head>
 
-<body class="p-3 p-md-4 detalle-body">
-<div class="container-fluid max-width-xl mx-auto detalle-layout">
+<body class="p-3 p-md-4">
+<div class="container-fluid max-width-xl mx-auto h-100 d-flex flex-column pb-2">
 
-    <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 detalle-header">
+    <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 flex-shrink-0">
         <div class="d-flex align-items-center gap-2 gap-md-3">
             <button class="btn text-white d-md-none p-0 border-0 me-1"
                     type="button"
@@ -110,11 +110,11 @@
         <c:remove var="error" scope="session"/>
     </c:if>
 
-    <div class="row g-4 detalle-content-row">
+    <div class="row gx-4 gy-4 gy-md-0 flex-grow-1 overflow-hidden">
 
-        <aside class="col-12 col-md-4 col-lg-3 detalle-sidebar">
-            <div class="collapse d-md-block" id="sidebarMenu">
-                <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
+        <aside class="col-12 col-md-4 col-lg-3 h-100">
+            <div class="collapse d-md-block h-100" id="sidebarMenu">
+                <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0 h-100">
 
                     <a href="${pageContext.request.contextPath}/inicio"
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -146,7 +146,7 @@
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i>Mis rentas
                     </a>
 
-                    <a href="#"
+                    <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA=="
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i>Nuestras redes
                     </a>
@@ -155,10 +155,10 @@
             </div>
         </aside>
 
-        <main class="col-12 col-md-8 col-lg-9 detalle-main">
-            <div class="row g-4 h-100 detalle-inner-row">
+        <main class="col-12 col-md-8 col-lg-9 h-100 overflow-hidden d-flex flex-column position-relative">
+            <div class="row gx-4 gy-4 gy-lg-0 flex-grow-1 h-100">
 
-                <div class="col-12 col-lg-6 detalle-left-scroll">
+                <div class="col-12 col-lg-6 detalle-left-scroll h-100">
 
                     <div class="d-flex flex-column align-items-center">
 
@@ -234,62 +234,50 @@
                                 </c:if>
                             </h4>
 
-                            <div class="card shadow-sm p-4 mb-4 rounded-4">
-                                <form action="${pageContext.request.contextPath}/resena"
-                                      method="post">
+                            <c:choose>
+                                <c:when test="${haCompradoORentado}">
+                                    <div class="card shadow-sm p-4 mb-4 rounded-4 border-0">
+                                        <form action="${pageContext.request.contextPath}/resena" method="post">
+                                            <input type="hidden" name="idPublicacion" value="${publicacion.idPublicacionLf}">
 
-                                    <input type="hidden"
-                                           name="idPublicacion"
-                                           value="${publicacion.idPublicacionLf}">
+                                            <div class="mb-3">
+                                                <label for="comentario" class="form-label fw-bold text-dark">Deja tu opinión:</label>
+                                                <textarea id="comentario" name="comentario" class="form-control" rows="3" placeholder="¿Qué te pareció este libro?" required></textarea>
+                                            </div>
 
-                                    <div class="mb-3">
-                                        <label for="comentario"
-                                               class="form-label fw-bold">
-                                            Deja tu opinión:
-                                        </label>
+                                            <div class="mb-3">
+                                                <label for="calificacion" class="form-label fw-bold text-dark">Calificación:</label>
+                                                <select id="calificacion" name="calificacion" class="form-select">
+                                                    <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                                    <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                                    <option value="3">⭐⭐⭐ (3/5)</option>
+                                                    <option value="2">⭐⭐ (2/5)</option>
+                                                    <option value="1">⭐ (1/5)</option>
+                                                </select>
+                                            </div>
 
-                                        <textarea id="comentario"
-                                                  name="comentario"
-                                                  class="form-control"
-                                                  rows="3"
-                                                  placeholder="¿Qué te pareció este libro?"
-                                                  required></textarea>
+                                            <button type="submit" class="btn btn-action-lf shadow-sm btn-submit px-4">
+                                                Enviar reseña
+                                            </button>
+                                        </form>
                                     </div>
-
-                                    <div class="mb-3">
-                                        <label for="calificacion"
-                                               class="form-label fw-bold">
-                                            Calificación:
-                                        </label>
-
-                                        <select id="calificacion"
-                                                name="calificacion"
-                                                class="form-select">
-                                            <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                                            <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                                            <option value="3">⭐⭐⭐ (3/5)</option>
-                                            <option value="2">⭐⭐ (2/5)</option>
-                                            <option value="1">⭐ (1/5)</option>
-                                        </select>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="alert alert-light border rounded-4 text-muted mb-0">
+                                        <i class="bi bi-info-circle me-2"></i> Para poder dejar una reseña, necesitas haber comprado o rentado este libro.
                                     </div>
-
-                                    <button type="submit"
-                                            class="btn btn-action-lf shadow-sm btn-submit px-4">
-                                        Enviar reseña
-                                    </button>
-
-                                </form>
-                            </div>
+                                </c:otherwise>
+                            </c:choose>
 
                             <c:choose>
                                 <c:when test="${empty resenas}">
-                                    <div class="alert alert-light border rounded-4 text-muted">
-                                        No hay reseñas aún. ¡Sé el primero en opinar sobre este libro!
+                                    <div class="alert alert-light border rounded-4 text-muted mb-0 mt-3">
+                                        <i class="bi bi-info-circle me-2"></i> No hay reseñas aún. ¡Sé el primero en opinar sobre este libro!
                                     </div>
                                 </c:when>
 
                                 <c:otherwise>
-                                    <div class="pe-2">
+                                    <div class="pe-2 mt-3">
                                         <c:forEach var="r" items="${resenas}">
 
                                             <div class="card p-3 mb-3 shadow-sm rounded-4 border-0 bg-light">
@@ -335,38 +323,38 @@
 
                 </div>
 
-                <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-fixed">
+                <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-scroll h-100">
 
                     <c:choose>
 
                         <c:when test="${esPropietario}">
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Título:</span>
                                 <c:out value="${publicacion.titulo}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Autor:</span>
                                 <c:out value="${publicacion.autor}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Editorial:</span>
                                 <c:out value="${publicacion.editorial}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Género:</span>
                                 <c:out value="${publicacion.genero}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Precio:</span>
                                 $<c:out value="${publicacion.precio}"/>
                             </div>
 
-                            <div class="box-sinopsis-lf shadow-sm flex-grow-1">
+                            <div class="box-sinopsis-lf shadow-sm flex-grow-1 flex-shrink-0 pe-2">
                                 <h5 class="fw-bold mb-3">Sinopsis:</h5>
                                 <p class="mb-0 text-muted lh-base">
                                     <c:out value="${publicacion.sinopsis}"/>
@@ -377,7 +365,7 @@
 
                                 <c:when test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
 
-                                    <div class="d-flex gap-2 mt-2">
+                                    <div class="d-flex gap-2 mt-2 flex-shrink-0">
 
                                         <a href="${pageContext.request.contextPath}/editar-publicacion?idPublicacion=${publicacion.idPublicacion}"
                                            class="btn btn-action-lf flex-grow-1 py-3 rounded-pill fw-bold shadow-sm">
@@ -396,7 +384,7 @@
                                     </div>
 
                                     <c:if test="${publicacion.estado == 'PENDIENTE'}">
-                                        <div class="alert alert-warning border-0 rounded-4 mb-0 mt-1 shadow-sm">
+                                        <div class="alert alert-warning border-0 rounded-4 mb-0 mt-1 shadow-sm flex-shrink-0">
                                             <div class="d-flex align-items-center gap-3">
                                                 <i class="bi bi-clock-history fs-4"></i>
                                                 <div>
@@ -410,7 +398,7 @@
                                     </c:if>
 
                                     <c:if test="${publicacion.estado == 'RECHAZADO'}">
-                                        <div class="alert alert-danger border-0 rounded-4 mb-0 mt-1 shadow-sm">
+                                        <div class="alert alert-danger border-0 rounded-4 mb-0 mt-1 shadow-sm flex-shrink-0">
                                             <div class="d-flex align-items-center gap-3">
                                                 <i class="bi bi-x-circle fs-4"></i>
                                                 <div>
@@ -427,7 +415,7 @@
 
                                 <c:when test="${publicacion.estado == 'ACTIVO'}">
 
-                                    <div class="alert alert-success border-0 rounded-4 mb-0 mt-2 shadow-sm">
+                                    <div class="alert alert-success border-0 rounded-4 mb-0 mt-2 shadow-sm flex-shrink-0">
                                         <div class="d-flex align-items-center gap-3">
                                             <i class="bi bi-check-circle-fill fs-3"></i>
 
@@ -448,7 +436,7 @@
 
                                 <c:when test="${publicacion.estado == 'VENDIDO'}">
 
-                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 mt-2 shadow-sm">
+                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 mt-2 shadow-sm flex-shrink-0">
                                         <div class="d-flex align-items-center gap-3">
                                             <i class="bi bi-bag-check-fill fs-3"></i>
 
@@ -469,7 +457,7 @@
 
                                 <c:otherwise>
 
-                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 mt-2 shadow-sm">
+                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 mt-2 shadow-sm flex-shrink-0">
                                         <div class="d-flex align-items-center gap-3">
                                             <i class="bi bi-lock-fill fs-3"></i>
 
@@ -493,34 +481,34 @@
 
                         <c:when test="${not empty esAdminPub}">
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Título:</span>
                                 <c:out value="${publicacion.titulo}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Autor:</span>
                                 <c:out value="${publicacion.autor}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Editorial:</span>
                                 <c:out value="${publicacion.editorial}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Género:</span>
                                 <c:out value="${publicacion.genero}"/>
                             </div>
 
-                            <div class="box-sinopsis-lf shadow-sm flex-grow-1">
+                            <div class="box-sinopsis-lf shadow-sm flex-grow-1 flex-shrink-0 pe-2">
                                 <h5 class="fw-bold mb-3">Sinopsis:</h5>
                                 <p class="mb-0 text-muted lh-base">
                                     <c:out value="${publicacion.sinopsis}"/>
                                 </p>
                             </div>
 
-                            <div class="mt-2">
+                            <div class="mt-2 flex-shrink-0">
                                 <div class="d-flex flex-column gap-2 w-100">
 
                                     <form action="${pageContext.request.contextPath}/detalle-publicacion-superad"
@@ -564,27 +552,27 @@
 
                         <c:otherwise>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Título:</span>
                                 <c:out value="${publicacion.titulo}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Autor:</span>
                                 <c:out value="${publicacion.autor}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Editorial:</span>
                                 <c:out value="${publicacion.editorial}"/>
                             </div>
 
-                            <div class="pill-info-lf shadow-sm">
+                            <div class="pill-info-lf shadow-sm flex-shrink-0">
                                 <span class="fw-bold">Género:</span>
                                 <c:out value="${publicacion.genero}"/>
                             </div>
 
-                            <div class="box-sinopsis-lf shadow-sm flex-grow-1">
+                            <div class="box-sinopsis-lf shadow-sm flex-grow-1 flex-shrink-0 pe-2">
                                 <h5 class="fw-bold mb-3">Sinopsis:</h5>
                                 <p class="mb-0 text-muted lh-base">
                                     <c:out value="${publicacion.sinopsis}"/>
@@ -597,7 +585,7 @@
 
                                     <form action="${pageContext.request.contextPath}/detalle-publicacion"
                                           method="POST"
-                                          class="w-100">
+                                          class="w-100 flex-shrink-0">
 
                                         <input type="hidden"
                                                name="idPublicacion"
@@ -622,7 +610,7 @@
                                 </c:when>
 
                                 <c:when test="${publicacion.estado == 'VENDIDO'}">
-                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 shadow-sm">
+                                    <div class="alert alert-secondary border-0 rounded-4 mb-0 shadow-sm flex-shrink-0">
                                         <div class="d-flex align-items-center gap-3">
                                             <i class="bi bi-bag-check-fill fs-3"></i>
                                             <div>
@@ -641,7 +629,7 @@
 
                                 <c:otherwise>
 
-                                    <div class="alert alert-warning border-0 rounded-4 mb-0 shadow-sm">
+                                    <div class="alert alert-warning border-0 rounded-4 mb-0 shadow-sm flex-shrink-0">
                                         <div class="d-flex align-items-center gap-3">
                                             <i class="bi bi-clock-history fs-3"></i>
                                             <div>

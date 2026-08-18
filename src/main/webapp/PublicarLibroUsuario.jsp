@@ -109,9 +109,7 @@
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-journal-bookmark me-3 fs-5"></i> Mis rentas
                     </a>
-
-                    <a href="#"
-                       class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                    <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
                     </a>
                 </div>
@@ -127,7 +125,7 @@
                         <p class="text-muted mb-0">Completa los datos para poner tu libro disponible en la plataforma.</p>
                     </div>
 
-                    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
+                    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
                          alt="LibriFlow"
                          class="logo-editar"
                          style="max-height: 45px;">
@@ -216,7 +214,7 @@
                                       id="sinopsis"
                                       class="form-control form-control-lf"
                                       rows="5"
-                                      maxlength="1500"
+                                      maxlength="5000"
                                       style="resize:none;"
                                       oninput="validarSinopsis()"
                                       required><c:out value='${param.sinopsis}' escapeXml='true'/></textarea>
@@ -367,9 +365,9 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/PublicarLibroUsuario.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script src="assets/js/Notificacion.js"></script>
+<script src="assets/js/PublicarLibroUsuario.js"></script>
 <c:if test="${param.exito == 'true'}">
     <jsp:include page="ConfirmacionPublicacion.jsp" />
 </c:if>

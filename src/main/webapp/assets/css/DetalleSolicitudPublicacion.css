@@ -4,49 +4,147 @@
 
 html,
 body {
-    min-height: 100%;
-    height: auto !important;
+    height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 body.detalle-body {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
+    overflow: hidden !important;
 }
 
 .detalle-layout {
-    height: auto !important;
-    min-height: 100vh;
-    overflow: visible !important;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.5rem;
 }
 
-.detalle-content-row {
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
-}
+@media (min-width: 768px) {
+    .detalle-content-row {
+        flex: 1;
+        min-height: 0;
+        height: auto;
+        overflow: hidden;
+    }
 
-.detalle-main {
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
-}
+    .detalle-sidebar {
+        height: 100%;
+        align-self: stretch;
+        overflow: hidden;
+    }
 
-.detalle-inner-row {
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
+    .detalle-sidebar .collapse {
+        height: 100%;
+    }
+
+    .detalle-sidebar .rounded-lf-sidebar {
+        height: 100%;
+        min-height: 0;
+        position: static;
+    }
+
+    .detalle-main {
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .detalle-inner-row {
+        height: 100%;
+        min-height: 0;
+        align-items: stretch !important;
+        overflow: hidden;
+    }
 }
 
 .detalle-left-scroll {
-    height: auto !important;
-    max-height: none !important;
-    overflow: visible !important;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 25px;
+    scrollbar-width: thin;
+    scrollbar-color: #7A746E transparent;
 }
 
-.detalle-right-fixed {
-    height: auto !important;
+.detalle-right-fixed,
+.detalle-right-scroll {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 40px;
+    padding-right: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #7A746E transparent;
+}
+
+.detalle-right-scroll::after {
+    content: '';
+    display: block;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.box-sinopsis-lf {
     max-height: none !important;
     overflow: visible !important;
+    flex-shrink: 0 !important;
+}
+
+@media (min-width: 992px) {
+    .detalle-left-scroll {
+        border-right: 2px solid #CBC2B9;
+        padding-right: 20px;
+    }
+
+    .detalle-right-fixed,
+    .detalle-right-scroll {
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    html, body {
+        height: auto;
+        overflow: auto;
+    }
+
+    .detalle-left-scroll,
+    .detalle-right-fixed,
+    .detalle-right-scroll {
+        border-right: none;
+        overflow-y: visible;
+        height: auto !important;
+        padding-bottom: 15px;
+    }
+}
+
+/* Custom Webkit Scrollbars */
+.detalle-left-scroll::-webkit-scrollbar,
+.detalle-right-fixed::-webkit-scrollbar,
+.detalle-right-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-track,
+.detalle-right-fixed::-webkit-scrollbar-track,
+.detalle-right-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-thumb,
+.detalle-right-fixed::-webkit-scrollbar-thumb,
+.detalle-right-scroll::-webkit-scrollbar-thumb {
+    background: #7A746E;
+    border-radius: 10px;
+}
+
+.detalle-left-scroll::-webkit-scrollbar-thumb:hover,
+.detalle-right-fixed::-webkit-scrollbar-thumb:hover,
+.detalle-right-scroll::-webkit-scrollbar-thumb:hover {
+    background: #4A4641;
 }
 
 /* ================================
@@ -92,11 +190,13 @@ body.detalle-body {
 .revision-admin-box {
     width: 100%;
     margin-top: 5px;
+    margin-bottom: 25px;
     padding: 18px 20px;
     background-color: #f5f1ed;
     border: 1px solid #d8d0c8;
     border-radius: 24px;
     box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    box-sizing: border-box;
 }
 
 .revision-admin-label {
@@ -156,6 +256,7 @@ body.detalle-body {
     font-weight: 700;
     cursor: pointer;
     transition: all .2s ease;
+    box-sizing: border-box;
 }
 
 .btn-rechazar-admin {

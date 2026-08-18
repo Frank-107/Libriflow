@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pago Procesado - LibriFlow</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -28,7 +28,7 @@
 </div>
 
 <div class="card-container" style="padding: 45px 40px;">
-    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="LibriFlow" class="logo-img-completo">
+    <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="LibriFlow" class="logo-img-completo">
 
     <div style="margin: 15px 0;">
         <i class="bi bi-check-circle-fill" style="font-size: 4.2rem; color: #15803d;"></i>
@@ -45,5 +45,6 @@
         <i class="bi bi-house-door-fill" style="margin-right: 8px;"></i>Volver al Inicio</a>
 
 </div>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>
 </html>

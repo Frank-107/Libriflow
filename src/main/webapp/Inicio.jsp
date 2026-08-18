@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - LibriFlow</title>
-    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Inicio.css"/>
@@ -15,7 +15,6 @@
 
 <div class="container-fluid max-width-xl mx-auto">
 
-    <!-- HEADER / NAVBAR -->
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center">
             <button class="btn text-white d-md-none me-2 p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-expanded="false" aria-controls="sidebarMenu">
@@ -23,7 +22,7 @@
             </button>
 
             <a href="inicio" class="d-flex align-items-center text-decoration-none">
-                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" alt="Logo LibriFlow" style="height: 40px; width: auto;" class="me-2">
+                <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="Logo LibriFlow" style="height: 40px; width: auto;" class="me-2">
                 <div class="text-start d-none d-sm-block">
                     <div class="fw-bold tracking-widest fs-5 text-white">LIBRIFLOW</div>
                     <small style="font-size: 0.65rem; letter-spacing: 1px; color: #CBC2B9; display: block;">TU BIBLIOTECA DIGITAL</small>
@@ -60,7 +59,6 @@
 
     <div class="row g-4">
 
-        <!-- MENÚ LATERAL -->
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
@@ -86,10 +84,8 @@
             </div>
         </aside>
 
-        <!-- ÁREA PRINCIPAL: BÚSQUEDA Y CATÁLOGO -->
         <main class="col-12 col-md-8 col-lg-9 catalogo-scroll">
 
-            <!-- ALERTAS DE SISTEMA (Manejadas por el Servlet) -->
             <c:if test="${not empty error}">
                 <div id="alertaError" class="alert alert-danger alert-dismissible fade show mb-4 rounded-3 shadow-sm libri-toast" role="alert">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i> <c:out value="${error}" />
@@ -104,7 +100,6 @@
                 </div>
             </c:if>
 
-            <!-- BARRA DE BÚSQUEDA Y FILTRO POR GÉNERO -->
             <div class="d-flex gap-3 mb-3 align-items-center">
                 <form action="inicio" method="GET" class="position-relative flex-grow-1 m-0">
                     <i class="bi bi-search search-icon-inside"></i>
@@ -147,7 +142,6 @@
                 </div>
             </div>
 
-            <!-- CHIPS / BADGES DE FILTROS ACTIVOS -->
             <c:if test="${not empty paramBusqueda || (not empty paramGenero && paramGenero != 'TODOS')}">
                 <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
                     <small class="text-secondary fw-semibold">Filtros aplicados:</small>
@@ -167,7 +161,6 @@
                 </div>
             </c:if>
 
-            <!-- TARJETAS DEL CATÁLOGO -->
             <c:choose>
                 <c:when test="${empty publicaciones}">
                     <div class="row g-4">
@@ -189,9 +182,9 @@
                             <%-- Solo mostrar publicaciones de otros usuarios o administradores --%>
                             <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
                                 <div class="col-12 col-md-6">
-                                    <article class="card-libro" style="position: relative;">
+                                    <article class="card-libro ${publicacion.esLibriFlow ? 'tiene-badge' : ''}" style="position: relative;">
                                         <c:if test="${publicacion.esLibriFlow}">
-                                            <div style="position: absolute; top: 12px; right: 12px; background-color: #F1ECE5; color: #5B564F; font-size: 0.65rem; padding: 4px 12px; border-radius: 20px; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.05); z-index: 10;">
+                                            <div class="lf-badge">
                                                 Catálogo LibriFlow
                                             </div>
                                         </c:if>
@@ -256,7 +249,7 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>
 </html>

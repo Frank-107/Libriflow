@@ -40,21 +40,21 @@ FILTRO DE ORDENAMIENTO
 .orden-label {
     margin: 0;
     color: #292725;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
     white-space: nowrap;
 }
 
 .orden-select {
     width: auto !important;
-    min-width: 210px;
-    height: 46px;
-    padding: 0 42px 0 20px;
+    min-width: 160px;
+    height: 38px;
+    padding: 0 16px;
     border: 1px solid #AAA39D;
     border-radius: 999px !important;
     background-color: #F7F3EF;
     color: #302E2C;
-    font-size: 16px;
+    font-size: 14.5px;
     font-weight: 500;
     cursor: pointer;
     outline: none;
@@ -70,10 +70,38 @@ FILTRO DE ORDENAMIENTO
     border-color: #817A74;
 }
 
-.orden-select:focus {
+.orden-select:focus, .orden-select[aria-expanded="true"] {
     background-color: #FFF;
     border-color: #69635E;
     box-shadow: 0 0 0 4px rgba(105, 99, 94, .12) !important;
+}
+
+.dropdown-menu-orden {
+    background-color: #F7F3EF;
+    border-radius: 20px !important;
+    padding: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12) !important;
+    min-width: 160px;
+}
+
+.dropdown-menu-orden .dropdown-item {
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #4A4641;
+    transition: background-color .2s ease, color .2s ease;
+}
+
+.dropdown-menu-orden .dropdown-item:hover, .dropdown-menu-orden .dropdown-item:focus {
+    background-color: #E2DFD8;
+    color: #292725;
+}
+
+.dropdown-menu-orden .dropdown-item.active-orden {
+    background-color: #CBC2B9;
+    color: #292725;
+    font-weight: 600;
 }
 
 /* =========================
@@ -84,7 +112,7 @@ TARJETAS
     display: flex;
     flex-direction: column;
     gap: 18px;
-    max-height: calc(100vh - 190px);
+    max-height: calc(100vh - 250px);
     overflow-y: auto;
     padding-right: 10px;
     padding-bottom: 2rem;
@@ -146,6 +174,8 @@ TARJETAS
     font-size: 1.25rem;
     font-weight: 700;
     line-height: 1.25;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .mis-publicaciones-container .publicacion-info p {
@@ -186,13 +216,16 @@ ESTADOS
 ========================= */
 
 .mis-publicaciones-container .estado {
-    min-width: 100px;
-    padding: 7px 15px;
+    position: absolute;
+    top: 22px;
+    right: 26px;
+    min-width: 80px;
+    padding: 5px 12px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     border-radius: 999px;
-    font-size: .75rem;
+    font-size: .65rem;
     font-weight: 700;
     letter-spacing: .5px;
     text-transform: uppercase;
@@ -219,18 +252,32 @@ ESTADOS
 }
 
 /* =========================
+CONTENEDOR DE BOTONES
+========================= */
+
+.mis-publicaciones-container .botones-accion {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
+    justify-content: flex-end;
+}
+
+/* =========================
 BOTÓN VER DETALLES
 ========================= */
 
 .mis-publicaciones-container .btn-ver-detalles {
-    min-width: 160px;
+    flex: 1;
     padding: 10px 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #F2EFEB;
-    color: #45413E;
-    border: none;
+    gap: 7px;
+    background-color: #E2DFD8;
+    color: #333333;
+    border: 1px solid transparent;
     border-radius: 999px;
     font-size: .9rem;
     font-weight: 600;
@@ -243,8 +290,9 @@ BOTÓN VER DETALLES
 }
 
 .mis-publicaciones-container .btn-ver-detalles:hover {
-    background-color: #FFF;
-    color: #292725;
+    background-color: #D1CDC4;
+    color: #2D2A26;
+    text-decoration: none;
     transform: translateY(-1px);
     box-shadow: 0 5px 12px rgba(0, 0, 0, .08);
 }
@@ -254,8 +302,8 @@ BOTÓN CANCELAR
 ========================= */
 
 .mis-publicaciones-container .btn-cancelar-publicacion {
-    min-width: 160px;
-    padding: 9px 18px;
+    flex: 1;
+    padding: 10px 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -264,7 +312,7 @@ BOTÓN CANCELAR
     color: #A44444;
     border: 1.5px solid #B75353;
     border-radius: 999px;
-    font-size: .82rem;
+    font-size: .9rem;
     font-weight: 600;
     cursor: pointer;
     white-space: nowrap;
@@ -329,47 +377,333 @@ RESPONSIVE
 }
 
 @media (max-width: 768px) {
+    body {
+        overflow: hidden;
+    }
+
+    .mis-publicaciones-container .publicaciones-lista {
+        max-height: calc(100vh - 180px);
+        padding-bottom: 100px;
+    }
+
     .form-orden {
-        align-items: stretch;
+        align-items: flex-start;
         flex-direction: column;
     }
 
     .orden-select {
-        width: 100% !important;
-        min-width: 0;
+        width: auto !important;
+        min-width: 200px;
+    }
+
+    .mis-publicaciones-container .publicacion-card {
+        padding: 15px;
     }
 
     .mis-publicaciones-container .publicacion-contenido {
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 10px 15px;
     }
 
     .mis-publicaciones-container .publicacion-portada {
-        width: 135px;
-        height: 195px;
-        margin: 0 auto;
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+        width: 100px;
+        height: 145px;
+        margin: 0;
+        padding: 5px;
+        align-self: start;
+    }
+
+    .mis-publicaciones-container .publicacion-portada img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .mis-publicaciones-container .publicacion-info {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
         width: 100%;
-        text-align: center;
+        text-align: left;
+        padding-right: 95px;
     }
 
     .mis-publicaciones-container .publicacion-acciones {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
         width: 100%;
         min-width: 0;
-        align-items: stretch;
+        align-items: flex-start;
+        justify-content: flex-end;
+        margin-left: 0;
     }
 
     .mis-publicaciones-container .estado {
-        align-self: center;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        margin: 0;
     }
 
     .mis-publicaciones-container .publicacion-precio {
-        text-align: center;
+        text-align: left;
+        font-size: 1.25rem;
+        margin-bottom: 5px;
+    }
+
+    .mis-publicaciones-container .botones-accion {
+        flex-direction: column;
+        width: 100%;
+        gap: 6px;
     }
 
     .mis-publicaciones-container .btn-ver-detalles,
     .mis-publicaciones-container .btn-cancelar-publicacion {
+        width: 100%;
+        padding: 6px 15px;
+        font-size: 0.8rem;
+    }
+}
+/* ==========================================
+   ACCIONES DE MIS PUBLICACIONES
+   ========================================== */
+
+.publicacion-acciones {
+    width: 190px;
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
+    gap: 12px;
+}
+
+
+/* ==========================================
+   PRECIO
+   ========================================== */
+
+.publicacion-acciones .publicacion-precio {
+    margin: 0;
+
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #4A4641;
+
+    text-align: right;
+}
+
+
+/* ==========================================
+   CONTENEDOR DE BOTONES
+   ========================================== */
+
+.botones-accion {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 10px;
+}
+
+
+/* ==========================================
+   BOTÓN VER DETALLES
+   MISMA ESTÉTICA QUE MIS COMPRAS
+   ========================================== */
+
+.btn-ver-detalles {
+    width: 100%;
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 8px 18px;
+
+    background-color: #E2DFD8;
+    color: #333333;
+
+    border: none;
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.btn-ver-detalles:hover {
+    background-color: #D1CDC4;
+    color: #2D2A26;
+
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.btn-ver-detalles i {
+    font-size: 0.95rem;
+}
+
+
+/* ==========================================
+   BOTÓN CANCELAR PUBLICACIÓN
+   ========================================== */
+
+.btn-cancelar-publicacion {
+    width: 100%;
+    min-height: 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 8px 18px;
+
+    background-color: transparent;
+    color: #B45353;
+
+    border: 1px solid #B45353;
+    border-radius: 20px;
+
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.2s ease;
+}
+
+.btn-cancelar-publicacion:hover {
+    background-color: #B45353;
+    color: #FFFFFF;
+
+    transform: translateY(-1px);
+}
+
+.btn-cancelar-publicacion i {
+    font-size: 0.95rem;
+}
+
+
+/* ==========================================
+   BADGE DE ESTADO
+   ========================================== */
+
+.publicacion-acciones .estado {
+    min-width: 95px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 6px 14px;
+
+    border-radius: 999px;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    margin: 0;
+}
+
+
+/* ==========================================
+   ESTADOS
+   ========================================== */
+
+.publicacion-acciones .estado.PENDIENTE {
+    background-color: #FFF1C9;
+    color: #8A6200;
+}
+
+.publicacion-acciones .estado.ACTIVO {
+    background-color: #DDEED9;
+    color: #497345;
+}
+
+.publicacion-acciones .estado.INACTIVO {
+    background-color: #E2E3E5;
+    color: #5E6265;
+}
+
+.publicacion-acciones .estado.RECHAZADO {
+    background-color: #F5DADA;
+    color: #A94442;
+}
+
+
+/* ==========================================
+   AJUSTE DE LA TARJETA
+   ========================================== */
+
+.publicacion-contenido {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+}
+
+.publicacion-info {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    .publicacion-contenido {
+        flex-wrap: wrap;
+    }
+
+    .publicacion-acciones {
+        width: 100%;
+        align-items: stretch;
+    }
+
+    .publicacion-acciones .publicacion-precio {
+        text-align: left;
+    }
+
+    .publicacion-acciones .estado {
+        align-self: flex-start;
+    }
+
+    .botones-accion {
+        width: 100%;
+    }
+
+    .btn-ver-detalles,
+    .btn-cancelar-publicacion {
         width: 100%;
     }
 }

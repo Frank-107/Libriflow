@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis publicaciones - LibriFlow</title>
-  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/MisPublicaciones.css"/>
@@ -112,18 +112,27 @@
             (<span id="total-publicaciones"><c:out value="${publicaciones.size()}"/></span>)
           </h2>
 
-          <form method="get" action="${pageContext.request.contextPath}/mis-publicaciones-js" class="form-orden">
-            <label for="orden" class="orden-label">Ordenar por:</label>
+          <div class="form-orden">
+            <span class="orden-label">Ordenar por:</span>
 
-            <select name="orden" id="orden" class="form-select orden-select" onchange="this.form.submit()">
-              <option value="recientes" ${ordenActual == 'recientes' ? 'selected' : ''}>
-                Más recientes
-              </option>
-              <option value="antiguas" ${ordenActual == 'antiguas' ? 'selected' : ''}>
-                Más antiguas
-              </option>
-            </select>
-          </form>
+            <div class="dropdown">
+              <button class="btn orden-select dropdown-toggle d-flex justify-content-between align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ${ordenActual == 'antiguas' ? 'Más antiguas' : 'Más recientes'}
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-orden border-0">
+                <li>
+                  <a class="dropdown-item ${ordenActual != 'antiguas' ? 'active-orden' : ''}" href="${pageContext.request.contextPath}/mis-publicaciones-js?orden=recientes">
+                    Más recientes
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item ${ordenActual == 'antiguas' ? 'active-orden' : ''}" href="${pageContext.request.contextPath}/mis-publicaciones-js?orden=antiguas">
+                    Más antiguas
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <c:choose>
@@ -153,27 +162,33 @@
                     </div>
 
                     <div class="publicacion-acciones">
-                      <span class="estado ${publicacion.estado}">
-                        <c:out value="${publicacion.estado}"/>
-                      </span>
 
-                      <div class="publicacion-precio">
+                       <span class="estado ${publicacion.estado}">
+                         <c:out value="${publicacion.estado}"/>
+                        </span>
+                        <div class="publicacion-precio">
                         $<c:out value="${publicacion.precio}"/>
+                        </div>
+
+                      <div class="botones-accion">
+
+                        <a href="${pageContext.request.contextPath}/detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
+                           class="btn-ver-detalles">
+                          <i class="bi bi-eye"></i>
+                          Ver detalles
+                        </a>
+
+                        <c:if test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
+                          <button type="button"
+                                  onclick="cancelarPublicacion(${publicacion.idPublicacion}, this)"
+                                  class="btn-cancelar-publicacion">
+                            <i class="bi bi-trash"></i>
+                            Cancelar publicación
+                          </button>
+                        </c:if>
+
                       </div>
 
-                      <a href="${pageContext.request.contextPath}/detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                         class="btn-ver-detalles">
-                        Ver detalles
-                      </a>
-
-                      <c:if test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
-                        <button type="button"
-                                onclick="cancelarPublicacion(${publicacion.idPublicacion}, this)"
-                                class="btn-cancelar-publicacion">
-                          <i class="bi bi-trash"></i>
-                          Cancelar publicación
-                        </button>
-                      </c:if>
                     </div>
 
                   </div>

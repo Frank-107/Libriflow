@@ -7,22 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar Libro - LibriFlow</title>
 
-    <link rel="icon"
-          href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
-          type="image/png">
-
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
-
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/assets/css/Publicar.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png" type="image/png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Publicar.css">
 </head>
 
 <body class="p-3 p-md-4">
-
+<div id="contenedor-notificaciones"></div>
 <div class="container-fluid max-width-xl mx-auto">
 
     <!-- HEADER -->
@@ -140,10 +132,7 @@
                 </div>
 
                 <c:if test="${not empty error}">
-                    <div class="alert alert-danger d-flex align-items-center gap-2 mb-4" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill fs-5"></i>
-                        <div><c:out value="${error}" escapeXml="true" /></div>
-                    </div>
+                    <div id="errorServidor" data-mensaje="<c:out value='${error}' escapeXml='true'/>" style="display:none;"></div>
                 </c:if>
 
                 <form action="publicar-libro-usuario" id="formPublicar" method="POST" enctype="multipart/form-data">
@@ -225,7 +214,7 @@
                                       id="sinopsis"
                                       class="form-control form-control-lf"
                                       rows="5"
-                                      maxlength="5000"
+                                      maxlength="2900"
                                       style="resize:none;"
                                       oninput="validarSinopsis()"
                                       required><c:out value='${param.sinopsis}' escapeXml='true'/></textarea>

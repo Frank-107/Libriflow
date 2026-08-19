@@ -4,15 +4,24 @@ function contarPalabras(texto) {
     return palabras.filter(p => p.length > 0).length;
 }
 
+function contarBytesUTF8(texto) {
+    return new TextEncoder().encode(texto).length;
+}
+
+const SINOPSIS_MAX_BYTES = 2900;
+
 function validarSinopsis() {
     const inputSinopsis = document.getElementById('sinopsis');
     if (!inputSinopsis) return;
 
     const numPalabras = contarPalabras(inputSinopsis.value);
+    const numBytes = contarBytesUTF8(inputSinopsis.value);
 
     if (numPalabras < 100) {
         const faltantes = 100 - numPalabras;
         inputSinopsis.setCustomValidity("La sinopsis debe tener al menos 100 palabras. Llevas " + numPalabras + " (faltan " + faltantes + ").");
+    } else if (numBytes > SINOPSIS_MAX_BYTES) {
+        inputSinopsis.setCustomValidity("La sinopsis es demasiado larga (" + numBytes + "/" + SINOPSIS_MAX_BYTES + " bytes). Reduce el texto.");
     } else {
         inputSinopsis.setCustomValidity("");
     }
@@ -61,7 +70,8 @@ function previewImagenConValidacion(input, imgId, placeholderId) {
         const maximoBytes = 2 * 1024 * 1024; // 2 MB
 
         if (archivo.size > maximoBytes) {
-            alert("La imagen excede el límite permitido de 2MB. Por favor, selecciona una más ligera.");
+            // Se reemplazó el alert() nativo por la notificación dinámica
+            mostrarNotificacionDinamica('error', 'La imagen excede el límite permitido de 2MB. Por favor, selecciona una más ligera.');
 
             input.value = "";
             imgElement.src = "";
@@ -81,6 +91,7 @@ function previewImagenConValidacion(input, imgId, placeholderId) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    // 1. Animación para publicación exitosa
     const toast = document.getElementById('toastExito');
     if (toast) {
         setTimeout(function() {
@@ -93,8 +104,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 4500);
     }
 
-    const form = document.getElementById('formPublicar');
+    // 2. Notificación de errores del servidor (Fuera del bloque toast)
+    const errorServidor = document.getElementById('errorServidor');
+    if (errorServidor) {
+        const mensaje = errorServidor.getAttribute('data-mensaje');
+        if (mensaje && typeof mostrarNotificacionDinamica === 'function') {
+            mostrarNotificacionDinamica('error', mensaje);
+        }
+    }
 
+    // 3. Inicialización de formulario
+    const form = document.getElementById('formPublicar');
     actualizarPrecioUI();
     validarSinopsis();
 
@@ -151,3 +171,39 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+// =========================================================
+//  FUNCIÓN DE ALERTAS AÑADIDA AL FINAL
+// =========================================================
+function mostrarNotificacionDinamica(tipo, mensaje) {
+    const contenedor = document.getElementById('contenedor-notificaciones');
+
+    // Respaldo por si falta el div en el HTML
+    if (!contenedor) {
+        alert(mensaje);
+        return;
+    }
+
+    const toast = document.createElement('div');
+    toast.className = tipo === 'success'
+        ? 'libri-toast libri-toast-success'
+        : 'libri-toast libri-toast-error';
+
+    const icono = tipo === 'success'
+        ? '<i class="bi bi-check-circle-fill fs-5"></i>'
+        : '<i class="bi bi-exclamation-circle-fill fs-5"></i>';
+
+    toast.innerHTML = `${icono}<span>${mensaje}</span>`;
+    contenedor.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 400);
+    }, 3500);
+}

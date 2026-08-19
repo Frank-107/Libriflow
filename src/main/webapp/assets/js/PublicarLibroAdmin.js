@@ -63,6 +63,23 @@ function actualizarVistaPreviaModal(input, idImg, idPlaceholder) {
     const placeholder = document.getElementById(idPlaceholder);
 
     if (input.files && input.files[0]) {
+        const archivo = input.files[0];
+        const maximoBytes = 2 * 1024 * 1024; // 2 MB
+
+        // --- SE AGREGÓ ESTA VALIDACIÓN DE PESO CON LA ALERTA DINÁMICA ---
+        if (archivo.size > maximoBytes) {
+            mostrarNotificacionDinamica('error', 'La imagen excede el límite permitido de 2MB. Por favor, selecciona una más ligera.');
+            input.value = ""; // Limpia el input
+            if (img) {
+                img.src = "";
+                img.style.display = 'none';
+            }
+            if (placeholder) {
+                placeholder.style.display = 'block';
+            }
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = function(e) {
             if (img) {
@@ -88,6 +105,15 @@ document.addEventListener("DOMContentLoaded", function () {
             toast.classList.remove('mostrar-toast');
             setTimeout(function() { toast.remove(); }, 500);
         }, 4500);
+    }
+
+    // --- SE AGREGÓ ESTO PARA MOSTRAR ERRORES DEL SERVIDOR (COMO EN EL OTRO JS) ---
+    const errorServidor = document.getElementById('errorServidor');
+    if (errorServidor) {
+        const mensaje = errorServidor.getAttribute('data-mensaje');
+        if (mensaje && typeof mostrarNotificacionDinamica === 'function') {
+            mostrarNotificacionDinamica('error', mensaje);
+        }
     }
 
     const form = document.getElementById('formPublicar');
@@ -163,3 +189,38 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+// =========================================================
+//  FUNCIÓN DE ALERTAS AÑADIDA AL FINAL
+// =========================================================
+function mostrarNotificacionDinamica(tipo, mensaje) {
+    const contenedor = document.getElementById('contenedor-notificaciones');
+
+    if (!contenedor) {
+        alert(mensaje);
+        return;
+    }
+
+    const toast = document.createElement('div');
+    toast.className = tipo === 'success'
+        ? 'libri-toast libri-toast-success'
+        : 'libri-toast libri-toast-error';
+
+    const icono = tipo === 'success'
+        ? '<i class="bi bi-check-circle-fill fs-5"></i>'
+        : '<i class="bi bi-exclamation-circle-fill fs-5"></i>';
+
+    toast.innerHTML = `${icono}<span>${mensaje}</span>`;
+    contenedor.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            toast.remove();
+        }, 400);
+    }, 3500);
+}

@@ -17,6 +17,14 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
+/**
+ * El servlet PublicarLibroUsuarioSv permite a los usuarios autenticados publicar
+ * sus propios libros en la plataforma, realizando la verificación de sesión,
+ * validación de restricciones de texto y precio, y la gestión de archivos de imagen.
+ *
+ * @author Irvin Abarca Arenas
+ * @since 21/08/2026
+ */
 @WebServlet(name = "PublicarLibroUsuarioSv", value = "/publicar-libro-usuario")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,
@@ -36,12 +44,39 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
     private static final int AUTOR_MAX_LEN = 100;
     private static final int EDITORIAL_MAX_LEN = 100;
 
+
+    /**
+     * El método doGet muestra la vista JSP con el formulario de publicación
+     * para el usuario.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un error interno en la navegación del servlet.
+     * @throws IOException Si ocurre un fallo de lectura o redirección.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.getRequestDispatcher("PublicarLibroUsuario.jsp").forward(req, resp);
     }
 
+
+    /**
+     * El método doPost procesa la solicitud de publicación enviada por el usuario.
+     * Valida la sesión activa, sanitiza y comprueba los límites de texto y precio,
+     * almacena las imágenes asociadas e inserta los registros en la base de datos.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP que contiene los datos del formulario y archivos subidos.
+     * @param resp Objeto de respuesta HTTP para redirección o manejo de errores.
+     * @throws ServletException Si ocurre un fallo durante la recepción multipart.
+     * @throws IOException Si ocurre un error de entrada/salida de archivos.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -176,11 +211,30 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
     }
 
     // --- MÉTODOS AUXILIARES ---
-
+    /**
+     * El método esNuloOVacio verifica si una cadena de texto recibida es nula o carece
+     * de caracteres visibles.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param str Cadena a ser evaluada.
+     * @return true si la cadena es nula o vacía; false en caso contrario.
+     */
     private boolean esNuloOVacio(String str) {
         return str == null || str.trim().isEmpty();
     }
 
+    /**
+     * El método esImagenValida comprueba que la parte recibida no esté vacía, sea de tipo MIME
+     * correspondiente a una imagen y posea una extensión válida (.jpg, .jpeg, .png, .webp).
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param part Archivo multipart a validar.
+     * @return true si cumple con los criterios de archivo de imagen; false de lo contrario.
+     */
     private boolean esImagenValida(Part part) {
         if (part == null || part.getSize() == 0 || part.getSubmittedFileName() == null) {
             return false;
@@ -195,7 +249,17 @@ public class PublicarLibroUsuarioSv extends HttpServlet {
         return nombre.endsWith(".jpg") || nombre.endsWith(".jpeg") ||
                 nombre.endsWith(".png") || nombre.endsWith(".webp");
     }
-
+    /**
+     * El método guardarImagen genera un nombre único para el archivo, sanitiza la extensión
+     * y guarda físicamente la imagen en la carpeta de subidas del servidor.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param imagen Parte del archivo recibido desde el formulario.
+     * @return Ruta relativa del archivo guardado en el servidor.
+     * @throws IOException Si ocurre una falla en el proceso de almacenamiento físico.
+     */
     private String guardarImagen(Part imagen) throws IOException {
         String nombreOriginal = imagen.getSubmittedFileName();
 

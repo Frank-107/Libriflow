@@ -32,7 +32,7 @@ public class ValidarTokenRCSv extends HttpServlet {
      * El método doPost sirve para recibir el código del formulario, compararlo con el
      * token de la sesión y redirigir a la vista de nueva contraseña si coinciden.
      *
-     * @author Abarca Arenas Irvin
+     * @author Irvin Abarca Arenas
      * @since 21/08/2026
      *
      * @param req Objeto de solicitud HTTP que contiene el código ingresado.

@@ -16,12 +16,35 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * El servlet CarritoSv gestiona la visualización, cálculo y eliminación de ítems
+ * dentro del carrito de compras, abarcando publicaciones tanto de usuarios como
+ * de la administración (compras y rentas).
+ *
+ * @author Francisco Emmanuel Fuentes Perez
+ * @author Alejandro Mena Pereyda
+ * @since 21/08/2026
+ */
 @WebServlet(name = "CarritoSv", value = "/carrito")
 public class CarritoSv extends HttpServlet {
 
     private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
     private final PublicacionAdministradorDao adminDao = new PublicacionAdministradorDao();
 
+    /**
+     * El método doGet obtiene la lista de publicaciones almacenadas en la sesión activa
+     * (tanto para usuarios como de administración), consolida sus datos de venta o renta
+     * y transfiere la lista a la vista "Carrito.jsp".
+     *
+     * @author Francisco Emmanuel Fuentes Perez
+     * @author Alejandro Mena Pereyda
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un error en el despacho hacia la vista JSP.
+     * @throws IOException Si ocurre un fallo en la comunicación de entrada/salida.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -80,6 +103,19 @@ public class CarritoSv extends HttpServlet {
         req.getRequestDispatcher("Carrito.jsp").forward(req, resp);
     }
 
+    /**
+     * El método doPost gestiona las acciones de compra y eliminación de productos
+     * del carrito, configurando las banderas de sesión necesarias para el proceso de checkout.
+     *
+     * @author Francisco Emmanuel Fuentes Perez
+     * @author Alejandro Mena Pereyda
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP que contiene los datos del formulario ("action").
+     * @param resp Objeto de respuesta HTTP para efectuar la redirección.
+     * @throws ServletException Si ocurre un fallo en el procesamiento.
+     * @throws IOException Si ocurre un error de redirección o entrada/salida.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -132,11 +168,34 @@ public class CarritoSv extends HttpServlet {
         }
     }
 
+    /**
+     * El método doDelete canaliza las peticiones de eliminación HTTP DELETE
+     * invocando la implementación base de HttpServlet.
+     *
+     * @author Francisco Emmanuel Fuentes Perez
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un fallo interno en el servlet.
+     * @throws IOException Si ocurre un error de lectura o escritura.
+     */
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doDelete(req, resp);
     }
-
+    /**
+     * El método doPut canaliza las peticiones de actualización HTTP PUT
+     * invocando la implementación base de HttpServlet.
+     *
+     * @author Francisco Emmanuel Fuentes Perez
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un fallo interno en el servlet.
+     * @throws IOException Si ocurre un error de lectura o escritura.
+     */
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPut(req, resp);

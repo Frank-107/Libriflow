@@ -13,10 +13,30 @@ import mx.edu.utez.libriflow.model.Usuario;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-
+/**
+ * El servlet ActualizarPerfilAdminSv sirve para gestionar la actualización de los
+ * datos personales (nombre, apellidos, teléfono) y el cambio seguro de contraseña
+ * para los usuarios con rol Administrador.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 21/08/2026
+ */
 @WebServlet(name = "ActualizarPerfilAdminSv", value = "/actualizar-perfil-admin")
 public class ActualizarPerfilAdminSv extends HttpServlet {
 
+    /**
+     * El método doGet verifica la sesión activa del usuario y despacha la vista JSP
+     * correspondiente al formulario de actualización de perfil para administradores.
+     *
+     * @author Alejandro Mena Pereyda
+     * @author Francisco Emmanuel Fuentes Perez
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un error en el despacho hacia la vista JSP.
+     * @throws IOException Si ocurre un problema en la redirección o lectura de datos.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
@@ -27,6 +47,21 @@ public class ActualizarPerfilAdminSv extends HttpServlet {
         req.getRequestDispatcher("ActualizarPerfilAdmin.jsp").forward(req, resp);
     }
 
+    /**
+     * El método doPost procesa la solicitud de actualización del perfil. Valida la
+     * presencia de sesión, comprueba los formatos de texto y teléfono, aplica el cifrado
+     * SHA-256 si se solicitó cambio de contraseña y actualiza los datos en la base de datos
+     * y en la sesión actual.
+     *
+     * @author Francisco Emmanuel Fuentes Perez
+     * @author Alejandro Mena Pereyda
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP que contiene los parámetros del formulario de perfil.
+     * @param resp Objeto de respuesta HTTP para canalizar las alertas de error o éxito.
+     * @throws ServletException Si falla la redirección hacia el archivo JSP.
+     * @throws IOException Si ocurre un error de comunicación de entrada/salida.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");

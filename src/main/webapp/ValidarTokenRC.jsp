@@ -1,3 +1,17 @@
+<%--
+  Vista: ValidarTokenRC.jsp
+  Descripción: Formulario para la captura y verificación del código de 6 dígitos
+               enviado al correo del usuario para el restablecimiento de contraseña.
+
+  Acción / Servlet asociado: /validar-token-rc (POST)
+  Atributos de Request utilizados:
+    - "error" (String, opcional): Mensaje devuelto por ValidarTokenRCSv cuando el código es incorrecto o la sesión expira.
+
+  @author Irvin Abarca Arenas
+  @since 21/08/2026
+--%>
+
+<%-- Directivas de página y librerías JSTL --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!doctype html>
@@ -6,26 +20,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingresar Código - LibriFlow</title>
+    <%-- Recursos estáticos: Fav-icon y hoja de estilos principal --%>
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css" />
 </head>
 <body class="login-body">
-
+<%-- Encabezado con enlace para regresar a la vista anterior --%>
 <header class="login-top-bar">
     <a href="RestablecerContrasena.jsp" class="login-back-link" aria-label="Volver"></a>
     <h1 class="login-top-bar-title">Verificar código</h1>
 </header>
 
-
+<%-- Contenedor principal de la tarjeta de validación --%>
 <main class="login-card">
-
+    <%-- Identidad visual de la plataforma LibriFlow --%>
     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
          alt="LibriFlow"
          class="login-logo">
 
     <h2 class="login-card-title">INGRESA TU CÓDIGO</h2>
     <p class="login-card-subtitle">Ingresa el código de 6 dígitos que te enviamos por correo.</p>
-
+        <%-- Bloque de notificación: Se muestra si el Servlet regresa un error de validación --%>
     <c:if test="${not empty error}">
         <div id="errorToast" class="libri-toast libri-toast-error">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -38,7 +53,7 @@
     </c:if>
 
 
-
+        <%-- Formulario para envío del token al Servlet ValidarTokenRCSv --%>
     <form action="validar-token-rc" method="POST">
         <input type="hidden" name="accion" value="validarToken">
         <label for="codigoIngresado" class="login-label-pass">Código de verificación:</label>
@@ -47,6 +62,7 @@
     </form>
 
 </main>
+<%-- Inclusión de scripts JS para Bootstrap y alertas dinámicas --%>
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>

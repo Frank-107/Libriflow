@@ -8,7 +8,7 @@
   Atributos de Request utilizados:
     - "error" (String, opcional): Mensaje de error enviado por RestablecerContrasenaSv cuando la validación falla.
 
-  @author Abarca Arenas Irvin
+  @author Irvin Abarca Arenas
   @since 21/08/2026
 --%>
 

@@ -26,6 +26,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * El servlet PublicarLibroAdminSv sirve para gestionar el alta de libros por parte
+ * de un usuario con rol Administrador, validando la sesión, datos del formulario
+ * y el almacenamiento de imágenes de la publicación.
+ *
+ * @author Irvin Abarca Arenas
+ * @since 21/08/2026
+ */
+
 @WebServlet(
         name = "PublicarLibroAdminSv",
         value = "/publicar-libro-admin"
@@ -37,48 +46,40 @@ import java.util.UUID;
 )
 public class PublicarLibroAdminSv extends HttpServlet {
 
-    private final PublicacionAdministradorDao publicacionAdminDao =
-            new PublicacionAdministradorDao();
-
+    private final PublicacionAdministradorDao publicacionAdminDao = new PublicacionAdministradorDao();
     private final LibroDao libroDao = new LibroDao();
-
     private final ImagenDao imagenDao = new ImagenDao();
-
     private final RolDao rolDao = new RolDao(); // FIX: el rol vive en tabla ROL, no en Usuario
-
 
     // ============================================================
     // CONFIGURACIÓN DE SEGURIDAD
     // ============================================================
-
     // AJUSTAR: confirma el valor real con SELECT DISTINCT rol FROM rol;
     private static final String ROL_ADMIN = "ADMIN";
-
     private static final int MAX_TITULO = 150;
     private static final int MAX_AUTOR = 150;
     private static final int MAX_EDITORIAL = 150;
     private static final int MAX_GENERO = 100;
-
     private static final int SINOPSIS_MIN_PALABRAS = 100; // alineado con el flujo de usuario
-    // AJUSTAR: confirma el tamaño real de la columna SINOPSIS en
-    // PUBLICACION_ADMINISTRADOR (o como se llame tu tabla) con:
-    // SELECT column_name, char_length FROM user_tab_columns
-    // WHERE table_name = 'TU_TABLA' AND column_name = 'SINOPSIS';
     private static final int SINOPSIS_MAX_BYTES = 2900;
-
     private static final int MAX_CANTIDAD = 100000;
-
     private static final double MAX_PRECIO = 99999.99; // alineado con el límite del JSP de usuario
-
     private static final long MAX_IMAGE_SIZE = 5L * 1024 * 1024;
+    private static final Set<String> EXTENSIONES_PERMITIDAS = Set.of("jpg", "jpeg", "png");
+    private static final Set<String> MIME_PERMITIDOS = Set.of("image/jpeg", "image/png");
 
-    private static final Set<String> EXTENSIONES_PERMITIDAS =
-            Set.of("jpg", "jpeg", "png");
-
-    private static final Set<String> MIME_PERMITIDOS =
-            Set.of("image/jpeg", "image/png");
-
-
+    /**
+     * El método doGet sirve para verificar que la sesión pertenezca a un usuario
+     * con rol de Administrador y mostrar el formulario de publicación de libros.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un error interno en el servlet.
+     * @throws IOException Si ocurre un error de lectura o redirección.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -106,6 +107,19 @@ public class PublicarLibroAdminSv extends HttpServlet {
         req.getRequestDispatcher("PublicarLibroAdministrador.jsp").forward(req, resp);
     }
 
+    /**
+     * El método doPost sirve para recibir y validar la información del libro,
+     * crear el registro del libro, la publicación del administrador y guardar
+     * las tres imágenes requeridas en el servidor.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP con los datos del libro y archivos subidos.
+     * @param resp Objeto de respuesta HTTP para manejo de vistas y redirecciones.
+     * @throws ServletException Si ocurre un fallo en el despacho del formulario.
+     * @throws IOException Si ocurre un error en la entrada/salida de datos o archivos.
+     */
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -347,6 +361,17 @@ public class PublicarLibroAdminSv extends HttpServlet {
         }
     }
 
+    /**
+     * El método guardarImagen sirve para validar el formato, tamaño y extensión de una
+     * imagen, comprobar que no sea un archivo corrupto y guardarla en el disco del servidor.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param imagen Parte del archivo recibido desde el formulario multipart.
+     * @return Ruta relativa del archivo guardado en el directorio de subidas.
+     * @throws IOException Si ocurre un problema al guardar el archivo en disco.
+     */
 
     private String guardarImagen(Part imagen) throws IOException {
 
@@ -426,10 +451,16 @@ public class PublicarLibroAdminSv extends HttpServlet {
     }
 
 
-    // ============================================================
-    // VALIDAR QUE HAYA ARCHIVO
-    // ============================================================
-
+    /**
+     * El método esImagenValidaPresente sirve para determinar si una imagen fue
+     * cargada correctamente en la solicitud y contiene un nombre válido.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param imagen Parte del archivo a evaluar.
+     * @return true si la imagen está presente y no vacía; false en caso contrario.
+     */
     private boolean esImagenValidaPresente(Part imagen) {
         return imagen != null
                 && imagen.getSize() > 0
@@ -438,10 +469,16 @@ public class PublicarLibroAdminSv extends HttpServlet {
     }
 
 
-    // ============================================================
-    // LIMPIAR TEXTO
-    // ============================================================
-
+    /**
+     * El método limpiarTexto sirve para remover espacios en blanco sobrantes en
+     * los extremos de un texto o devolver una cadena vacía en caso de ser nulo.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param texto Cadena de texto a limpiar.
+     * @return Cadena formateada sin espacios sobrantes.
+     */
     private String limpiarTexto(String texto) {
         if (texto == null) {
             return "";
@@ -449,11 +486,18 @@ public class PublicarLibroAdminSv extends HttpServlet {
         return texto.trim();
     }
 
-
-    // ============================================================
-    // VALIDAR TEXTO
-    // ============================================================
-
+    /**
+     * El método validarTexto sirve para verificar que un campo de texto no sea nulo,
+     * no esté vacío y cumpla con los límites de longitud mínima y máxima.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param texto Cadena a evaluar.
+     * @param nombreCampo Nombre del campo utilizado para construir el mensaje de error.
+     * @param minimo Cantidad mínima de caracteres permitidos.
+     * @param maximo Cantidad máxima de caracteres permitidos.
+     */
     private void validarTexto(String texto, String nombreCampo, int minimo, int maximo) {
 
         if (texto == null || texto.trim().isEmpty()) {

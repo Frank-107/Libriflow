@@ -9,9 +9,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * La clase CompraDao proporciona los métodos para acceder y gestionar la información
+ * relativa a las compras realizadas y ventas concretadas por los usuarios en la base de datos.
+ *
+ * @author Andres Gerardo Angelina Perez
+ * @author Monserrath Anzures Visoso
+ * @since 21/08/2026
+ */
 public class CompraDao {
 
+    /**
+     * Consulta el historial de compras realizadas por un usuario específico, consolidando
+     * tanto las publicaciones de otros usuarios como las administradas directamente por LibriFlow.
+     *
+     * @param idUsuario Identificador único del usuario comprador.
+     * @return Lista de objetos {@link CompraResumen} con el detalle visual y financiero de cada compra.
+     */
     public List<CompraResumen> getResumenComprasPorUsuario(int idUsuario) {
 
         List<CompraResumen> lista = new ArrayList<>();
@@ -159,6 +173,12 @@ public class CompraDao {
         return lista;
     }
 
+    /**
+     * Obtiene el número total de ventas completadas exitosamente por un usuario.
+     *
+     * @param idUsuario Identificador único del usuario vendedor.
+     * @return Conteo total de transacciones de tipo 'COMPRA' asociadas al vendedor.
+     */
     public int contarVentasPorUsuario(int idUsuario) {
 
         int total = 0;

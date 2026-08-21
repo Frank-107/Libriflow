@@ -11,6 +11,15 @@ import mx.edu.utez.libriflow.model.Dao.UsuarioDao;
 
 import java.io.IOException;
 
+/**
+ El servlet ValidarTokenRCSv sirve para validar que el código de verificación
+ * ingresado por el usuario coincida con el generado y almacenado previamente en la sesión.
+ *
+ *
+ * @author Irvin Abarca
+ * @since 21/08/2026
+ */
+
 @WebServlet(name = "ValidarTokenRCSv", value = "/validar-token-rc")
 
 public class ValidarTokenRCSv extends HttpServlet {
@@ -19,6 +28,18 @@ public class ValidarTokenRCSv extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 
+    /**
+     * El método doPost sirve para recibir el código del formulario, compararlo con el
+     * token de la sesión y redirigir a la vista de nueva contraseña si coinciden.
+     *
+     * @author Abarca Arenas Irvin
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP que contiene el código ingresado.
+     * @param resp Objeto de respuesta HTTP para redirecciones o envíos de vista.
+     * @throws ServletException Si ocurre un error en el reenvío a la vista.
+     * @throws IOException Si ocurre un error al redirigir la respuesta.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

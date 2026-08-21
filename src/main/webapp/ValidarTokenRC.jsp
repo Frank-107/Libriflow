@@ -55,6 +55,7 @@
 
         <%-- Formulario para envío del token al Servlet ValidarTokenRCSv --%>
     <form action="validar-token-rc" method="POST">
+        <%-- Parámetro oculto para identificar la acción solicitada --%>
         <input type="hidden" name="accion" value="validarToken">
         <label for="codigoIngresado" class="login-label-pass">Código de verificación:</label>
         <input type="text" id="codigoIngresado" name="codigoIngresado" class="login-input" maxlength="6" required autocomplete="off" placeholder="123456">

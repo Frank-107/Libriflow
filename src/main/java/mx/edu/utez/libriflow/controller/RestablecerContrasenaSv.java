@@ -15,15 +15,46 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
 
+/**
+ * El servlet RestablecerContrasenaSv sirve para gestionar las solicitudes para restablecer la contraseña
+ * de los usuarios de LibriFlow mediante el envío de un código de 6 dígitos al correo del usuario.
+ *
+ * @author Irvin Abarca Arenas
+ * @since 21/08/2026
+ */
 @WebServlet(name = "RestablecerContrasenaSv", value = "/restablecer-contrasena")
 public class RestablecerContrasenaSv extends HttpServlet {
 
     UsuarioDao usuarioDao = new UsuarioDao();
 
+    /**
+     * El método doGet sirve para mostrar la vista del formulario
+     * donde el usuario ingresará su correo para restablecer la contraseña.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     */
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("RestablecerContrasena.jsp").forward(req, resp);
     }
+
+
+    /**
+     * El método doPost sirve para validar el correo institucional UTEZ,
+     * generar un código aleatorio de 6 dígitos, guardarlo en sesión y enviarlo
+     * por correo electrónico.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP que contiene el parámetro correo.
+     * @param resp Objeto de respuesta HTTP para realizar redirecciones.
+     */
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -17,6 +17,16 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
+/**
+ * El servlet ActualizarPerfilSv permite a los usuarios clientes gestionar y actualizar
+ * sus datos personales (nombre, apellidos, teléfono), modificar su contraseña de forma
+ * segura y consultar los indicadores de actividad de su cuenta.
+ *
+ * @author Francisco Emmanuel Fuentes Perez
+ * @author Alejandro Mena Pereyda
+ * @author Monserrath Anzures Visoso
+ * @since 21/08/2026
+ */
 @WebServlet(name = "ActualizarPerfilSv", value = "/actualizar-perfil")
 public class ActualizarPerfilSv extends HttpServlet {
 
@@ -28,6 +38,20 @@ public class ActualizarPerfilSv extends HttpServlet {
     private static final int MAX_TEXTO_CORTO = 50; // Para Nombre y Apellidos
     private static final int MAX_PASSWORD = 100;
 
+    /**
+     * El método doGet verifica la sesión del usuario, invoca la carga de contadores de
+     * estadísticas personales y canaliza la solicitud hacia la vista del perfil.
+     *
+     * @author Francisco Emmanuel Fuentes Perez
+     * @author Alejandro Mena Pereyda
+     * @author Monserrath Anzures Visoso
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un error en la navegación hacia el JSP.
+     * @throws IOException Si se genera un fallo en la entrada/salida o redirección.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
@@ -44,6 +68,20 @@ public class ActualizarPerfilSv extends HttpServlet {
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
     }
 
+    /**
+     * El método doPost procesa la actualización de datos de perfil y cambio de contraseña,
+     * evaluando límites de longitud de campos, expresiones regulares de teléfono y
+     * cifrado SHA-256 para contraseñas.
+     *
+     * @author Francisco Emmanuel Fuentes Perez
+     * @author Alejandro Mena Pereyda
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP que contiene los datos del formulario de perfil.
+     * @param resp Objeto de respuesta HTTP para responder al cliente.
+     * @throws ServletException Si ocurre un fallo en el reenvío de la solicitud.
+     * @throws IOException Si ocurre un error de transmisión de datos.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -177,7 +215,16 @@ public class ActualizarPerfilSv extends HttpServlet {
         cargarContadores(req, usuarioSesion.getId());
         req.getRequestDispatcher("ActualizarPerfil.jsp").forward(req, resp);
     }
-
+    /**
+     * El método cargarContadores consulta las métricas de publicaciones, ventas, rentas
+     * activas y retrasos de un usuario y las adjunta a la solicitud HTTP.
+     *
+     * @author Monserrath Anzures Visoso
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP donde se registrarán los contadores.
+     * @param idUsuario Identificador único del usuario consultado.
+     */
     private void cargarContadores(HttpServletRequest req, int idUsuario) {
         int totalPublicaciones = publicacionUsuarioDao.contarPublicacionesPorUsuario(idUsuario);
         int totalVendidos = compraDao.contarVentasPorUsuario(idUsuario);

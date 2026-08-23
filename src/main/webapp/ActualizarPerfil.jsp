@@ -21,7 +21,7 @@
       <button class="btn text-white p-0 d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuLateral" aria-expanded="false" aria-controls="menuLateral">
         <i class="bi bi-list fs-1"></i>
       </button>
-      <a href="inicio" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
+      <a href="inicio-js" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-left"></i>
       </a>
       <span class="fw-bold fs-5 tracking-wide">Perfil de Usuario</span>
@@ -53,7 +53,7 @@
 
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="menuLateral">
-                <div class="bg-lf-dark p-3 rounded-lf-sidebar d-flex flex-column gap-2 shadow-sm mb-3 mb-md-0">  <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+                <div class="bg-lf-dark p-3 rounded-lf-sidebar d-flex flex-column gap-2 shadow-sm mb-3 mb-md-0">  <a href="inicio-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
             <i class="bi bi-house me-3 fs-5"></i> Inicio
           </a>
           <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">

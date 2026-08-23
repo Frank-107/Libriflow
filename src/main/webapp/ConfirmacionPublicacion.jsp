@@ -52,7 +52,7 @@
 
         </div>
 
-        <a href="${pageContext.request.contextPath}/inicio" class="btn btn-action-lf shadow-sm w-100 py-2.5 fw-semibold">
+        <a href="${pageContext.request.contextPath}/inicio-js" class="btn btn-action-lf shadow-sm w-100 py-2.5 fw-semibold">
             Entendido
         </a>
 

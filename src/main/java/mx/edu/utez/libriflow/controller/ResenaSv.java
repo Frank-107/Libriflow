@@ -10,11 +10,30 @@ import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
 
+/**
+ * Controlador Servlet encargado de gestionar el envío y registro de reseñas de los libros.
+ *
+ * @author Irvin Abarca Arenas
+ * @since 22/08/2026
+ */
 @WebServlet(name = "ResenaSv", value = "/resena")
 public class ResenaSv extends HttpServlet {
 
     private final ResenaDao resenaDao = new ResenaDao();
 
+    /**
+     * Procesa la petición POST para crear una nueva reseña de un libro.
+     * Valida que el usuario tenga sesión activa, que haya adquirido/rentado el libro
+     * y que la calificación y comentario cumplan con los parámetros requeridos.
+     *
+     * @param req Objeto HttpServletRequest con la información de la solicitud y parámetros del formulario.
+     * @param resp Objeto HttpServletResponse para redireccionar al usuario según el resultado.
+     * @throws ServletException Si ocurre una falla en el Servlet.
+     * @throws IOException Si ocurre un error de lectura/escritura durante el flujo HTTP.
+     *
+     * @author Irvin Abarca Arenas
+     * @since 22/08/2026
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

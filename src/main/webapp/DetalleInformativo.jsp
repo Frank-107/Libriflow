@@ -130,7 +130,7 @@
                     <li>
 
                         <a class="dropdown-item py-2 dropdown-lf-item"
-                           href="${pageContext.request.contextPath}/actualizar-perfil">
+                           href="${pageContext.request.contextPath}/actualizar-perfil-js">
 
                             <i class="bi bi-person me-2"></i>
                             Ver perfil

@@ -1,3 +1,18 @@
+<%--
+  Vista: CrearCuenta.jsp
+  Descripción: Formulario de registro para nuevos usuarios en la plataforma LibriFlow,
+               diseñado para la captura de datos personales, información de contacto
+               institucional (@utez.edu.mx) y creación de credenciales de acceso.
+
+  Acción / Servlet asociado: /crear-cuenta-usuario (POST)
+  Atributos de Request utilizados:
+    - "error" (String, opcional): Mensaje devuelto por el servlet cuando falla la validación o el usuario ya existe.
+    - Parámetros de Request (param.*): Datos previamente ingresados para mantener la persistencia en caso de error.
+
+  @author Abarca Arenas Irvin
+  @author Fuentes Perez Francisco Emmanuel
+  @since 21/08/2026
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
@@ -7,7 +22,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Libriflow - Crear Cuenta</title>
-
+    <!-- Recurso visuales y hojas de estilo -->
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css">
@@ -15,7 +30,7 @@
 <body>
 
 <div class="pantalla-registro">
-
+    <%-- Barra superior de retorno --%>
     <div class="top-bar">
         <a href="index.jsp" class="back-link">&#x2190;</a>
         <h1>Crear cuenta</h1>
@@ -28,6 +43,7 @@
         </div>
 
         <h3 class="card-title">Crea tu cuenta</h3>
+        <%-- Notificación de error devuelta por el servidor --%>
         <c:if test="${not empty error}">
             <div id="errorToast" class="libri-toast libri-toast-error">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -38,9 +54,9 @@
                 <span><c:out value="${error}" escapeXml="true" /></span>
             </div>
         </c:if>
-
+        <%-- Formulario principal de alta de usuario --%>
         <form method="post" action="crear-cuenta-usuario" onsubmit="return validarRegistro(this);">
-
+            <!-- Sección: Datos Personales -->
             <div class="form-section-title">
                 <i class="bi bi-person-vcard me-2"></i> Datos Personales
             </div>
@@ -64,7 +80,7 @@
                            title="Ingresa solo letras (máx. 40 caracteres)">
                 </div>
             </div>
-
+            <!-- Sección: Información de Contacto -->
             <div class="form-section-title">
                 <i class="bi bi-envelope-at me-2"></i> Información de Contacto
             </div>
@@ -82,7 +98,7 @@
                            placeholder="usuario@utez.edu.mx" title="Ingresa tu correo institucional @utez.edu.mx" required>
                 </div>
             </div>
-
+            <!-- Sección: Seguridad -->
             <div class="form-section-title">
                 <i class="bi bi-shield-lock me-2"></i> Seguridad
             </div>
@@ -106,7 +122,7 @@
     </div>
 
 </div>
-
+<!-- Scripts de soporte para componentes e interacciones de cliente -->
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 

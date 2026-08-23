@@ -1,5 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+ * Vista que muestra el historial de publicaciones realizadas por el usuario en sesión.
+ * Permite visualizar la lista completa de sus libros subidos, ver el estado actual
+ * de cada uno (activo, pendiente, rechazado, etc.), ordenarlos por fecha y acceder a
+ * los detalles. Además, permite cancelar publicaciones que aún estén pendientes o rechazadas.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>

@@ -1,5 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+ * Vista principal (Inicio) de la aplicación LibriFlow.
+ * Actúa como el catálogo general donde los usuarios pueden explorar, buscar y filtrar
+ * publicaciones disponibles (tanto del catálogo oficial como de otros usuarios).
+ * Incluye el menú de navegación principal, barra de búsqueda, filtrado por género
+ * y la visualización de tarjetas de libros.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>

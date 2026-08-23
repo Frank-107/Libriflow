@@ -1,3 +1,13 @@
+/**
+ * @file Gestiona la lógica de la vista "Actualizar Perfil".
+ * @description Controla la detección de cambios en el formulario de perfil para habilitar
+ * el botón de guardado. Además, maneja la apertura del modal de confirmación y procesa
+ * la actualización de datos mediante una petición asíncrona (Fetch API), mostrando
+ * alertas dinámicas de éxito o error sin recargar la página.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('formActualizarPerfil');
     const btnAbrirModal = document.getElementById('btnAbrirModal');
@@ -17,6 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
         valoresIniciales[input.name] = input.value;
     });
 
+    /**
+     * Compara los valores actuales de los inputs con los valores iniciales.
+     * Habilita el botón de abrir modal solo si el usuario ha realizado algún cambio.
+     */
     function verificarCambios() {
         let hayCambios = false;
         inputs.forEach(input => {
@@ -85,6 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 
+    /**
+     * Construye y muestra una alerta visual en la interfaz del usuario,
+     * desplazando la pantalla hacia arriba para asegurar que sea visible.
+     *
+     * @param {string} tipo - El tipo de alerta (debe ser 'error' o 'exito').
+     * @param {string} mensaje - El texto que se mostrará dentro de la alerta.
+     */
     function mostrarAlerta(tipo, mensaje) {
         const contenedor = document.getElementById('contenedorAlertas');
         if (!contenedor) return;

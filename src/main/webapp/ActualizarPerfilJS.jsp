@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+ * Vista de la página del perfil de usuario (Mi Perfil).
+ * Muestra los indicadores estadísticos del usuario (publicaciones, rentas, etc.)
+ * y contiene el formulario para actualizar los datos personales y de seguridad.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+--%>
 <!doctype html>
 <html lang="es" class="h-100">
 <head>

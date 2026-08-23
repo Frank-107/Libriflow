@@ -20,6 +20,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Este servlet se encarga de cargar y mostrar el catálogo principal de publicaciones
+ * (tanto de usuarios como de administradores). También gestiona las búsquedas por
+ * texto y los filtros por género, respondiendo de manera tradicional (JSP) o
+ * de forma asíncrona mediante JSON.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+ */
 @WebServlet(name = "InicioSvJS", value = "/inicio-js")
 public class InicioSvJS extends HttpServlet {
 
@@ -27,6 +36,23 @@ public class InicioSvJS extends HttpServlet {
     private final PublicacionAdministradorDao publicacionAdministradorDao = new PublicacionAdministradorDao();
     private final Gson gson = new Gson();
 
+    /**
+     * Procesa las peticiones GET para obtener el catálogo de publicaciones.
+     * Verifica la sesión del usuario, procesa los parámetros de búsqueda y filtros,
+     * realiza validaciones de seguridad (longitud y caracteres extraños) y obtiene
+     * la lista combinada de publicaciones. Si la petición es AJAX, devuelve un
+     * objeto JSON; en caso contrario, redirige a la vista InicioJS.jsp.
+     *
+     * @param req Contiene la solicitud HTTP, incluyendo la sesión, los parámetros
+     *            de búsqueda ("q") y el filtro de género ("genero").
+     * @param resp Permite generar la respuesta HTTP, ya sea redirigiendo a una vista
+     *             o enviando datos en formato JSON.
+     * @throws ServletException Si ocurre un problema interno al despachar hacia la vista.
+     * @throws IOException Si ocurre un problema durante la lectura/escritura de la respuesta HTTP.
+     *
+     * @author Alejandro Mena Pereyda
+     * @since 23/08/2026
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -129,6 +155,19 @@ public class InicioSvJS extends HttpServlet {
         }
     }
 
+    /**
+     * Procesa las peticiones POST delegándolas directamente al método doGet,
+     * permitiendo que el servlet maneje ambos tipos de peticiones (GET y POST)
+     * con la misma lógica de negocio para obtener el catálogo.
+     *
+     * @param req Contiene la solicitud HTTP enviada por el cliente.
+     * @param resp Permite generar la respuesta HTTP correspondiente.
+     * @throws ServletException Si ocurre un problema durante el procesamiento de la solicitud.
+     * @throws IOException Si ocurre un error de entrada/salida al despachar la respuesta.
+     *
+     * @author Alejandro Mena Pereyda
+     * @since 23/08/2026
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);

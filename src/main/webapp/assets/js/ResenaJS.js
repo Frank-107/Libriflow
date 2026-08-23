@@ -1,3 +1,13 @@
+/**
+ * @file Gestiona la lógica para la creación y visualización dinámica de reseñas.
+ * @description Controla el envío asíncrono del formulario de reseñas mediante la Fetch API.
+ * Procesa la respuesta del servidor y actualiza el DOM insertando la nueva reseña
+ * (incluyendo el sistema visual de calificación por estrellas) usando plantillas HTML,
+ * sin necesidad de recargar la página.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const btnEnviarResena = document.getElementById('btnEnviarResena');
     const formCrearResena = document.getElementById('formCrearResena');
@@ -65,6 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     });
 
+    /**
+     * Instancia un template HTML para construir y mostrar notificaciones visuales (toasts)
+     * informando al usuario sobre el resultado de su acción.
+     *
+     * @param {string} tipo - Tipo de la alerta a renderizar ('exito' o 'error'). Define clases CSS e iconos.
+     * @param {string} mensaje - El texto descriptivo que leerá el usuario en la alerta.
+     */
     function mostrarAlerta(tipo, mensaje) {
         if (!contenedorAlertasJS || !templateAlerta) return;
 
@@ -84,6 +101,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         contenedorAlertasJS.innerHTML = '';
+
         contenedorAlertasJS.appendChild(clon);
+        const elementoInsertado = contenedorAlertasJS.lastElementChild;
+
+        setTimeout(() => {
+            if (elementoInsertado) elementoInsertado.classList.add('show');
+        }, 100);
+
+        setTimeout(() => {
+            if (elementoInsertado) {
+                elementoInsertado.classList.remove('show');
+                setTimeout(() => {
+                    elementoInsertado.remove();
+                }, 400);
+            }
+        }, 3500);
     }
 });

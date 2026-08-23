@@ -21,6 +21,13 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Este servlet gestiona la actualización asíncrona del perfil de un usuario,
+ * así como la carga de la vista principal con sus estadísticas actuales.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+ */
 @WebServlet(name = "ActualizarPerfilSvJS", value = "/actualizar-perfil-js")
 public class ActualizarPerfilSvJS extends HttpServlet {
 
@@ -32,6 +39,19 @@ public class ActualizarPerfilSvJS extends HttpServlet {
     private static final int MAX_TEXTO_CORTO = 50;
     private static final int MAX_PASSWORD = 100;
 
+    /**
+     * Maneja las peticiones GET para cargar la vista del perfil del usuario.
+     * Verifica que exista una sesión activa y carga los contadores estadísticos
+     * del usuario antes de redireccionarlo a la página correspondiente.
+     *
+     * @param req Contiene la solicitud HTTP con los datos de la sesión actual.
+     * @param resp Permite generar la respuesta HTTP para la redirección a la vista.
+     * @throws ServletException Si ocurre un problema al procesar la solicitud hacia la vista.
+     * @throws IOException Si ocurre un problema durante el manejo de la solicitud o respuesta HTTP.
+     *
+     * @author Alejandro Mena Pereyda
+     * @since 23/08/2026
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
@@ -47,6 +67,20 @@ public class ActualizarPerfilSvJS extends HttpServlet {
         req.getRequestDispatcher("ActualizarPerfilJS.jsp").forward(req, resp);
     }
 
+    /**
+     * Procesa las peticiones POST enviadas de forma asíncrona para actualizar
+     * la información personal y la contraseña del usuario. Valida los datos
+     * ingresados, encripta la nueva contraseña si fue proporcionada, y devuelve
+     * un objeto JSON con el resultado de la operación.
+     *
+     * @param req Contiene la solicitud HTTP con los nuevos datos del perfil enviados desde el formulario.
+     * @param resp Permite enviar la respuesta en formato JSON al cliente indicando éxito o error.
+     * @throws ServletException Si ocurre un problema durante el procesamiento de la solicitud.
+     * @throws IOException Si ocurre un error de lectura/escritura al enviar la respuesta JSON.
+     *
+     * @author Alejandro Mena Pereyda
+     * @since 23/08/2026
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -193,6 +227,17 @@ public class ActualizarPerfilSvJS extends HttpServlet {
         out.flush();
     }
 
+    /**
+     * Obtiene las estadísticas de actividad del usuario desde la base de datos
+     * y las establece como atributos en la solicitud HTTP para que puedan ser
+     * visualizadas en la interfaz.
+     *
+     * @param req Contiene la solicitud HTTP donde se guardarán los contadores estadísticos.
+     * @param idUsuario Identificador único del usuario del que se consultarán las estadísticas.
+     *
+     * @author Alejandro Mena Pereyda
+     * @since 23/08/2026
+     */
     private void cargarContadores(HttpServletRequest req, int idUsuario) {
         int totalPublicaciones = publicacionUsuarioDao.contarPublicacionesPorUsuario(idUsuario);
         int totalVendidos = compraDao.contarVentasPorUsuario(idUsuario);

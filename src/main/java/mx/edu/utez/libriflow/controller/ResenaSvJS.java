@@ -16,12 +16,35 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Este servlet se encarga de gestionar la creación de reseñas para las publicaciones
+ * mediante peticiones asíncronas. Verifica que el usuario tenga una sesión
+ * activa y que haya adquirido (comprado o rentado) la publicación antes de permitir
+ * guardar el comentario y la calificación en la base de datos.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+ */
 @WebServlet(name = "ResenaSvJS", value = "/resena-js")
 public class ResenaSvJS extends HttpServlet {
 
     private final ResenaDao resenaDao = new ResenaDao();
     private final Gson gson = new Gson();
 
+    /**
+     * Procesa las peticiones HTTP POST enviadas de forma asíncrona para registrar
+     * una nueva reseña de una publicación. Valida la sesión del usuario, comprueba
+     * que tenga permiso para reseñar el libro (por compra o renta previa), verifica
+     * los datos ingresados y devuelve el resultado de la operación en formato JSON.
+     *
+     * @param req Contiene la solicitud HTTP con los parámetros de la reseña (id de publicación, comentario y calificación).
+     * @param resp Permite generar y enviar la respuesta HTTP en formato JSON al cliente indicando el éxito o los errores.
+     * @throws ServletException Si ocurre un error interno en el contenedor de servlets al procesar la solicitud.
+     * @throws IOException Si ocurre un problema de entrada o salida al construir y enviar la respuesta JSON.
+     *
+     * @author Alejandro Mena Pereyda
+     * @since 23/08/2026
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

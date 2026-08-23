@@ -1,3 +1,12 @@
+/**
+ * @file Gestiona la lógica de la vista principal (Catálogo/Inicio).
+ * @description Controla la búsqueda asíncrona de libros con retardo (debounce),
+ * el filtrado por géneros, y la renderización dinámica del catálogo y de las
+ * etiquetas de filtros aplicados utilizando la Fetch API y plantillas HTML.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+ */
 let generoSeleccionado = 'TODOS';
 let timerBusqueda = null;
 
@@ -21,6 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/**
+ * Realiza una petición asíncrona al servidor para obtener las publicaciones
+ * filtradas por el texto de búsqueda y el género seleccionado.
+ * Actualiza la lista de filtros y el catálogo en pantalla.
+ */
 function consultarCatalogo() {
     const inputBusqueda = document.getElementById('input-busqueda');
     const q = inputBusqueda ? inputBusqueda.value : '';
@@ -34,6 +48,10 @@ function consultarCatalogo() {
         .catch(err => console.error(err));
 }
 
+/**
+ * Restablece los parámetros de búsqueda y género a sus valores por defecto,
+ * y vuelve a consultar el catálogo completo.
+ */
 function limpiarFiltros() {
     const inputBusqueda = document.getElementById('input-busqueda');
     if (inputBusqueda) inputBusqueda.value = '';
@@ -42,6 +60,13 @@ function limpiarFiltros() {
     consultarCatalogo();
 }
 
+/**
+ * Actualiza visualmente la sección de "Filtros aplicados" mostrando etiquetas
+ * (badges) para la búsqueda de texto y/o el género seleccionado.
+ *
+ * @param {string} q - El término de búsqueda introducido por el usuario.
+ * @param {string} genero - El género seleccionado para filtrar.
+ */
 function actualizarListaFiltros(q, genero) {
     const contenedor = document.getElementById('contenedor-filtros');
     if (!contenedor) return;
@@ -85,6 +110,14 @@ function actualizarListaFiltros(q, genero) {
     contenedor.appendChild(div);
 }
 
+/**
+ * Genera y muestra las tarjetas de las publicaciones en el DOM utilizando una plantilla.
+ * Filtra automáticamente las publicaciones para no mostrar las que pertenecen al usuario actual.
+ * Si la lista resultante está vacía, muestra un mensaje de "No se encontraron publicaciones".
+ *
+ * @param {Array} publicaciones - Lista de objetos de publicaciones devueltos por el servidor.
+ * @param {number} idUsuarioActual - Identificador del usuario en sesión para ocultar sus propios libros.
+ */
 function renderizarCatalogo(publicaciones, idUsuarioActual) {
     const contenedor = document.getElementById('contenedor-catalogo');
     const plantilla = document.getElementById('plantilla-tarjeta');

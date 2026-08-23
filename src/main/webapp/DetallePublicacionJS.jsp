@@ -2,6 +2,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+ * Vista que muestra los detalles completos de una publicación específica.
+ * Permite visualizar la información detallada del libro (portadas, sinopsis, precio),
+ * leer y escribir reseñas, agregarlo al carrito (para compra o renta) y ofrece
+ * opciones de gestión (editar o eliminar) si el usuario en sesión es el propietario.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>

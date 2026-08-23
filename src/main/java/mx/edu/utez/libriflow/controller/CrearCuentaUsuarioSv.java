@@ -16,7 +16,15 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.regex.Pattern;
-
+/**
+ * El servlet CrearCuentaUsuarioSv gestiona el proceso de registro para los nuevos
+ * usuarios en la plataforma LibriFlow. Realiza la comprobación de campos,
+ * validaciones con expresiones regulares, hashing SHA-256 de la contraseña,
+ * asignación de tokens temporales de sesión y envío de correos de verificación.
+ *
+ * @author Fuentes Perez Francisco Emmanuel
+ * @since 23/08/2026
+ */
 @WebServlet(name = "CrearCuentaUsuarioSv", value = "/crear-cuenta-usuario")
 public class CrearCuentaUsuarioSv extends HttpServlet {
 
@@ -26,12 +34,37 @@ public class CrearCuentaUsuarioSv extends HttpServlet {
     private static final Pattern REGEX_NOMBRE = Pattern.compile("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]{2,40}$");
     private static final Pattern REGEX_CORREO_UTEZ = Pattern.compile("^[a-zA-Z0-9._%+-]+@utez\\.edu\\.mx$");
     private static final Pattern REGEX_TELEFONO = Pattern.compile("^\\d{10}$");
-
+    /**
+     * El método doGet despacha la vista JSP correspondiente al formulario de
+     * creación de cuenta para usuarios.
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @since 23/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre un error en el despacho hacia la vista JSP.
+     * @throws IOException Si ocurre un problema de comunicación de entrada/salida.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
     }
-
+    /**
+     * El método doPost procesa la solicitud de registro de un nuevo usuario. Aplica
+     * un esquema estricto de seguridad (filtrado de vacíos, expresiones regulares para
+     * datos personales, restricción de correo institucional UTEZ, hash SHA-256 para
+     * la contraseña), almacena la información pendiente en la sesión y envía un correo
+     * dinámico con el código de confirmación.
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @since 23/08/2026
+     *
+     * @param req Objeto de solicitud HTTP que contiene los datos del formulario de registro.
+     * @param resp Objeto de respuesta HTTP para canalizar las alertas de error o redirecciones.
+     * @throws ServletException Si ocurre un error al redireccionar o despachar el JSP.
+     * @throws IOException Si ocurre un error en la entrada/salida de datos.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -199,16 +232,47 @@ public class CrearCuentaUsuarioSv extends HttpServlet {
     }
 
     // --- MÉTODOS AUXILIARES DE SEGURIDAD ---
-
+    /**
+     * El metodo isNullOrEmpty evalúa si una cadena de texto es nula o se encuentra vacía tras
+     * remoción de espacios en blanco.
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @since 23/08/2026
+     *
+     * @param str Cadena a evaluar.
+     * @return {@code true} si la cadena es nula o vacía; {@code false} en caso contrario.
+     */
     private boolean isNullOrEmpty(String str) {
         return str == null || str.trim().isEmpty();
     }
-
+    /**
+     * El metodo enviarError adjunta el mensaje descriptivo del error a la solicitud HTTP y desvía la navegación
+     * de vuelta al formulario JSP de creación de cuenta.
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @since 23/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @param mensajeError Cadena de texto con la descripción detallada de la anomalía.
+     * @throws ServletException Si falla el redespacho del recurso JSP.
+     * @throws IOException Si ocurre una falla en la lectura/escritura de la petición.
+     */
     private void enviarError(HttpServletRequest req, HttpServletResponse resp, String mensajeError) throws ServletException, IOException {
         req.setAttribute("error", mensajeError);
         req.getRequestDispatcher("CrearCuenta.jsp").forward(req, resp);
     }
-
+    /**
+     * Método reservado para peticiones HTTP PUT (no implementado).
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @since 23/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre una anomalía de Servlet.
+     * @throws IOException Si ocurre una falla de entrada/salida.
+     */
     private String escapeHtml(String input) {
         if (input == null) return "";
         return input.replace("&", "&amp;")
@@ -217,10 +281,30 @@ public class CrearCuentaUsuarioSv extends HttpServlet {
                 .replace("\"", "&quot;")
                 .replace("'", "&#x27;");
     }
-
+    /**
+     * Método reservado para peticiones HTTP PUT (no implementado).
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre una anomalía de Servlet.
+     * @throws IOException Si ocurre una falla de entrada/salida.
+     */
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
-
+    /**
+     * Método reservado para peticiones HTTP DELETE (no implementado).
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @since 21/08/2026
+     *
+     * @param req Objeto de solicitud HTTP.
+     * @param resp Objeto de respuesta HTTP.
+     * @throws ServletException Si ocurre una anomalía de Servlet.
+     * @throws IOException Si ocurre una falla de entrada/salida.
+     */
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {}
 }

@@ -10,7 +10,7 @@
     - "sessionScope.usuario" (Usuario): Datos del usuario administrador autenticado en sesión.
 
   @author Fuentes Perez Francisco Emmanuel
-  @since 21/08/2026
+  @since 22/08/2026
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

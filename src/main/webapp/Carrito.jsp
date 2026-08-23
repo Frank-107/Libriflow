@@ -1,3 +1,19 @@
+<%--
+  Vista: Carrito.jsp
+  Descripción: Interfaz para la gestión, consulta y procesamiento del carrito de compras
+               del usuario, permitiendo visualizar los libros seleccionados (compra o renta),
+               desglosar costos de envío y proceder al flujo de pago.
+
+  Acción / Servlet asociado: /carrito (GET/POST)
+  Atributos de Request utilizados:
+    - "publicaciones" (List<Publicacion>, opcional): Colección de libros agregados al carrito de compras.
+    - "usuario" (Usuario): Objeto con la información del usuario autenticado en sesión (nombre y correo).
+
+  @author Angelina Perez Andres Gerardo
+  @author Fuentes Perez Francisco Emmanuel
+  @author Martinez Zuñiga Santiago
+  @since 22/08/2026
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,6 +23,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito - LibriFlow</title>
+    <!-- Estilos y recursos visuales del sistema -->
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -15,6 +32,7 @@
 </head>
 <body class="p-3 p-md-4 vh-100 overflow-hidden">
 <div class="container-fluid max-width-xl mx-auto">
+    <%-- Encabezado principal: Datos del usuario y menú contextual --%>
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center gap-2 gap-md-3">
             <button class="btn text-white d-md-none p-0 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
@@ -54,6 +72,7 @@
         </div>
     </header>
     <div class="row g-4">
+        <%-- Menú lateral de navegación rápida para usuarios --%>
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
@@ -84,6 +103,7 @@
                 </div>
             </div>
         </aside>
+            <%-- Contenido principal: Elementos del carrito y cálculo total --%>
         <main class="col-12 col-md-8 col-lg-9">
             <div class="form-container-lf p-4 p-md-5 shadow-sm">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -92,6 +112,7 @@
                     </h4>
                 </div>
                 <c:choose>
+                    <%-- Estado vacío: Cuando no hay productos agregados --%>
                     <c:when test="${empty publicaciones}">
                         <div class="text-center bg-white rounded-4 shadow-sm p-5 mx-auto" style="max-width:480px;">
                             <div class="bg-lf-capsule rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width:90px;height:90px;">
@@ -106,6 +127,7 @@
                             </a>
                         </div>
                     </c:when>
+                    <%-- Listado de libros e información de cobro --%>
                     <c:otherwise>
                         <c:set var="subtotal" value="0"/>
                         <c:set var="contieneEnvio" value="false"/>
@@ -163,6 +185,7 @@
                                                     $<c:out value="${publicacion.precio}"/>
                                                 </p>
                                             </div>
+                                                <%-- Acciones sobre cada ítem (Ver detalle / Eliminar) --%>
                                             <div class="acciones-carrito">
                                                 <c:choose>
                                                     <c:when test="${publicacion.esLibriFlow}">
@@ -189,6 +212,7 @@
                                     <c:set var="subtotal" value="${subtotal + publicacion.precio}"/>
                                 </c:forEach>
                             </div>
+                                <%-- Resumen de la orden y botón de checkout --%>
                             <div class="col-12 col-lg-5 col-xl-4">
                                 <div class="p-3 bg-white rounded-3 shadow-sm text-end">
                                     <h4 class="fw-bold">
@@ -221,6 +245,7 @@
         </main>
     </div>
 </div>
+<!-- Lógica de Bootstrap -->
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>

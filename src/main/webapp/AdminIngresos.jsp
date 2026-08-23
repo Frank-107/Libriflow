@@ -1,3 +1,17 @@
+<%--
+  Vista: IngresosAdmin.jsp
+  Descripción: Vista del módulo de administración para la consulta, filtrado y
+               análisis del reporte general de ingresos, ventas y comisiones
+               obtenidas por la plataforma, desglosados en periodos temporales.
+
+  Acción / Servlet asociado: /ingresos-admin
+  Atributos de Request utilizados:
+    - "ingresos" (List<Ingreso>, opcional): Colección con los registros de compras, ganancia y origen de la publicación.
+    - "sessionScope.usuario" (Usuario): Datos del usuario administrador autenticado en sesión.
+
+  @author Fuentes Perez Francisco Emmanuel
+  @since 21/08/2026
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -7,6 +21,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reporte de Ingresos - LibriFlow</title>
+    <!-- Estilos y recursos visuales del módulo de finanzas -->
     <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -15,7 +30,7 @@
 </head>
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
-    <!-- HEADER -->
+    <%-- Encabezado principal: Identificación del usuario en sesión y controles de navegación --%>
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center">
             <button class="btn text-white d-md-none p-0 border-0 me-1"
@@ -63,7 +78,7 @@
     </header>
 
     <div class="row g-4">
-        <!-- SIDEBAR MENU -->
+        <%-- Menú lateral de navegación con accesos directos de administración --%>
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="menuLateral">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
@@ -89,11 +104,11 @@
             </div>
         </aside>
 
-        <!-- CONTENIDO PRINCIPAL -->
+            <%-- Contenido principal: Métricas KPI y tabla de movimientos financieros --%>
         <main class="col-12 col-md-8 col-lg-9 pb-7">
             <div class="lf-ingresos-wrapper">
 
-                <!-- Encabezado de Sección -->
+                <%-- Encabezado de la sección financiera --%>
                 <div class="lf-ingresos-header">
                     <div>
                         <span class="lf-section-label">FINANZAS & PLATAFORMA</span>
@@ -102,7 +117,7 @@
                     </div>
                 </div>
 
-                <!-- CARDS DE RESUMEN POR PERIODO -->
+                    <%-- Indicadores clave de rendimiento (KPIs) segmentados por periodo --%>
                 <div class="lf-kpi-grid">
                     <!-- Hoy -->
                     <div class="lf-kpi-card">
@@ -116,7 +131,7 @@
                         </div>
                     </div>
 
-                    <!-- Esta Semana -->
+                    <!-- Ganancias de la semana en curso -->
                     <div class="lf-kpi-card">
                         <div class="lf-kpi-icon bg-semana">
                             <i class="bi bi-calendar-week"></i>
@@ -128,7 +143,7 @@
                         </div>
                     </div>
 
-                    <!-- Este Mes -->
+                    <!-- Ganancias del mes actual -->
                     <div class="lf-kpi-card">
                         <div class="lf-kpi-icon bg-mes">
                             <i class="bi bi-calendar-month"></i>
@@ -140,7 +155,7 @@
                         </div>
                     </div>
 
-                    <!-- Total Histórico -->
+                    <!-- Total histórico acumulado -->
                     <div class="lf-kpi-card lf-kpi-card-total">
                         <div class="lf-kpi-icon bg-total">
                             <i class="bi bi-wallet2"></i>
@@ -153,9 +168,9 @@
                     </div>
                 </div>
 
-                <!-- TABLA DE MOVIMIENTOS CON FILTROS DE PERIODO -->
+                    <%-- Tabla interactiva de movimientos con filtros por rango de tiempo --%>
                 <div class="lf-user-info-card lf-movements-card">
-                    <!-- Tabs Navegación de Periodos -->
+                    <!-- Pestañas de filtrado rápido por rango temporal -->
                     <div class="lf-period-tabs-bar">
                         <div class="lf-period-tabs">
                             <button type="button" class="lf-tab-btn active" data-period="total">
@@ -178,7 +193,7 @@
                         </div>
                     </div>
 
-                    <!-- Tabla de Transacciones -->
+                    <!-- Detalle de transacciones registradas -->
                     <div class="lf-table-wrapper">
                         <table class="lf-movements-table" id="tabla-ingresos">
                             <thead>
@@ -212,33 +227,33 @@
                                                 </div>
                                             </td>
 
-                                            <!-- Fecha -->
+                                            <!-- Fecha y Hora -->
                                             <td>
                                                 <span class="lf-table-date">
                                                     <fmt:formatDate value="${item.fecha}" pattern="dd/MM/yyyy HH:mm"/>
                                                 </span>
                                             </td>
 
-                                            <!-- Libro -->
+                                            <!-- Título del Libro -->
                                             <td>
                                                 <span class="lf-book-title"><c:out value="${item.titulo}" /></span>
                                             </td>
 
-                                            <!-- Total Transacción -->
+                                            <!-- Monto Total de la Transacción -->
                                             <td>
                                                 <span class="lf-price-total">
                                                     $<fmt:formatNumber value="${item.precio}" pattern="#,##0.00"/>
                                                 </span>
                                             </td>
 
-                                            <!-- Ganancia LibriFlow -->
+                                            <!-- Ganancia/Comisión obtenida por la plataforma -->
                                             <td>
                                                 <span class="lf-gain-badge">
                                                     +$<fmt:formatNumber value="${item.ganaciaLibriflow}" pattern="#,##0.00"/>
                                                 </span>
                                             </td>
 
-                                            <!-- Origen -->
+                                            <!-- Procedencia de la publicación -->
                                             <td>
                                                 <c:choose>
                                                     <c:when test="${item.esLibriFlow}">
@@ -270,7 +285,7 @@
                                 </c:otherwise>
                             </c:choose>
 
-                            <!-- Fila dinámica si la pestaña no tiene resultados -->
+                            <!-- Mensaje dinámico cuando la pestaña o filtro no arroja resultados -->
                             <tr id="row-empty-filter" style="display: none;">
                                 <td colspan="6">
                                     <div class="lf-empty-movements">
@@ -289,7 +304,7 @@
         </main>
     </div>
 </div>
-
+<!-- Lógica de cliente y manipulación dinámica de ingresos -->
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Ingresos.js"></script>
 

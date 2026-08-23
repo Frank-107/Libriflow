@@ -15,7 +15,7 @@
     HttpSession sessionActual = request.getSession(false);
 
     if (sessionActual == null || sessionActual.getAttribute("pagoRealizado") == null) {
-        response.sendRedirect(request.getContextPath() + "/inicio");
+        response.sendRedirect(request.getContextPath() + "/inicio-js");
         System.out.println("no puedes ver el pago realizado sin haber pagado");
         return;
     }
@@ -23,7 +23,7 @@
 
 %>
 <div class="top-bar">
-    <a href="${pageContext.request.contextPath}/inicio" class="back-link" title="Ir al Inicio">←</a>
+    <a href="${pageContext.request.contextPath}/inicio-js" class="back-link" title="Ir al Inicio">←</a>
     <h1>Confirmación de Compra</h1>
 </div>
 

@@ -21,7 +21,7 @@
       <button class="btn text-white p-0 d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuLateral" aria-expanded="false" aria-controls="menuLateral">
         <i class="bi bi-list fs-1"></i>
       </button>
-      <a href="inicio" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
+      <a href="inicio-js" class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-left"></i>
       </a>
       <span class="fw-bold fs-5 tracking-wide">Perfil de Usuario</span>
@@ -29,7 +29,7 @@
 
     <div class="d-flex align-items-center gap-3">
       <div class="text-end d-none d-md-block">
-        <div class="fw-bold mb-0" style="font-size: 0.95rem;"><c:out value="" /><c:out value="${sessionScope.usuario.nombre}" /></div>
+        <div class="fw-bold mb-0" style="font-size: 0.95rem;"><c:out value="${sessionScope.usuario.nombre}" /></div>
         <small class="text-white-50" style="font-size: 0.8rem;"><c:out value="${sessionScope.usuario.correo}" /></small>
       </div>
 
@@ -54,26 +54,26 @@
     <aside class="col-12 col-md-4 col-lg-3">
       <div class="collapse d-md-block" id="menuLateral">
         <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-          <a href="inicio" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-house me-3 fs-5"></i>Inicio
+          <a href="inicio-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
+            <i class="bi bi-house me-3 fs-5"></i> Inicio
           </a>
           <a href="carrito" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-cart3 me-3 fs-5"></i>Carrito
+            <i class="bi bi-cart3 me-3 fs-5"></i> Carrito
           </a>
           <a href="mis-compras" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-bag-check me-3 fs-5"></i>Compras
+            <i class="bi bi-bag-check me-3 fs-5"></i> Compras
           </a>
           <a href="publicar-libro-usuario" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-pencil-square me-3 fs-5"></i>Publicar
+            <i class="bi bi-pencil-square me-3 fs-5"></i> Publicar
           </a>
           <a href="mis-publicaciones-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-grid-3x3-gap me-3 fs-5"></i>Mis publicaciones
+            <i class="bi bi-grid-3x3-gap me-3 fs-5"></i> Mis publicaciones
           </a>
           <a href="mis-rentas" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-book me-3 fs-5"></i>Mis rentas
+            <i class="bi bi-book me-3 fs-5"></i> Mis rentas
           </a>
           <a href="https://www.instagram.com/libriflow.oficial?igsh=MW9qbmNld2M2ZXNyeA==" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
-            <i class="bi bi-globe me-3 fs-5"></i>Nuestras redes
+            <i class="bi bi-globe me-3 fs-5"></i> Nuestras redes
           </a>
         </div>
       </div>
@@ -95,7 +95,6 @@
             <span><c:out value="${exito}" escapeXml="true" /></span>
           </div>
         </c:if>
-
 
         <form action="actualizar-perfil" id="formActualizarPerfil" method="POST">
           <div class="text-center mb-4">

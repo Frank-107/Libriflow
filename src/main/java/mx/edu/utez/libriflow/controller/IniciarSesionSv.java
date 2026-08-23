@@ -115,7 +115,7 @@ public class IniciarSesionSv extends HttpServlet {
             if ("ADMIN".equalsIgnoreCase(rol)) {
                 resp.sendRedirect("inicio-admin");
             } else {
-                resp.sendRedirect("inicio");
+                resp.sendRedirect("inicio-js");
             }
             return;
         }

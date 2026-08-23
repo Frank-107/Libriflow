@@ -1,3 +1,13 @@
+<%--
+  Vista: Mi Perfil - LibriFlow
+  Descripción: Muestra la información personal, datos de contacto, métricas de actividad
+               (publicaciones, ventas, rentas y retrasos) y el formulario de actualización
+               de perfil para el usuario en sesión.
+
+  @author Mena Pereyda Alejandro
+  @author Anzures Visoso Monserrath
+  @since 22/08/2026
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
@@ -6,7 +16,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Perfil - LibriFlow</title>
-
+  <!-- Estilos y recursos visuales -->
   <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -15,7 +25,7 @@
 <body class="p-3 p-md-4 vh-100 overflow-hidden d-flex flex-column">
 
 <div class="container-fluid max-width-xl mx-auto h-100 d-flex flex-column">
-
+  <%-- Encabezado principal: Barra superior con datos básicos del usuario en sesión --%>
   <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 flex-shrink-0">
     <div class="d-flex align-items-center gap-3">
       <button class="btn text-white p-0 d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuLateral" aria-expanded="false" aria-controls="menuLateral">
@@ -50,7 +60,7 @@
   </header>
 
   <div class="row g-4 flex-grow-1 overflow-hidden">
-
+    <%-- Menú lateral de navegación --%>
     <aside class="col-12 col-md-4 col-lg-3">
       <div class="collapse d-md-block" id="menuLateral">
         <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
@@ -78,10 +88,10 @@
         </div>
       </div>
     </aside>
-
+      <%-- Contenido principal: Métricas y formulario de edición del perfil --%>
     <main class="col-12 col-md-8 col-lg-9 h-100 overflow-y-auto pe-2 d-flex justify-content-center align-items-start">
       <div class="perfil-card-container mt-2 w-100 pb-5">
-
+        <%-- Mensajes flotantes de notificación (Toast Error/Éxito) --%>
         <c:if test="${not empty error}">
           <div class="libri-toast libri-toast-error">
             <i class="bi bi-exclamation-circle-fill fs-5"></i>
@@ -96,7 +106,7 @@
           </div>
         </c:if>
 
-
+          <%-- Formulario para actualizar información del usuario --%>
         <form action="actualizar-perfil" id="formActualizarPerfil" method="POST">
           <div class="text-center mb-4">
             <div class="position-relative d-inline-block mt-2">
@@ -105,7 +115,7 @@
               </div>
             </div>
           </div>
-
+          <%-- Métricas de interacción del usuario --%>
           <div class="d-flex justify-content-evenly align-items-center mb-4 py-3 rounded-4 bg-white shadow-sm border border-light mx-auto" style="max-width: 550px;">
             <div class="text-center px-2">
               <span class="d-block fs-5 fw-bold text-dark">${totalPublicaciones != null ? totalPublicaciones : 0}</span>
@@ -127,7 +137,7 @@
               <span class="text-muted" style="font-size: 0.8rem;">Retrasos</span>
             </div>
           </div>
-
+          <%-- Sección: Datos Personales --%>
           <h6 class="fw-bold mb-3 mt-4" style="color: #4A4641;"><i class="bi bi-person-vcard me-2"></i>Datos Personales</h6>
           <div class="row g-3 mb-4">
             <div class="col-12" style="grid-column: span 2;">
@@ -145,7 +155,7 @@
           </div>
 
           <hr class="text-muted opacity-25 mb-4">
-
+          <%-- Sección: Datos de Contacto --%>
           <h6 class="fw-bold mb-3" style="color: #4A4641;"><i class="bi bi-envelope-at me-2"></i>Contacto</h6>
           <div class="row g-3 mb-4">
             <div class="col-md-6">
@@ -159,7 +169,7 @@
           </div>
 
           <hr class="text-muted opacity-25 mb-4">
-
+          <%-- Sección: Cambio de Contraseña --%>
           <h6 class="fw-bold mb-3" style="color: #4A4641;"><i class="bi bi-shield-lock me-2"></i>Seguridad de la Cuenta</h6>
           <div class="row g-3 mb-4">
             <div class="col-md-6">
@@ -182,6 +192,7 @@
   </div>
 </div>
 
+<%-- Modal de confirmación antes de procesar el envío del formulario --%>
 <div class="modal fade" id="modalConfirmarActualizacion" tabindex="-1" aria-labelledby="modalConfirmarLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow-lg" style="border-radius: 40px; background-color: #e3ded7; color: #4A4641; border: none;">
@@ -210,7 +221,7 @@
     </div>
   </div>
 </div>
-
+<!-- Scripts de interacción y lógica en cliente -->
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/ActualizarPerfil.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>

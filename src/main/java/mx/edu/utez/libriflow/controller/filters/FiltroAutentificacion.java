@@ -9,12 +9,39 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-
+/**
+ * El filtro FiltroAutentificacion intercepta todas las peticiones HTTP del sistema
+ * para gestionar la autenticación y el control de acceso a las vistas de LibriFlow.
+ * Evalúa el rol almacenado en la sesión del usuario (ADMIN o usuario convencional)
+ * y restringe el acceso a rutas privadas, administrativas o de inicio de sesión.
+ *
+ * @author Fuentes Perez Francisco Emmanuel
+ * @author Abarca Arenas Irvin
+ * @author Angelina Perez Andres Gerardo
+ * @since 23/08/2026
+ */
 @WebFilter("/*")
 public class FiltroAutentificacion extends HttpFilter {
 
     private static final String ROL_ADMIN = "ADMIN";
 
+    /**
+     * Evalúa las solicitudes HTTP entrantes, identificando la ruta solicitada y el
+     * estado de la sesión activa del usuario. Canaliza la navegación permitiendo
+     * recursos públicos, restringiendo zonas administrativas y redirigiendo usuarios
+     * no autenticados o con permisos insuficientes.
+     *
+     * @author Fuentes Perez Francisco Emmanuel
+     * @author Abarca Arenas Irvin
+     * @author Angelina Perez Andres Gerardo
+     * @since 23/08/2026
+     *
+     * @param req Objeto de solicitud HTTP interceptado.
+     * @param res Objeto de respuesta HTTP para procesar redirecciones.
+     * @param chain Cadena de filtros para continuar la ejecución de la petición.
+     * @throws IOException Si ocurre un error de entrada/salida durante el filtrado o redirección.
+     * @throws ServletException Si ocurre una anomalía en el procesamiento del contenedor web.
+     */
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws IOException, ServletException {

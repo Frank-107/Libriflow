@@ -93,7 +93,7 @@ public class DetallePublicacionAdminSv extends HttpServlet {
         req.setAttribute("publicacion", publicacionAdminCompleta);
         req.setAttribute("esAdminPub", true);
 
-        req.getRequestDispatcher("/DetallePublicacion.jsp").forward(req, resp);
+        req.getRequestDispatcher("/DetallePublicacionJS.jsp").forward(req, resp);
     }
 
     /**

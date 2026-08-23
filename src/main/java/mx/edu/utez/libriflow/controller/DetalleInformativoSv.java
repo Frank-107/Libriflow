@@ -12,15 +12,61 @@ import mx.edu.utez.libriflow.model.Usuario;
 
 import java.io.IOException;
 
+/**
+ *
+ * Este servlet se encarga de mostrar la información detallada de una publicación.
+ * Permite consultar publicaciones pertenecientes a usuarios o a LibriFlow y enviar
+ * la información correspondiente a la vista de detalle.
+ *
+ * @author Andres Gerardo Angelina Perez
+ * @since 22/08/2026
+ */
 @WebServlet(name = "DetalleInformativoSv", value = "/detalle-informativo")
 public class DetalleInformativoSv extends HttpServlet {
 
+    /**
+     *
+     * DAO utilizado para consultar la información de las publicaciones realizadas
+     * por los usuarios.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 22/08/2026
+     */
     private final PublicacionUsuarioDao publicacionUsuarioDao =
             new PublicacionUsuarioDao();
 
+    /**
+     *
+     * DAO utilizado para consultar la información de las publicaciones
+     * administradas directamente por LibriFlow.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 22/08/2026
+     */
     private final PublicacionAdministradorDao publicacionAdministradorDao =
             new PublicacionAdministradorDao();
 
+    /**
+     *
+     * Este método se encarga de obtener y mostrar la información detallada de una
+     * publicación seleccionada por el usuario. Primero verifica que exista una sesión
+     * activa, valida los parámetros recibidos y determina si la publicación pertenece
+     * a un usuario o a LibriFlow. Finalmente envía la información obtenida a la vista
+     * DetalleInformativo.jsp.
+     *
+     * @param req Contiene la solicitud HTTP y los parámetros enviados para consultar
+     *            la publicación.
+     * @param resp Permite generar la respuesta HTTP y realizar las redirecciones
+     *             necesarias.
+     *
+     * @throws ServletException Si ocurre un problema al procesar o enviar la solicitud
+     *                          hacia la vista.
+     * @throws IOException Si ocurre un problema durante el manejo de la solicitud
+     *                     o respuesta HTTP.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 22/08/2026
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

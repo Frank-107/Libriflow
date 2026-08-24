@@ -10,9 +10,30 @@ import jakarta.servlet.http.HttpSession;
 import javax.lang.model.util.SimpleElementVisitor7;
 import java.io.IOException;
 
+/**
+ * Controlador Servlet encargado de gestionar la captura y validación de la dirección de envío.
+ * Verifica la sesión activa del usuario para permitir el acceso, valida los campos del formulario
+ * de entrega y calcula el costo de envío según la ubicación geográfica antes de proceder al pago.
+ *
+ * @author Monserrath Anzurez
+ * @since 23/08/26
+ */
 @WebServlet(name = "DireccionEnvioSv", value = "/direccion-envio")
 public class DireccionEnvioSv extends HttpServlet {
 
+    /**
+     * Procesa las peticiones GET para mostrar el formulario de dirección de envío.
+     * Verifica que el usuario cuente con los permisos de navegación en sesión ("puedeDireccion");
+     * de lo contrario, reorienta el flujo hacia la página de inicio.
+     *
+     * @param req Objeto HttpServletRequest que contiene la sesión del usuario.
+     * @param resp Objeto HttpServletResponse para realizar la redirección o el reenvío de la vista.
+     * @throws ServletException Si ocurre una falla en el Servlet al reenviar la vista JSP.
+     * @throws IOException Si ocurre un error de lectura/escritura durante el procesamiento HTTP.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -24,6 +45,19 @@ public class DireccionEnvioSv extends HttpServlet {
         req.getRequestDispatcher("DireccionEnvio.jsp").forward(req, resp);
     }
 
+    /**
+     * Procesa las peticiones POST para validar los datos de la dirección de envío ingresados por el usuario.
+     * Comprueba restricciones de campos vacíos, caracteres no permitidos y formato de código postal.
+     * Calcula la tarifa de envío según el estado seleccionado y habilita el paso hacia la validación de tarjeta.
+     *
+     * @param req Objeto HttpServletRequest con los parámetros del formulario de dirección (destinatario, calle, C.P., etc.).
+     * @param resp Objeto HttpServletResponse para redireccionar al siguiente paso o recargar el formulario con errores.
+     * @throws ServletException Si ocurre un error interno en la ejecución del Servlet.
+     * @throws IOException Si ocurre un error de E/S durante las redirecciones HTTP.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

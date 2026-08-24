@@ -1,3 +1,10 @@
+<%--
+    Documento   : EditarPublicacion.jsp
+    Autor       : Monserrath Anzurez
+    Fecha       : 23/08/26
+    Descripción : Vista JSP para la edición de datos e imágenes de una publicación de usuario en LibriFlow.
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>

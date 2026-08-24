@@ -13,8 +13,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Objeto de Acceso a Datos (DAO) encargado de gestionar las operaciones CRUD y consultas
+ * de persistencia sobre las publicaciones de usuarios (`publicacion_us`) en la base de datos.
+ *
+ * @author Monserrath Anzurez
+ * @since 23/08/26
+ */
 public class PublicacionUsuarioDao {
 
+    /**
+     * Inserta una nueva publicación enviada por un usuario con estado por defecto 'PENDIENTE'.
+     *
+     * @param entidad Objeto {@link PublicacionUsuario} con la información de usuario, libro, sinopsis y precio.
+     * @return El identificador entero (`id_publicacion_us`) generado por la base de datos, o `-1` si ocurre un error.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public int create(PublicacionUsuario entidad) {
 
         String sql = """
@@ -66,14 +82,15 @@ public class PublicacionUsuarioDao {
         }
     }
 
-    /*
-     * Se conserva porque puede ser utilizado por otras partes
-     * del proyecto.
+    /**
+     * Elimina físicamente una publicación por su ID, eliminando en cascada sus imágenes y el libro asociado.
+     * <p><strong>Nota:</strong> Solo permite borrar publicaciones en estado 'PENDIENTE' o 'RECHAZADO'.</p>
      *
-     * IMPORTANTE:
-     * solamente permite borrar publicaciones PENDIENTE o RECHAZADO.
+     * @param idPublicacion Identificador único de la publicación a eliminar.
+     * @return `true` si la eliminación en transacción fue exitosa; `false` en caso contrario.
      *
-     * ACTIVO y VENDIDO quedan protegidos.
+     * @author Monserrath Anzurez
+     * @since 23/08/26
      */
     public boolean deletePublicacionById(int idPublicacion) {
 
@@ -176,6 +193,16 @@ public class PublicacionUsuarioDao {
         }
     }
 
+    /**
+     * Consulta y devuelve las publicaciones de un usuario ordenadas por fecha de creación.
+     *
+     * @param idUsuario Identificador del usuario.
+     * @param orden Criterio de ordenamiento ('antiguas' para ascendente; de lo contrario, descendente).
+     * @return Lista de objetos {@link PublicacionResumen} con las publicaciones del usuario.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public List<PublicacionResumen> getResumenPublicacionesPorUsuario(
             int idUsuario,
             String orden) {
@@ -268,6 +295,15 @@ public class PublicacionUsuarioDao {
         return lista;
     }
 
+    /**
+     * Consulta el detalle completo de una publicación de usuario incluyendo sus imágenes asociadas.
+     *
+     * @param id Identificador único de la publicación del usuario.
+     * @return Objeto {@link PublicacionUsuarioCompleta} cargado con todos los campos, o `null` si no existe.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public PublicacionUsuarioCompleta getPublicacionUsuarioCompleta(
             int id) {
 
@@ -396,19 +432,15 @@ public class PublicacionUsuarioDao {
         }
     }
 
-    /*
-     * Se usa para cargar las publicaciones guardadas
-     * en el carrito de la sesión actual.
+    /**
+     * Obtiene el resumen de publicaciones activas correspondientes a una lista de identificadores.
+     * Utilizado para cargar los ítems guardados en el carrito de compras.
      *
-     * El carrito solamente vive mientras la sesión esté activa.
-     * Cuando el usuario cierra sesión o la sesión expira,
-     * el carrito se elimina.
+     * @param ids Lista de enteros con los identificadores de las publicaciones.
+     * @return Lista de objetos {@link PublicacionResumen} cuyo estado sea 'ACTIVO'.
      *
-     * Solo se devuelven publicaciones con estado ACTIVO.
-     *
-     * Esto evita que una publicación que fue vendida mientras
-     * otro usuario todavía la tenía en su carrito pueda seguir
-     * tratándose como disponible para compra.
+     * @author Monserrath Anzurez
+     * @since 23/08/26
      */
     public List<PublicacionResumen> getPublicacionesByArreglo(
             List<Integer> ids) {
@@ -511,6 +543,15 @@ public class PublicacionUsuarioDao {
         return lista;
     }
 
+    /**
+     * Consulta todas las publicaciones pertenecientes a un usuario en particular.
+     *
+     * @param idUsuario Identificador único del usuario.
+     * @return Lista de objetos {@link PublicacionResumen} vinculados al usuario.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public List<PublicacionResumen> getResumenPublicacionesPorUsuario(
             int idUsuario) {
 
@@ -593,13 +634,21 @@ public class PublicacionUsuarioDao {
         return lista;
     }
 
-    /*
-     * Control básico de transiciones de estado.
+    /**
+     * Transiciona el estado de una publicación conforme a las reglas del flujo del sistema:
+     * <ul>
+     *     <li>PENDIENTE &rarr; ACTIVO</li>
+     *     <li>PENDIENTE &rarr; RECHAZADO</li>
+     *     <li>RECHAZADO &rarr; PENDIENTE</li>
+     *     <li>ACTIVO &rarr; VENDIDO</li>
+     * </ul>
      *
-     * PENDIENTE -> ACTIVO
-     * PENDIENTE -> RECHAZADO
-     * RECHAZADO -> PENDIENTE
-     * ACTIVO -> VENDIDO
+     * @param idPublicacion Identificador único de la publicación.
+     * @param nuevoEstado Cadena con el nuevo estado a asignar.
+     * @return `true` si el estado fue actualizado exitosamente; `false` en caso contrario.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
      */
     public boolean cambiarEstadoPublicacion(
             int idPublicacion,
@@ -672,22 +721,54 @@ public class PublicacionUsuarioDao {
         }
     }
 
+    /**
+     * Obtiene una lista general de publicaciones.
+     *
+     * @return Lista vacía de publicaciones.
+     */
     public List<PublicacionUsuario> getAll() {
         return List.of();
     }
 
+    /**
+     * Obtiene una publicación por ID.
+     *
+     * @param id Identificador entero.
+     * @return `null`.
+     */
     public PublicacionUsuario getById(Integer id) {
         return null;
     }
 
+    /**
+     * Actualiza una entidad de publicación de usuario.
+     *
+     * @param entidad Objeto a actualizar.
+     * @return `false`.
+     */
     public boolean update(PublicacionUsuario entidad) {
         return false;
     }
 
+    /**
+     * Elimina una publicación por ID entero.
+     *
+     * @param id Identificador.
+     * @return `false`.
+     */
     public boolean delete(Integer id) {
         return false;
     }
 
+    /**
+     * Contabiliza el número total de publicaciones en estado 'ACTIVO' pertenecientes a un usuario.
+     *
+     * @param idUsuario Identificador único del usuario.
+     * @return La cantidad total entera de publicaciones activas.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public int contarPublicacionesPorUsuario(
             int idUsuario) {
 
@@ -720,6 +801,17 @@ public class PublicacionUsuarioDao {
         return 0;
     }
 
+    /**
+     * Busca y filtra las publicaciones de los usuarios según el estado, coincidencia por título/autor y género literario.
+     *
+     * @param estado Estado de la publicación requerido (ej. 'ACTIVO').
+     * @param busqueda Cadena opcional para filtrar por coincidencias en el título o autor del libro.
+     * @param genero Cadena opcional con el género literario a filtrar.
+     * @return Lista de objetos {@link PublicacionResumen} que cumplen los criterios de búsqueda.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public List<PublicacionResumen> buscarYFiltrarPublicacionesUs(
             String estado,
             String busqueda,
@@ -869,14 +961,15 @@ public class PublicacionUsuarioDao {
         return lista;
     }
 
-    /*
-     * REGLA DE NEGOCIO:
+    /**
+     * Modifica el estado de una publicación de usuario a 'RECHAZADO' (baja lógica).
      *
-     * solamente PENDIENTE o RECHAZADO pueden modificarse.
+     * @param idPublicacionUs Identificador único de la publicación a actualizar.
+     * @return `true` si el estado se cambió correctamente; `false` en caso contrario.
      *
-     * ACTIVO y VENDIDO quedan bloqueados.
+     * @author Monserrath Anzurez
+     * @since 23/08/26
      */
-
     public boolean darDeBajaPublicacionUsuario(int idPublicacionUs) {
         String sql = "UPDATE publicacion_us SET estado = 'RECHAZADO' WHERE id_publicacion_us = ?";
 
@@ -895,6 +988,23 @@ public class PublicacionUsuarioDao {
         }
     }
 
+    /**
+     * Actualiza la información del libro y la publicación dentro de una transacción.
+     * <p><strong>Nota:</strong> Si la publicación estaba en estado 'RECHAZADO', vuelve automáticamente a 'PENDIENTE'.</p>
+     *
+     * @param idPublicacion Identificador único de la publicación.
+     * @param idUsuario Identificador del usuario propietario.
+     * @param titulo Nuevo título del libro.
+     * @param autor Nuevo autor del libro.
+     * @param editorial Nueva editorial del libro.
+     * @param genero Nuevo género del libro.
+     * @param sinopsis Nueva sinopsis del libro.
+     * @param precio Nuevo precio asignado.
+     * @return `true` si la actualización fue exitosa; `false` si no se pudo actualizar o falló la transacción.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public boolean actualizarPublicacionCompleta(
             int idPublicacion,
             int idUsuario,
@@ -994,11 +1104,6 @@ public class PublicacionUsuarioDao {
                 }
             }
 
-            /*
-             * Si estaba RECHAZADO y el usuario lo corrige,
-             * vuelve automáticamente a PENDIENTE para que
-             * el administrador tenga que revisarlo otra vez.
-             */
             String nuevoEstado =
                     "RECHAZADO".equalsIgnoreCase(
                             estadoActual
@@ -1084,13 +1189,16 @@ public class PublicacionUsuarioDao {
         }
     }
 
-    /*
-     * REGLA DE NEGOCIO:
+    /**
+     * Elimina una publicación junto con sus imágenes y libro asociado cuando pertenezca al usuario que lo solicita.
+     * <p><strong>Nota:</strong> Solamente pueden eliminarse publicaciones en estado 'PENDIENTE' o 'RECHAZADO'.</p>
      *
-     * solamente PENDIENTE o RECHAZADO pueden eliminarse.
+     * @param idPublicacion Identificador de la publicación a eliminar.
+     * @param idUsuario Identificador del propietario de la publicación.
+     * @return `true` si la eliminación fue exitosa; `false` si falló la operación o no se cumplieron las reglas.
      *
-     * ACTIVO y VENDIDO nunca se borran porque ya forman
-     * parte del flujo operativo/histórico del sistema.
+     * @author Monserrath Anzurez
+     * @since 23/08/26
      */
     public boolean eliminarPublicacionPropietario(
             int idPublicacion,
@@ -1180,7 +1288,9 @@ public class PublicacionUsuarioDao {
                         idUsuario
                 );
 
-                if (ps.executeUpdate() == 0) {
+                int filas = ps.executeUpdate();
+
+                if (filas == 0) {
                     con.rollback();
                     return false;
                 }

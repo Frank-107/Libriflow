@@ -12,8 +12,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Objeto de Acceso a Datos (DAO) encargado de gestionar las operaciones CRUD y consultas
+ * de persistencia sobre las publicaciones oficiales del administrador (`Publicacion_Lf`) en la base de datos.
+ *
+ * @author Monserrath Anzurez
+ * @since 23/08/26
+ */
 public class PublicacionAdministradorDao {
 
+    /**
+     * Inserta una nueva publicación oficial realizada por el administrador y retorna su clave primaria.
+     *
+     * @param entidad Objeto {@link PublicacionAdministrador} con los datos de sinopsis, stock, modalidad y precio.
+     * @return El identificador entero (`ID_PUBLICACION_LF`) generado por la base de datos, o `-1` si ocurre un error.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public int create(PublicacionAdministrador entidad){
         String sql = "Insert into Publicacion_Lf (ID_Libro, Sinopsis, Cantidad, Es_venta, Es_renta, Precio) values(?, ?, ?, ?, ?, ?)";
         try(Connection con = SQLconnector.getConnection();
@@ -42,6 +58,14 @@ public class PublicacionAdministradorDao {
         }
     }
 
+    /**
+     * Obtiene el listado simplificado de todas las publicaciones activas del administrador para la vista de catálogo.
+     *
+     * @return Lista de objetos {@link PublicacionResumen} con los datos esenciales e imagen principal de cada publicación.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public List<PublicacionResumen> getResumenCatalogo() {
 
         List<PublicacionResumen> lista = new ArrayList<>();
@@ -91,6 +115,15 @@ public class PublicacionAdministradorDao {
         return lista;
     }
 
+    /**
+     * Consulta la información detallada e imágenes asociadas de una publicación de administración por su identificador.
+     *
+     * @param idPublicacionLf Identificador único de la publicación del administrador.
+     * @return Objeto {@link PublicacionAdminCompleta} cargado con los metadatos e imágenes, o `null` si no se encuentra.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public PublicacionAdminCompleta getPublicacionAdminCompleta(int idPublicacionLf) {
         PublicacionAdminCompleta publicacion = null;
 
@@ -154,6 +187,16 @@ public class PublicacionAdministradorDao {
 
         return publicacion;
     }
+
+    /**
+     * Reduce en una unidad el stock/inventario disponible de una publicación si la cantidad actual es mayor a 0.
+     *
+     * @param idPublicacion Identificador único de la publicación a actualizar.
+     * @return `true` si se logró decrementar el inventario; `false` en caso contrario o si no había existencias.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public boolean disminuirInventario(int idPublicacion) {
         String sql = "UPDATE PUBLICACION_LF " +
                 "SET CANTIDAD = CANTIDAD - 1 " +
@@ -175,6 +218,15 @@ public class PublicacionAdministradorDao {
         }
     }
 
+    /**
+     * Cambia el estado de una publicación del administrador a 'INACTIVO' (baja lógica).
+     *
+     * @param idPublicacionLf Identificador único de la publicación a inactivar.
+     * @return `true` si el estado fue actualizado correctamente; `false` si ocurre algún error.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     public boolean darDeBajaPublicacionAdmin(int idPublicacionLf) {
         String sql = "UPDATE publicacion_lf SET estado = 'INACTIVO' WHERE id_publicacion_lf = ?";
 

@@ -1,3 +1,10 @@
+<%--
+    Documento   : MisCompras.jsp
+    Autor       : Monserrath Anzurez
+    Fecha       : 23/08/26
+    Descripción : Vista JSP para consultar el historial de compras realizadas por el usuario en LibriFlow.
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>

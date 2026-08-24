@@ -15,11 +15,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Controlador Servlet encargado de gestionar la vista principal del panel de administración.
+ * Realiza la verificación de la sesión y del rol de Administrador, consulta y unifica las publicaciones
+ * tanto de usuarios como institucionales, aplica filtros por búsqueda de texto y género, y desordena
+ * aleatoriamente el catálogo cuando no existen filtros activos.
+ *
+ * @author Monserrath Anzurez
+ * @since 23/08/26
+ */
 @WebServlet(name = "InicioAdminSv", value = "/inicio-admin")
 public class InicioAdminSv extends HttpServlet {
+
+    /** Objeto DAO para consultar las publicaciones activas realizadas por los usuarios. */
     private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
+
+    /** Objeto DAO para recuperar los resúmenes del catálogo de publicaciones oficiales de LibriFlow. */
     private final PublicacionAdministradorDao publicacionAdministradorDao = new PublicacionAdministradorDao();
 
+    /**
+     * Procesa las peticiones GET para construir y mostrar el catálogo unificado para el administrador.
+     * Valida que exista una sesión activa con el rol 'ADMIN', recopila y filtra las publicaciones
+     * de administración y de usuarios según los parámetros de consulta recibidos, y despacha
+     * los resultados a la vista `InicioAdmin.jsp`.
+     *
+     * @param req Objeto HttpServletRequest que transporta la sesión del usuario y los parámetros de búsqueda (`q` y `genero`).
+     * @param resp Objeto HttpServletResponse para manejar la redirección de seguridad o el despacho de la vista.
+     * @throws ServletException Si ocurre un fallo interno en la ejecución del Servlet al reenviar la vista.
+     * @throws IOException Si ocurre una falla de E/S durante la comunicación HTTP.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);

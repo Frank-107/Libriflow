@@ -3,7 +3,6 @@
     Descripción: Vista personalizada de error 500 (Error interno del servidor) adaptada a la identidad visual de LibriFlow.
     Autor: Francisco Emmanuel Fuentes Pérez
     since 22/08/2026
-
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -26,12 +25,12 @@
 
     <%-- Logo institucional LibriFlow --%>
     <div class="logo-area mb-2">
-        <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png"
+        <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
              alt="Logotipo LibriFlow"
              class="logo-img-completo">
     </div>
 
-    <%-- Ilustración / Código de error visual con engrane --%>
+    <%-- Ilustración / Código de error visual con engrane/servidor --%>
     <div class="error-code-wrapper">
         <span class="error-number">5</span>
         <div class="error-icon-capsule">

@@ -1,17 +1,34 @@
+/**
+ * @fileoverview Cálculo de métricas financieras (KPIs) y filtrado dinámico de ingresos en LibriFlow.
+ *
+ * Procesa en el cliente las filas de transacciones para calcular ganancias y conteos
+ * desglosados por periodos (Hoy, Esta Semana, Este Mes, Total Histórico), actualizando
+ * las tarjetas de indicadores principales y permitiendo la filtración por pestañas.
+ *
+ * @author Francisco Emmanuel Fuentes Pérez
+ * @version 1.0
+ * @since 25/08/2026
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Obtención de referencias a las filas de transacciones registradas
     const rows = Array.from(document.querySelectorAll('.lf-ingreso-row'));
     if (rows.length === 0) return;
 
-    // Tiempos de referencia (Hoy, Semana, Mes)
+    // 2. Cálculo de marcas de tiempo de referencia (Hoy, Semana actual, Mes actual)
     const now = new Date();
 
+    // Inicio del día actual (00:00:00 hrs)
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
 
-    const currentDayOfWeek = now.getDay() === 0 ? 6 : now.getDay() - 1; // Lunes = 0
+    // Inicio de la semana actual (Lunes a las 00:00:00 hrs)
+    const currentDayOfWeek = now.getDay() === 0 ? 6 : now.getDay() - 1; // Ajuste para considerar Lunes = 0
     const startOfWeek = new Date(now.getFullYear(), now.getMonth(), now.getDate() - currentDayOfWeek).getTime();
 
+    // Inicio del mes actual (Día 1 a las 00:00:00 hrs)
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
 
+    // Estructura contenedora para totales de ganancias y conteo por período
     let totals = {
         hoy: { ganancia: 0, count: 0 },
         semana: { ganancia: 0, count: 0 },
@@ -19,38 +36,42 @@ document.addEventListener('DOMContentLoaded', () => {
         total: { ganancia: 0, count: 0 }
     };
 
-    // Recorrer filas y sumar
+    // 3. Iteración sobre las filas para procesar y acumular montos de ganancias
     rows.forEach(row => {
         const timeMs = parseInt(row.getAttribute('data-time'), 10);
         const ganancia = parseFloat(row.getAttribute('data-ganancia')) || 0;
 
-        // Total
+        // Acumulado Total Histórico
         totals.total.ganancia += ganancia;
         totals.total.count++;
 
-        // Mes
+        // Acumulado del Mes
         if (timeMs >= startOfMonth) {
             totals.mes.ganancia += ganancia;
             totals.mes.count++;
         }
 
-        // Semana
+        // Acumulado de la Semana
         if (timeMs >= startOfWeek) {
             totals.semana.ganancia += ganancia;
             totals.semana.count++;
         }
 
-        // Hoy
+        // Acumulado de Hoy
         if (timeMs >= startOfToday) {
             totals.hoy.ganancia += ganancia;
             totals.hoy.count++;
         }
     });
 
-    // Formateador de Moneda
+    /**
+     * Formatea valores numéricos a formato de moneda local en Pesos Mexicanos (MXN).
+     * @param {number} val Monto numérico a transformar.
+     * @returns {string} Cadena formateada como moneda (ej. "$1,250.00").
+     */
     const fmt = (val) => '$' + val.toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    // Actualizar KPIs superiores
+    // 4. Actualización visual de los paneles KPI superiores
     document.getElementById('kpi-hoy').textContent = fmt(totals.hoy.ganancia);
     document.getElementById('count-hoy').textContent = `${totals.hoy.count} transacciones`;
 
@@ -63,11 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('kpi-total').textContent = fmt(totals.total.ganancia);
     document.getElementById('count-total').textContent = `${totals.total.count} transacciones`;
 
-    // Manejo de pestañas
+    // 5. Configuración del filtrado dinámico por pestañas de período
     const tabs = document.querySelectorAll('.lf-tab-btn');
     const emptyFilterRow = document.getElementById('row-empty-filter');
     const tabSumDisplay = document.getElementById('tab-sum-display');
 
+    /**
+     * Filtra la visibilidad de las filas en la tabla según el período seleccionado.
+     * @param {string} period Período a evaluar ('hoy', 'semana', 'mes', 'total').
+     */
     function filterPeriod(period) {
         let visibleCount = 0;
         let sumPeriod = 0;
@@ -91,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Muestra mensaje alternativo si no se encuentran registros en el rango seleccinado
         if (emptyFilterRow) {
             emptyFilterRow.style.display = visibleCount === 0 ? '' : 'none';
         }
@@ -98,6 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tabSumDisplay.textContent = fmt(sumPeriod);
     }
 
+    // Asignación de manejadores de eventos a los botones de pestañas
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
@@ -106,6 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Filtro inicial por defecto
+    // Filtro inicial por defecto (muestra todo el historial)
     filterPeriod('total');
 });

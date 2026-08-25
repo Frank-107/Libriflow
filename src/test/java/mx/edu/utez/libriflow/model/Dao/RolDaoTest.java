@@ -1,0 +1,21 @@
+package mx.edu.utez.libriflow.model.Dao;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class RolDaoTest {
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @Test
+    void create() {
+    }
+
+    @Test
+    void obtenerRol() {
+    }
+}

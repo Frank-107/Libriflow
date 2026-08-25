@@ -2,6 +2,7 @@
     Archivo: usuarios-admin.jsp
     Descripción: Vista del panel de administración para la gestión y visualización de usuarios registrados en LibriFlow.
     Autor: Francisco Emmanuel Fuentes Pérez
+    since 22/08/2026
 
     Atributos requeridos en request/session:
         - sessionScope.usuario : Objeto Usuario con la sesión activa del administrador.

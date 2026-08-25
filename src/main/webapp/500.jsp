@@ -2,6 +2,8 @@
     Archivo: 500.jsp
     Descripción: Vista personalizada de error 500 (Error interno del servidor) adaptada a la identidad visual de LibriFlow.
     Autor: Francisco Emmanuel Fuentes Pérez
+    since 22/08/2026
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

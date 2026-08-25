@@ -17,6 +17,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * Controlador Servlet encargado de la gestión para la edición y eliminación de publicaciones de usuarios.
+ * Valida la autenticación, los permisos de propiedad sobre la publicación, el estado del registro,
+ * la actualización de metadatos del libro y el procesamiento/almacenamiento de archivos de imagen.
+ *
+ * @author Monserrath Anzurez
+ * @since 23/08/26
+ */
 @WebServlet(
         name = "EditarPublicacionSv",
         value = "/editar-publicacion"
@@ -28,12 +36,27 @@ import java.util.UUID;
 )
 public class EditarPublicacionSv extends HttpServlet {
 
+    /** Objeto DAO para consultar y modificar la información de las publicaciones de usuarios. */
     private final PublicacionUsuarioDao publicacionDao =
             new PublicacionUsuarioDao();
 
+    /** Objeto DAO para gestionar el almacenamiento y actualización de imágenes de publicaciones. */
     private final ImagenDao imagenDao =
             new ImagenDao();
 
+    /**
+     * Procesa las peticiones GET para cargar el formulario de edición de una publicación.
+     * Valida la sesión de usuario, verifica la existencia de la publicación, comprueba que el usuario
+     * sea el propietario legítimo y evalúa si el estado permite su modificación.
+     *
+     * @param req Objeto HttpServletRequest con el parámetro `idPublicacion` y la sesión del usuario.
+     * @param resp Objeto HttpServletResponse para manejar las redirecciones o códigos de error HTTP.
+     * @throws ServletException Si ocurre un error en el reenvío de la vista JSP.
+     * @throws IOException Si ocurre un error de lectura/escritura durante el flujo de datos HTTP.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -112,6 +135,19 @@ public class EditarPublicacionSv extends HttpServlet {
         }
     }
 
+    /**
+     * Procesa las peticiones POST para actualizar o eliminar una publicación de usuario.
+     * Evalúa el parámetro de acción para dirigir la solicitud hacia la edición de campos e imágenes
+     * o la eliminación física/lógica del registro.
+     *
+     * @param req Objeto HttpServletRequest con los parámetros del formulario multipart.
+     * @param resp Objeto HttpServletResponse para enviar respuestas y redirecciones al usuario.
+     * @throws ServletException Si ocurre una falla técnica en la ejecución del Servlet.
+     * @throws IOException Si ocurre un error de E/S durante la recepción de la petición o procesamiento de archivos.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -229,6 +265,17 @@ public class EditarPublicacionSv extends HttpServlet {
         }
     }
 
+    /**
+     * Realiza la edición de los datos de la publicación e invoca la actualización de imágenes adjuntas.
+     *
+     * @param req Objeto HttpServletRequest con los datos textuales y binarios del formulario.
+     * @param resp Objeto HttpServletResponse para controlar el flujo de respuesta.
+     * @param session Objeto HttpSession utilizado para almacenar alertas de error o éxito.
+     * @param idPublicacion Identificador único de la publicación a editar.
+     * @param idUsuario Identificador único del usuario propietario.
+     * @throws ServletException Si ocurre una falla en el Servlet.
+     * @throws IOException Si ocurre un error al procesar la actualización o guardar imágenes.
+     */
     private void editarPublicacion(
             HttpServletRequest req,
             HttpServletResponse resp,
@@ -373,6 +420,14 @@ public class EditarPublicacionSv extends HttpServlet {
         );
     }
 
+    /**
+     * Valida la extensión, guarda el archivo en el servidor y actualiza el registro de imagen en la base de datos.
+     *
+     * @param imagen Objeto Part recibido mediante la petición multipart.
+     * @param idPublicacion Identificador único de la publicación asociada.
+     * @param tipo Posición o índice ordinal de la imagen (1, 2 o 3).
+     * @throws IOException Si el formato de la imagen no es compatible o falla su almacenamiento.
+     */
     private void actualizarImagen(
             Part imagen,
             int idPublicacion,
@@ -416,6 +471,16 @@ public class EditarPublicacionSv extends HttpServlet {
         }
     }
 
+    /**
+     * Ejecuta el borrado de la publicación perteneciente al usuario propietario.
+     *
+     * @param req Objeto HttpServletRequest de la petición.
+     * @param resp Objeto HttpServletResponse de la respuesta.
+     * @param session Objeto HttpSession para asignar mensajes de notificación.
+     * @param idPublicacion Identificador único de la publicación a eliminar.
+     * @param idUsuario Identificador del propietario de la publicación.
+     * @throws IOException Si ocurre un error al redireccionar.
+     */
     private void eliminarPublicacion(
             HttpServletRequest req,
             HttpServletResponse resp,
@@ -457,6 +522,13 @@ public class EditarPublicacionSv extends HttpServlet {
         }
     }
 
+    /**
+     * Guarda el archivo físico enviado en la carpeta de destino dentro del servidor con un nombre único UUID.
+     *
+     * @param imagen Objeto Part recibido de la petición multipart.
+     * @return Cadena con la ruta relativa del archivo guardado para su posterior persistencia en la base de datos.
+     * @throws IOException Si ocurre una falla en el guardado físico dentro del sistema de archivos.
+     */
     private String guardarImagen(Part imagen)
             throws IOException {
 
@@ -494,17 +566,37 @@ public class EditarPublicacionSv extends HttpServlet {
                 + nombreUnico;
     }
 
+    /**
+     * Verifica si el estado actual de la publicación autoriza modificaciones por parte del usuario.
+     *
+     * @param estado Estado actual registrado para la publicación.
+     * @return `true` si el estado es 'PENDIENTE' o 'RECHAZADO'; de lo contrario, `false`.
+     */
     private boolean puedeModificar(String estado) {
 
         return "PENDIENTE".equalsIgnoreCase(estado)
                 || "RECHAZADO".equalsIgnoreCase(estado);
     }
 
+    /**
+     * Evalúa si una cadena de texto es nula o se encuentra vacía de caracteres visibles.
+     *
+     * @param texto Cadena a evaluar.
+     * @return `true` si es nula o vacía; de lo contrario, `false`.
+     */
     private boolean estaVacio(String texto) {
         return texto == null
                 || texto.trim().isEmpty();
     }
 
+    /**
+     * Redirige nuevamente al usuario a la vista de formulario de edición de la publicación.
+     *
+     * @param req Objeto HttpServletRequest con el contexto del Servlet.
+     * @param resp Objeto HttpServletResponse para efectuar la redirección.
+     * @param idPublicacion Identificador único de la publicación a volver a cargar.
+     * @throws IOException Si ocurre un fallo en la redirección HTTP.
+     */
     private void regresarEdicion(
             HttpServletRequest req,
             HttpServletResponse resp,

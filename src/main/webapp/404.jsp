@@ -2,6 +2,8 @@
     Archivo: 404.jsp
     Descripción: Vista personalizada de error 404 (Recurso o página no encontrada) adaptada a la identidad visual de LibriFlow.
     Autor: Francisco Emmanuel Fuentes Pérez
+    since 22/08/2026
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

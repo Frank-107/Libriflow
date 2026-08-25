@@ -1,13 +1,3 @@
-<%--
-  Vista: Mi Perfil - LibriFlow
-  Descripción: Muestra la información personal, datos de contacto, métricas de actividad
-               (publicaciones, ventas, rentas y retrasos) y el formulario de actualización
-               de perfil para el usuario en sesión.
-
-  @author Mena Pereyda Alejandro
-  @author Anzures Visoso Monserrath
-  @since 22/08/2026
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>

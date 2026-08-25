@@ -1,3 +1,13 @@
+<%--
+    Esta vista permite al usuario capturar la dirección de envío necesaria
+    para continuar con el proceso de compra. Solicita los datos del destinatario,
+    domicilio, código postal, municipio y estado, además de mostrar mensajes
+    de error cuando ocurre algún problema durante el proceso.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
@@ -15,6 +25,15 @@
 <body class="p-3 p-md-4">
 
 <div class="container-fluid max-width-xl mx-auto">
+
+    <%--
+        Esta sección contiene el encabezado de la vista de dirección de envío.
+        Permite regresar al carrito y muestra el nombre y correo electrónico
+        del usuario que está realizando la compra.
+
+        @author Andres Gerardo Angelina Perez
+        @since 24/08/2026
+    --%>
 
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center gap-2 gap-md-3">
@@ -38,6 +57,16 @@
     </header>
 
     <div class="row g-4">
+
+        <%--
+            Esta sección contiene el menú lateral de navegación del usuario.
+            Permite acceder al inicio, carrito, compras, publicación de libros,
+            publicaciones del usuario, rentas y redes sociales de LibriFlow.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
+
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm">
                 <a href="inicio-js" class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
@@ -62,12 +91,28 @@
             </div>
         </aside>
 
+        <%--
+            Esta sección contiene el formulario principal para capturar
+            los datos necesarios para realizar el envío de la compra.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
+
         <main class="col-12 col-md-8 col-lg-9">
             <div class="form-container-lf p-4 p-md-5 shadow-sm bg-white">
                 <div class="d-flex justify-content-between align-items-start mb-4">
                     <h4 class="fw-bold text-dark mb-1">Datos de Entrega</h4>
                     <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="LibriFlow" style="height: 35px;">
                 </div>
+
+                <%--
+                    Esta condición muestra una notificación cuando existe
+                    un mensaje de error relacionado con el proceso de envío.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
 
                 <c:if test="${not empty error}">
                     <div id="errorToast" class="libri-toast libri-toast-error">
@@ -80,8 +125,27 @@
                     </div>
                 </c:if>
 
+                <%--
+                    Este formulario recopila los datos de la dirección de envío.
+                    Cuando se envía, deshabilita el botón para evitar solicitudes
+                    duplicadas mientras se procesa la información.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
+
                 <form action="direccion-envio" method="POST" onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Procesando...';">
                     <div class="row">
+
+                        <%--
+                            Esta sección solicita la información básica del
+                            destinatario y del domicilio donde se entregará
+                            la compra.
+
+                            @author Andres Gerardo Angelina Perez
+                            @since 24/08/2026
+                        --%>
+
                         <div class="col-12 mb-4">
                             <label class="form-label-lf">Nombre completo de quien recibe</label>
                             <input type="text" name="destinatario" class="form-control form-control-lf" value="${param.destinatario}" required>
@@ -104,6 +168,16 @@
                             <label class="form-label-lf">Municipio / Alcaldía</label>
                             <input type="text" name="municipio" class="form-control form-control-lf" value="${param.municipio}" required>
                         </div>
+
+                        <%--
+                            Este selector permite elegir el estado de la República
+                            Mexicana correspondiente a la dirección de entrega.
+                            Conserva el valor previamente seleccionado cuando
+                            el formulario necesita mostrarse nuevamente.
+
+                            @author Andres Gerardo Angelina Perez
+                            @since 24/08/2026
+                        --%>
 
                         <div class="col-12 col-md-6 mb-4">
                             <label class="form-label-lf">Estado</label>
@@ -144,6 +218,15 @@
                             </select>
                         </div>
                     </div>
+
+                    <%--
+                        Este botón envía los datos de entrega capturados y permite
+                        continuar con la siguiente etapa del proceso de pago.
+
+                        @author Andres Gerardo Angelina Perez
+                        @since 24/08/2026
+                    --%>
+
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-action-lf shadow-sm btn-submit px-5">Continuar al Pago</button>
                     </div>
@@ -152,6 +235,14 @@
         </main>
     </div>
 </div>
+
+<%--
+    Estos scripts cargan las funciones de Bootstrap y el archivo utilizado
+    para mostrar las notificaciones correspondientes dentro de la vista.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>

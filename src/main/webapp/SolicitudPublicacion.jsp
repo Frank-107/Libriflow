@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+ * Vista del panel de administración para la gestión y revisión de solicitudes de publicación en la plataforma LibriFlow.
+ * Muestra el listado de libros pendientes de aprobación subidos por los usuarios, presentando la portada, título,
+ * propietario, autor, género y precio. Proporciona enlaces para acceder al detalle de evaluación de cada solicitud.
+ *
+ * @author Alejandro
+ * @since 25/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>

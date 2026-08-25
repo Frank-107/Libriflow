@@ -15,10 +15,33 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+/**
+ * Controlador Servlet encargado de gestionar la consulta y cálculo de vigencia de las rentas del usuario.
+ * Valida la sesión activa, recupera el historial de rentas personales y calcula dinámicamente
+ * los días restantes de préstamo según la fecha límite establecida.
+ *
+ * @author Francisco
+ * @since 24/08/2026
+ */
+
 @WebServlet(name = "MisRentasSv", value = "/mis-rentas")
 public class MisRentasSv extends HttpServlet {
 
     RentaDao rentaDao = new RentaDao();
+
+    /**
+     * Procesa la petición HTTP GET para desplegar el panel de rentas activas e históricas del usuario.
+     * Verifica la autenticación mediante sesión HTTP, consulta los registros mediante la capa DAO
+     * y computa los días restantes hasta la fecha de vencimiento para las rentas vigentes.
+     *
+     * @param req Objeto HttpServletRequest que transporta la sesión y datos de la solicitud.
+     * @param resp Objeto HttpServletResponse para gestionar la respuesta o redirección al Login.
+     * @throws ServletException Si ocurre una falla en el procesamiento Servlet.
+     * @throws IOException Si ocurre un error de lectura/escritura en la comunicación HTTP.
+     *
+     * @author Francisco
+     * @since 24/08/2026
+     */
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -100,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /**
-     * Construye y muestra una alerta visual en la interfaz del usuario,
-     * desplazando la pantalla hacia arriba para asegurar que sea visible.
+     * Construye y muestra una alerta visual flotante en la interfaz del usuario.
+     * La alerta desaparece automáticamente después de 4 segundos.
      *
      * @param {string} tipo - El tipo de alerta (debe ser 'error' o 'exito').
      * @param {string} mensaje - El texto que se mostrará dentro de la alerta.
@@ -115,12 +115,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const icono = esError ? 'bi-exclamation-circle-fill' : 'bi-check-circle-fill';
 
         contenedor.innerHTML = `
-            <div class="libri-toast ${claseToast} mb-3">
+            <div class="toast-flotante ${claseToast} mb-3" id="alertaFlotante">
                 <i class="bi ${icono} fs-5"></i>
                 <span>${mensaje}</span>
             </div>
         `;
 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => {
+            const alerta = document.getElementById('alertaFlotante');
+            if (alerta) alerta.classList.add('show');
+        }, 10);
+
+        setTimeout(() => {
+            const alerta = document.getElementById('alertaFlotante');
+            if (alerta) {
+                alerta.classList.remove('show');
+                setTimeout(() => alerta.remove(), 400);
+            }
+        }, 4000);
     }
 });

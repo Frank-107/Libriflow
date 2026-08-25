@@ -2,6 +2,8 @@
     Archivo: ValidarCorreoCC.jsp
     Descripción: Vista para la validación del código de verificación enviado por correo electrónico durante el proceso de registro de un nuevo usuario en LibriFlow.
     Autor: Francisco Emmanuel Fuentes Pérez
+    since 22/08/2026
+
 
     Atributos requeridos en request/session:
         - sessionScope.usuarioPendiente : Objeto Usuario con la información de la cuenta en proceso de verificación.

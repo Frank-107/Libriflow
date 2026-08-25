@@ -2,6 +2,8 @@
     Archivo: ValidarTarjeta.jsp
     Descripción: Vista que contiene el formulario para la captura y validación de datos bancarios (tarjeta de crédito/débito) durante el proceso de pago en LibriFlow.
     Autor: Francisco Emmanuel Fuentes Pérez
+    since 22/08/2026
+
 
     Atributos requeridos en request/session:
         - requestScope.total : Monto total a cobrar en la transacción.

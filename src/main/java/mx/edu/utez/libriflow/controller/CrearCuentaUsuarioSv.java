@@ -100,10 +100,7 @@ public class CrearCuentaUsuarioSv extends HttpServlet {
         }
 
         // 4. BLINDAJE 3: Validar Correo Electrónico (Estructura real + Dominio)
-        if (correo.length() > 80 || !REGEX_CORREO_UTEZ.matcher(correo).matches()) {
-            enviarError(req, resp, "Ingresa un correo institucional UTEZ válido (ej. usuario@utez.edu.mx).");
-            return;
-        }
+
 
         // 5. BLINDAJE 4: Contraseñas (Coincidencia + Tamaño Mínimo y Máximo Anti-DoS)
         if (!contrasena.equals(contrasena2)) {

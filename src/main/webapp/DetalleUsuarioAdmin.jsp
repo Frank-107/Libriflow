@@ -1,3 +1,13 @@
+<%--
+    Esta vista permite al administrador consultar la información detallada
+    de un usuario registrado en LibriFlow. Muestra los datos personales,
+    el estado de la cuenta, un resumen de su actividad y el historial
+    de movimientos realizados dentro del sistema.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
@@ -14,6 +24,17 @@
 </head>
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto">
+
+    <%--
+        Esta sección contiene el encabezado de la vista.
+        Permite regresar al listado de usuarios y muestra la información
+        del administrador que tiene una sesión activa, además de las
+        opciones para consultar su perfil o cerrar sesión.
+
+        @author Andres Gerardo Angelina Perez
+        @since 24/08/2026
+    --%>
+
     <!-- HEADER -->
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5">
         <div class="d-flex align-items-center">
@@ -62,6 +83,17 @@
     </header>
 
     <div class="row g-4">
+
+        <%--
+            Esta sección contiene el menú lateral de navegación disponible
+            para el administrador. Permite acceder al inicio, solicitudes
+            de publicación, publicación de libros, rentas activas,
+            administración de usuarios e ingresos.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
+
         <!-- SIDEBAR MENU (3 de 12 columnas) -->
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="menuLateral">
@@ -88,9 +120,27 @@
             </div>
         </aside>
 
+        <%--
+            Esta sección contiene la información principal del usuario.
+            Muestra el estado de la cuenta, información personal,
+            resumen de actividad e historial de movimientos.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
+
         <!-- CONTENIDO PRINCIPAL (9 de 12 columnas) -->
         <main class="col-12 col-md-8 col-lg-9">
             <div class="lf-user-details">
+
+                <%--
+                    Este encabezado muestra el estado actual de la cuenta.
+                    Dependiendo de dicho estado, permite al administrador
+                    bloquear o desbloquear al usuario.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
 
                 <!-- Encabezado -->
                 <div class="lf-user-header">
@@ -139,6 +189,15 @@
                     </div>
                 </div>
 
+                <%--
+                    Esta sección muestra la información personal registrada
+                    del usuario, incluyendo su nombre completo, correo,
+                    teléfono y fecha de creación de la cuenta.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
+
                 <!-- INFORMACIÓN BÁSICA -->
                 <div class="lf-user-info-card">
                     <div class="lf-card-title">
@@ -175,6 +234,15 @@
                         </div>
                     </div>
                 </div>
+
+                <%--
+                    Esta sección presenta un resumen de la actividad del usuario.
+                    Muestra el total de publicaciones activas, libros vendidos,
+                    rentas activas y retrasos registrados.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
 
                 <!-- RESUMEN DE ACTIVIDAD -->
                 <div class="lf-user-info-card">
@@ -234,6 +302,16 @@
                         </div>
                     </div>
                 </div>
+
+                <%--
+                    Esta sección muestra el historial de movimientos realizados
+                    por el usuario. Permite identificar si cada movimiento fue
+                    una compra, venta o renta, además de mostrar su fecha,
+                    libro relacionado, precio y origen de la publicación.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
 
                 <!-- MOVIMIENTOS -->
                 <div class="lf-user-info-card lf-movements-card">
@@ -344,6 +422,16 @@
         </main>
     </div>
 </div>
+
+<%--
+    Este script carga las funciones de Bootstrap necesarias para elementos
+    interactivos de la vista como el menú lateral y el menú desplegable
+    del administrador.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
+
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>
 </html>

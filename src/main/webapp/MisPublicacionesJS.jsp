@@ -175,9 +175,9 @@
                        <span class="estado ${publicacion.estado}">
                          <c:out value="${publicacion.estado}"/>
                         </span>
-                        <div class="publicacion-precio">
+                      <div class="publicacion-precio">
                         $<c:out value="${publicacion.precio}"/>
-                        </div>
+                      </div>
 
                       <div class="botones-accion">
 
@@ -187,9 +187,9 @@
                           Ver detalles
                         </a>
 
-                        <c:if test="${publicacion.estado == 'PENDIENTE' || publicacion.estado == 'RECHAZADO'}">
+                        <c:if test="${publicacion.estado == 'PENDIENTE'}">
                           <button type="button"
-                                  onclick="cancelarPublicacion(${publicacion.idPublicacion}, this)"
+                                  onclick="confirmarCancelacion(${publicacion.idPublicacion}, this)"
                                   class="btn-cancelar-publicacion">
                             <i class="bi bi-trash"></i>
                             Cancelar publicación
@@ -210,6 +210,28 @@
 
       </section>
     </main>
+  </div>
+</div>
+
+<div class="modal fade" id="modalConfirmarCancelacion" tabindex="-1" aria-labelledby="modalConfirmarCancelacionLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg modal-cancelar-content">
+      <div class="modal-header border-0 pb-0 position-relative">
+        <h5 class="modal-title fw-bold w-100 text-center" id="modalConfirmarCancelacionLabel" style="color: #4A4641;">Cancelar publicación</h5>
+        <button type="button" class="btn-close position-absolute end-0 me-4 mt-2" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4 text-center">
+        <p class="mb-0 fs-6 fw-medium" style="color: #6e6762;">¿Estás seguro de que deseas cancelar esta publicación? Esta acción no se puede deshacer.</p>
+      </div>
+      <div class="modal-footer border-0 pt-0 d-flex justify-content-center gap-3">
+        <button type="button" class="btn btn-modal-confirmar" id="btnConfirmarCancelacion">
+          Sí, cancelar
+        </button>
+        <button type="button" class="btn bg-lf-capsule btn-lf-pill btn-modal-cerrar" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Estilos exclusivos para la pantalla de Error 404 - LibriFlow
+   Autor: Francisco Emmanuel Fuentes Pérez
+   ========================================================================== */
+
+.error-page-body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f8f6f3;
+}
+
+.error-card {
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    padding: 2.5rem 2rem;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.error-code-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.error-number {
+    font-size: 5rem;
+    font-weight: 800;
+    color: #4A4641;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.error-icon-capsule {
+    width: 70px;
+    height: 70px;
+    background-color: #e8e2d9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4A4641;
+    font-size: 2.2rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+    animation: floatAnimation 3s ease-in-out infinite;
+}
+
+.error-message {
+    color: #6e6762;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
+
+.error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Animaciones para dinamizar la experiencia */
+@keyframes floatAnimation {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

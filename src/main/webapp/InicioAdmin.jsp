@@ -1,3 +1,9 @@
+<%--
+    Documento   : InicioAdmin.jsp
+    Autor       : Monserrath Anzurez
+    Fecha       : 23/08/26
+    Descripción : Vista JSP del catálogo y panel principal del módulo de administración en LibriFlow.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>

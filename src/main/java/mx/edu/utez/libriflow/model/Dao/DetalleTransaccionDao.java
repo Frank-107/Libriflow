@@ -11,8 +11,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * Esta clase se encarga de realizar las operaciones relacionadas con los
+ * detalles de las transacciones dentro de la base de datos. Permite registrar
+ * los detalles de una compra o renta, consultar los movimientos de un usuario
+ * y obtener los movimientos utilizados para calcular los ingresos de LibriFlow.
+ *
+ * @author Andres Gerardo Angelina Perez
+ * @since 22/08/2026
+ */
 public class DetalleTransaccionDao {
 
+    /**
+     *
+     * Este método se encarga de registrar un nuevo detalle de transacción en
+     * la base de datos. Cuando la operación corresponde a la compra de una
+     * publicación de usuario, primero cambia su estado a VENDIDO para evitar
+     * que pueda ser comprada nuevamente. Después registra la información de
+     * la transacción y devuelve el identificador generado.
+     *
+     * @param entidad Es el objeto DetalleTransaccion que contiene la información
+     *                que se desea registrar.
+     * @return El identificador generado para el detalle de la transacción o -1
+     *         si ocurre un error durante el registro.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 22/08/2026
+     */
     public int create(DetalleTransaccion entidad) {
 
         Connection con = null;
@@ -224,6 +250,20 @@ public class DetalleTransaccionDao {
         }
     }
 
+    /**
+     *
+     * Este método se encarga de obtener todos los movimientos relacionados
+     * con un usuario. Consulta las compras, ventas y rentas realizadas con
+     * publicaciones de usuarios y publicaciones de LibriFlow. Los movimientos
+     * encontrados se ordenan desde el más reciente hasta el más antiguo.
+     *
+     * @param idUsuario Es el identificador del usuario del cual se desean
+     *                  consultar los movimientos.
+     * @return Una lista con los movimientos relacionados con el usuario.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 22/08/2026
+     */
     public List<Movimiento> getMovimientosByIdUsuario(int idUsuario) {
 
         List<Movimiento> movimientos =
@@ -329,6 +369,20 @@ public class DetalleTransaccionDao {
         return movimientos;
     }
 
+    /**
+     *
+     * Este método se encarga de obtener todos los movimientos utilizados
+     * para consultar los ingresos generados dentro de LibriFlow. Incluye
+     * movimientos relacionados con publicaciones de usuarios y publicaciones
+     * administradas directamente por LibriFlow, obteniendo el comprador,
+     * la fecha, el libro, el precio y la ganancia correspondiente.
+     *
+     * @return Una lista con todos los movimientos relacionados con los
+     *         ingresos registrados en el sistema.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 22/08/2026
+     */
     public List<Movimiento> getAllMovimientosIngresos() {
 
         List<Movimiento> movimientos = new ArrayList<>();

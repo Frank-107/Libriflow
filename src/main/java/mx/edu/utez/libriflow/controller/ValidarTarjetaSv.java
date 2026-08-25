@@ -16,10 +16,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.UUID;
-
+/**
+ * Servlet encargado de la validación de tarjetas bancarias y del procesamiento
+ * de compras y rentas de libros dentro de la plataforma LibriFlow.
+ */
 @WebServlet(name = "ValidarTarjetaSv", value = "/validar-tarjeta")
 public class ValidarTarjetaSv extends HttpServlet {
-
+    /**
+     * Maneja las peticiones HTTP GET para la pantalla de validación de tarjeta.
+     * Verifica la sesión del usuario y calcula el monto total del pago.
+     *
+     * @param req  Objeto {@link HttpServletRequest} con la petición del cliente.
+     * @param resp Objeto {@link HttpServletResponse} para enviar la respuesta.
+     * @throws ServletException Si ocurre un error en la redirección o despacho del servlet.
+     * @throws IOException      Si ocurre un error de entrada/salida.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -49,7 +60,15 @@ public class ValidarTarjetaSv extends HttpServlet {
         req.getRequestDispatcher("/ValidarTarjeta.jsp")
                 .forward(req, resp);
     }
-
+    /**
+     * Maneja las peticiones HTTP POST para validar los datos bancarios e iniciar el procesamiento de compra.
+     * Realiza validaciones de titular, número de tarjeta mediante el algoritmo de Luhn, fecha de expiración y CVV.
+     *
+     * @param req  Objeto {@link HttpServletRequest} con la petición del cliente.
+     * @param resp Objeto {@link HttpServletResponse} para enviar la respuesta.
+     * @throws ServletException Si ocurre un error en la redirección o despacho del servlet.
+     * @throws IOException      Si ocurre un error de entrada/salida.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -272,6 +291,12 @@ public class ValidarTarjetaSv extends HttpServlet {
         }
     }
 
+    /**
+     * Valida el número de tarjeta utilizando el algoritmo de Luhn.
+     *
+     * @param numero Número de la tarjeta a validar.
+     * @return {@code true} si el número es válido, {@code false} en caso contrario.
+     */
     private boolean validarLuhn(String numero) {
 
         int suma = 0;
@@ -304,7 +329,13 @@ public class ValidarTarjetaSv extends HttpServlet {
 
         return suma % 10 == 0;
     }
-
+    /**
+     * Ejecuta el flujo principal de persistencia de la transacción,
+     * descomponiendo los elementos del carrito en ventas o rentas,
+     * actualizando inventarios y enviando notificaciones por correo.
+     *
+     * @param req Objeto {@link HttpServletRequest} con la información de sesión requerida.
+     */
     private void procesarCompra(HttpServletRequest req) {
 
         PublicacionUsuarioDao publicacionUsuarioDao =
@@ -829,7 +860,11 @@ public class ValidarTarjetaSv extends HttpServlet {
                 "carrito"
         );
     }
-
+    /**
+     * Construye la estructura HTML inicial para el cuerpo de los correos electrónicos.
+     *
+     * @return Cadena con el HTML del encabezado del correo.
+     */
     private String encabezado() {
 
         return """
@@ -847,7 +882,12 @@ public class ValidarTarjetaSv extends HttpServlet {
                     <div style="padding:35px;">
                 """;
     }
-
+    /**
+     * Genera la sección de saludo personalizado para el destinatario en el correo.
+     *
+     * @param nombre Nombre del destinatario.
+     * @return Cadena con el HTML correspondiente al saludo.
+     */
     private String saludo(String nombre) {
 
         return """
@@ -866,6 +906,12 @@ public class ValidarTarjetaSv extends HttpServlet {
                 """;
     }
 
+    /**
+     * Genera el resumen del pago en formato HTML.
+     *
+     * @param total Monto total del pago.
+     * @return Cadena con el HTML correspondiente al resumen.
+     */
     private String resumen(double total) {
 
         return """
@@ -896,7 +942,13 @@ public class ValidarTarjetaSv extends HttpServlet {
                 </div>
                 """;
     }
-
+    /**
+     * Construye la sección HTML de confirmación de envío y lista de libros comprados.
+     *
+     * @param codigoSeguimiento Guía de rastreo asignada al paquete.
+     * @param libros            Detalle formateado en HTML de los libros comprados.
+     * @return Cadena HTML con el bloque de compra, o una cadena vacía si no hay libros comprados.
+     */
     private String bloqueCompra(
             String codigoSeguimiento,
             String libros) {
@@ -940,6 +992,12 @@ public class ValidarTarjetaSv extends HttpServlet {
                 """;
     }
 
+    /**
+     * Construye la sección HTML de confirmación de renta y lista de libros rentados.
+     *
+     * @param libros Detalle formateado en HTML de los libros rentados.
+     * @return Cadena HTML con el bloque de renta, o una cadena vacía si no hay libros rentados.
+     */
     private String bloqueRenta(
             String libros) {
 
@@ -976,7 +1034,11 @@ public class ValidarTarjetaSv extends HttpServlet {
                 </div>
                 """;
     }
-
+    /**
+     * Genera el cierre y pie de página institucional del correo electrónico.
+     *
+     * @return Cadena HTML con la despedida e información de derechos de autor.
+     */
     private String despedida() {
 
         return """
@@ -1009,7 +1071,14 @@ public class ValidarTarjetaSv extends HttpServlet {
                 </div>
                 """;
     }
-
+    /**
+     * Construye el correo de notificación dirigido a un vendedor cuando uno de sus libros es vendido.
+     *
+     * @param nombre      Nombre del vendedor.
+     * @param tituloLibro Título de la obra vendida.
+     * @param ganancia    Monto a acreditar correspondiente al vendedor.
+     * @return Cadena HTML con la notificación de venta realizada.
+     */
     private String correoVentaRealizada(
             String nombre,
             String tituloLibro,
@@ -1090,7 +1159,11 @@ public class ValidarTarjetaSv extends HttpServlet {
                 </div>
                 """;
     }
-
+    /**
+     * Compone la estructura completa del correo de resumen de compra unificando encabezado, saludo, resumen y bloques correspondientes.
+     *
+     * @return Cadena HTML completa del correo de confirmación.
+     */
     private String getcuerpoResumenCompra(
             String nombre,
             double total,
@@ -1110,7 +1183,11 @@ public class ValidarTarjetaSv extends HttpServlet {
         )
                 + despedida();
     }
-
+    /**
+     * Genera un código único para la identificación de la renta de libros.
+     *
+     * @return Cadena con el código de renta generado.
+     */
     private String generarCodigoRenta() {
 
         return UUID.randomUUID()
@@ -1118,7 +1195,11 @@ public class ValidarTarjetaSv extends HttpServlet {
                 .substring(0, 8)
                 .toUpperCase();
     }
-
+    /**
+     * Genera un código único para la guía de seguimiento de envío.
+     *
+     * @return Cadena con el código de seguimiento generado.
+     */
     private String generarGuiaSeguimiento() {
 
         long numero =

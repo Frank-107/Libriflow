@@ -1,3 +1,49 @@
+/**
+ * @file Gestiona la lógica de interacción de la vista "Mis Publicaciones".
+ * @description Contiene las funciones para cancelar una publicación pendiente o rechazada
+ * mediante peticiones asíncronas (AJAX), actualizando el DOM en tiempo real (eliminando la tarjeta
+ * y actualizando contadores) y mostrando notificaciones dinámicas al usuario.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+ */
+
+let idParaCancelar = null;
+let botonParaCancelar = null;
+
+function confirmarCancelacion(idPublicacion, botonElemento) {
+    idParaCancelar = idPublicacion;
+    botonParaCancelar = botonElemento;
+    const modalElement = document.getElementById('modalConfirmarCancelacion');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const btnConfirmar = document.getElementById('btnConfirmarCancelacion');
+    if (btnConfirmar) {
+        btnConfirmar.addEventListener('click', () => {
+            const modalElement = document.getElementById('modalConfirmarCancelacion');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+            if (idParaCancelar && botonParaCancelar) {
+                cancelarPublicacion(idParaCancelar, botonParaCancelar);
+            }
+        });
+    }
+});
+
+/**
+ * Envía una petición DELETE al servidor para cancelar una publicación específica.
+ * Si la operación es exitosa, elimina la tarjeta correspondiente del DOM,
+ * actualiza el contador total de publicaciones y muestra un mensaje de éxito.
+ * Si falla, restaura el estado del botón y muestra un mensaje de error.
+ *
+ * @param {number|string} idPublicacion - El identificador único de la publicación a cancelar.
+ * @param {HTMLElement} botonElemento - El elemento HTML (botón) que disparó la acción, utilizado para bloquearlo y mostrar el estado de carga.
+ */
 function cancelarPublicacion(idPublicacion, botonElemento) {
     botonElemento.disabled = true;
     botonElemento.innerHTML = '<i class="bi bi-hourglass-split"></i> Cancelando...';
@@ -42,6 +88,13 @@ function cancelarPublicacion(idPublicacion, botonElemento) {
         });
 }
 
+/**
+ * Crea, renderiza y destruye dinámicamente una notificación visual (toast) en la interfaz del usuario.
+ * La notificación se añade al contenedor designado y desaparece automáticamente mediante animaciones CSS.
+ *
+ * @param {string} tipo - Determina el estilo visual de la alerta (ej. 'success' para éxito, 'error' para fallos).
+ * @param {string} mensaje - El texto informativo que leerá el usuario.
+ */
 function mostrarNotificacionDinamica(tipo, mensaje) {
     const contenedor = document.getElementById('contenedor-notificaciones');
     const toast = document.createElement('div');

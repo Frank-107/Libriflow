@@ -1,3 +1,13 @@
+<%--
+    Archivo: usuarios-admin.jsp
+    Descripción: Vista del panel de administración para la gestión y visualización de usuarios registrados en LibriFlow.
+    Autor: Francisco Emmanuel Fuentes Pérez
+    since 22/08/2026
+
+    Atributos requeridos en request/session:
+        - sessionScope.usuario : Objeto Usuario con la sesión activa del administrador.
+        - requestScope.usuarios : List<Usuario> con el catálogo completo de usuarios registrados.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
@@ -29,12 +39,13 @@
 
 <div class="container-fluid max-width-xl mx-auto">
 
-    <!-- HEADER -->
+    <%-- Encabezado principal del panel de administración --%>
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm
                d-flex justify-content-between align-items-center px-4 px-md-5">
 
         <div class="d-flex align-items-center">
 
+            <%-- Botón de navegación móvil para alternar la barra lateral --%>
             <button class="btn text-white d-md-none p-0 border-0 me-1"
                     type="button"
                     data-bs-toggle="collapse"
@@ -60,6 +71,7 @@
 
         </div>
 
+        <%-- Información del usuario en sesión y menú desplegable de perfil --%>
         <div class="d-flex align-items-center gap-3">
 
             <div class="text-end d-none d-md-block">
@@ -119,7 +131,7 @@
 
     <div class="row g-4">
 
-        <!-- SIDEBAR MENU -->
+        <%-- Menú lateral de navegación administrativa --%>
         <aside class="col-12 col-md-4 col-lg-3">
 
             <div class="collapse d-md-block" id="sidebarMenu">
@@ -187,7 +199,7 @@
 
         </aside>
 
-        <!-- MAIN CONTENT -->
+        <%-- Sección principal de contenido: Gestión de usuarios --%>
         <main class="col d-flex flex-column h-100 min-vh-0">
 
             <section class="usuarios-container d-flex flex-column h-100">
@@ -200,8 +212,10 @@
 
                 </div>
 
+                <%-- Evaluación condicional para verificar la existencia de usuarios en la lista --%>
                 <c:choose>
 
+                    <%-- Mensaje informativo presentado cuando la lista de usuarios está vacía --%>
                     <c:when test="${empty usuarios}">
 
                         <div class="sin-usuarios text-center bg-white rounded-4 shadow-sm p-5 mx-auto"
@@ -230,9 +244,9 @@
 
                     </c:when>
 
+                    <%-- Tabla detallada con los registros de usuarios disponibles --%>
                     <c:otherwise>
 
-                        <!-- WRAPPER CON SCROLL ÚNICO PARA LA TABLA -->
                         <div class="usuarios-scroll-wrapper">
 
                             <div class="table-responsive bg-white rounded-4 p-3 shadow-sm border">
@@ -261,6 +275,7 @@
 
                                     <tbody>
 
+                                        <%-- Iteración sobre la colección de usuarios, omitiendo al usuario Administrador raíz y al usuario en sesión actual --%>
                                     <c:forEach var="u" items="${usuarios}">
 
                                         <c:if test="${u.correo != 'adminLibri@utez.edu.mx' && u.id != sessionScope.usuario.id}">
@@ -287,6 +302,7 @@
 
                                                 <td>
 
+                                                        <%-- Renderizado condicional para determinar la etiqueta de estado de la cuenta --%>
                                                     <c:choose>
 
                                                         <c:when test="${u.estado == 'ACTIVA' || u.estado == 'ACTIVO'}">

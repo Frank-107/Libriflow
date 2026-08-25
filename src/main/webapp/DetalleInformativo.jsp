@@ -34,7 +34,7 @@
 <body class="p-3 p-md-4 detalle-body">
 
 <c:set var="rutaRegreso"
-       value="${pageContext.request.contextPath}/inicio"/>
+       value="${pageContext.request.contextPath}/inicio-js"/>
 
 <c:if test="${origen == 'carrito'}">
 
@@ -130,7 +130,7 @@
                     <li>
 
                         <a class="dropdown-item py-2 dropdown-lf-item"
-                           href="${pageContext.request.contextPath}/actualizar-perfil">
+                           href="${pageContext.request.contextPath}/actualizar-perfil-js">
 
                             <i class="bi bi-person me-2"></i>
                             Ver perfil

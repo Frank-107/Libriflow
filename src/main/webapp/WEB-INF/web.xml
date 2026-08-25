@@ -3,4 +3,22 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+
+    <!-- Configuración para error 404: Recurso no encontrado -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+
+    <!-- Configuración para error 500: Error interno del servidor -->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.jsp</location>    </error-page>
+
+    <!-- Captura global para cualquier excepción Java no controlada -->
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/500.jsp</location>
+    </error-page>
+
 </web-app>

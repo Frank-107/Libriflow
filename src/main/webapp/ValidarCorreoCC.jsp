@@ -1,3 +1,14 @@
+<%--
+    Archivo: ValidarCorreoCC.jsp
+    Descripción: Vista para la validación del código de verificación enviado por correo electrónico durante el proceso de registro de un nuevo usuario en LibriFlow.
+    Autor: Francisco Emmanuel Fuentes Pérez
+    since 22/08/2026
+
+
+    Atributos requeridos en request/session:
+        - sessionScope.usuarioPendiente : Objeto Usuario con la información de la cuenta en proceso de verificación.
+        - requestScope.error : Mensaje explicativo en caso de ingresar un código incorrecto o expirado.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
@@ -16,17 +27,22 @@
 
 <div class="pantalla-registro">
 
+    <%-- Barra superior con enlace de retorno al formulario de registro --%>
     <div class="top-bar">
         <a href="crear-cuenta-usuario" class="back-link">&#x2190;</a>
         <h1>Verificar correo</h1>
     </div>
 
+    <%-- Tarjeta principal de verificación --%>
     <div class="card-container">
 
         <div class="logo-area">
             <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="Logotipo LibriFlow" class="logo-img-completo">
         </div>
+
         <h3 class="card-title">Verificar Correo</h3>
+
+        <%-- Componente de notificación flotante para visualización de errores --%>
         <c:if test="${not empty error}">
             <div id="errorToast" class="libri-toast libri-toast-error">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -38,6 +54,7 @@
             </div>
         </c:if>
 
+        <%-- Formulario de captura para el código de verificación --%>
         <form method="post" action="validar-correo-cc"
               onsubmit="let btn=this.querySelector('.btn-submit'); btn.disabled=true; btn.innerHTML='Verificando...';">
 
@@ -67,6 +84,7 @@
 
 </div>
 
+<%-- Scripts globales de Bootstrap y notificaciones personalizadas --%>
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
 </body>

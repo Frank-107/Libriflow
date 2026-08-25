@@ -1,3 +1,10 @@
+<%--
+    Documento   : NuevaContrasena.jsp
+    Autor       : Monserrath Anzurez
+    Fecha       : 23/08/26
+    Descripción : Vista JSP para el ingreso y actualización de la nueva contraseña del usuario en LibriFlow.
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!doctype html>

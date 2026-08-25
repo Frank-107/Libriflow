@@ -16,13 +16,39 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * Controlador Servlet encargado de gestionar el inicio de sesión de los usuarios en la plataforma.
+ * Se encarga de la validación de credenciales, control de longitud de entradas, verificación del estado
+ * de la cuenta (activación/autodesbloqueo), protección contra la fijación de sesión y redirección
+ * según el rol asignado (Administrador o Usuario convencional).
+ *
+ * @author Monserrath Anzurez
+ * @since 23/08/26
+ */
 @WebServlet(name = "IniciarSesionSv", value = "/iniciar-sesion")
 public class IniciarSesionSv extends HttpServlet {
 
+    /** Objeto DAO para realizar operaciones de consulta y actualización sobre los datos del usuario. */
     private final UsuarioDao usuarioDao = new UsuarioDao();
+
+    /** Objeto DAO para validar las credenciales de acceso de los usuarios en el sistema. */
     private final CredencialDao credencialDao = new CredencialDao();
+
+    /** Objeto DAO para consultar y verificar los roles asignados a los usuarios. */
     private final RolDao rolDao = new RolDao();
 
+    /**
+     * Procesa las peticiones GET para configurar la codificación UTF-8 y despachar la vista
+     * del formulario de inicio de sesión (`IniciarSesion.jsp`).
+     *
+     * @param req Objeto HttpServletRequest que representa la petición HTTP del cliente.
+     * @param resp Objeto HttpServletResponse para configurar la respuesta y reenviar la vista.
+     * @throws ServletException Si ocurre una falla técnica en el Servlet al reenviar la vista.
+     * @throws IOException Si ocurre un error de E/S durante el procesamiento HTTP.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -34,6 +60,20 @@ public class IniciarSesionSv extends HttpServlet {
         req.getRequestDispatcher("IniciarSesion.jsp").forward(req, resp);
     }
 
+    /**
+     * Procesa las peticiones POST para autenticar las credenciales del usuario.
+     * Lleva a cabo sanitizaciones, validaciones de campos nulos y longitud, comprobación de estado
+     * activo o fecha de desbloqueo, invalidación de la sesión previa por seguridad y redirección
+     * según el rol del usuario autenticado.
+     *
+     * @param req Objeto HttpServletRequest con los parámetros de formulario (`correo` y `contrasena`).
+     * @param resp Objeto HttpServletResponse para redirigir al módulo correspondiente o recargar la vista con mensajes de error.
+     * @throws ServletException Si ocurre un error durante el procesamiento interno del Servlet.
+     * @throws IOException Si ocurre una falla de lectura/escritura en las redirecciones HTTP.
+     *
+     * @author Monserrath Anzurez
+     * @since 23/08/26
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -115,7 +155,7 @@ public class IniciarSesionSv extends HttpServlet {
             if ("ADMIN".equalsIgnoreCase(rol)) {
                 resp.sendRedirect("inicio-admin");
             } else {
-                resp.sendRedirect("inicio");
+                resp.sendRedirect("inicio-js");
             }
             return;
         }

@@ -1,3 +1,10 @@
+<%--
+    Documento   : MisPublicaciones.jsp
+    Autor       : Monserrath Anzurez
+    Fecha       : 23/08/26
+    Descripción : Vista JSP para la gestión y visualización de las publicaciones creadas por el usuario en LibriFlow.
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
@@ -26,7 +33,7 @@
                     aria-controls="sidebarMenu">
                 <i class="bi bi-list" style="font-size:2rem;"></i>
             </button>
-            <a href="inicio"
+            <a href="inicio-js"
                class="text-white text-decoration-none fs-4 btn-lf-pill p-2 d-inline-flex align-items-center justify-content-center">
                 <i class="bi bi-arrow-left"></i>
             </a>
@@ -54,7 +61,7 @@
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
                         <a class="dropdown-item py-2 dropdown-lf-item"
-                           href="actualizar-perfil">
+                           href="actualizar-perfil-js">
                             <i class="bi bi-person me-2"></i>
                             Ver perfil
                         </a>
@@ -74,7 +81,7 @@
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-                    <a href="inicio"
+                    <a href="inicio-js"
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-house me-3 fs-5"></i>
                         Inicio

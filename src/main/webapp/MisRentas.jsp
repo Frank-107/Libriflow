@@ -1,6 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+ * Vista de interfaz de usuario que muestra el listado de rentas asociadas al usuario en sesión.
+ * Despliega la información detallada de los libros en préstamo, incluyendo estados del servicio,
+ * fechas vigentes (inicio, límite y devolución real), costos asociados y días restantes para la entrega.
+ *
+ * @author Monserrath
+ * @since 25/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>

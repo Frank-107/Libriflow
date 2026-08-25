@@ -1,5 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+ * Vista de administración para la gestión y seguimiento operativo de rentas en el sistema LibriFlow.
+ * Permite visualizar el panel de rentas activas y programadas, evaluar estados de penalización/atraso,
+ * consultar datos del usuario comprador y procesar las entregas o devoluciones de los libros.
+ *
+ * @author Irvin
+ * @since 25/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>

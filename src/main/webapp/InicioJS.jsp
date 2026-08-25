@@ -1,11 +1,15 @@
-<%--
-    Documento   : Inicio.jsp
-    Autor       : Monserrath Anzurez
-    Fecha       : 23/08/26
-    Descripción : Vista JSP principal del catálogo y menú de navegación para los usuarios en LibriFlow.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+ * Vista principal (Inicio) de la aplicación LibriFlow.
+ * Actúa como el catálogo general donde los usuarios pueden explorar, buscar y filtrar
+ * publicaciones disponibles (tanto del catálogo oficial como de otros usuarios).
+ * Incluye el menú de navegación principal, barra de búsqueda, filtrado por género
+ * y la visualización de tarjetas de libros.
+ *
+ * @author Alejandro Mena Pereyda
+ * @since 23/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>
@@ -27,7 +31,7 @@
                 <i class="bi bi-list" style="font-size: 2rem;"></i>
             </button>
 
-            <a href="inicio" class="d-flex align-items-center text-decoration-none">
+            <a href="inicio-js" class="d-flex align-items-center text-decoration-none">
                 <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" alt="Logo LibriFlow" style="height: 40px; width: auto;" class="me-2">
                 <div class="text-start d-none d-sm-block">
                     <div class="fw-bold tracking-widest fs-5 text-white">LIBRIFLOW</div>
@@ -107,18 +111,15 @@
             </c:if>
 
             <div class="d-flex gap-3 mb-3 align-items-center">
-                <form action="inicio" method="GET" class="position-relative flex-grow-1 m-0">
+                <div class="position-relative flex-grow-1 m-0">
                     <i class="bi bi-search search-icon-inside"></i>
-                    <c:if test="${not empty paramGenero && paramGenero != 'TODOS'}">
-                        <input type="hidden" name="genero" value="<c:out value='${paramGenero}' />">
-                    </c:if>
                     <input type="text"
-                           name="q"
+                           id="input-busqueda"
                            value="<c:out value='${paramBusqueda}' />"
                            class="form-control search-bar-lf shadow-sm"
                            placeholder="Buscar libros, autores..."
                            maxlength="100">
-                </form>
+                </div>
 
                 <div class="dropdown">
                     <button class="btn bg-white rounded-circle d-flex align-items-center justify-content-center shadow-sm border"
@@ -134,12 +135,10 @@
 
                         <c:set var="listaGeneros" value="TODOS,Novela,Fantasía,Ciencia ficción,Terror,Romance,Misterio,Suspenso,Drama,Aventura,Historia,Biografía,Autobiografía,Ciencia,Tecnología,Educación,Infantil,Poesía,Filosofía,Religión,Cómic" />
                         <c:forEach var="genItem" items="${listaGeneros}">
-                            <c:url var="filtroUrl" value="inicio">
-                                <c:param name="q" value="${paramBusqueda}" />
-                                <c:param name="genero" value="${genItem}" />
-                            </c:url>
                             <li>
-                                <a class="dropdown-item py-2 rounded-3 filter-item-lf ${paramGenero == genItem ? 'fw-bold active' : ''}" href="${filtroUrl}">
+                                <a href="javascript:void(0)"
+                                   class="dropdown-item py-2 rounded-3 filter-item-lf btn-opcion-genero"
+                                   data-genero="${genItem}">
                                     <c:out value="${genItem == 'TODOS' ? 'Todos' : genItem}" />
                                 </a>
                             </li>
@@ -148,114 +147,119 @@
                 </div>
             </div>
 
-            <c:if test="${not empty paramBusqueda || (not empty paramGenero && paramGenero != 'TODOS')}">
-                <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
-                    <small class="text-secondary fw-semibold">Filtros aplicados:</small>
-                    <c:if test="${not empty paramBusqueda}">
-                        <span class="badge bg-secondary-subtle text-dark border px-3 py-2 rounded-pill">
-                            Búsqueda: "<c:out value='${paramBusqueda}' />"
-                        </span>
-                    </c:if>
-                    <c:if test="${not empty paramGenero && paramGenero != 'TODOS'}">
-                        <span class="badge bg-secondary-subtle text-dark border px-3 py-2 rounded-pill">
-                            Género: <c:out value='${paramGenero}' />
-                        </span>
-                    </c:if>
-                    <a href="inicio" class="btn btn-sm btn-link text-danger text-decoration-none p-0 ms-2 fw-bold">
-                        <i class="bi bi-x-circle-fill me-1"></i> Limpiar filtros
-                    </a>
-                </div>
-            </c:if>
+            <div id="contenedor-filtros">
+                <c:if test="${not empty paramBusqueda || (not empty paramGenero && paramGenero != 'TODOS')}">
+                    <div class="d-flex align-items-center gap-2 mb-4 flex-wrap">
+                        <small class="text-secondary fw-semibold">Filtros aplicados:</small>
+                        <c:if test="${not empty paramBusqueda}">
+                            <span class="badge bg-secondary-subtle text-dark border px-3 py-2 rounded-pill">
+                                Búsqueda: "<c:out value='${paramBusqueda}' />"
+                            </span>
+                        </c:if>
+                        <c:if test="${not empty paramGenero && paramGenero != 'TODOS'}">
+                            <span class="badge bg-secondary-subtle text-dark border px-3 py-2 rounded-pill">
+                                Género: <c:out value='${paramGenero}' />
+                            </span>
+                        </c:if>
+                        <button type="button" onclick="limpiarFiltros()" class="btn btn-sm btn-link text-danger text-decoration-none p-0 ms-2 fw-bold">
+                            <i class="bi bi-x-circle-fill me-1"></i> Limpiar filtros
+                        </button>
+                    </div>
+                </c:if>
+            </div>
 
-            <c:choose>
-                <c:when test="${empty publicaciones}">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
-                                <i class="bi bi-journal-x display-3 text-muted mb-3 d-block"></i>
-                                <h4 class="fw-bold text-dark mb-2">No se encontraron publicaciones</h4>
-                                <p class="text-muted mb-3">Intenta buscar con otras palabras o selecciona un género diferente.</p>
-                                <a href="inicio" class="btn btn-outline-dark rounded-pill px-4">
-                                    Ver todo el catálogo
-                                </a>
+            <div id="contenedor-catalogo">
+                <c:choose>
+                    <c:when test="${empty publicaciones}">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="p-5 text-center rounded-lf-header text-secondary bg-white shadow-sm border border-2 border-dashed">
+                                    <i class="bi bi-journal-x display-3 text-muted mb-3 d-block"></i>
+                                    <h4 class="fw-bold text-dark mb-2">No se encontraron publicaciones</h4>
+                                    <p class="text-muted mb-3">Intenta buscar con otras palabras o selecciona un género diferente.</p>
+                                    <button type="button" onclick="limpiarFiltros()" class="btn btn-outline-dark rounded-pill px-4">
+                                        Ver todo el catálogo
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="row g-3 publicaciones-lista">
-                        <c:forEach var="publicacion" items="${publicaciones}">
-                            <%-- Solo mostrar publicaciones de otros usuarios o administradores --%>
-                            <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
-                                <div class="col-12 col-md-6">
-                                    <article class="card-libro ${publicacion.esLibriFlow ? 'tiene-badge' : ''}" style="position: relative;">
-                                        <c:if test="${publicacion.esLibriFlow}">
-                                            <div class="lf-badge">
-                                                Catálogo LibriFlow
-                                            </div>
-                                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="row g-3 publicaciones-lista">
+                            <c:forEach var="publicacion" items="${publicaciones}">
+                                <c:if test="${publicacion.idPropietario != sessionScope.usuario.id}">
+                                    <div class="col-12 col-md-6">
+                                        <article class="card-libro ${publicacion.esLibriFlow ? 'tiene-badge' : ''}" style="position: relative;">
+                                            <c:if test="${publicacion.esLibriFlow}">
+                                                <div class="lf-badge">Catálogo LibriFlow</div>
+                                            </c:if>
 
-                                        <div class="card-portada">
-                                            <img src="${pageContext.request.contextPath}/${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
-                                        </div>
-
-                                        <div class="card-contenido">
-
-                                            <div class="card-info">
-                                                <h3 class="card-titulo">
-                                                    <c:out value="${publicacion.titulo}" />
-                                                </h3>
-
-                                                <p class="card-autor">
-                                                    Autor: <c:out value="${publicacion.autor}" />
-                                                </p>
-
-                                                <p class="card-genero">
-                                                    Género: <c:out value="${publicacion.genero}" />
-                                                </p>
-
-                                                <p class="card-precio">
-                                                    <c:choose>
-                                                        <c:when test="${publicacion.precio == 0.0}">
-                                                            <span class="texto-solo-renta">Solo renta</span>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            $<c:out value="${publicacion.precio}" />
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </p>
+                                            <div class="card-portada">
+                                                <img src="${pageContext.request.contextPath}/${publicacion.imagenPrincipal}" alt="Portada de ${publicacion.titulo}">
                                             </div>
 
-                                            <c:choose>
-                                                <c:when test="${publicacion.esLibriFlow}">
-                                                    <a href="detalle-publicacion-superad?idPublicacion=${publicacion.idPublicacion}"
-                                                       class="btn-detalles">
-                                                        Ver detalles
-                                                    </a>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}"
-                                                       class="btn-detalles">
-                                                        Ver detalles
-                                                    </a>
-                                                </c:otherwise>
-                                            </c:choose>
+                                            <div class="card-contenido">
+                                                <div class="card-info">
+                                                    <h3 class="card-titulo"><c:out value="${publicacion.titulo}" /></h3>
+                                                    <p class="card-autor">Autor: <c:out value="${publicacion.autor}" /></p>
+                                                    <p class="card-genero">Género: <c:out value="${publicacion.genero}" /></p>
+                                                    <p class="card-precio">
+                                                        <c:choose>
+                                                            <c:when test="${publicacion.precio == 0.0}">
+                                                                <span class="texto-solo-renta">Solo renta</span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                $<c:out value="${publicacion.precio}" />
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </p>
+                                                </div>
 
-                                        </div>
+                                                <c:choose>
+                                                    <c:when test="${publicacion.esLibriFlow}">
+                                                        <a href="detalle-publicacion-superad?idPublicacion=${publicacion.idPublicacion}" class="btn-detalles">Ver detalles</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <a href="detalle-publicacion?idPublicacion=${publicacion.idPublicacion}" class="btn-detalles">Ver detalles</a>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
 
-                                    </article>
-                                </div>
-                            </c:if>
-                        </c:forEach>
-                    </div>
-                </c:otherwise>
-            </c:choose>
         </main>
-
     </div>
 </div>
 
+<template id="plantilla-tarjeta">
+    <div class="col-12 col-md-6">
+        <article class="card-libro" style="position: relative;">
+            <div class="lf-badge d-none">Catálogo LibriFlow</div>
+
+            <div class="card-portada">
+                <img src="" alt="">
+            </div>
+
+            <div class="card-contenido">
+                <div class="card-info">
+                    <h3 class="card-titulo"></h3>
+                    <p class="card-autor"></p>
+                    <p class="card-genero"></p>
+                    <p class="card-precio"></p>
+                </div>
+                <a href="" class="btn-detalles">Ver detalles</a>
+            </div>
+        </article>
+    </div>
+</template>
+
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/InicioJS.js"></script>
 </body>
 </html>

@@ -1,3 +1,10 @@
+<%--
+    Documento   : EditarPublicacion.jsp
+    Autor       : Monserrath Anzurez
+    Fecha       : 23/08/26
+    Descripción : Vista JSP para la edición de datos e imágenes de una publicación de usuario en LibriFlow.
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
@@ -75,7 +82,7 @@
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 dropdown-menu-lf">
                     <li>
                         <a class="dropdown-item py-2 dropdown-lf-item"
-                           href="${pageContext.request.contextPath}/actualizar-perfil">
+                           href="${pageContext.request.contextPath}/actualizar-perfil-js">
                             <i class="bi bi-person me-2"></i>
                             Ver perfil
                         </a>
@@ -97,7 +104,7 @@
         <aside class="col-12 col-md-4 col-lg-3">
             <div class="collapse d-md-block" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0">
-                    <a href="${pageContext.request.contextPath}/inicio"
+                    <a href="${pageContext.request.contextPath}/inicio-js"
                        class="btn bg-lf-capsule btn-lf-pill w-100 py-2.5 text-start d-flex align-items-center px-4">
                         <i class="bi bi-house me-3 fs-5"></i>
                         Inicio

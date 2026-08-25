@@ -1,5 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+ * Vista de administración para la creación y publicación directa de libros en la plataforma LibriFlow.
+ * Proporciona un formulario interactivo que permite ingresar metadatos del libro (título, autor, editorial, género),
+ * establecer modalidades de oferta (venta/renta), precios, cantidad de ejemplares y sinopsis.
+ * Incluye un modal para la precarga y vista previa de tres fotografías obligatorias (portada, contraportada y estado).
+ *
+ * @author Andres
+ * @since 25/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>

@@ -14,12 +14,35 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+/**
+ * Controlador Servlet encargado de gestionar la vista principal de inicio (catálogo de publicaciones).
+ * Procesa la búsqueda dinámica, filtrado por género, unificación de publicaciones de usuarios y
+ * administradores, y control de acceso por sesión.
+ *
+ * @author Francisco
+ * @since 24/08/2026
+ */
 
 @WebServlet(name = "InicioSv", value = "/inicio")
 public class InicioSv extends HttpServlet {
 
     private final PublicacionUsuarioDao publicacionUsuarioDao = new PublicacionUsuarioDao();
     private final PublicacionAdministradorDao publicacionAdministradorDao = new PublicacionAdministradorDao();
+
+    /**
+     * Procesa las peticiones HTTP GET para cargar el catálogo principal.
+     * Valida la sesión activa del usuario, sanitiza los parámetros de búsqueda y filtro por género,
+     * consulta las publicaciones activas tanto de usuarios como de administradores, aplica los filtros
+     * dinámicos y redirige hacia la vista `Inicio.jsp`.
+     *
+     * @param req Objeto HttpServletRequest con los parámetros de búsqueda 'q' y filtro 'genero'.
+     * @param resp Objeto HttpServletResponse para enviar la respuesta o realizar redirecciones.
+     * @throws ServletException Si ocurre una falla de procesamiento en el Servlet.
+     * @throws IOException Si ocurre un error de entrada/salida durante la redirección o despacho.
+     *
+     * @author Francisco
+     * @since 24/08/2026
+     */
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

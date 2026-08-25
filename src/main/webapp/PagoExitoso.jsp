@@ -1,4 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+ * Vista de interfaz de usuario que confirma la realización exitosa de una transacción de compra o renta.
+ * Valida la existencia del atributo 'pagoRealizado' en la sesión activa para restringir accesos directos
+ * no autorizados y limpia dicho flag para asegurar una experiencia de navegación segura.
+ *
+ * @author Francisco
+ * @since 25/08/2026
+--%>
 <!DOCTYPE html>
 <html lang="es">
 <head>

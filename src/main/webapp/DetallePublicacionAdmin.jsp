@@ -1,3 +1,13 @@
+<%--
+    Esta vista se encarga de mostrar al administrador la información
+    detallada de una publicación. Permite visualizar los datos del libro,
+    sus imágenes y reseñas, además de permitir que el administrador
+    pueda dar de baja una publicación.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -17,6 +27,15 @@
 <body class="p-3 p-md-4">
 
 <div class="container-fluid max-width-xl mx-auto h-100 d-flex flex-column pb-2">
+
+  <%--
+      Esta sección contiene el encabezado de la vista del administrador.
+      Muestra el botón para regresar al inicio, los datos del usuario
+      administrador y las opciones para consultar el perfil o cerrar sesión.
+
+      @author Andres Gerardo Angelina Perez
+      @since 24/08/2026
+  --%>
 
   <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 flex-shrink-0">
     <div class="d-flex align-items-center gap-2 gap-md-3">
@@ -56,6 +75,16 @@
   </header>
 
   <div class="row gx-4 gy-4 gy-md-0 flex-grow-1 overflow-hidden">
+
+    <%--
+        Esta sección contiene el menú lateral de navegación del administrador.
+        Permite acceder al inicio, solicitudes de publicación, registro de
+        publicaciones, rentas activas, usuarios e ingresos.
+
+        @author Andres Gerardo Angelina Perez
+        @since 24/08/2026
+    --%>
+
     <aside class="col-12 col-md-4 col-lg-3 h-100">
       <div class="collapse d-md-block h-100" id="sidebarMenu">
         <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0 h-100">
@@ -81,6 +110,15 @@
       </div>
     </aside>
 
+    <%--
+        Esta sección contiene el área principal con el detalle de la publicación.
+        También muestra un mensaje de error cuando no fue posible realizar
+        correctamente la baja de una publicación.
+
+        @author Andres Gerardo Angelina Perez
+        @since 24/08/2026
+    --%>
+
     <main class="col-12 col-md-8 col-lg-9 h-100 overflow-hidden d-flex flex-column position-relative">
 
       <c:if test="${not empty param.error}">
@@ -91,6 +129,15 @@
       </c:if>
 
       <div class="row gx-4 gy-4 gy-lg-0 detalle-admin-content flex-grow-1 h-100">
+
+        <%--
+            Esta sección muestra las imágenes principales de la publicación,
+            el precio o disponibilidad para renta y las reseñas realizadas
+            por los usuarios.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
 
         <div class="col-12 col-lg-6 detalle-admin-left h-100">
 
@@ -118,6 +165,16 @@
               </div>
             </div>
           </div>
+
+          <%--
+              Esta condición muestra las reseñas cuando la publicación
+              corresponde al catálogo administrado por LibriFlow.
+              Calcula el promedio de calificaciones y muestra cada opinión
+              realizada por los usuarios.
+
+              @author Andres Gerardo Angelina Perez
+              @since 24/08/2026
+          --%>
 
           <c:if test="${not empty esAdminPub}">
             <div class="resenas-admin-section">
@@ -177,6 +234,16 @@
 
         </div>
 
+        <%--
+            Esta sección muestra la información general del libro como título,
+            autor, editorial, género y sinopsis. También determina la ruta
+            correspondiente para realizar la baja dependiendo de si la
+            publicación pertenece a LibriFlow o a un usuario.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
+
         <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-admin-right h-100">
 
           <div class="pill-info-lf shadow-sm flex-shrink-0">
@@ -223,6 +290,15 @@
   </div>
 </div>
 
+<%--
+    Este modal solicita una confirmación antes de dar de baja una publicación.
+    Permite cancelar la operación o confirmar la baja mediante el formulario
+    correspondiente.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
+
 <div class="modal fade" id="modalBajaPublicacion" tabindex="-1" aria-labelledby="modalBajaLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content shadow-lg" style="border-radius: 40px; background-color: #e3ded7; color: #4A4641; border: none;">
@@ -251,6 +327,15 @@
     </div>
   </div>
 </div>
+
+<%--
+    Estos scripts cargan las funciones de Bootstrap y los archivos JavaScript
+    utilizados para confirmar la baja de publicaciones y mostrar las
+    notificaciones correspondientes.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/BajaAdmin.js"></script>

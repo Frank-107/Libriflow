@@ -1,3 +1,12 @@
+<%--
+    Esta vista se encarga de mostrar la información detallada de una publicación.
+    Permite visualizar los datos del libro, sus imágenes, reseñas y las acciones
+    disponibles dependiendo de si el usuario es propietario de la publicación,
+    si pertenece al catálogo de LibriFlow o si corresponde a otro usuario.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -18,6 +27,14 @@
 <body class="p-3 p-md-4">
 <div class="container-fluid max-width-xl mx-auto h-100 d-flex flex-column pb-2">
 
+    <%--
+        Esta sección muestra el encabezado principal de la página.
+        Incluye el botón de regreso, el nombre y correo del usuario activo,
+        así como el menú para consultar el perfil o cerrar la sesión.
+
+        @author Andres Gerardo Angelina Perez
+        @since 24/08/2026
+    --%>
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 flex-shrink-0">
         <div class="d-flex align-items-center gap-2 gap-md-3">
             <button class="btn text-white d-md-none p-0 border-0 me-1"
@@ -83,6 +100,13 @@
         </div>
     </header>
 
+    <%--
+        Esta sección muestra las notificaciones de éxito o error almacenadas
+        en la sesión y elimina el mensaje después de presentarlo al usuario.
+
+        @author Andres Gerardo Angelina Perez
+        @since 24/08/2026
+    --%>
     <c:if test="${not empty sessionScope.mensaje}">
         <div id="successToast" class="libri-toast libri-toast-success">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -112,6 +136,14 @@
 
     <div class="row gx-4 gy-4 gy-md-0 flex-grow-1 overflow-hidden">
 
+        <%--
+            Esta sección contiene el menú lateral de navegación.
+            Permite acceder al inicio, carrito, compras, publicación de libros,
+            publicaciones del usuario, rentas y redes sociales.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
         <aside class="col-12 col-md-4 col-lg-3 h-100">
             <div class="collapse d-md-block h-100" id="sidebarMenu">
                 <div class="bg-lf-dark p-4 rounded-lf-sidebar d-flex flex-column gap-3 shadow-sm mb-3 mb-md-0 h-100">
@@ -158,6 +190,14 @@
         <main class="col-12 col-md-8 col-lg-9 h-100 overflow-hidden d-flex flex-column position-relative">
             <div class="row gx-4 gy-4 gy-lg-0 flex-grow-1 h-100">
 
+                <%--
+                    Esta sección muestra las imágenes asociadas con la publicación,
+                    incluyendo la portada principal, el reverso y la imagen interior.
+                    También presenta el precio y las reseñas cuando corresponde.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
                 <div class="col-12 col-lg-6 detalle-left-scroll h-100">
 
                     <div class="d-flex flex-column align-items-center">
@@ -188,6 +228,14 @@
                         <div class="d-flex align-items-center gap-2 mt-2 fw-bold fs-5 text-dark">
                             <span class="badge bg-secondary rounded-pill px-3 py-2">
                                 <c:choose>
+                                    <%--
+                            Esta condición muestra las opciones disponibles para una publicación
+                            administrada por LibriFlow. Permite agregar el libro al carrito para
+                            compra o abrir la selección de fechas cuando está disponible para renta.
+
+                            @author Andres Gerardo Angelina Perez
+                            @since 24/08/2026
+                        --%>
                                     <c:when test="${not empty esAdminPub}">
                                         <c:choose>
                                             <c:when test="${publicacion.esVenta == 0}">
@@ -207,6 +255,15 @@
 
                     </div>
 
+                    <%--
+                        Esta sección administra la visualización de las reseñas de las
+                        publicaciones de LibriFlow. Calcula el promedio de calificaciones,
+                        permite registrar una reseña cuando el usuario ha comprado o rentado
+                        el libro y muestra las opiniones registradas.
+
+                        @author Andres Gerardo Angelina Perez
+                        @since 24/08/2026
+                    --%>
                     <div class="mt-4">
                         <c:if test="${not empty esAdminPub}">
 
@@ -323,10 +380,27 @@
 
                 </div>
 
+                <%--
+                    Esta sección muestra la información y las acciones disponibles para
+                    la publicación. El contenido cambia dependiendo de si el usuario es
+                    propietario, si la publicación pertenece a LibriFlow o si pertenece
+                    a otro usuario.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
                 <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-scroll h-100">
 
                     <c:choose>
 
+                        <%--
+                            Esta condición muestra la información y opciones disponibles cuando
+                            el usuario actual es propietario de la publicación. Dependiendo del
+                            estado permite editar, eliminar o solamente consultar la publicación.
+
+                            @author Andres Gerardo Angelina Perez
+                            @since 24/08/2026
+                        --%>
                         <c:when test="${esPropietario}">
 
                             <div class="pill-info-lf shadow-sm flex-shrink-0">
@@ -550,6 +624,14 @@
 
                         </c:when>
 
+                        <%--
+                            Esta condición muestra la información de una publicación perteneciente
+                            a otro usuario. Si la publicación se encuentra activa permite agregarla
+                            al carrito; de lo contrario informa su estado de disponibilidad.
+
+                            @author Andres Gerardo Angelina Perez
+                            @since 24/08/2026
+                        --%>
                         <c:otherwise>
 
                             <div class="pill-info-lf shadow-sm flex-shrink-0">
@@ -656,6 +738,14 @@
     </div>
 </div>
 
+<%--
+    Este modal solicita confirmación antes de eliminar una publicación
+    del usuario. Solamente se encuentra disponible cuando la publicación
+    está pendiente o rechazada y la acción no puede deshacerse.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 <c:if test="${esPropietario &&
               (publicacion.estado == 'PENDIENTE' ||
                publicacion.estado == 'RECHAZADO')}">
@@ -737,6 +827,14 @@
 
 </c:if>
 
+<%--
+    Este modal permite seleccionar las fechas de inicio y fin de una renta.
+    También muestra la tarifa, calcula el monto total mediante JavaScript y
+    envía la información necesaria para agregar la renta al carrito.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 <c:if test="${not empty esAdminPub}">
 
     <div class="modal fade"
@@ -826,6 +924,13 @@
     </div>
 </c:if>
 
+<%--
+    Estos scripts cargan las funciones de Bootstrap, el cálculo de las
+    rentas y el comportamiento de las notificaciones utilizadas en la vista.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Renta.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/Notificacion.js"></script>

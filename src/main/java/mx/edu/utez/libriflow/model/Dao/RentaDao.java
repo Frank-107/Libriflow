@@ -10,8 +10,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Objeto de Acceso a Datos (DAO) para la gestión de rentas de libros en el sistema LibriFlow.
+ * Proporciona métodos para consultar el historial de rentas globales o por usuario,
+ * así como para actualizar estados operativos de entrega, devolución y penalizaciones.
+ *
+ * @author Andres
+ * @since 24/08/2026
+ */
 public class RentaDao {
 
+    /**
+     * Recupera el listado completo y detallado de todas las rentas registradas en la base de datos.
+     * Consolida información de transacciones, compradores, vendedores y datos bibliográficos del libro.
+     *
+     * @return Lista de objetos {@link RentaResumen} con el resumen global de rentas.
+     */
     public List<RentaResumen> getResumenTodasLasRentas() {
 
         List<RentaResumen> lista = new ArrayList<>();
@@ -107,6 +121,12 @@ public class RentaDao {
         return lista;
     }
 
+    /**
+     * Consulta y obtiene la lista de rentas realizadas por un comprador específico.
+     *
+     * @param idUsuario Identificador único del usuario comprador.
+     * @return Lista de objetos {@link RentaResumen} asociados al usuario.
+     */
     public List<RentaResumen> getResumenRentasPorUsuario(int idUsuario) {
 
         List<RentaResumen> lista = new ArrayList<>();
@@ -207,6 +227,13 @@ public class RentaDao {
         return lista;
     }
 
+    /**
+     * Cambia el estado de una renta a 'ACTIVA' cuando la entrega se realiza con éxito,
+     * siempre y cuando la renta se encuentre 'PROGRAMADA' y la fecha actual sea igual o posterior a la fecha de inicio.
+     *
+     * @param idDetalle Identificador del detalle de la renta.
+     * @return {@code true} si la actualización fue exitosa; {@code false} en caso contrario.
+     */
     public boolean marcarComoEntregada(int idDetalle) {
 
         String sql = """
@@ -230,6 +257,13 @@ public class RentaDao {
         }
     }
 
+    /**
+     * Marca una renta como 'FINALIZADA' y establece la fecha de devolución al momento actual,
+     * siempre que la renta se encuentre en estado 'ACTIVA'.
+     *
+     * @param idDetalle Identificador del detalle de la renta.
+     * @return {@code true} si se registró la devolución correctamente; {@code false} en caso contrario.
+     */
     public boolean marcarComoFinalizada(int idDetalle) {
 
         String sql = """
@@ -253,6 +287,13 @@ public class RentaDao {
         }
     }
 
+    /**
+     * Actualiza arbitrariamente el estado de un registro en la tabla de detalle de renta.
+     *
+     * @param idDetalle Identificador del detalle de la renta.
+     * @param estado Nuevo estado que se asignará al registro.
+     * @return {@code true} si se actualizó el registro; {@code false} en caso de error.
+     */
     public boolean cambiarEstadoRenta(int idDetalle, String estado) {
 
         String sql = """
@@ -275,6 +316,13 @@ public class RentaDao {
         }
     }
 
+    /**
+     * Cuenta la cantidad de rentas vigentes ('ACTIVA') que posee un usuario comprador
+     * y que no cuentan con ninguna penalización registrada.
+     *
+     * @param idUsuario Identificador único del usuario comprador.
+     * @return Número total de rentas activas sin penalización.
+     */
     public int contarRentasActivasPorUsuario(int idUsuario) {
 
         int total = 0;
@@ -314,6 +362,12 @@ public class RentaDao {
         return total;
     }
 
+    /**
+     * Cuenta cuántas rentas activas presenta un usuario con nivel de penalización por retraso (1 o 2).
+     *
+     * @param idUsuario Identificador único del usuario comprador.
+     * @return Número total de rentas activas con atraso/penalización.
+     */
     public int contarRetrasosPorUsuario(int idUsuario) {
 
         int total = 0;

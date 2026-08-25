@@ -707,3 +707,43 @@ RESPONSIVE
         width: 100%;
     }
 }
+
+/* ==========================================
+   MODAL DE CONFIRMACIÓN DE CANCELACIÓN
+   ========================================== */
+.modal-cancelar-content {
+    border-radius: 40px;
+    background-color: #e3ded7;
+    color: #4A4641;
+    border: none;
+}
+
+.btn-modal-cerrar {
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 20px;
+}
+
+.btn-modal-confirmar {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    background-color: transparent;
+    color: #B45353;
+    border: 1px solid #B45353;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-modal-confirmar:hover {
+    background-color: #B45353;
+    color: #FFFFFF;
+    transform: translateY(-1px);
+}

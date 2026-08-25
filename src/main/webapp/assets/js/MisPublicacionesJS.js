@@ -8,6 +8,33 @@
  * @since 23/08/2026
  */
 
+let idParaCancelar = null;
+let botonParaCancelar = null;
+
+function confirmarCancelacion(idPublicacion, botonElemento) {
+    idParaCancelar = idPublicacion;
+    botonParaCancelar = botonElemento;
+    const modalElement = document.getElementById('modalConfirmarCancelacion');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const btnConfirmar = document.getElementById('btnConfirmarCancelacion');
+    if (btnConfirmar) {
+        btnConfirmar.addEventListener('click', () => {
+            const modalElement = document.getElementById('modalConfirmarCancelacion');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
+            if (idParaCancelar && botonParaCancelar) {
+                cancelarPublicacion(idParaCancelar, botonParaCancelar);
+            }
+        });
+    }
+});
+
 /**
  * Envía una petición DELETE al servidor para cancelar una publicación específica.
  * Si la operación es exitosa, elimina la tarjeta correspondiente del DOM,

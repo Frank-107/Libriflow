@@ -7,9 +7,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Objeto de Acceso a Datos (DAO) para la gestión de reseñas de publicaciones LibriFlow.
+ * Proporciona métodos para registrar nuevas valoraciones, obtener el historial de reseñas
+ * asociadas a una publicación y verificar si un usuario cuenta con los permisos de compra o renta
+ * requeridos para publicar una opinión.
+ *
+ * @author Irvin
+ * @since 25/08/2026
+ */
 public class ResenaDao {
 
-    //Guardar reseña
+    /**
+     * Registra una nueva reseña en la base de datos para una publicación de LibriFlow.
+     *
+     * @param resena Objeto {@link Resena} con la información de la valoración (usuario, publicación, comentario y calificación).
+     * @return {@code true} si el registro se insertó correctamente; {@code false} en caso de error o falla en la ejecución.
+     */
     public boolean create(Resena resena) {
         String sql = "INSERT INTO RESENA (id_usuario, id_publicacion_lf, comentario, calificacion) VALUES (?, ?, ?, ?)";
 
@@ -29,7 +43,13 @@ public class ResenaDao {
         }
     }
 
-    //Listar reseñas
+    /**
+     * Obtiene el listado de reseñas asociadas a una publicación específica de LibriFlow.
+     * Incluye el nombre completo del usuario autor y ordena los resultados de forma descendente por fecha.
+     *
+     * @param idPublicacionLf Identificador único de la publicación de LibriFlow.
+     * @return Lista de objetos {@link Resena} registrados para la publicación solicitada.
+     */
     public List<Resena> getResenasByPublicacion(int idPublicacionLf) {
         List<Resena> lista = new ArrayList<>();
 
@@ -69,7 +89,14 @@ public class ResenaDao {
         return lista;
     }
 
-    // 🔹 Validar compra/renta
+    /**
+     * Verifica si un usuario ha realizado al menos una transacción (compra o renta)
+     * asociada a una publicación específica de LibriFlow.
+     *
+     * @param idUsuario Identificador único del usuario.
+     * @param idPublicacionLf Identificador único de la publicación en LibriFlow.
+     * @return {@code true} si el usuario posee al menos una transacción registrada de dicha publicación; {@code false} de lo contrario.
+     */
     public boolean usuarioHaCompradoORentado(int idUsuario, int idPublicacionLf) {
 
         String sql = """

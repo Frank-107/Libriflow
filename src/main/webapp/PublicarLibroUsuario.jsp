@@ -1,5 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--
+ * Vista de cliente para el envío de solicitudes de publicación de libros en la plataforma LibriFlow.
+ * Permite a los usuarios registrados ingresar la información detallada del ejemplar (título, autor, editorial, género, precio y sinopsis),
+ * además de cargar tres fotografías obligatorias (portada, contraportada y estado general) mediante un modal interactivo con vista previa.
+ *
+ * @author Santiago
+ * @since 25/08/2026
+--%>
 <!doctype html>
 <html lang="es">
 <head>
@@ -349,7 +357,6 @@
                                     <small class="text-muted">
                                         <i class="bi bi-info-circle me-1"></i> Las 3 imágenes son requeridas para publicar.
                                     </small>
-                                    <!-- Busca esta línea en el footer del modal -->
                                     <button type="button" class="btn btn-modal-guardar rounded-pill px-4 py-2 fw-semibold shadow-sm" data-bs-dismiss="modal">
                                         <i class="bi bi-check2 me-1"></i> Guardar y Continuar
                                     </button>

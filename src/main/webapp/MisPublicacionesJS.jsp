@@ -1,13 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
- * Vista que muestra el historial de publicaciones realizadas por el usuario en sesión.
- * Permite visualizar la lista completa de sus libros subidos, ver el estado actual
- * de cada uno (activo, pendiente, rechazado, etc.), ordenarlos por fecha y acceder a
- * los detalles. Además, permite cancelar publicaciones que aún estén pendientes o rechazadas.
+ * Vista de interfaz de usuario que despliega el historial general de publicaciones realizadas por el usuario en sesión.
+ * Permite visualizar el catálogo de libros ofertados, consultar sus estados operativos (PENDIENTE, ACTIVO, RECHAZADO, etc.),
+ * aplicar filtros de ordenamiento cronológico por fecha y gestionar acciones como la cancelación de publicaciones pendientes.
  *
- * @author Alejandro Mena Pereyda
- * @since 23/08/2026
+ * @author Francisco
+ * @since 25/08/2026
 --%>
 <!doctype html>
 <html lang="es">

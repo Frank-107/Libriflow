@@ -1,3 +1,13 @@
+<%--
+    Esta vista permite al administrador revisar una solicitud de publicación
+    realizada por un usuario. Muestra la información del libro, sus imágenes
+    y el estado de la solicitud, además de proporcionar las opciones necesarias
+    para aprobar o rechazar la publicación.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
@@ -26,6 +36,16 @@
 <body class="p-3 p-md-4 detalle-body">
 
 <div class="container-fluid max-width-xl mx-auto h-100 d-flex flex-column pb-2 detalle-layout">
+
+    <%--
+        Esta sección contiene el encabezado de la página.
+        Muestra el botón para regresar a las solicitudes pendientes,
+        el título de la vista y los datos del administrador que tiene
+        una sesión activa.
+
+        @author Andres Gerardo Angelina Perez
+        @since 24/08/2026
+    --%>
 
     <header class="bg-lf-dark text-white p-3 mb-4 rounded-lf-header shadow-sm d-flex justify-content-between align-items-center px-4 px-md-5 flex-shrink-0 detalle-header">
 
@@ -62,6 +82,14 @@
                     <c:out value="${sessionScope.usuario.correo}"/>
                 </small>
             </div>
+
+            <%--
+                Este menú desplegable permite al administrador acceder
+                a su perfil o cerrar la sesión actual.
+
+                @author Andres Gerardo Angelina Perez
+                @since 24/08/2026
+            --%>
 
             <div class="dropdown">
 
@@ -101,6 +129,16 @@
     </header>
 
     <div class="row g-4 flex-grow-1 overflow-hidden detalle-content-row">
+
+        <%--
+            Esta sección contiene el menú lateral de navegación disponible
+            para el administrador. Permite acceder al inicio, solicitudes
+            de publicación, publicación de libros, rentas activas,
+            usuarios e ingresos.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
 
         <aside class="col-12 col-md-4 col-lg-3 h-100 detalle-sidebar">
 
@@ -150,9 +188,27 @@
 
         </aside>
 
+        <%--
+            Esta sección contiene el detalle de la solicitud de publicación.
+            Presenta las imágenes, información general del libro y los
+            controles utilizados por el administrador para tomar una decisión.
+
+            @author Andres Gerardo Angelina Perez
+            @since 24/08/2026
+        --%>
+
         <main class="col-12 col-md-8 col-lg-9 h-100 overflow-hidden d-flex flex-column position-relative detalle-main">
 
             <div class="row g-4 flex-grow-1 h-100 detalle-inner-row">
+
+                <%--
+                    Esta sección muestra las imágenes proporcionadas por el usuario
+                    para la publicación. Incluye la portada, el reverso y una imagen
+                    del interior del libro, además del estado actual de la solicitud.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
 
                 <div class="col-12 col-lg-6 detalle-left-scroll h-100">
 
@@ -198,6 +254,15 @@
 
                 </div>
 
+                <%--
+                    Esta sección muestra la información proporcionada para
+                    la publicación, incluyendo título, autor, editorial,
+                    género, precio y sinopsis.
+
+                    @author Andres Gerardo Angelina Perez
+                    @since 24/08/2026
+                --%>
+
                 <div class="col-12 col-lg-6 d-flex flex-column gap-3 detalle-right-scroll h-100">
 
                     <div class="pill-info-lf shadow-sm flex-shrink-0">
@@ -234,6 +299,15 @@
                             <c:out value="${publicacion.sinopsis}"/>
                         </p>
                     </div>
+
+                    <%--
+                        Esta sección contiene las acciones disponibles para revisar
+                        la solicitud. El administrador puede elegir entre rechazar
+                        o aprobar la publicación después de verificar su información.
+
+                        @author Andres Gerardo Angelina Perez
+                        @since 24/08/2026
+                    --%>
 
                     <div class="revision-admin-box flex-shrink-0">
 
@@ -281,6 +355,15 @@
     </div>
 
 </div>
+
+<%--
+    Este modal solicita la confirmación del administrador antes de aprobar
+    una publicación. Si se confirma la acción, se envía el identificador
+    de la publicación junto con la acción aprobar al servlet correspondiente.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 
 <div class="modal fade"
      id="modalAprobar"
@@ -347,6 +430,15 @@
 
 </div>
 
+<%--
+    Este modal solicita la confirmación del administrador antes de rechazar
+    una publicación. Si se confirma la acción, se envía el identificador
+    de la publicación junto con la acción rechazar al servlet correspondiente.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
+
 <div class="modal fade"
      id="modalRechazar"
      tabindex="-1"
@@ -412,6 +504,14 @@
     </div>
 
 </div>
+
+<%--
+    Este script carga las funciones de Bootstrap necesarias para el
+    funcionamiento del menú adaptable y los modales de confirmación.
+
+    @author Andres Gerardo Angelina Perez
+    @since 24/08/2026
+--%>
 
 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>

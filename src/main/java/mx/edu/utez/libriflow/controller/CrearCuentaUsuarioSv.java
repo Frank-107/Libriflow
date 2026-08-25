@@ -67,7 +67,7 @@ public class CrearCuentaUsuarioSv extends HttpServlet {
         }
 
         // 4. BLINDAJE 3: Validar Correo Electrónico (Estructura real + Dominio)
-      z
+
 
         // 5. BLINDAJE 4: Contraseñas (Coincidencia + Tamaño Mínimo y Máximo Anti-DoS)
         if (!contrasena.equals(contrasena2)) {

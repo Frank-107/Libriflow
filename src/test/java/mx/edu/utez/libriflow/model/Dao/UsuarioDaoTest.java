@@ -5,7 +5,7 @@ import mx.edu.utez.libriflow.utils.SQLconnector;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import mx.edu.utez.libriflow.testconfig.OracleTestBase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsuarioDaoTest {
+class UsuarioDaoTest extends OracleTestBase {
 
     private UsuarioDao usuarioDao;
 

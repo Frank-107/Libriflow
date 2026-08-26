@@ -5,7 +5,7 @@ import mx.edu.utez.libriflow.utils.SQLconnector;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import mx.edu.utez.libriflow.testconfig.OracleTestBase;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CredencialDaoTest {
+class CredencialDaoTest extends OracleTestBase {
 
     private CredencialDao credencialDao;
     private UsuarioDao usuarioDao;

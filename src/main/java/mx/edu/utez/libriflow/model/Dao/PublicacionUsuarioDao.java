@@ -17,8 +17,8 @@ import java.util.List;
  * Objeto de Acceso a Datos (DAO) encargado de gestionar las operaciones CRUD y consultas
  * de persistencia sobre las publicaciones de usuarios (`publicacion_us`) en la base de datos.
  *
- * @author Monserrath Anzurez
- * @since 23/08/26
+ * @author Andres Gerardo Angelina Perez
+ * @since 25/08/2026
  */
 public class PublicacionUsuarioDao {
 
@@ -28,8 +28,8 @@ public class PublicacionUsuarioDao {
      * @param entidad Objeto {@link PublicacionUsuario} con la información de usuario, libro, sinopsis y precio.
      * @return El identificador entero (`id_publicacion_us`) generado por la base de datos, o `-1` si ocurre un error.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public int create(PublicacionUsuario entidad) {
 
@@ -89,8 +89,8 @@ public class PublicacionUsuarioDao {
      * @param idPublicacion Identificador único de la publicación a eliminar.
      * @return `true` si la eliminación en transacción fue exitosa; `false` en caso contrario.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean deletePublicacionById(int idPublicacion) {
 
@@ -200,8 +200,8 @@ public class PublicacionUsuarioDao {
      * @param orden Criterio de ordenamiento ('antiguas' para ascendente; de lo contrario, descendente).
      * @return Lista de objetos {@link PublicacionResumen} con las publicaciones del usuario.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public List<PublicacionResumen> getResumenPublicacionesPorUsuario(
             int idUsuario,
@@ -301,8 +301,8 @@ public class PublicacionUsuarioDao {
      * @param id Identificador único de la publicación del usuario.
      * @return Objeto {@link PublicacionUsuarioCompleta} cargado con todos los campos, o `null` si no existe.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public PublicacionUsuarioCompleta getPublicacionUsuarioCompleta(
             int id) {
@@ -439,8 +439,8 @@ public class PublicacionUsuarioDao {
      * @param ids Lista de enteros con los identificadores de las publicaciones.
      * @return Lista de objetos {@link PublicacionResumen} cuyo estado sea 'ACTIVO'.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public List<PublicacionResumen> getPublicacionesByArreglo(
             List<Integer> ids) {
@@ -549,8 +549,8 @@ public class PublicacionUsuarioDao {
      * @param idUsuario Identificador único del usuario.
      * @return Lista de objetos {@link PublicacionResumen} vinculados al usuario.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public List<PublicacionResumen> getResumenPublicacionesPorUsuario(
             int idUsuario) {
@@ -647,8 +647,8 @@ public class PublicacionUsuarioDao {
      * @param nuevoEstado Cadena con el nuevo estado a asignar.
      * @return `true` si el estado fue actualizado exitosamente; `false` en caso contrario.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean cambiarEstadoPublicacion(
             int idPublicacion,
@@ -722,42 +722,235 @@ public class PublicacionUsuarioDao {
     }
 
     /**
-     * Obtiene una lista general de publicaciones.
+     * Obtiene todas las publicaciones de usuarios registradas en la base de datos.
      *
-     * @return Lista vacía de publicaciones.
+     * @return Lista de objetos {@link PublicacionUsuario}. Si no existen registros,
+     *         se devuelve una lista vacía.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public List<PublicacionUsuario> getAll() {
-        return List.of();
+
+        List<PublicacionUsuario> publicaciones = new ArrayList<>();
+
+        String sql = """
+                SELECT
+                    id_publicacion_us,
+                    id_usuario,
+                    id_libro,
+                    fecha,
+                    estado,
+                    precio,
+                    sinopsis
+                FROM publicacion_us
+                ORDER BY id_publicacion_us
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                publicaciones.add(mapearPublicacionUsuario(rs));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return publicaciones;
     }
 
     /**
-     * Obtiene una publicación por ID.
+     * Busca una publicación de usuario utilizando su identificador único.
      *
-     * @param id Identificador entero.
-     * @return `null`.
+     * @param id Identificador único de la publicación.
+     * @return Objeto {@link PublicacionUsuario} encontrado o {@code null}
+     *         si no existe un registro con el identificador recibido.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public PublicacionUsuario getById(Integer id) {
+
+        String sql = """
+                SELECT
+                    id_publicacion_us,
+                    id_usuario,
+                    id_libro,
+                    fecha,
+                    estado,
+                    precio,
+                    sinopsis
+                FROM publicacion_us
+                WHERE id_publicacion_us = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapearPublicacionUsuario(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     /**
-     * Actualiza una entidad de publicación de usuario.
+     * Actualiza los datos principales de una publicación de usuario.
      *
-     * @param entidad Objeto a actualizar.
-     * @return `false`.
+     * El identificador de usuario, libro, sinopsis y precio son actualizados.
+     * Si el estado recibido es {@code null}, se conserva el estado actual.
+     *
+     * @param entidad Objeto {@link PublicacionUsuario} que contiene el identificador
+     *                de la publicación y los datos que serán actualizados.
+     * @return {@code true} si el registro fue actualizado correctamente;
+     *         {@code false} si no existe o si ocurre un error.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean update(PublicacionUsuario entidad) {
-        return false;
+
+        String sql = """
+                UPDATE publicacion_us
+                SET id_usuario = ?,
+                    id_libro = ?,
+                    sinopsis = ?,
+                    precio = ?,
+                    estado = NVL(?, estado)
+                WHERE id_publicacion_us = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, entidad.getIdUsuario());
+            ps.setInt(2, entidad.getIdLibro());
+            ps.setString(3, entidad.getSinopsis());
+            ps.setDouble(4, entidad.getPrecio());
+            ps.setString(5, entidad.getEstado());
+            ps.setInt(6, entidad.getIdPublicacionUs());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
-     * Elimina una publicación por ID entero.
+     * Elimina una publicación de usuario y las imágenes relacionadas con ella.
+     * La eliminación se realiza dentro de una transacción para evitar datos inconsistentes.
      *
-     * @param id Identificador.
-     * @return `false`.
+     * @param id Identificador único de la publicación que será eliminada.
+     * @return {@code true} si la publicación fue eliminada correctamente;
+     *         {@code false} si no existe o si ocurre un error.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean delete(Integer id) {
-        return false;
+
+        Connection con = null;
+
+        try {
+            con = SQLconnector.getConnection();
+            con.setAutoCommit(false);
+
+            try (PreparedStatement ps = con.prepareStatement(
+                    "DELETE FROM imagen WHERE id_publicacion_us = ?")) {
+                ps.setInt(1, id);
+                ps.executeUpdate();
+            }
+
+            int filas;
+
+            try (PreparedStatement ps = con.prepareStatement(
+                    "DELETE FROM publicacion_us WHERE id_publicacion_us = ?")) {
+                ps.setInt(1, id);
+                filas = ps.executeUpdate();
+            }
+
+            if (filas == 0) {
+                con.rollback();
+                return false;
+            }
+
+            con.commit();
+            return true;
+
+        } catch (SQLException e) {
+            if (con != null) {
+                try {
+                    con.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            e.printStackTrace();
+            return false;
+
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Convierte la fila actual de un {@link ResultSet} en un objeto
+     * {@link PublicacionUsuario}.
+     *
+     * @param rs Resultado de la consulta posicionado en una fila válida.
+     * @return Objeto {@link PublicacionUsuario} construido con los datos de la fila.
+     * @throws SQLException Si ocurre un error al leer las columnas del resultado.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private PublicacionUsuario mapearPublicacionUsuario(ResultSet rs)
+            throws SQLException {
+
+        PublicacionUsuario publicacion = new PublicacionUsuario();
+
+        publicacion.setIdPublicacionUs(
+                rs.getInt("id_publicacion_us")
+        );
+        publicacion.setIdUsuario(
+                rs.getInt("id_usuario")
+        );
+        publicacion.setIdLibro(
+                rs.getInt("id_libro")
+        );
+        publicacion.setFechaPublicacion(
+                rs.getString("fecha")
+        );
+        publicacion.setEstado(
+                rs.getString("estado")
+        );
+        publicacion.setPrecio(
+                rs.getDouble("precio")
+        );
+        publicacion.setSinopsis(
+                rs.getString("sinopsis")
+        );
+
+        return publicacion;
     }
 
     /**
@@ -766,8 +959,8 @@ public class PublicacionUsuarioDao {
      * @param idUsuario Identificador único del usuario.
      * @return La cantidad total entera de publicaciones activas.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public int contarPublicacionesPorUsuario(
             int idUsuario) {
@@ -809,8 +1002,8 @@ public class PublicacionUsuarioDao {
      * @param genero Cadena opcional con el género literario a filtrar.
      * @return Lista de objetos {@link PublicacionResumen} que cumplen los criterios de búsqueda.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public List<PublicacionResumen> buscarYFiltrarPublicacionesUs(
             String estado,
@@ -967,8 +1160,8 @@ public class PublicacionUsuarioDao {
      * @param idPublicacionUs Identificador único de la publicación a actualizar.
      * @return `true` si el estado se cambió correctamente; `false` en caso contrario.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean darDeBajaPublicacionUsuario(int idPublicacionUs) {
         String sql = "UPDATE publicacion_us SET estado = 'RECHAZADO' WHERE id_publicacion_us = ?";
@@ -1002,8 +1195,8 @@ public class PublicacionUsuarioDao {
      * @param precio Nuevo precio asignado.
      * @return `true` si la actualización fue exitosa; `false` si no se pudo actualizar o falló la transacción.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean actualizarPublicacionCompleta(
             int idPublicacion,
@@ -1197,8 +1390,8 @@ public class PublicacionUsuarioDao {
      * @param idUsuario Identificador del propietario de la publicación.
      * @return `true` si la eliminación fue exitosa; `false` si falló la operación o no se cumplieron las reglas.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean eliminarPublicacionPropietario(
             int idPublicacion,

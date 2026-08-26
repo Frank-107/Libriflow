@@ -8,18 +8,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * Esta clase se encarga de realizar las operaciones relacionadas con los
- * detalles de las transacciones dentro de la base de datos. Permite registrar
- * los detalles de una compra o renta, consultar los movimientos de un usuario
- * y obtener los movimientos utilizados para calcular los ingresos de LibriFlow.
+ * detalles de las transacciones dentro de la base de datos. Permite registrar,
+ * consultar, actualizar y eliminar detalles, además de obtener los movimientos
+ * de usuarios y los ingresos generados dentro de LibriFlow.
  *
  * @author Andres Gerardo Angelina Perez
- * @since 22/08/2026
+ * @since 25/08/2026
  */
 public class DetalleTransaccionDao {
 
@@ -37,7 +38,7 @@ public class DetalleTransaccionDao {
      *         si ocurre un error durante el registro.
      *
      * @author Andres Gerardo Angelina Perez
-     * @since 22/08/2026
+     * @since 25/08/2026
      */
     public int create(DetalleTransaccion entidad) {
 
@@ -129,7 +130,7 @@ public class DetalleTransaccionDao {
 
                     ps.setNull(
                             2,
-                            java.sql.Types.INTEGER
+                            Types.INTEGER
                     );
                 }
 
@@ -144,7 +145,7 @@ public class DetalleTransaccionDao {
 
                     ps.setNull(
                             3,
-                            java.sql.Types.INTEGER
+                            Types.INTEGER
                     );
                 }
 
@@ -159,7 +160,7 @@ public class DetalleTransaccionDao {
 
                     ps.setNull(
                             4,
-                            java.sql.Types.INTEGER
+                            Types.INTEGER
                     );
                 }
 
@@ -251,6 +252,256 @@ public class DetalleTransaccionDao {
     }
 
     /**
+     * Obtiene todos los detalles de transacción registrados.
+     *
+     * @return Lista de objetos {@link DetalleTransaccion}. Si no existen
+     *         registros, se devuelve una lista vacía.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public List<DetalleTransaccion> getAll() {
+
+        List<DetalleTransaccion> detalles = new ArrayList<>();
+
+        String sql = """
+                SELECT
+                    id_detalle,
+                    id_transaccion,
+                    id_publicacion_us,
+                    id_publicacion_lf,
+                    id_vendedor,
+                    tipo_operacion,
+                    precio,
+                    ganancia_libriflow,
+                    ganancia_vendedor
+                FROM detalle_transaccion
+                ORDER BY id_detalle
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                detalles.add(mapearDetalleTransaccion(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los detalles de transacción:");
+            e.printStackTrace();
+        }
+
+        return detalles;
+    }
+
+    /**
+     * Obtiene un detalle de transacción mediante su identificador único.
+     *
+     * @param id Identificador del detalle que se desea consultar.
+     * @return Objeto {@link DetalleTransaccion} encontrado o {@code null}
+     *         si no existe el registro.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public DetalleTransaccion getById(Integer id) {
+
+        String sql = """
+                SELECT
+                    id_detalle,
+                    id_transaccion,
+                    id_publicacion_us,
+                    id_publicacion_lf,
+                    id_vendedor,
+                    tipo_operacion,
+                    precio,
+                    ganancia_libriflow,
+                    ganancia_vendedor
+                FROM detalle_transaccion
+                WHERE id_detalle = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return mapearDetalleTransaccion(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el detalle de transacción:");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * Actualiza los datos de un detalle de transacción existente.
+     *
+     * Este método realiza solamente la actualización CRUD del registro.
+     * No ejecuta nuevamente la lógica de venta utilizada por {@link #create(DetalleTransaccion)}.
+     *
+     * @param entidad Objeto con el ID del detalle y los nuevos valores.
+     * @return {@code true} si se actualizó correctamente o {@code false}
+     *         si el registro no existe o ocurre un error.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public boolean update(DetalleTransaccion entidad) {
+
+        String sql = """
+                UPDATE detalle_transaccion
+                SET id_transaccion = ?,
+                    id_publicacion_us = ?,
+                    id_publicacion_lf = ?,
+                    id_vendedor = ?,
+                    tipo_operacion = ?,
+                    precio = ?,
+                    ganancia_libriflow = ?,
+                    ganancia_vendedor = ?
+                WHERE id_detalle = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, entidad.getIdTransaccion());
+            setIntegerNullable(ps, 2, entidad.getIdPublicacionUs());
+            setIntegerNullable(ps, 3, entidad.getIdPublicacionLf());
+            setIntegerNullable(ps, 4, entidad.getIdVendedor());
+            ps.setString(5, entidad.getTipoOperacion());
+            ps.setDouble(6, entidad.getPrecio());
+            ps.setDouble(7, entidad.getGananciaLibriFlow());
+            ps.setDouble(8, entidad.getGananciaVendedor());
+            ps.setInt(9, entidad.getIdDetalle());
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar el detalle de transacción:");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Elimina un detalle de transacción mediante su identificador.
+     *
+     * @param id Identificador del detalle que se desea eliminar.
+     * @return {@code true} si se eliminó correctamente o {@code false}
+     *         si no existe o la integridad referencial impide la operación.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public boolean delete(Integer id) {
+
+        String sql = """
+                DELETE FROM detalle_transaccion
+                WHERE id_detalle = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar el detalle de transacción:");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Convierte la fila actual de un {@link ResultSet} en un objeto
+     * {@link DetalleTransaccion}, conservando los valores nulos de las
+     * relaciones opcionales.
+     *
+     * @param rs Resultado de la consulta posicionado en una fila válida.
+     * @return Objeto construido con los valores de la fila.
+     * @throws SQLException Si ocurre un error al leer los datos.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private DetalleTransaccion mapearDetalleTransaccion(ResultSet rs)
+            throws SQLException {
+
+        DetalleTransaccion detalle = new DetalleTransaccion();
+
+        detalle.setIdDetalle(rs.getInt("id_detalle"));
+        detalle.setIdTransaccion(rs.getInt("id_transaccion"));
+
+        int idPublicacionUs = rs.getInt("id_publicacion_us");
+        detalle.setIdPublicacionUs(
+                rs.wasNull() ? null : idPublicacionUs
+        );
+
+        int idPublicacionLf = rs.getInt("id_publicacion_lf");
+        detalle.setIdPublicacionLf(
+                rs.wasNull() ? null : idPublicacionLf
+        );
+
+        int idVendedor = rs.getInt("id_vendedor");
+        detalle.setIdVendedor(
+                rs.wasNull() ? null : idVendedor
+        );
+
+        detalle.setTipoOperacion(
+                rs.getString("tipo_operacion")
+        );
+
+        detalle.setPrecio(
+                rs.getDouble("precio")
+        );
+
+        detalle.setGananciaLibriFlow(
+                rs.getDouble("ganancia_libriflow")
+        );
+
+        detalle.setGananciaVendedor(
+                rs.getDouble("ganancia_vendedor")
+        );
+
+        return detalle;
+    }
+
+    /**
+     * Coloca un entero en un PreparedStatement y conserva {@code null}
+     * cuando la relación opcional no tiene valor.
+     *
+     * @param ps PreparedStatement que recibirá el parámetro.
+     * @param indice Posición del parámetro.
+     * @param valor Valor entero o null.
+     * @throws SQLException Si ocurre un error al establecer el parámetro.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private void setIntegerNullable(
+            PreparedStatement ps,
+            int indice,
+            Integer valor) throws SQLException {
+
+        if (valor == null) {
+            ps.setNull(indice, Types.INTEGER);
+        } else {
+            ps.setInt(indice, valor);
+        }
+    }
+
+    /**
      *
      * Este método se encarga de obtener todos los movimientos relacionados
      * con un usuario. Consulta las compras, ventas y rentas realizadas con
@@ -262,7 +513,7 @@ public class DetalleTransaccionDao {
      * @return Una lista con los movimientos relacionados con el usuario.
      *
      * @author Andres Gerardo Angelina Perez
-     * @since 22/08/2026
+     * @since 25/08/2026
      */
     public List<Movimiento> getMovimientosByIdUsuario(int idUsuario) {
 
@@ -381,7 +632,7 @@ public class DetalleTransaccionDao {
      *         ingresos registrados en el sistema.
      *
      * @author Andres Gerardo Angelina Perez
-     * @since 22/08/2026
+     * @since 25/08/2026
      */
     public List<Movimiento> getAllMovimientosIngresos() {
 
@@ -408,7 +659,6 @@ public class DetalleTransaccionDao {
 
         UNION ALL
 
-        -- 2. PUBLICACIONES DE LIBRIFLOW (publicacion_lf)
         SELECT
             u.nombre AS comprador,
             t.fecha,

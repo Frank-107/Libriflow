@@ -3,12 +3,10 @@ package mx.edu.utez.libriflow.model.Dao;
 import mx.edu.utez.libriflow.model.PublicacionResumen;
 import mx.edu.utez.libriflow.model.PublicacionUsuario;
 import mx.edu.utez.libriflow.model.PublicacionUsuarioCompleta;
+import mx.edu.utez.libriflow.testconfig.OracleTestBase;
 import mx.edu.utez.libriflow.utils.SQLconnector;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,280 +17,701 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Esta clase se encarga de realizar las pruebas unitarias e integración para
- * verificar el correcto funcionamiento de los métodos del DAO de publicaciones
- * de usuarios (PublicacionUsuarioDao).
+ * Pruebas de integración para {@link PublicacionUsuarioDao} utilizando
+ * una instancia temporal de Oracle ejecutada mediante Docker y Testcontainers.
  *
- * @author Alejandro Mena Pereyda
+ * Cada prueba crea los datos que necesita para evitar dependencias con registros
+ * preexistentes o con otras pruebas.
+ *
+ * @author Andres Gerardo Angelina Perez
  * @since 25/08/2026
  */
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PublicacionUsuarioDaoTest {
+class PublicacionUsuarioDaoTest extends OracleTestBase {
 
     private PublicacionUsuarioDao dao;
 
-    private static int idPublicacionPrueba = -1;
-    private static int idUsuarioExistente = -1;
-    private static int idLibroExistente = -1;
-    private static int idPublicacionExistente = -1;
-
+    /**
+     * Inicializa el DAO antes de ejecutar cada prueba.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
     @BeforeEach
     void setUp() {
         dao = new PublicacionUsuarioDao();
-
-        if (idUsuarioExistente == -1 || idLibroExistente == -1 || idPublicacionExistente == -1) {
-            idUsuarioExistente = obtenerIdMinimo("usuario", "id_usuario");
-            idLibroExistente = obtenerIdMinimo("libro", "id_libro");
-            idPublicacionExistente = obtenerIdMinimo("publicacion_us", "id_publicacion_us");
-        }
     }
 
     /**
-     * Este método se encarga de probar la creación y registro de una nueva
-     * publicación realizada por un usuario en la base de datos.
+     * Comprueba que una publicación pueda registrarse correctamente.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(1)
     void create() {
-        PublicacionUsuario nueva = new PublicacionUsuario();
-        nueva.setIdUsuario(idUsuarioExistente);
-        nueva.setIdLibro(idLibroExistente);
-        nueva.setSinopsis("Sinopsis de prueba para la verificación de integración en publicaciones de usuario.");
-        nueva.setPrecio(200);
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Create");
 
-        idPublicacionPrueba = dao.create(nueva);
+        PublicacionUsuario publicacion = new PublicacionUsuario();
+        publicacion.setIdUsuario(idUsuario);
+        publicacion.setIdLibro(idLibro);
+        publicacion.setSinopsis("Sinopsis creada desde JUnit.");
+        publicacion.setPrecio(250.00);
 
-        assertTrue(idPublicacionPrueba > 0, "Debe retornar el ID autogenerado mayor a 0");
+        int idPublicacion = dao.create(publicacion);
+
+        assertTrue(idPublicacion > 0, "create debe devolver un ID válido");
+
+        PublicacionUsuario guardada = dao.getById(idPublicacion);
+        assertNotNull(guardada);
+        assertEquals(idUsuario, guardada.getIdUsuario());
+        assertEquals(idLibro, guardada.getIdLibro());
+        assertEquals("PENDIENTE", guardada.getEstado());
+        assertEquals(250.00, guardada.getPrecio(), 0.001);
     }
 
     /**
-     * Este método se encarga de probar la consulta y obtención detallada
-     * de los datos de una publicación completa de usuario por su ID.
+     * Comprueba que se obtengan todas las publicaciones registradas.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(2)
+    void getAll() {
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro1 = crearLibroPrueba("Libro Lista 1");
+        int idLibro2 = crearLibroPrueba("Libro Lista 2");
+
+        int id1 = crearPublicacionPrueba(idUsuario, idLibro1, "PENDIENTE", "Sinopsis 1", 100.00);
+        int id2 = crearPublicacionPrueba(idUsuario, idLibro2, "ACTIVO", "Sinopsis 2", 200.00);
+
+        List<PublicacionUsuario> publicaciones = dao.getAll();
+
+        assertNotNull(publicaciones);
+        assertEquals(2, publicaciones.size());
+        assertTrue(publicaciones.stream().anyMatch(p -> p.getIdPublicacionUs() == id1));
+        assertTrue(publicaciones.stream().anyMatch(p -> p.getIdPublicacionUs() == id2));
+    }
+
+    /**
+     * Comprueba la consulta de una publicación por su identificador.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    @Test
+    void getById() {
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro GetById");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Sinopsis GetById",
+                180.00
+        );
+
+        PublicacionUsuario resultado = dao.getById(idPublicacion);
+
+        assertNotNull(resultado);
+        assertEquals(idPublicacion, resultado.getIdPublicacionUs());
+        assertEquals(idUsuario, resultado.getIdUsuario());
+        assertEquals(idLibro, resultado.getIdLibro());
+        assertEquals("Sinopsis GetById", resultado.getSinopsis());
+        assertEquals("PENDIENTE", resultado.getEstado());
+    }
+
+    /**
+     * Comprueba que un identificador inexistente devuelva {@code null}.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    @Test
+    void getByIdInexistente() {
+        assertNull(dao.getById(-999));
+    }
+
+    /**
+     * Comprueba la actualización de los datos principales de una publicación.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    @Test
+    void update() {
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Update");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Sinopsis original",
+                120.00
+        );
+
+        PublicacionUsuario publicacion = new PublicacionUsuario();
+        publicacion.setIdPublicacionUs(idPublicacion);
+        publicacion.setIdUsuario(idUsuario);
+        publicacion.setIdLibro(idLibro);
+        publicacion.setSinopsis("Sinopsis actualizada");
+        publicacion.setPrecio(350.00);
+        publicacion.setEstado("ACTIVO");
+
+        boolean actualizado = dao.update(publicacion);
+
+        assertTrue(actualizado);
+
+        PublicacionUsuario resultado = dao.getById(idPublicacion);
+        assertNotNull(resultado);
+        assertEquals("Sinopsis actualizada", resultado.getSinopsis());
+        assertEquals(350.00, resultado.getPrecio(), 0.001);
+        assertEquals("ACTIVO", resultado.getEstado());
+    }
+
+    /**
+     * Comprueba la eliminación CRUD de una publicación y de sus imágenes asociadas.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    @Test
+    void delete() {
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Delete");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Publicación a eliminar",
+                90.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "delete.jpg");
+
+        boolean eliminado = dao.delete(idPublicacion);
+
+        assertTrue(eliminado);
+        assertNull(dao.getById(idPublicacion));
+        assertEquals(0, contarRegistros("imagen", "id_publicacion_us", idPublicacion));
+    }
+
+    /**
+     * Comprueba la consulta completa de una publicación junto con sus imágenes.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    @Test
     void getPublicacionUsuarioCompleta() {
-        PublicacionUsuarioCompleta resultado = dao.getPublicacionUsuarioCompleta(idPublicacionExistente);
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Completo");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "ACTIVO",
+                "Sinopsis completa",
+                300.00
+        );
 
-        if (resultado != null) {
-            assertEquals(idPublicacionExistente, resultado.getIdPublicacion());
-            assertEquals(idUsuarioExistente, resultado.getIdPropietario());
-        }
+        crearImagenPrueba(idPublicacion, 1, "principal.jpg");
+        crearImagenPrueba(idPublicacion, 2, "reverso.jpg");
+        crearImagenPrueba(idPublicacion, 3, "interior.jpg");
+
+        PublicacionUsuarioCompleta resultado = dao.getPublicacionUsuarioCompleta(idPublicacion);
+
+        assertNotNull(resultado);
+        assertEquals(idPublicacion, resultado.getIdPublicacion());
+        assertEquals(idUsuario, resultado.getIdPropietario());
+        assertEquals(idLibro, resultado.getIdLibro());
+        assertEquals("Libro Completo", resultado.getTitulo());
+        assertEquals("principal.jpg", resultado.getImagenPrincipal());
+        assertEquals("reverso.jpg", resultado.getImagenReverso());
+        assertEquals("interior.jpg", resultado.getImagenInterior());
     }
 
     /**
-     * Este método se encarga de probar la obtención del resumen de publicaciones
-     * asociadas a un usuario específico aplicando un criterio de ordenamiento.
+     * Comprueba la consulta de resúmenes de publicaciones por usuario y orden.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(3)
+    void getResumenPublicacionesPorUsuarioConOrden() {
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Resumen Orden");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "ACTIVO",
+                "Resumen",
+                140.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "resumen.jpg");
+
+        List<PublicacionResumen> lista =
+                dao.getResumenPublicacionesPorUsuario(idUsuario, "antiguas");
+
+        assertNotNull(lista);
+        assertEquals(1, lista.size());
+        assertEquals(idPublicacion, lista.getFirst().getIdPublicacion());
+    }
+
+    /**
+     * Comprueba la consulta sobrecargada de resúmenes por usuario.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    @Test
     void getResumenPublicacionesPorUsuario() {
-        List<PublicacionResumen> lista = dao.getResumenPublicacionesPorUsuario(idUsuarioExistente, "antiguas");
-        assertNotNull(lista, "La lista devuelta no debe ser nula");
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Resumen");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "ACTIVO",
+                "Resumen simple",
+                160.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "resumen-simple.jpg");
+
+        List<PublicacionResumen> lista = dao.getResumenPublicacionesPorUsuario(idUsuario);
+
+        assertNotNull(lista);
+        assertEquals(1, lista.size());
+        assertEquals(idPublicacion, lista.getFirst().getIdPublicacion());
     }
 
     /**
-     * Este método se encarga de probar la obtención del resumen de publicaciones
-     * de un usuario mediante el método sobrecargado sin ordenamiento explícito.
+     * Comprueba la obtención de publicaciones activas a partir de una lista de IDs.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(4)
-    void testGetResumenPublicacionesPorUsuario() {
-        List<PublicacionResumen> lista = dao.getResumenPublicacionesPorUsuario(idUsuarioExistente);
-        assertNotNull(lista, "La lista devuelta no debe ser nula");
-    }
-
-    /**
-     * Este método se encarga de probar la consulta de resúmenes de publicaciones
-     * filtradas mediante un listado de identificadores.
-     *
-     * @author Alejandro Mena Pereyda
-     * @since 25/08/2026
-     */
-    @Test
-    @Order(5)
     void getPublicacionesByArreglo() {
-        List<Integer> ids = List.of(idPublicacionExistente);
-        List<PublicacionResumen> lista = dao.getPublicacionesByArreglo(ids);
-        assertNotNull(lista, "La lista no debe ser nula");
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Arreglo");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "ACTIVO",
+                "Publicación arreglo",
+                220.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "arreglo.jpg");
+
+        List<PublicacionResumen> lista = dao.getPublicacionesByArreglo(List.of(idPublicacion));
+
+        assertNotNull(lista);
+        assertEquals(1, lista.size());
+        assertEquals(idPublicacion, lista.getFirst().getIdPublicacion());
     }
 
     /**
-     * Este método se encarga de probar el conteo total de publicaciones activas
-     * pertenecientes a un usuario en la base de datos.
+     * Comprueba el conteo de publicaciones activas de un usuario.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(6)
     void contarPublicacionesPorUsuario() {
-        int conteo = dao.contarPublicacionesPorUsuario(idUsuarioExistente);
-        assertTrue(conteo >= 0, "El conteo de publicaciones activas debe ser mayor o igual a 0");
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro1 = crearLibroPrueba("Libro Conteo 1");
+        int idLibro2 = crearLibroPrueba("Libro Conteo 2");
+
+        crearPublicacionPrueba(idUsuario, idLibro1, "ACTIVO", "Activa", 100.00);
+        crearPublicacionPrueba(idUsuario, idLibro2, "PENDIENTE", "Pendiente", 120.00);
+
+        assertEquals(1, dao.contarPublicacionesPorUsuario(idUsuario));
     }
 
     /**
-     * Este método se encarga de probar la búsqueda y filtrado de publicaciones
-     * de usuarios de acuerdo con criterios de estado, búsqueda y género.
+     * Comprueba la búsqueda y filtrado de publicaciones de usuarios.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(7)
     void buscarYFiltrarPublicacionesUs() {
-        List<PublicacionResumen> lista = dao.buscarYFiltrarPublicacionesUs("ACTIVO", "", "TODOS");
-        assertNotNull(lista, "El resultado del filtro no debe ser nulo");
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Java Docker");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "ACTIVO",
+                "Libro para filtro",
+                280.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "filtro.jpg");
+
+        List<PublicacionResumen> lista =
+                dao.buscarYFiltrarPublicacionesUs("ACTIVO", "Docker", "Tecnología");
+
+        assertNotNull(lista);
+        assertEquals(1, lista.size());
+        assertEquals(idPublicacion, lista.getFirst().getIdPublicacion());
     }
 
     /**
-     * Este método se encarga de probar el cambio de estado de una publicación
-     * de usuario existente.
+     * Comprueba una transición válida de estado de PENDIENTE a ACTIVO.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(8)
     void cambiarEstadoPublicacion() {
-        boolean actualizado = dao.cambiarEstadoPublicacion(idPublicacionPrueba, "ACTIVO");
-        assertTrue(actualizado, "Debe cambiar de PENDIENTE a ACTIVO exitosamente");
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Estado");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Cambio estado",
+                130.00
+        );
+
+        assertTrue(dao.cambiarEstadoPublicacion(idPublicacion, "ACTIVO"));
+        assertEquals("ACTIVO", dao.getById(idPublicacion).getEstado());
     }
 
     /**
-     * Este método se encarga de probar el proceso de dar de baja una publicación
-     * cambiando su estado a rechazado.
+     * Comprueba que un estado no permitido sea rechazado por el DAO.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(9)
+    void cambiarEstadoPublicacionInvalido() {
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Estado Inválido");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Estado inválido",
+                110.00
+        );
+
+        assertFalse(dao.cambiarEstadoPublicacion(idPublicacion, "DESCONOCIDO"));
+        assertEquals("PENDIENTE", dao.getById(idPublicacion).getEstado());
+    }
+
+    /**
+     * Comprueba la baja lógica de una publicación mediante el estado RECHAZADO.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    @Test
     void darDeBajaPublicacionUsuario() {
-        boolean dadoDeBaja = dao.darDeBajaPublicacionUsuario(idPublicacionPrueba);
-        assertTrue(dadoDeBaja, "Debe actualizar el estado a RECHAZADO");
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Baja");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "ACTIVO",
+                "Publicación baja",
+                170.00
+        );
+
+        assertTrue(dao.darDeBajaPublicacionUsuario(idPublicacion));
+        assertEquals("RECHAZADO", dao.getById(idPublicacion).getEstado());
     }
 
     /**
-     * Este método se encarga de probar la actualización integral de la información
-     * de una publicación y su libro asociado dentro de una transacción.
+     * Comprueba la actualización transaccional del libro y de su publicación.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(10)
     void actualizarPublicacionCompleta() {
-        boolean actualizado = dao.actualizarPublicacionCompleta(
-                idPublicacionPrueba,
-                idUsuarioExistente,
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Antes Update Completo");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Sinopsis original",
+                190.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "update-completo.jpg");
+
+        boolean resultado = dao.actualizarPublicacionCompleta(
+                idPublicacion,
+                idUsuario,
                 "Título Editado Test",
                 "Autor Editado Test",
                 "Editorial Test",
                 "Fantasía",
-                "Sinopsis actualizada para la prueba de edición completa.",
+                "Sinopsis actualizada",
                 299.00
         );
 
-        assertTrue(actualizado, "Debe actualizar la publicación y el libro en transacción");
+        assertTrue(resultado);
+
+        PublicacionUsuarioCompleta actualizada = dao.getPublicacionUsuarioCompleta(idPublicacion);
+        assertNotNull(actualizada);
+        assertEquals("Título Editado Test", actualizada.getTitulo());
+        assertEquals("Autor Editado Test", actualizada.getAutor());
+        assertEquals("Sinopsis actualizada", actualizada.getSinopsis());
+        assertEquals(299.00, actualizada.getPrecio(), 0.001);
     }
 
     /**
-     * Este método se encarga de probar la eliminación de una publicación por parte
-     * de su propietario junto con sus registros asociados.
+     * Comprueba la eliminación de una publicación realizada por su propietario.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(11)
     void eliminarPublicacionPropietario() {
-        boolean eliminado = dao.eliminarPublicacionPropietario(idPublicacionPrueba, idUsuarioExistente);
-        assertTrue(eliminado, "Debe eliminar la publicación, sus imágenes y el libro asociado");
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Eliminar Propietario");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Eliminar propietario",
+                95.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "propietario.jpg");
+
+        boolean eliminado = dao.eliminarPublicacionPropietario(idPublicacion, idUsuario);
+
+        assertTrue(eliminado);
+        assertNull(dao.getById(idPublicacion));
+        assertEquals(0, contarRegistros("libro", "id_libro", idLibro));
+        assertEquals(0, contarRegistros("imagen", "id_publicacion_us", idPublicacion));
     }
 
     /**
-     * Este método se encarga de probar la eliminación directa de una publicación
-     * mediante su identificador único.
+     * Comprueba la eliminación física de una publicación PENDIENTE junto con
+     * sus imágenes y libro asociado.
      *
-     * @author Alejandro Mena Pereyda
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
     @Test
-    @Order(12)
     void deletePublicacionById() {
-        PublicacionUsuario temp = new PublicacionUsuario();
-        temp.setIdUsuario(idUsuarioExistente);
-        temp.setIdLibro(idLibroExistente);
-        temp.setSinopsis("Para prueba deletePublicacionById");
-        temp.setPrecio(50.00);
+        int idUsuario = crearUsuarioPrueba();
+        int idLibro = crearLibroPrueba("Libro Delete Especial");
+        int idPublicacion = crearPublicacionPrueba(
+                idUsuario,
+                idLibro,
+                "PENDIENTE",
+                "Eliminar especial",
+                80.00
+        );
+        crearImagenPrueba(idPublicacion, 1, "delete-especial.jpg");
 
-        int idAEliminar = dao.create(temp);
-        assertTrue(idAEliminar > 0);
+        boolean eliminado = dao.deletePublicacionById(idPublicacion);
 
-        boolean eliminado = dao.deletePublicacionById(idAEliminar);
-        assertTrue(eliminado, "Debe eliminar la publicación cuando su estado sea PENDIENTE o RECHAZADO");
+        assertTrue(eliminado);
+        assertNull(dao.getById(idPublicacion));
+        assertEquals(0, contarRegistros("libro", "id_libro", idLibro));
+        assertEquals(0, contarRegistros("imagen", "id_publicacion_us", idPublicacion));
     }
 
     /**
-     * Este método se encarga de probar la ejecución del método stub getAll.
+     * Inserta un usuario válido directamente en la base de datos de pruebas.
      *
-     * @author Alejandro Mena Pereyda
+     * @return Identificador generado del usuario.
+     *
+     * @author Andres Gerardo Angelina Perez
      * @since 25/08/2026
      */
-    @Test
-    @Order(13)
-    void getAll() {
-        List<PublicacionUsuario> lista = dao.getAll();
-        assertNotNull(lista);
-        assertTrue(lista.isEmpty(), "El método stub getAll debe retornar una lista vacía");
-    }
+    private int crearUsuarioPrueba() {
+        String sql = """
+                INSERT INTO usuario(
+                    nombre,
+                    apellido_paterno,
+                    apellido_materno,
+                    correo_electronico,
+                    telefono,
+                    estado_cuenta
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
+                """;
 
-    /**
-     * Este método se encarga de probar la ejecución del método stub getById.
-     *
-     * @author Alejandro Mena Pereyda
-     * @since 25/08/2026
-     */
-    @Test
-    @Order(14)
-    void getById() {
-        PublicacionUsuario resultado = dao.getById(idPublicacionExistente);
-        assertNull(resultado, "El método stub getById debe retornar null");
-    }
-
-    /**
-     * Consulta y devuelve el primer ID válido de una tabla dada en la base de datos
-     * para evitar la dependencia de datos quemados.
-     *
-     * @param tabla Nombre de la tabla a consultar.
-     * @param columna Nombre de la columna de clave primaria.
-     * @return El identificador mínimo encontrado o -1 si ocurre un error.
-     */
-    private int obtenerIdMinimo(String tabla, String columna) {
-        String sql = "SELECT MIN(" + columna + ") FROM " + tabla;
         try (Connection con = SQLconnector.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             PreparedStatement ps = con.prepareStatement(sql, new String[]{"ID_USUARIO"})) {
 
-            if (rs.next()) {
+            ps.setString(1, "Usuario Test");
+            ps.setString(2, "ApellidoP");
+            ps.setString(3, "ApellidoM");
+            ps.setString(4, "pubus_" + System.nanoTime() + "@test.com");
+            ps.setString(5, "7771234567");
+            ps.setString(6, "ACTIVA");
+
+            assertEquals(1, ps.executeUpdate());
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                assertTrue(rs.next());
                 return rs.getInt(1);
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("No se pudo crear el usuario de prueba", e);
         }
-        return -1;
+    }
+
+    /**
+     * Inserta un libro directamente en la base de datos de pruebas.
+     *
+     * @param titulo Título del libro de prueba.
+     * @return Identificador generado del libro.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private int crearLibroPrueba(String titulo) {
+        String sql = """
+                INSERT INTO libro(titulo, autor, editorial, genero)
+                VALUES (?, ?, ?, ?)
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql, new String[]{"ID_LIBRO"})) {
+
+            ps.setString(1, titulo);
+            ps.setString(2, "Autor Test");
+            ps.setString(3, "Editorial Test");
+            ps.setString(4, "Tecnología");
+
+            assertEquals(1, ps.executeUpdate());
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                assertTrue(rs.next());
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("No se pudo crear el libro de prueba", e);
+        }
+    }
+
+    /**
+     * Inserta una publicación de usuario directamente en la base de datos de pruebas.
+     *
+     * @param idUsuario Identificador del usuario propietario.
+     * @param idLibro Identificador del libro asociado.
+     * @param estado Estado inicial de la publicación.
+     * @param sinopsis Sinopsis de la publicación.
+     * @param precio Precio de la publicación.
+     * @return Identificador generado de la publicación.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private int crearPublicacionPrueba(
+            int idUsuario,
+            int idLibro,
+            String estado,
+            String sinopsis,
+            double precio) {
+
+        String sql = """
+                INSERT INTO publicacion_us(
+                    id_usuario,
+                    id_libro,
+                    sinopsis,
+                    precio,
+                    estado
+                )
+                VALUES (?, ?, ?, ?, ?)
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     sql,
+                     new String[]{"ID_PUBLICACION_US"}
+             )) {
+
+            ps.setInt(1, idUsuario);
+            ps.setInt(2, idLibro);
+            ps.setString(3, sinopsis);
+            ps.setDouble(4, precio);
+            ps.setString(5, estado);
+
+            assertEquals(1, ps.executeUpdate());
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                assertTrue(rs.next());
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("No se pudo crear la publicación de prueba", e);
+        }
+    }
+
+    /**
+     * Inserta una imagen relacionada con una publicación de usuario.
+     *
+     * @param idPublicacion Identificador de la publicación.
+     * @param tipo Tipo de imagen: 1 principal, 2 reverso o 3 interior.
+     * @param imagen Nombre o ruta utilizada como imagen de prueba.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private void crearImagenPrueba(
+            int idPublicacion,
+            int tipo,
+            String imagen) {
+
+        String sql = """
+                INSERT INTO imagen(id_publicacion_us, imagen, tipo)
+                VALUES (?, ?, ?)
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, idPublicacion);
+            ps.setString(2, imagen);
+            ps.setInt(3, tipo);
+
+            assertEquals(1, ps.executeUpdate());
+
+        } catch (SQLException e) {
+            throw new RuntimeException("No se pudo crear la imagen de prueba", e);
+        }
+    }
+
+    /**
+     * Cuenta registros de una tabla utilizando una columna y un valor entero.
+     * Se utiliza únicamente para comprobar eliminaciones dentro de la base de pruebas.
+     *
+     * @param tabla Tabla que será consultada.
+     * @param columna Columna utilizada en la condición.
+     * @param valor Valor entero que será buscado.
+     * @return Cantidad de registros encontrados.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private int contarRegistros(
+            String tabla,
+            String columna,
+            int valor) {
+
+        String sql = "SELECT COUNT(*) FROM " + tabla + " WHERE " + columna + " = ?";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, valor);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                assertTrue(rs.next());
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("No se pudo realizar el conteo de prueba", e);
+        }
     }
 }

@@ -5,14 +5,14 @@ import mx.edu.utez.libriflow.utils.SQLconnector;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import mx.edu.utez.libriflow.testconfig.OracleTestBase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RolDaoTest {
+class RolDaoTest extends OracleTestBase {
 
     private RolDao rolDao;
     private UsuarioDao usuarioDao;

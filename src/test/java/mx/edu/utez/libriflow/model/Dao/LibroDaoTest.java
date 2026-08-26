@@ -1,94 +1,312 @@
 package mx.edu.utez.libriflow.model.Dao;
 
 import mx.edu.utez.libriflow.model.Libro;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import mx.edu.utez.libriflow.testconfig.OracleTestBase;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Pruebas de integración para {@link LibroDao} ejecutadas directamente sobre la BD de Oracle.
- *
- * @author Santi
- * @since 25/08/2026
- */
-class LibroDaoTest {
+class LibroDaoTest extends OracleTestBase {
 
     private LibroDao libroDao;
-
-    @BeforeAll
-    static void initConfig() {
-        // Establecemos las propiedades del sistema que busca SQLconnector / credentials.properties
-        // NOTA: Reemplaza con los valores reales de tu BD de Oracle en la nube
-        System.setProperty("DB_URL", "jdbc:oracle:thin:@tu_oracle_db_url");
-        System.setProperty("DB_USER", "tu_usuario");
-        System.setProperty("DB_PASS", "tu_contraseña");
-    }
 
     @BeforeEach
     void setUp() {
         libroDao = new LibroDao();
     }
 
-    @AfterEach
-    void tearDown() {
-        libroDao = null;
+
+    private Libro crearLibroPrueba() {
+
+        Libro libro = new Libro();
+
+        libro.setTitulo(
+                "Libro JUnit " + System.nanoTime()
+        );
+
+        libro.setAutor(
+                "Autor Prueba"
+        );
+
+        libro.setEditorial(
+                "Editorial Prueba"
+        );
+
+        libro.setGenero(
+                "Tecnología"
+        );
+
+        int idLibro =
+                libroDao.create(libro);
+
+        assertTrue(
+                idLibro > 0,
+                "El libro debe crearse correctamente"
+        );
+
+        libro.setIdLibro(idLibro);
+
+        return libro;
     }
 
+
     @Test
-    @DisplayName("Prueba de Create: Inserta un libro en la base de datos")
     void create() {
+
         Libro libro = new Libro();
-        libro.setTitulo("Cien Años de Soledad");
-        libro.setAutor("Gabriel García Márquez");
-        libro.setEditorial("Editorial Sudamericana");
-        libro.setGenero("Novela");
 
-        int idGenerado = libroDao.create(libro);
+        libro.setTitulo(
+                "Java con JUnit"
+        );
 
-        // Verifica que la BD devuelva un ID válido (mayor a 0)
-        assertTrue(idGenerado > 0, "El ID del libro insertado debe ser mayor a 0");
+        libro.setAutor(
+                "Autor Test"
+        );
+
+        libro.setEditorial(
+                "Editorial Test"
+        );
+
+        libro.setGenero(
+                "Tecnología"
+        );
+
+        int idLibro =
+                libroDao.create(libro);
+
+        assertTrue(
+                idLibro > 0,
+                "create debe devolver un ID válido"
+        );
+
+
+        Libro libroGuardado =
+                libroDao.getById(idLibro);
+
+        assertNotNull(
+                libroGuardado
+        );
+
+        assertEquals(
+                "Java con JUnit",
+                libroGuardado.getTitulo()
+        );
     }
 
+
     @Test
-    @DisplayName("Prueba de GetAll: Consulta la lista de libros")
     void getAll() {
-        List<Libro> lista = libroDao.getAll();
 
-        // El DAO actual retorna null en esta etapa de desarrollo
-        assertNull(lista, "Debe retornar null hasta que se implemente la consulta completa");
+        Libro libro1 =
+                crearLibroPrueba();
+
+        Libro libro2 =
+                crearLibroPrueba();
+
+
+        List<Libro> libros =
+                libroDao.getAll();
+
+
+        assertNotNull(
+                libros,
+                "La lista no debe ser null"
+        );
+
+        assertTrue(
+                libros.size() >= 2,
+                "Deben encontrarse los libros creados"
+        );
+
+
+        boolean primeroEncontrado =
+                libros.stream()
+                        .anyMatch(
+                                libro ->
+                                        libro.getIdLibro()
+                                                == libro1.getIdLibro()
+                        );
+
+        boolean segundoEncontrado =
+                libros.stream()
+                        .anyMatch(
+                                libro ->
+                                        libro.getIdLibro()
+                                                == libro2.getIdLibro()
+                        );
+
+
+        assertTrue(
+                primeroEncontrado
+        );
+
+        assertTrue(
+                segundoEncontrado
+        );
     }
 
+
     @Test
-    @DisplayName("Prueba de GetById: Consulta un libro por su ID")
     void getById() {
-        Libro libro = libroDao.getById(1);
 
-        // El DAO actual retorna null en esta etapa de desarrollo
-        assertNull(libro, "Debe retornar null hasta que se implemente la consulta completa");
+        Libro creado =
+                crearLibroPrueba();
+
+
+        Libro encontrado =
+                libroDao.getById(
+                        creado.getIdLibro()
+                );
+
+
+        assertNotNull(
+                encontrado,
+                "El libro debe encontrarse"
+        );
+
+        assertEquals(
+                creado.getIdLibro(),
+                encontrado.getIdLibro()
+        );
+
+        assertEquals(
+                creado.getTitulo(),
+                encontrado.getTitulo()
+        );
+
+        assertEquals(
+                creado.getAutor(),
+                encontrado.getAutor()
+        );
     }
 
+
     @Test
-    @DisplayName("Prueba de Update: Actualiza un libro existente")
+    void getByIdInexistente() {
+
+        Libro resultado =
+                libroDao.getById(-999);
+
+
+        assertNull(
+                resultado,
+                "Un ID inexistente debe devolver null"
+        );
+    }
+
+
+    @Test
     void update() {
-        Libro libro = new Libro();
-        boolean resultado = libroDao.update(libro);
 
-        // El DAO actual retorna false en esta etapa de desarrollo
-        assertFalse(resultado, "Debe retornar false hasta que se implemente la actualización");
+        Libro libro =
+                crearLibroPrueba();
+
+
+        libro.setTitulo(
+                "Libro Actualizado"
+        );
+
+        libro.setAutor(
+                "Autor Actualizado"
+        );
+
+        libro.setEditorial(
+                "Editorial Actualizada"
+        );
+
+        libro.setGenero(
+                "Ciencia"
+        );
+
+
+        boolean resultado =
+                libroDao.update(libro);
+
+
+        assertTrue(
+                resultado,
+                "El libro debe actualizarse"
+        );
+
+
+        Libro actualizado =
+                libroDao.getById(
+                        libro.getIdLibro()
+                );
+
+
+        assertNotNull(
+                actualizado
+        );
+
+        assertEquals(
+                "Libro Actualizado",
+                actualizado.getTitulo()
+        );
+
+        assertEquals(
+                "Autor Actualizado",
+                actualizado.getAutor()
+        );
+
+        assertEquals(
+                "Editorial Actualizada",
+                actualizado.getEditorial()
+        );
+
+        assertEquals(
+                "Ciencia",
+                actualizado.getGenero()
+        );
     }
 
-    @Test
-    @DisplayName("Prueba de Delete: Elimina un libro por su ID")
-    void delete() {
-        boolean resultado = libroDao.delete(1);
 
-        // El DAO actual retorna false en esta etapa de desarrollo
-        assertFalse(resultado, "Debe retornar false hasta que se implemente la eliminación");
+    @Test
+    void delete() {
+
+        Libro libro =
+                crearLibroPrueba();
+
+
+        boolean eliminado =
+                libroDao.delete(
+                        libro.getIdLibro()
+                );
+
+
+        assertTrue(
+                eliminado,
+                "El libro debe eliminarse correctamente"
+        );
+
+
+        Libro resultado =
+                libroDao.getById(
+                        libro.getIdLibro()
+                );
+
+
+        assertNull(
+                resultado,
+                "El libro eliminado ya no debe existir"
+        );
+    }
+
+
+    @Test
+    void deleteInexistente() {
+
+        boolean resultado =
+                libroDao.delete(-999);
+
+
+        assertFalse(
+                resultado,
+                "No se debe poder eliminar un libro inexistente"
+        );
     }
 }

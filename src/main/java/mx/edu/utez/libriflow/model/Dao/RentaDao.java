@@ -15,8 +15,8 @@ import java.util.List;
  * Proporciona métodos para consultar el historial de rentas globales o por usuario,
  * así como para actualizar estados operativos de entrega, devolución y penalizaciones.
  *
- * @author Andres
- * @since 24/08/2026
+ * @author Andres Gerardo Angelina Perez
+ * @since 25/08/2026
  */
 public class RentaDao {
 

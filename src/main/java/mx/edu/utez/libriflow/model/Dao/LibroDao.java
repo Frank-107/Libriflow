@@ -4,24 +4,32 @@ import mx.edu.utez.libriflow.model.Libro;
 import mx.edu.utez.libriflow.utils.SQLconnector;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Objeto de Acceso a Datos (DAO) encargado de gestionar las operaciones de persistencia
  * en la base de datos para la entidad {@link Libro}.
  *
- * @author Monserrath Anzurez
- * @since 23/08/26
+ * Permite registrar, consultar, actualizar y eliminar libros almacenados
+ * en la base de datos de LibriFlow.
+ *
+ * @author Andres Gerardo Angelina Perez
+ * @since 25/08/2026
  */
 public class LibroDao {
 
     /**
-     * Inserta un nuevo registro de libro en la base de datos y recupera la clave primaria generada.
+     * Inserta un nuevo registro de libro en la base de datos y recupera
+     * la clave primaria generada automáticamente.
      *
-     * @param entidad Objeto {@link Libro} que contiene la información del título, autor, editorial y género.
-     * @return El identificador entero (`ID_LIBRO`) generado por la base de datos, o `-1` si ocurre un error durante la inserción.
+     * @param entidad Objeto {@link Libro} que contiene la información
+     *                del título, autor, editorial y género.
+     * @return El identificador generado del libro, o {@code -1}
+     *         si ocurre un error durante la inserción.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public int create(Libro entidad) {
 
@@ -33,12 +41,10 @@ public class LibroDao {
                      new String[]{"ID_LIBRO"}
              );) {
 
-
             ps.setString(1, entidad.getTitulo());
             ps.setString(2, entidad.getAutor());
             ps.setString(3, entidad.getEditorial());
             ps.setString(4, entidad.getGenero());
-
 
             int filasAfectadas = ps.executeUpdate();
 
@@ -46,50 +52,141 @@ public class LibroDao {
                 throw new SQLException("No se pudo insertar el libro.");
             }
 
-
             ResultSet rs = ps.getGeneratedKeys();
 
             if (rs.next()) {
                 return rs.getInt(1);
             }
 
-
             throw new SQLException("No se pudo obtener el ID del libro insertado.");
-
 
         } catch (SQLException e) {
 
             System.out.println(e.getMessage());
             e.printStackTrace();
             return -1;
-
         }
     }
 
 
     /**
-     * Recupera la lista completa de libros registrados en la base de datos.
+     * Recupera todos los libros registrados en la base de datos.
      *
-     * @return Una lista de objetos {@link Libro}, o `null` si aún no está implementado.
+     * Cada registro encontrado es convertido en un objeto {@link Libro}
+     * y agregado a una lista.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @return Lista con todos los libros registrados. Si no existen libros,
+     *         se devuelve una lista vacía.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
-    public java.util.List<Libro> getAll() {
-        return null;
+    public List<Libro> getAll() {
+
+        List<Libro> libros = new ArrayList<>();
+
+        String sql =
+                "SELECT ID_LIBRO, TITULO, AUTOR, EDITORIAL, GENERO FROM LIBRO";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+
+                Libro libro = new Libro();
+
+                libro.setIdLibro(
+                        rs.getInt("ID_LIBRO")
+                );
+
+                libro.setTitulo(
+                        rs.getString("TITULO")
+                );
+
+                libro.setAutor(
+                        rs.getString("AUTOR")
+                );
+
+                libro.setEditorial(
+                        rs.getString("EDITORIAL")
+                );
+
+                libro.setGenero(
+                        rs.getString("GENERO")
+                );
+
+                libros.add(libro);
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return libros;
     }
 
 
     /**
-     * Busca y obtiene un libro por su identificador único.
+     * Busca un libro registrado en la base de datos utilizando su
+     * identificador único.
      *
-     * @param id Identificador entero del libro a consultar.
-     * @return El objeto {@link Libro} correspondiente, o `null` si no se encuentra o no está implementado.
+     * @param id Identificador único del libro que se desea consultar.
+     * @return Objeto {@link Libro} correspondiente al identificador recibido,
+     *         o {@code null} si el libro no existe o ocurre un error.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public Libro getById(Integer id) {
+
+        String sql =
+                "SELECT ID_LIBRO, TITULO, AUTOR, EDITORIAL, GENERO " +
+                        "FROM LIBRO WHERE ID_LIBRO = ?";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+
+                    Libro libro = new Libro();
+
+                    libro.setIdLibro(
+                            rs.getInt("ID_LIBRO")
+                    );
+
+                    libro.setTitulo(
+                            rs.getString("TITULO")
+                    );
+
+                    libro.setAutor(
+                            rs.getString("AUTOR")
+                    );
+
+                    libro.setEditorial(
+                            rs.getString("EDITORIAL")
+                    );
+
+                    libro.setGenero(
+                            rs.getString("GENERO")
+                    );
+
+                    return libro;
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -97,27 +194,98 @@ public class LibroDao {
     /**
      * Actualiza la información de un libro existente en la base de datos.
      *
-     * @param entidad Objeto {@link Libro} con los datos actualizados.
-     * @return `true` si la actualización fue exitosa; `false` en caso contrario o si no está implementado.
+     * Los datos modificados son el título, autor, editorial y género.
+     * El libro es localizado mediante su identificador único.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @param entidad Objeto {@link Libro} que contiene el identificador
+     *                del libro y los nuevos datos que serán almacenados.
+     * @return {@code true} si el libro fue actualizado correctamente;
+     *         {@code false} si no se encontró el registro o ocurrió un error.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean update(Libro entidad) {
-        return false;
+
+        String sql =
+                "UPDATE LIBRO " +
+                        "SET TITULO = ?, AUTOR = ?, EDITORIAL = ?, GENERO = ? " +
+                        "WHERE ID_LIBRO = ?";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(
+                    1,
+                    entidad.getTitulo()
+            );
+
+            ps.setString(
+                    2,
+                    entidad.getAutor()
+            );
+
+            ps.setString(
+                    3,
+                    entidad.getEditorial()
+            );
+
+            ps.setString(
+                    4,
+                    entidad.getGenero()
+            );
+
+            ps.setInt(
+                    5,
+                    entidad.getIdLibro()
+            );
+
+            int filasAfectadas = ps.executeUpdate();
+
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
 
     /**
-     * Elimina un libro de la base de datos a partir de su identificador.
+     * Elimina un libro de la base de datos utilizando su identificador único.
      *
-     * @param id Identificador entero del libro a eliminar.
-     * @return `true` si se eliminó correctamente; `false` en caso contrario o si no está implementado.
+     * Si el libro está relacionado con otros registros mediante llaves foráneas,
+     * la base de datos puede impedir su eliminación y el método devolverá
+     * {@code false}.
      *
-     * @author Monserrath Anzurez
-     * @since 23/08/26
+     * @param id Identificador único del libro que se desea eliminar.
+     * @return {@code true} si el libro fue eliminado correctamente;
+     *         {@code false} si no existe o si ocurre un error.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
     public boolean delete(Integer id) {
-        return false;
+
+        String sql =
+                "DELETE FROM LIBRO WHERE ID_LIBRO = ?";
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            int filasAfectadas = ps.executeUpdate();
+
+            return filasAfectadas > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }

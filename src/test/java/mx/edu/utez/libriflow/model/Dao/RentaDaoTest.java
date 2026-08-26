@@ -720,16 +720,15 @@ class RentaDaoTest extends OracleTestBase {
             LocalDate fechaLimite) {
 
         String sql = """
-                INSERT INTO detalle_renta(
-                    id_detalle_transaccion,
-                    fecha_inicio,
-                    fecha_limite,
-                    estado,
-                    penalizacion,
-                    codigo
-                )
-                VALUES (?, ?, ?, ?, ?, ?)
-                """;
+            INSERT INTO detalle_renta(
+                id_detalle_transaccion,
+                fecha_inicio,
+                fecha_limite,
+                estado,
+                penalizacion
+            )
+            VALUES (?, ?, ?, ?, ?)
+            """;
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(
@@ -742,12 +741,14 @@ class RentaDaoTest extends OracleTestBase {
             ps.setDate(3, Date.valueOf(fechaLimite));
             ps.setString(4, estado);
             ps.setInt(5, penalizacion);
-            ps.setString(
-                    6,
-                    "REN-" + System.nanoTime()
-            );
 
-            assertEquals(1, ps.executeUpdate());
+            int filasInsertadas = ps.executeUpdate();
+
+            assertEquals(
+                    1,
+                    filasInsertadas,
+                    "Debe insertarse exactamente un detalle de renta"
+            );
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 assertTrue(rs.next());
@@ -756,7 +757,8 @@ class RentaDaoTest extends OracleTestBase {
 
         } catch (SQLException e) {
             throw new RuntimeException(
-                    "No se pudo crear el detalle de renta",
+                    "RENTA_TEST_V2 - No se pudo crear el detalle de renta. ERROR SQL: "
+                            + e.getMessage(),
                     e
             );
         }

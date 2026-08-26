@@ -9,9 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
- * La clase CompraDao proporciona los métodos para acceder y gestionar la información
- * relativa a las compras realizadas y ventas concretadas por los usuarios en la base de datos.
+ * La clase CompraDao proporciona los métodos para consultar la información
+ * relativa a las compras realizadas y ventas concretadas por los usuarios
+ * dentro de LibriFlow.
+ *
+ * Este DAO funciona como un DAO de consulta o resumen. Las operaciones CRUD
+ * de las transacciones y sus detalles corresponden a TransaccionDao y
+ * DetalleTransaccionDao.
  *
  * @author Andres Gerardo Angelina Perez
  * @author Monserrath Anzures Visoso
@@ -20,100 +26,113 @@ import java.util.List;
 public class CompraDao {
 
     /**
-     * Consulta el historial de compras realizadas por un usuario específico, consolidando
-     * tanto las publicaciones de otros usuarios como las administradas directamente por LibriFlow.
+     * Consulta el historial de compras realizadas por un usuario específico,
+     * consolidando tanto las publicaciones de otros usuarios como las
+     * administradas directamente por LibriFlow.
      *
      * @param idUsuario Identificador único del usuario comprador.
-     * @return Lista de objetos {@link CompraResumen} con el detalle visual y financiero de cada compra.
+     * @return Lista de objetos {@link CompraResumen} con el detalle visual
+     *         y financiero de cada compra.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
-    public List<CompraResumen> getResumenComprasPorUsuario(int idUsuario) {
+    public List<CompraResumen> getResumenComprasPorUsuario(
+            int idUsuario) {
 
-        List<CompraResumen> lista = new ArrayList<>();
+        List<CompraResumen> lista =
+                new ArrayList<>();
 
         String sql = """
-            SELECT
-                dt.id_detalle,
-                dt.id_transaccion,
+                SELECT
+                    dt.id_detalle,
+                    dt.id_transaccion,
 
-                COALESCE(
-                    dt.id_publicacion_us,
-                    dt.id_publicacion_lf
-                ) AS id_publicacion,
+                    COALESCE(
+                        dt.id_publicacion_us,
+                        dt.id_publicacion_lf
+                    ) AS id_publicacion,
 
-                CASE
-                    WHEN dt.id_publicacion_lf IS NOT NULL
-                    THEN 1
-                    ELSE 0
-                END AS es_libriflow,
+                    CASE
+                        WHEN dt.id_publicacion_lf IS NOT NULL
+                        THEN 1
+                        ELSE 0
+                    END AS es_libriflow,
 
-                dt.precio,
-                t.fecha,
-                t.estado AS estado_transaccion,
+                    dt.precio,
+                    t.fecha,
+                    t.estado AS estado_transaccion,
 
-                COALESCE(
-                    uv.nombre,
-                    'LibriFlow'
-                ) AS nombre_vendedor,
+                    COALESCE(
+                        uv.nombre,
+                        'LibriFlow'
+                    ) AS nombre_vendedor,
 
-                COALESCE(
-                    lus.titulo,
-                    llf.titulo
-                ) AS titulo,
+                    COALESCE(
+                        lus.titulo,
+                        llf.titulo
+                    ) AS titulo,
 
-                COALESCE(
-                    lus.autor,
-                    llf.autor
-                ) AS autor,
+                    COALESCE(
+                        lus.autor,
+                        llf.autor
+                    ) AS autor,
 
-                COALESCE(
-                    ius.imagen,
-                    ilf.imagen
-                ) AS imagen
+                    COALESCE(
+                        ius.imagen,
+                        ilf.imagen
+                    ) AS imagen
 
-            FROM detalle_transaccion dt
+                FROM detalle_transaccion dt
 
-            JOIN transaccion t
-                ON dt.id_transaccion = t.id_transaccion
+                JOIN transaccion t
+                    ON dt.id_transaccion = t.id_transaccion
 
-            LEFT JOIN usuario uv
-                ON dt.id_vendedor = uv.id_usuario
+                LEFT JOIN usuario uv
+                    ON dt.id_vendedor = uv.id_usuario
 
-            LEFT JOIN publicacion_us pus
-                ON dt.id_publicacion_us = pus.id_publicacion_us
+                LEFT JOIN publicacion_us pus
+                    ON dt.id_publicacion_us = pus.id_publicacion_us
 
-            LEFT JOIN libro lus
-                ON pus.id_libro = lus.id_libro
+                LEFT JOIN libro lus
+                    ON pus.id_libro = lus.id_libro
 
-            LEFT JOIN imagen ius
-                ON ius.id_publicacion_us = pus.id_publicacion_us
-                AND ius.tipo = 1
+                LEFT JOIN imagen ius
+                    ON ius.id_publicacion_us = pus.id_publicacion_us
+                    AND ius.tipo = 1
 
-            LEFT JOIN publicacion_lf plf
-                ON dt.id_publicacion_lf = plf.id_publicacion_lf
+                LEFT JOIN publicacion_lf plf
+                    ON dt.id_publicacion_lf = plf.id_publicacion_lf
 
-            LEFT JOIN libro llf
-                ON plf.id_libro = llf.id_libro
+                LEFT JOIN libro llf
+                    ON plf.id_libro = llf.id_libro
 
-            LEFT JOIN imagen ilf
-                ON ilf.id_publicacion_lf = plf.id_publicacion_lf
-                AND ilf.tipo = 1
+                LEFT JOIN imagen ilf
+                    ON ilf.id_publicacion_lf = plf.id_publicacion_lf
+                    AND ilf.tipo = 1
 
-            WHERE t.id_comprador = ?
-              AND dt.tipo_operacion = 'COMPRA'
+                WHERE t.id_comprador = ?
+                  AND dt.tipo_operacion = 'COMPRA'
 
-            ORDER BY t.fecha DESC
-            """;
+                ORDER BY t.fecha DESC
+                """;
 
         try (Connection con = SQLconnector.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps =
+                     con.prepareStatement(sql)) {
 
-            ps.setInt(1, idUsuario);
+            ps.setInt(
+                    1,
+                    idUsuario
+            );
 
-            try (ResultSet rs = ps.executeQuery()) {
+            try (ResultSet rs =
+                         ps.executeQuery()) {
 
                 while (rs.next()) {
 
-                    CompraResumen compra = new CompraResumen();
+                    CompraResumen compra =
+                            new CompraResumen();
 
                     compra.setIdDetalle(
                             rs.getInt("id_detalle")
@@ -152,7 +171,9 @@ public class CompraDao {
                     );
 
                     compra.setEstadoTransaccion(
-                            rs.getString("estado_transaccion")
+                            rs.getString(
+                                    "estado_transaccion"
+                            )
                     );
 
                     if (rs.getTimestamp("fecha") != null) {
@@ -167,6 +188,11 @@ public class CompraDao {
             }
 
         } catch (SQLException e) {
+
+            System.out.println(
+                    "ERROR AL OBTENER EL HISTORIAL DE COMPRAS"
+            );
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 
@@ -174,31 +200,41 @@ public class CompraDao {
     }
 
     /**
-     * Obtiene el número total de ventas completadas exitosamente por un usuario.
+     * Obtiene el número total de ventas registradas para un usuario vendedor.
      *
      * @param idUsuario Identificador único del usuario vendedor.
-     * @return Conteo total de transacciones de tipo 'COMPRA' asociadas al vendedor.
+     * @return Conteo total de detalles de tipo COMPRA asociados al vendedor.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
      */
-    public int contarVentasPorUsuario(int idUsuario) {
+    public int contarVentasPorUsuario(
+            int idUsuario) {
 
         int total = 0;
 
         String sql = """
-            SELECT COUNT(*)
-            FROM DETALLE_TRANSACCION
-            WHERE ID_VENDEDOR = ?
-              AND TIPO_OPERACION = 'COMPRA'
-            """;
+                SELECT COUNT(*)
+                FROM detalle_transaccion
+                WHERE id_vendedor = ?
+                  AND tipo_operacion = 'COMPRA'
+                """;
 
         try (Connection con = SQLconnector.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps =
+                     con.prepareStatement(sql)) {
 
-            ps.setInt(1, idUsuario);
+            ps.setInt(
+                    1,
+                    idUsuario
+            );
 
-            try (ResultSet rs = ps.executeQuery()) {
+            try (ResultSet rs =
+                         ps.executeQuery()) {
 
                 if (rs.next()) {
-                    total = rs.getInt(1);
+                    total =
+                            rs.getInt(1);
                 }
             }
 

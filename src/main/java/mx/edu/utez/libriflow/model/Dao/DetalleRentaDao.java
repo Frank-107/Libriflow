@@ -19,13 +19,16 @@ import java.util.List;
  */
 public class DetalleRentaDao {
 
-
     /**
      *
      * Este método se encarga de registrar un nuevo detalle de renta en la
      * base de datos. Almacena la transacción relacionada, las fechas de inicio
      * y límite, el estado y el código de la renta. Si el registro se realiza
      * correctamente, obtiene y devuelve el identificador generado.
+     *
+     * Para conservar compatibilidad con el flujo actual de LibriFlow, primero
+     * utiliza idDetalleTransaccion y, si no fue establecido, utiliza idDetalle
+     * como identificador del detalle de transacción.
      *
      * @param entidad Es el objeto DetalleRenta que contiene la información
      *                que se desea registrar.
@@ -36,39 +39,277 @@ public class DetalleRentaDao {
      * @since 22/08/2026
      */
     public int create(DetalleRenta entidad) {
-        String sql = "INSERT INTO Detalle_Renta " +
-                "(ID_DETALLE_TRANSACCION, FECHA_INICIO, FECHA_LIMITE, ESTADO, CODIGO) " +
-                "VALUES (?, ?, ?, ?, ?)";
+
+        String sql = """
+                INSERT INTO detalle_renta(
+                    id_detalle_transaccion,
+                    fecha_inicio,
+                    fecha_limite,
+                    estado,
+                    codigo,
+                    penalizacion
+                )
+                VALUES (?, ?, ?, ?, ?, ?)
+                """;
+
+        int idDetalleTransaccion =
+                entidad.getIdDetalleTransaccion() > 0
+                        ? entidad.getIdDetalleTransaccion()
+                        : entidad.getIdDetalle();
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(
                      sql,
                      new String[]{"ID_DETALLE"}
              )) {
-            ps.setInt(1,entidad.getIdDetalle());
+
+            ps.setInt(1, idDetalleTransaccion);
             ps.setTimestamp(2, entidad.getFechaInicio());
             ps.setTimestamp(3, entidad.getFechaLimite());
             ps.setString(4, entidad.getEstado());
             ps.setString(5, entidad.getCodigo());
+            ps.setInt(6, entidad.getPenalizacion());
 
             int filasAfectadas = ps.executeUpdate();
 
             if (filasAfectadas == 0) {
-                throw new SQLException("No se pudo insertar el detalle de renta.");
+                throw new SQLException(
+                        "No se pudo insertar el detalle de renta."
+                );
             }
 
-            ResultSet rs = ps.getGeneratedKeys();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
 
-            if (rs.next()) {
-                return rs.getInt(1);
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
             }
 
-            throw new SQLException("No se pudo obtener el ID del detalle de renta.");
+            throw new SQLException(
+                    "No se pudo obtener el ID del detalle de renta."
+            );
 
         } catch (SQLException e) {
+
             System.out.println(e.getMessage());
             e.printStackTrace();
             return -1;
+        }
+    }
+
+    /**
+     * Obtiene todos los detalles de renta registrados.
+     *
+     * @return Lista con todos los detalles de renta almacenados.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public List<DetalleRenta> getAll() {
+
+        List<DetalleRenta> rentas =
+                new ArrayList<>();
+
+        String sql = """
+                SELECT
+                    id_detalle,
+                    id_detalle_transaccion,
+                    fecha_inicio,
+                    fecha_limite,
+                    fecha_devolucion,
+                    estado,
+                    codigo,
+                    penalizacion
+                FROM detalle_renta
+                ORDER BY id_detalle
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                rentas.add(mapearDetalleRenta(rs));
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "ERROR AL OBTENER TODOS LOS DETALLES DE RENTA"
+            );
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return rentas;
+    }
+
+    /**
+     * Obtiene un detalle de renta por su identificador.
+     *
+     * @param id Identificador del detalle de renta.
+     * @return El detalle encontrado o null si no existe.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public DetalleRenta getById(Integer id) {
+
+        String sql = """
+                SELECT
+                    id_detalle,
+                    id_detalle_transaccion,
+                    fecha_inicio,
+                    fecha_limite,
+                    fecha_devolucion,
+                    estado,
+                    codigo,
+                    penalizacion
+                FROM detalle_renta
+                WHERE id_detalle = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    return mapearDetalleRenta(rs);
+                }
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "ERROR AL OBTENER DETALLE DE RENTA POR ID"
+            );
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * Actualiza la información de un detalle de renta existente.
+     *
+     * @param entidad Detalle de renta con los nuevos valores.
+     * @return true si el registro fue actualizado o false si no existe.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public boolean update(DetalleRenta entidad) {
+
+        String sql = """
+                UPDATE detalle_renta
+                SET id_detalle_transaccion = ?,
+                    fecha_inicio = ?,
+                    fecha_limite = ?,
+                    fecha_devolucion = ?,
+                    estado = ?,
+                    codigo = ?,
+                    penalizacion = ?
+                WHERE id_detalle = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(
+                    1,
+                    entidad.getIdDetalleTransaccion()
+            );
+
+            ps.setTimestamp(
+                    2,
+                    entidad.getFechaInicio()
+            );
+
+            ps.setTimestamp(
+                    3,
+                    entidad.getFechaLimite()
+            );
+
+            if (entidad.getFechaDevolucion() == null) {
+                ps.setNull(
+                        4,
+                        Types.TIMESTAMP
+                );
+            } else {
+                ps.setTimestamp(
+                        4,
+                        entidad.getFechaDevolucion()
+                );
+            }
+
+            ps.setString(
+                    5,
+                    entidad.getEstado()
+            );
+
+            ps.setString(
+                    6,
+                    entidad.getCodigo()
+            );
+
+            ps.setInt(
+                    7,
+                    entidad.getPenalizacion()
+            );
+
+            ps.setInt(
+                    8,
+                    entidad.getIdDetalle()
+            );
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "ERROR AL ACTUALIZAR DETALLE DE RENTA"
+            );
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Elimina un detalle de renta por su identificador.
+     *
+     * @param id Identificador del detalle a eliminar.
+     * @return true si fue eliminado o false si no existe.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    public boolean delete(Integer id) {
+
+        String sql = """
+                DELETE FROM detalle_renta
+                WHERE id_detalle = ?
+                """;
+
+        try (Connection con = SQLconnector.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "ERROR AL ELIMINAR DETALLE DE RENTA"
+            );
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -84,33 +325,44 @@ public class DetalleRentaDao {
      * @since 22/08/2026
      */
     public List<DetalleRenta> getRentasActivas() {
-        String sql = "SELECT * FROM DETALLE_RENTA WHERE ESTADO = ? and penalizacion=?";
 
-        List<DetalleRenta> rentas = new ArrayList<>();
+        String sql = """
+                SELECT *
+                FROM detalle_renta
+                WHERE estado = ?
+                  AND penalizacion = ?
+                """;
+
+        List<DetalleRenta> rentas =
+                new ArrayList<>();
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, "ACTIVA");
-            ps.setInt(2, 0);
+            ps.setString(
+                    1,
+                    "ACTIVA"
+            );
 
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(
+                    2,
+                    0
+            );
 
-            while (rs.next()) {
-                DetalleRenta renta = new DetalleRenta();
+            try (ResultSet rs = ps.executeQuery()) {
 
-                renta.setIdDetalle(rs.getInt("ID_DETALLE"));
-                renta.setFechaInicio(rs.getTimestamp("FECHA_INICIO"));
-                renta.setFechaLimite(rs.getTimestamp("FECHA_LIMITE"));
-                renta.setFechaDevolucion(rs.getTimestamp("FECHA_DEVOLUCION"));
-                renta.setEstado(rs.getString("ESTADO"));
-                renta.setPenalizacion(rs.getInt("PENALIZACION"));
-
-                rentas.add(renta);
+                while (rs.next()) {
+                    rentas.add(
+                            mapearDetalleRenta(rs)
+                    );
+                }
             }
 
         } catch (SQLException e) {
-            System.out.println("ERROR AL OBTENER RENTAS ACTIVAS");
+
+            System.out.println(
+                    "ERROR AL OBTENER RENTAS ACTIVAS"
+            );
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
@@ -130,37 +382,44 @@ public class DetalleRentaDao {
      * @since 22/08/2026
      */
     public List<DetalleRenta> getRentasRetrasadasActivas() {
-        String sql = """
-            SELECT *
-            FROM DETALLE_RENTA
-            WHERE ESTADO = ?
-            AND Penalizacion = ?
-            """;
 
-        List<DetalleRenta> rentas = new ArrayList<>();
+        String sql = """
+                SELECT *
+                FROM detalle_renta
+                WHERE estado = ?
+                  AND penalizacion = ?
+                """;
+
+        List<DetalleRenta> rentas =
+                new ArrayList<>();
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, "ACTIVA");
-            ps.setInt(2, 1);
-            ResultSet rs = ps.executeQuery();
+            ps.setString(
+                    1,
+                    "ACTIVA"
+            );
 
-            while (rs.next()) {
-                DetalleRenta renta = new DetalleRenta();
+            ps.setInt(
+                    2,
+                    1
+            );
 
-                renta.setIdDetalle(rs.getInt("ID_DETALLE"));
-                renta.setFechaInicio(rs.getTimestamp("FECHA_INICIO"));
-                renta.setFechaLimite(rs.getTimestamp("FECHA_LIMITE"));
-                renta.setFechaDevolucion(rs.getTimestamp("FECHA_DEVOLUCION"));
-                renta.setEstado(rs.getString("ESTADO"));
-                renta.setPenalizacion(rs.getInt("PENALIZACION"));
+            try (ResultSet rs = ps.executeQuery()) {
 
-                rentas.add(renta);
+                while (rs.next()) {
+                    rentas.add(
+                            mapearDetalleRenta(rs)
+                    );
+                }
             }
 
         } catch (SQLException e) {
-            System.out.println("ERROR AL OBTENER RENTAS RETRASADAS");
+
+            System.out.println(
+                    "ERROR AL OBTENER RENTAS RETRASADAS"
+            );
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
@@ -182,19 +441,36 @@ public class DetalleRentaDao {
      * @author Andres Gerardo Angelina Perez
      * @since 22/08/2026
      */
-    public boolean cambiarPenalizacion(int idDetalle, int penalizacion) {
-        String sql = "UPDATE DETALLE_RENTA SET PENALIZACION = ? WHERE ID_DETALLE = ?";
+    public boolean cambiarPenalizacion(
+            int idDetalle,
+            int penalizacion) {
+
+        String sql = """
+                UPDATE detalle_renta
+                SET penalizacion = ?
+                WHERE id_detalle = ?
+                """;
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, penalizacion);
-            ps.setInt(2, idDetalle);
+            ps.setInt(
+                    1,
+                    penalizacion
+            );
+
+            ps.setInt(
+                    2,
+                    idDetalle
+            );
 
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("ERROR AL CAMBIAR PENALIZACION");
+
+            System.out.println(
+                    "ERROR AL CAMBIAR PENALIZACION"
+            );
             System.out.println(e.getMessage());
             e.printStackTrace();
             return false;
@@ -216,33 +492,42 @@ public class DetalleRentaDao {
      * @author Andres Gerardo Angelina Perez
      * @since 22/08/2026
      */
-    public boolean suspenderUsuario(int idUsuario, Timestamp fechaDesbloqueo) {
+    public boolean suspenderUsuario(
+            int idUsuario,
+            Timestamp fechaDesbloqueo) {
 
         String sql = """
-            UPDATE USUARIO
-            SET ESTADO_CUENTA = 'INACTIVA',
-                FECHA_DESBLOQUEO = ?
-            WHERE ID_USUARIO = ?
-            """;
+                UPDATE usuario
+                SET estado_cuenta = 'INACTIVA',
+                    fecha_desbloqueo = ?
+                WHERE id_usuario = ?
+                """;
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setTimestamp(1, fechaDesbloqueo);
-            ps.setInt(2, idUsuario);
+            ps.setTimestamp(
+                    1,
+                    fechaDesbloqueo
+            );
 
-            int filasAfectadas = ps.executeUpdate();
+            ps.setInt(
+                    2,
+                    idUsuario
+            );
 
-            return filasAfectadas > 0;
+            return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
-            System.out.println("ERROR AL BLOQUEAR USUARIO");
+
+            System.out.println(
+                    "ERROR AL BLOQUEAR USUARIO"
+            );
             System.out.println(e.getMessage());
             e.printStackTrace();
             return false;
         }
     }
-
 
     /**
      *
@@ -258,36 +543,97 @@ public class DetalleRentaDao {
      * @author Andres Gerardo Angelina Perez
      * @since 22/08/2026
      */
-    public int getIdUsuarioByIdRenta(int idDetalleRenta) {
+    public int getIdUsuarioByIdRenta(
+            int idDetalleRenta) {
 
         String sql = """
-            SELECT t.ID_COMPRADOR
-            FROM DETALLE_RENTA dr
-            JOIN DETALLE_TRANSACCION dt
-                ON dr.ID_DETALLE_TRANSACCION = dt.ID_DETALLE
-            JOIN TRANSACCION t
-                ON dt.ID_TRANSACCION = t.ID_TRANSACCION
-            WHERE dr.ID_DETALLE = ?
-            """;
+                SELECT t.id_comprador
+                FROM detalle_renta dr
+                JOIN detalle_transaccion dt
+                    ON dr.id_detalle_transaccion = dt.id_detalle
+                JOIN transaccion t
+                    ON dt.id_transaccion = t.id_transaccion
+                WHERE dr.id_detalle = ?
+                """;
 
         try (Connection con = SQLconnector.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setInt(1, idDetalleRenta);
+            ps.setInt(
+                    1,
+                    idDetalleRenta
+            );
 
-            ResultSet rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
 
-            if (rs.next()) {
-                return rs.getInt("ID_COMPRADOR");
+                if (rs.next()) {
+                    return rs.getInt(
+                            "ID_COMPRADOR"
+                    );
+                }
             }
 
             return -1;
 
         } catch (SQLException e) {
-            System.out.println("ERROR AL OBTENER ID DEL USUARIO POR RENTA");
+
+            System.out.println(
+                    "ERROR AL OBTENER ID DEL USUARIO POR RENTA"
+            );
             System.out.println(e.getMessage());
             e.printStackTrace();
             return -1;
         }
+    }
+
+    /**
+     * Convierte una fila del ResultSet en un objeto DetalleRenta.
+     *
+     * @param rs Resultado de consulta posicionado en una fila válida.
+     * @return Objeto DetalleRenta construido con los valores de la fila.
+     * @throws SQLException Si ocurre un error al leer los datos.
+     *
+     * @author Andres Gerardo Angelina Perez
+     * @since 25/08/2026
+     */
+    private DetalleRenta mapearDetalleRenta(
+            ResultSet rs) throws SQLException {
+
+        DetalleRenta renta =
+                new DetalleRenta();
+
+        renta.setIdDetalle(
+                rs.getInt("ID_DETALLE")
+        );
+
+        renta.setIdDetalleTransaccion(
+                rs.getInt("ID_DETALLE_TRANSACCION")
+        );
+
+        renta.setFechaInicio(
+                rs.getTimestamp("FECHA_INICIO")
+        );
+
+        renta.setFechaLimite(
+                rs.getTimestamp("FECHA_LIMITE")
+        );
+
+        renta.setFechaDevolucion(
+                rs.getTimestamp("FECHA_DEVOLUCION")
+        );
+
+        renta.setEstado(
+                rs.getString("ESTADO")
+        );
+
+        renta.setCodigo(
+                rs.getString("CODIGO")
+        );
+
+        renta.setPenalizacion(
+                rs.getInt("PENALIZACION")
+        );
+
+        return renta;
     }
 }

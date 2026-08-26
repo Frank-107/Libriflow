@@ -3,7 +3,6 @@
     Descripción: Vista personalizada de error 500 (Error interno del servidor) adaptada a la identidad visual de LibriFlow.
     Autor: Francisco Emmanuel Fuentes Pérez
     since 22/08/2026
-
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -14,11 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>500 - Error Interno del Servidor | LibriFlow</title>
 
-    <link rel="icon" href="${pageContext.request.contextPath}/main/webapp/assets/img/LogoLibriflowF.png" type="image/png">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/main/webapp/assets/css/bootstrap.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/assets/img/LogoLibriflowF.png" type="image/png">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/main/webapp/assets/css/styles.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/main/webapp/assets/css/Error500.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/styles.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/Error500.css"/>
 </head>
 <body class="pantalla-registro error-page-body">
 
@@ -26,7 +25,7 @@
 
     <%-- Logo institucional LibriFlow --%>
     <div class="logo-area mb-2">
-        <img src="${pageContext.request.contextPath}/main/webapp/assets/img/LogoLibriflowF.png"
+        <img src="${pageContext.request.contextPath}/assets/img/LogoLibriflow.png"
              alt="Logotipo LibriFlow"
              class="logo-img-completo">
     </div>
@@ -55,6 +54,6 @@
 
 </div>
 
-<script src="${pageContext.request.contextPath}/main/webapp/assets/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.js"></script>
 </body>
 </html>
